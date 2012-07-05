@@ -1,0 +1,827 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\sd.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\sd.o
+
+
+Disassembly of section .text.sd_Command:
+
+00000000 <sd_Command>:
+sd_Command():
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:84
+	return(0);
+}
+/*****************************************************************************/
+
+void sd_Command(hwInterface *iface,euint8 cmd, euint16 paramx, euint16 paramy)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4604      	mov	r4, r0
+   6:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:85
+	if_spiSend(iface,0xff);
+   8:	21ff      	movs	r1, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:84
+	return(0);
+}
+/*****************************************************************************/
+
+void sd_Command(hwInterface *iface,euint8 cmd, euint16 paramx, euint16 paramy)
+{
+   a:	4616      	mov	r6, r2
+   c:	461f      	mov	r7, r3
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:85
+	if_spiSend(iface,0xff);
+   e:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:87
+
+	if_spiSend(iface,0x40 | cmd);
+  12:	f045 0140 	orr.w	r1, r5, #64	; 0x40
+  16:	4620      	mov	r0, r4
+  18:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:88
+	if_spiSend(iface,(euint8) (paramx >> 8)); /* MSB of parameter x */
+  1c:	0a31      	lsrs	r1, r6, #8
+  1e:	4620      	mov	r0, r4
+  20:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:89
+	if_spiSend(iface,(euint8) (paramx)); /* LSB of parameter x */
+  24:	b2f1      	uxtb	r1, r6
+  26:	4620      	mov	r0, r4
+  28:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:90
+	if_spiSend(iface,(euint8) (paramy >> 8)); /* MSB of parameter y */
+  2c:	0a39      	lsrs	r1, r7, #8
+  2e:	4620      	mov	r0, r4
+  30:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:91
+	if_spiSend(iface,(euint8) (paramy)); /* LSB of parameter y */
+  34:	b2f9      	uxtb	r1, r7
+  36:	4620      	mov	r0, r4
+  38:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:93
+															               
+	if_spiSend(iface,0x95); /* Checksum (should be only valid for first command (0) */
+  3c:	2195      	movs	r1, #149	; 0x95
+  3e:	4620      	mov	r0, r4
+  40:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:95
+
+	if_spiSend(iface,0xff); /* eat empty command - response */
+  44:	4620      	mov	r0, r4
+  46:	21ff      	movs	r1, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:96
+}
+  48:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:95
+	if_spiSend(iface,(euint8) (paramy >> 8)); /* MSB of parameter y */
+	if_spiSend(iface,(euint8) (paramy)); /* LSB of parameter y */
+															               
+	if_spiSend(iface,0x95); /* Checksum (should be only valid for first command (0) */
+
+	if_spiSend(iface,0xff); /* eat empty command - response */
+  4c:	f7ff bffe 	b.w	0 <if_spiSend>
+
+Disassembly of section .text.sd_Resp8b:
+
+00000000 <sd_Resp8b>:
+sd_Resp8b():
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:100
+}
+/*****************************************************************************/
+
+euint8 sd_Resp8b(hwInterface *iface)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4605      	mov	r5, r0
+   4:	2408      	movs	r4, #8
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:106
+	euint8 i;
+	euint8 resp;
+	
+	/* Respone will come after 1 - 8 pings */
+	for(i=0;i<8;i++){
+		resp = if_spiSend(iface,0xff);
+   6:	21ff      	movs	r1, #255	; 0xff
+   8:	4628      	mov	r0, r5
+   a:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:107
+		if(resp != 0xff)
+   e:	28ff      	cmp	r0, #255	; 0xff
+  10:	d103      	bne.n	1a <sd_Resp8b+0x1a>
+  12:	3c01      	subs	r4, #1
+  14:	b2e4      	uxtb	r4, r4
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:105
+{
+	euint8 i;
+	euint8 resp;
+	
+	/* Respone will come after 1 - 8 pings */
+	for(i=0;i<8;i++){
+  16:	2c00      	cmp	r4, #0
+  18:	d1f5      	bne.n	6 <sd_Resp8b+0x6>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:112
+		if(resp != 0xff)
+			return(resp);
+	}
+		
+	return(resp);
+}
+  1a:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.sd_Init:
+
+00000000 <sd_Init>:
+sd_Init():
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:40
+/*****************************************************************************/
+#include "interface/sd.h"
+/*****************************************************************************/
+
+esint8 sd_Init(hwInterface *iface)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:45
+	esint16 i;
+	euint8 resp;
+	
+	/* Try to send reset command up to 100 times */
+	i=100;
+   4:	2564      	movs	r5, #100	; 0x64
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:47
+	do{
+		sd_Command(iface,0, 0, 0);
+   6:	2100      	movs	r1, #0
+   8:	4620      	mov	r0, r4
+   a:	460a      	mov	r2, r1
+   c:	460b      	mov	r3, r1
+   e:	f7ff fffe 	bl	0 <sd_Init>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:48
+		resp=sd_Resp8b(iface);
+  12:	4620      	mov	r0, r4
+  14:	f7ff fffe 	bl	0 <sd_Init>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:50
+	}
+	while(resp!=1 && i--);
+  18:	2801      	cmp	r0, #1
+  1a:	d102      	bne.n	22 <sd_Init+0x22>
+  1c:	f44f 45fa 	mov.w	r5, #32000	; 0x7d00
+  20:	e003      	b.n	2a <sd_Init+0x2a>
+  22:	b1cd      	cbz	r5, 58 <sd_Init+0x58>
+  24:	3d01      	subs	r5, #1
+  26:	b2ad      	uxth	r5, r5
+  28:	e7ed      	b.n	6 <sd_Init+0x6>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:66
+
+	/* Wait till card is ready initialising (returns 0 on CMD1) */
+	/* Try up to 32000 times. */
+	i=32000;
+	do{
+		sd_Command(iface,1, 0, 0);
+  2a:	2200      	movs	r2, #0
+  2c:	2101      	movs	r1, #1
+  2e:	4620      	mov	r0, r4
+  30:	4613      	mov	r3, r2
+  32:	f7ff fffe 	bl	0 <sd_Init>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:68
+		
+		resp=sd_Resp8b(iface);
+  36:	4620      	mov	r0, r4
+  38:	f7ff fffe 	bl	0 <sd_Init>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:72
+		if(resp!=0)
+			sd_Resp8bError(iface,resp);
+	}
+	while(resp==1 && i--);
+  3c:	2801      	cmp	r0, #1
+  3e:	d103      	bne.n	48 <sd_Init+0x48>
+  40:	b13d      	cbz	r5, 52 <sd_Init+0x52>
+  42:	3d01      	subs	r5, #1
+  44:	b2ad      	uxth	r5, r5
+  46:	e7f0      	b.n	2a <sd_Init+0x2a>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:76
+	
+	if(resp!=0){
+		sd_Resp8bError(iface,resp);
+		return(-3);
+  48:	2800      	cmp	r0, #0
+  4a:	bf14      	ite	ne
+  4c:	20fd      	movne	r0, #253	; 0xfd
+  4e:	2000      	moveq	r0, #0
+  50:	e000      	b.n	54 <sd_Init+0x54>
+  52:	20fd      	movs	r0, #253	; 0xfd
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:80
+	}
+	
+	return(0);
+}
+  54:	b240      	sxtb	r0, r0
+  56:	bd38      	pop	{r3, r4, r5, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:54
+	}
+	while(resp!=1 && i--);
+	
+	if(resp!=1){
+		if(resp==0xff){
+			return(-1);
+  58:	28ff      	cmp	r0, #255	; 0xff
+  5a:	bf0c      	ite	eq
+  5c:	20ff      	moveq	r0, #255	; 0xff
+  5e:	20fe      	movne	r0, #254	; 0xfe
+  60:	e7f8      	b.n	54 <sd_Init+0x54>
+
+Disassembly of section .text.sd_Resp16b:
+
+00000000 <sd_Resp16b>:
+sd_Resp16b():
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:116
+	return(resp);
+}
+/*****************************************************************************/
+
+euint16 sd_Resp16b(hwInterface *iface)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:119
+	euint16 resp;
+	
+	resp = ( sd_Resp8b(iface) << 8 ) & 0xff00;
+   4:	f7ff fffe 	bl	0 <sd_Resp16b>
+   8:	0200      	lsls	r0, r0, #8
+   a:	b284      	uxth	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:120
+	resp |= if_spiSend(iface,0xff);
+   c:	21ff      	movs	r1, #255	; 0xff
+   e:	4628      	mov	r0, r5
+  10:	f7ff fffe 	bl	0 <if_spiSend>
+  14:	ea44 0000 	orr.w	r0, r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:123
+	
+	return(resp);
+}
+  18:	b280      	uxth	r0, r0
+  1a:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.sd_Resp8bError:
+
+00000000 <sd_Resp8bError>:
+sd_Resp8bError():
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:155
+			break;
+		default:
+			//DBG((TXT("Unknown error 0x%x (see SanDisk docs p5-13).\n"),value));
+			break;
+	}
+}
+   0:	4770      	bx	lr
+
+Disassembly of section .text.sd_State:
+
+00000000 <sd_State>:
+sd_State():
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:162
+
+esint8 sd_State(hwInterface *iface)
+{
+	eint16 value;
+	
+	sd_Command(iface,13, 0, 0);
+   0:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:159
+	}
+}
+/*****************************************************************************/
+
+esint8 sd_State(hwInterface *iface)
+{
+   2:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:162
+	eint16 value;
+	
+	sd_Command(iface,13, 0, 0);
+   4:	210d      	movs	r1, #13
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:159
+	}
+}
+/*****************************************************************************/
+
+esint8 sd_State(hwInterface *iface)
+{
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:162
+	eint16 value;
+	
+	sd_Command(iface,13, 0, 0);
+   8:	4613      	mov	r3, r2
+   a:	f7ff fffe 	bl	0 <sd_State>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:163
+	value=sd_Resp16b(iface);
+   e:	4620      	mov	r0, r4
+  10:	f7ff fffe 	bl	0 <sd_State>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:165
+
+	switch(value)
+  14:	b200      	sxth	r0, r0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:202
+			else
+				//DBG((TXT("Unknown error: 0x%x (see SanDisk docs p5-14).\n"),value));
+			break;
+	}
+	return(-1);
+}
+  16:	2800      	cmp	r0, #0
+  18:	bf14      	ite	ne
+  1a:	f04f 30ff 	movne.w	r0, #4294967295
+  1e:	2001      	moveq	r0, #1
+  20:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.sd_writeSector:
+
+00000000 <sd_writeSector>:
+sd_writeSector():
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:225
+	euint32 place;
+	euint16 i;
+	euint16 t=0;
+	
+	/*DBG((TXT("Trying to write %u to sector %u.\n"),(void *)&buf,address));*/
+	place=512*address;
+   0:	024b      	lsls	r3, r1, #9
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:219
+ *      CHKS (2B)
+ * BUSY...
+ */
+
+esint8 sd_writeSector(hwInterface *iface,euint32 address, euint8* buf)
+{
+   2:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:226
+	euint16 i;
+	euint16 t=0;
+	
+	/*DBG((TXT("Trying to write %u to sector %u.\n"),(void *)&buf,address));*/
+	place=512*address;
+	sd_Command(iface,CMDWRITE, (euint16) (place >> 16), (euint16) place);
+   4:	2118      	movs	r1, #24
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:219
+ *      CHKS (2B)
+ * BUSY...
+ */
+
+esint8 sd_writeSector(hwInterface *iface,euint32 address, euint8* buf)
+{
+   6:	4604      	mov	r4, r0
+   8:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:226
+	euint16 i;
+	euint16 t=0;
+	
+	/*DBG((TXT("Trying to write %u to sector %u.\n"),(void *)&buf,address));*/
+	place=512*address;
+	sd_Command(iface,CMDWRITE, (euint16) (place >> 16), (euint16) place);
+   a:	0c1a      	lsrs	r2, r3, #16
+   c:	f403 437e 	and.w	r3, r3, #65024	; 0xfe00
+  10:	f7ff fffe 	bl	0 <sd_writeSector>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:228
+
+	sd_Resp8b(iface); /* Card response */
+  14:	4620      	mov	r0, r4
+  16:	f7ff fffe 	bl	0 <sd_writeSector>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:230
+
+	if_spiSend(iface,0xfe); /* Start block */
+  1a:	4620      	mov	r0, r4
+  1c:	21fe      	movs	r1, #254	; 0xfe
+  1e:	f7ff fffe 	bl	0 <if_spiSend>
+  22:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:232
+	for(i=0;i<512;i++) 
+		if_spiSend(iface,buf[i]); /* Send data */
+  24:	5da9      	ldrb	r1, [r5, r6]
+  26:	4620      	mov	r0, r4
+  28:	3601      	adds	r6, #1
+  2a:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:231
+	sd_Command(iface,CMDWRITE, (euint16) (place >> 16), (euint16) place);
+
+	sd_Resp8b(iface); /* Card response */
+
+	if_spiSend(iface,0xfe); /* Start block */
+	for(i=0;i<512;i++) 
+  2e:	f5b6 7f00 	cmp.w	r6, #512	; 0x200
+  32:	d1f7      	bne.n	24 <sd_writeSector+0x24>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:233
+		if_spiSend(iface,buf[i]); /* Send data */
+	if_spiSend(iface,0xff); /* Checksum part 1 */
+  34:	21ff      	movs	r1, #255	; 0xff
+  36:	4620      	mov	r0, r4
+  38:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:234
+	if_spiSend(iface,0xff); /* Checksum part 2 */
+  3c:	21ff      	movs	r1, #255	; 0xff
+  3e:	4620      	mov	r0, r4
+  40:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:236
+
+	if_spiSend(iface,0xff);
+  44:	4620      	mov	r0, r4
+  46:	21ff      	movs	r1, #255	; 0xff
+  48:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:238
+
+	while(if_spiSend(iface,0xff)!=0xff){
+  4c:	21ff      	movs	r1, #255	; 0xff
+  4e:	4620      	mov	r0, r4
+  50:	f7ff fffe 	bl	0 <if_spiSend>
+  54:	28ff      	cmp	r0, #255	; 0xff
+  56:	d1f9      	bne.n	4c <sd_writeSector+0x4c>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:245
+		/* Removed NOP */
+	}
+	/*DBG((TXT("Nopp'ed %u times.\n"),t));*/
+
+	return(0);
+}
+  58:	38ff      	subs	r0, #255	; 0xff
+  5a:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.sd_readSector:
+
+00000000 <sd_readSector>:
+sd_readSector():
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:261
+ * 		DATA
+ * 		CHKS (2B)
+ */
+
+esint8 sd_readSector(hwInterface *iface,euint32 address, euint8* buf, euint16 len)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	461e      	mov	r6, r3
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:270
+	euint16 fb_timeout=0xffff;
+	euint32 i;
+	euint32 place;
+
+	/*DBG((TXT("sd_readSector::Trying to read sector %u and store it at %p.\n"),address,&buf[0]));*/
+	place=512*address;
+   6:	024b      	lsls	r3, r1, #9
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:261
+ * 		DATA
+ * 		CHKS (2B)
+ */
+
+esint8 sd_readSector(hwInterface *iface,euint32 address, euint8* buf, euint16 len)
+{
+   8:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:271
+	euint32 i;
+	euint32 place;
+
+	/*DBG((TXT("sd_readSector::Trying to read sector %u and store it at %p.\n"),address,&buf[0]));*/
+	place=512*address;
+	sd_Command(iface,CMDREAD, (euint16) (place >> 16), (euint16) place);
+   a:	2111      	movs	r1, #17
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:261
+ * 		DATA
+ * 		CHKS (2B)
+ */
+
+esint8 sd_readSector(hwInterface *iface,euint32 address, euint8* buf, euint16 len)
+{
+   c:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:271
+	euint32 i;
+	euint32 place;
+
+	/*DBG((TXT("sd_readSector::Trying to read sector %u and store it at %p.\n"),address,&buf[0]));*/
+	place=512*address;
+	sd_Command(iface,CMDREAD, (euint16) (place >> 16), (euint16) place);
+   e:	0c1a      	lsrs	r2, r3, #16
+  10:	f403 437e 	and.w	r3, r3, #65024	; 0xfe00
+  14:	f7ff fffe 	bl	0 <sd_readSector>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:273
+	
+	cardresp=sd_Resp8b(iface); /* Card response */ 
+  18:	4620      	mov	r0, r4
+  1a:	f7ff fffe 	bl	0 <sd_readSector>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:265
+esint8 sd_readSector(hwInterface *iface,euint32 address, euint8* buf, euint16 len)
+{
+	euint8 cardresp;
+	euint8 firstblock;
+	euint8 c;
+	euint16 fb_timeout=0xffff;
+  1e:	f64f 77ff 	movw	r7, #65535	; 0xffff
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:273
+
+	/*DBG((TXT("sd_readSector::Trying to read sector %u and store it at %p.\n"),address,&buf[0]));*/
+	place=512*address;
+	sd_Command(iface,CMDREAD, (euint16) (place >> 16), (euint16) place);
+	
+	cardresp=sd_Resp8b(iface); /* Card response */ 
+  22:	4680      	mov	r8, r0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:277
+
+	/* Wait for startblock */
+	do
+		firstblock=sd_Resp8b(iface); 
+  24:	4620      	mov	r0, r4
+  26:	f7ff fffe 	bl	0 <sd_readSector>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:278
+	while(firstblock==0xff && fb_timeout--);
+  2a:	28ff      	cmp	r0, #255	; 0xff
+  2c:	d103      	bne.n	36 <sd_readSector+0x36>
+  2e:	b117      	cbz	r7, 36 <sd_readSector+0x36>
+  30:	3f01      	subs	r7, #1
+  32:	b2bf      	uxth	r7, r7
+  34:	e7f6      	b.n	24 <sd_readSector+0x24>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:280
+
+	if(cardresp!=0x00 || firstblock!=0xfe){
+  36:	f1b8 0f00 	cmp.w	r8, #0
+  3a:	d117      	bne.n	6c <sd_readSector+0x6c>
+  3c:	28fe      	cmp	r0, #254	; 0xfe
+  3e:	d115      	bne.n	6c <sd_readSector+0x6c>
+  40:	4647      	mov	r7, r8
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:286
+		sd_Resp8bError(iface,firstblock);
+		return(-1);
+	}
+	
+	for(i=0;i<512;i++){
+		c = if_spiSend(iface,0xff);
+  42:	21ff      	movs	r1, #255	; 0xff
+  44:	4620      	mov	r0, r4
+  46:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:287
+		if(i<len)
+  4a:	42b7      	cmp	r7, r6
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:288
+			buf[i] = c;
+  4c:	bf38      	it	cc
+  4e:	55e8      	strbcc	r0, [r5, r7]
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:285
+	if(cardresp!=0x00 || firstblock!=0xfe){
+		sd_Resp8bError(iface,firstblock);
+		return(-1);
+	}
+	
+	for(i=0;i<512;i++){
+  50:	3701      	adds	r7, #1
+  52:	f5b7 7f00 	cmp.w	r7, #512	; 0x200
+  56:	d1f4      	bne.n	42 <sd_readSector+0x42>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:292
+		if(i<len)
+			buf[i] = c;
+	}
+
+	/* Checksum (2 byte) - ignore for now */
+	if_spiSend(iface,0xff);
+  58:	21ff      	movs	r1, #255	; 0xff
+  5a:	4620      	mov	r0, r4
+  5c:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:293
+	if_spiSend(iface,0xff);
+  60:	4620      	mov	r0, r4
+  62:	21ff      	movs	r1, #255	; 0xff
+  64:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:295
+
+	return(0);
+  68:	2000      	movs	r0, #0
+  6a:	e000      	b.n	6e <sd_readSector+0x6e>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:282
+		firstblock=sd_Resp8b(iface); 
+	while(firstblock==0xff && fb_timeout--);
+
+	if(cardresp!=0x00 || firstblock!=0xfe){
+		sd_Resp8bError(iface,firstblock);
+		return(-1);
+  6c:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:296
+	/* Checksum (2 byte) - ignore for now */
+	if_spiSend(iface,0xff);
+	if_spiSend(iface,0xff);
+
+	return(0);
+}
+  6e:	b240      	sxtb	r0, r0
+  70:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.sd_getDriveSize:
+
+00000000 <sd_getDriveSize>:
+sd_getDriveSize():
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:304
+/* ****************************************************************************
+ calculates size of card from CSD 
+ (extension by Martin Thomas, inspired by code from Holger Klabunde)
+ */
+esint8 sd_getDriveSize(hwInterface *iface, euint32* drive_size )
+{
+   0:	b57f      	push	{r0, r1, r2, r3, r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:309
+	euint8 cardresp, i, by;
+	euint8 iob[16];
+	euint16 c_size, c_size_mult, read_bl_len;
+	
+	sd_Command(iface, CMDREADCSD, 0, 0);
+   2:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:304
+/* ****************************************************************************
+ calculates size of card from CSD 
+ (extension by Martin Thomas, inspired by code from Holger Klabunde)
+ */
+esint8 sd_getDriveSize(hwInterface *iface, euint32* drive_size )
+{
+   4:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:309
+	euint8 cardresp, i, by;
+	euint8 iob[16];
+	euint16 c_size, c_size_mult, read_bl_len;
+	
+	sd_Command(iface, CMDREADCSD, 0, 0);
+   6:	4613      	mov	r3, r2
+   8:	2109      	movs	r1, #9
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:304
+/* ****************************************************************************
+ calculates size of card from CSD 
+ (extension by Martin Thomas, inspired by code from Holger Klabunde)
+ */
+esint8 sd_getDriveSize(hwInterface *iface, euint32* drive_size )
+{
+   a:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:309
+	euint8 cardresp, i, by;
+	euint8 iob[16];
+	euint16 c_size, c_size_mult, read_bl_len;
+	
+	sd_Command(iface, CMDREADCSD, 0, 0);
+   c:	f7ff fffe 	bl	0 <sd_getDriveSize>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:312
+	
+	do {
+		cardresp = sd_Resp8b(iface);
+  10:	4620      	mov	r0, r4
+  12:	f7ff fffe 	bl	0 <sd_getDriveSize>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:313
+	} while ( cardresp != 0xFE );
+  16:	28fe      	cmp	r0, #254	; 0xfe
+  18:	d1fa      	bne.n	10 <sd_getDriveSize+0x10>
+  1a:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:317
+
+	//DBG((TXT("CSD:")));
+	for( i=0; i<16; i++) {
+		iob[i] = sd_Resp8b(iface);
+  1c:	4620      	mov	r0, r4
+  1e:	f7ff fffe 	bl	0 <sd_getDriveSize>
+  22:	f80d 0006 	strb.w	r0, [sp, r6]
+  26:	3601      	adds	r6, #1
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:316
+	do {
+		cardresp = sd_Resp8b(iface);
+	} while ( cardresp != 0xFE );
+
+	//DBG((TXT("CSD:")));
+	for( i=0; i<16; i++) {
+  28:	2e10      	cmp	r6, #16
+  2a:	d1f7      	bne.n	1c <sd_getDriveSize+0x1c>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:322
+		iob[i] = sd_Resp8b(iface);
+		//DBG((TXT(" %02x"), iob[i]));
+	}
+	//DBG((TXT("\n")));
+
+	if_spiSend(iface,0xff);
+  2c:	21ff      	movs	r1, #255	; 0xff
+  2e:	4620      	mov	r0, r4
+  30:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:323
+	if_spiSend(iface,0xff);
+  34:	21ff      	movs	r1, #255	; 0xff
+  36:	4620      	mov	r0, r4
+  38:	f7ff fffe 	bl	0 <if_spiSend>
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:327
+	
+	c_size = iob[6] & 0x03; // bits 1..0
+	c_size <<= 10;
+	c_size += (euint16)iob[7]<<2;
+  3c:	f89d 1007 	ldrb.w	r1, [sp, #7]
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:328
+	c_size += iob[8]>>6;
+  40:	f89d 2008 	ldrb.w	r2, [sp, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:327
+	if_spiSend(iface,0xff);
+	if_spiSend(iface,0xff);
+	
+	c_size = iob[6] & 0x03; // bits 1..0
+	c_size <<= 10;
+	c_size += (euint16)iob[7]<<2;
+  44:	0089      	lsls	r1, r1, #2
+  46:	eb01 1192 	add.w	r1, r1, r2, lsr #6
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:330
+	c_size += iob[8]>>6;
+
+	by= iob[5] & 0x0F;
+  4a:	f89d 2005 	ldrb.w	r2, [sp, #5]
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:332
+	read_bl_len = 1;
+	read_bl_len <<= by;
+  4e:	2301      	movs	r3, #1
+  50:	f002 020f 	and.w	r2, r2, #15
+  54:	fa13 f202 	lsls.w	r2, r3, r2
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:325
+	//DBG((TXT("\n")));
+
+	if_spiSend(iface,0xff);
+	if_spiSend(iface,0xff);
+	
+	c_size = iob[6] & 0x03; // bits 1..0
+  58:	f89d 4006 	ldrb.w	r4, [sp, #6]
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:341
+	by += iob[10] >> 7;
+	
+	c_size_mult = 1;
+	c_size_mult <<= (2+by);
+	
+	*drive_size = (euint32)(c_size+1) * (euint32)c_size_mult * (euint32)read_bl_len;
+  5c:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:325
+	//DBG((TXT("\n")));
+
+	if_spiSend(iface,0xff);
+	if_spiSend(iface,0xff);
+	
+	c_size = iob[6] & 0x03; // bits 1..0
+  5e:	f004 0403 	and.w	r4, r4, #3
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:326
+	c_size <<= 10;
+  62:	02a4      	lsls	r4, r4, #10
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:341
+	by += iob[10] >> 7;
+	
+	c_size_mult = 1;
+	c_size_mult <<= (2+by);
+	
+	*drive_size = (euint32)(c_size+1) * (euint32)c_size_mult * (euint32)read_bl_len;
+  64:	1909      	adds	r1, r1, r4
+  66:	3101      	adds	r1, #1
+  68:	434a      	muls	r2, r1
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:334
+
+	by= iob[5] & 0x0F;
+	read_bl_len = 1;
+	read_bl_len <<= by;
+
+	by=iob[9] & 0x03;
+  6a:	f89d 0009 	ldrb.w	r0, [sp, #9]
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:336
+	by <<= 1;
+	by += iob[10] >> 7;
+  6e:	f89d 100a 	ldrb.w	r1, [sp, #10]
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:334
+
+	by= iob[5] & 0x0F;
+	read_bl_len = 1;
+	read_bl_len <<= by;
+
+	by=iob[9] & 0x03;
+  72:	f000 0003 	and.w	r0, r0, #3
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:336
+	by <<= 1;
+	by += iob[10] >> 7;
+  76:	09c9      	lsrs	r1, r1, #7
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:339
+	
+	c_size_mult = 1;
+	c_size_mult <<= (2+by);
+  78:	eb01 0140 	add.w	r1, r1, r0, lsl #1
+  7c:	3102      	adds	r1, #2
+  7e:	408b      	lsls	r3, r1
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:341
+	
+	*drive_size = (euint32)(c_size+1) * (euint32)c_size_mult * (euint32)read_bl_len;
+  80:	b29b      	uxth	r3, r3
+  82:	4353      	muls	r3, r2
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:344
+	
+	return 0;
+}
+  84:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:341
+	by += iob[10] >> 7;
+	
+	c_size_mult = 1;
+	c_size_mult <<= (2+by);
+	
+	*drive_size = (euint32)(c_size+1) * (euint32)c_size_mult * (euint32)read_bl_len;
+  86:	602b      	str	r3, [r5, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source\interface/sd.c:344
+	
+	return 0;
+}
+  88:	b004      	add	sp, #16
+  8a:	bd70      	pop	{r4, r5, r6, pc}

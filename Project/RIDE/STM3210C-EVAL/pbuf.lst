@@ -1,0 +1,2225 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\pbuf.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\pbuf.o
+
+
+Disassembly of section .text.pbuf_alloced_custom:
+
+00000000 <pbuf_alloced_custom>:
+pbuf_alloced_custom():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:346
+ *        big enough to hold 'length' plus the header size
+ */
+struct pbuf*
+pbuf_alloced_custom(pbuf_layer l, u16_t length, pbuf_type type, struct pbuf_custom *p,
+                    void *payload_mem, u16_t payload_mem_len)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	9c04      	ldr	r4, [sp, #16]
+   4:	f8bd 5014 	ldrh.w	r5, [sp, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:352
+  u16_t offset;
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloced_custom(length=%"U16_F")\n", length));
+
+  /* determine header offset */
+  offset = 0;
+  switch (l) {
+   8:	2803      	cmp	r0, #3
+   a:	d825      	bhi.n	58 <pbuf_alloced_custom+0x58>
+   c:	e8df f000 	tbb	[pc, r0]
+  10:	0b070204 	.word	0x0b070204
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:351
+{
+  u16_t offset;
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloced_custom(length=%"U16_F")\n", length));
+
+  /* determine header offset */
+  offset = 0;
+  14:	2600      	movs	r6, #0
+  16:	e000      	b.n	1a <pbuf_alloced_custom+0x1a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:355
+  switch (l) {
+  case PBUF_TRANSPORT:
+    /* add room for transport (often TCP) layer header */
+    offset += PBUF_TRANSPORT_HLEN;
+  18:	2614      	movs	r6, #20
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:359
+    /* FALLTHROUGH */
+  case PBUF_IP:
+    /* add room for IP layer header */
+    offset += PBUF_IP_HLEN;
+  1a:	3614      	adds	r6, #20
+  1c:	e000      	b.n	20 <pbuf_alloced_custom+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:351
+{
+  u16_t offset;
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloced_custom(length=%"U16_F")\n", length));
+
+  /* determine header offset */
+  offset = 0;
+  1e:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:363
+    /* add room for IP layer header */
+    offset += PBUF_IP_HLEN;
+    /* FALLTHROUGH */
+  case PBUF_LINK:
+    /* add room for link layer header */
+    offset += PBUF_LINK_HLEN;
+  20:	360e      	adds	r6, #14
+  22:	b2b6      	uxth	r6, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:364
+    break;
+  24:	e000      	b.n	28 <pbuf_alloced_custom+0x28>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:351
+{
+  u16_t offset;
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloced_custom(length=%"U16_F")\n", length));
+
+  /* determine header offset */
+  offset = 0;
+  26:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:372
+  default:
+    LWIP_ASSERT("pbuf_alloced_custom: bad pbuf layer", 0);
+    return NULL;
+  }
+
+  if (LWIP_MEM_ALIGN_SIZE(offset) + length < payload_mem_len) {
+  28:	1cf0      	adds	r0, r6, #3
+  2a:	f020 0003 	bic.w	r0, r0, #3
+  2e:	1840      	adds	r0, r0, r1
+  30:	42a8      	cmp	r0, r5
+  32:	f04f 0000 	mov.w	r0, #0
+  36:	db10      	blt.n	5a <pbuf_alloced_custom+0x5a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:377
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_LEVEL_WARNING, ("pbuf_alloced_custom(length=%"U16_F") buffer too short\n", length));
+    return NULL;
+  }
+
+  p->pbuf.next = NULL;
+  38:	6018      	str	r0, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:378
+  if (payload_mem != NULL) {
+  3a:	b11c      	cbz	r4, 44 <pbuf_alloced_custom+0x44>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:379
+    p->pbuf.payload = LWIP_MEM_ALIGN((void *)((u8_t *)payload_mem + offset));
+  3c:	19a4      	adds	r4, r4, r6
+  3e:	3403      	adds	r4, #3
+  40:	f024 0403 	bic.w	r4, r4, #3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:383
+  } else {
+    p->pbuf.payload = NULL;
+  }
+  p->pbuf.flags = PBUF_FLAG_IS_CUSTOM;
+  44:	2002      	movs	r0, #2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:385
+  p->pbuf.len = p->pbuf.tot_len = length;
+  p->pbuf.type = type;
+  46:	731a      	strb	r2, [r3, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:386
+  p->pbuf.ref = 1;
+  48:	2201      	movs	r2, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:383
+  if (payload_mem != NULL) {
+    p->pbuf.payload = LWIP_MEM_ALIGN((void *)((u8_t *)payload_mem + offset));
+  } else {
+    p->pbuf.payload = NULL;
+  }
+  p->pbuf.flags = PBUF_FLAG_IS_CUSTOM;
+  4a:	7358      	strb	r0, [r3, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:381
+
+  p->pbuf.next = NULL;
+  if (payload_mem != NULL) {
+    p->pbuf.payload = LWIP_MEM_ALIGN((void *)((u8_t *)payload_mem + offset));
+  } else {
+    p->pbuf.payload = NULL;
+  4c:	605c      	str	r4, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:384
+  }
+  p->pbuf.flags = PBUF_FLAG_IS_CUSTOM;
+  p->pbuf.len = p->pbuf.tot_len = length;
+  4e:	8119      	strh	r1, [r3, #8]
+  50:	8159      	strh	r1, [r3, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:386
+  p->pbuf.type = type;
+  p->pbuf.ref = 1;
+  52:	81da      	strh	r2, [r3, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:387
+  return &p->pbuf;
+  54:	4618      	mov	r0, r3
+  56:	bd70      	pop	{r4, r5, r6, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:369
+    break;
+  case PBUF_RAW:
+    break;
+  default:
+    LWIP_ASSERT("pbuf_alloced_custom: bad pbuf layer", 0);
+    return NULL;
+  58:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:388
+  p->pbuf.flags = PBUF_FLAG_IS_CUSTOM;
+  p->pbuf.len = p->pbuf.tot_len = length;
+  p->pbuf.type = type;
+  p->pbuf.ref = 1;
+  return &p->pbuf;
+}
+  5a:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.pbuf_header:
+
+00000000 <pbuf_header>:
+pbuf_header():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:489
+ * @return non-zero on failure, zero on success.
+ *
+ */
+u8_t
+pbuf_header(struct pbuf *p, s16_t header_size_increment)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:495
+  u16_t type;
+  void *payload;
+  u16_t increment_magnitude;
+
+  LWIP_ASSERT("p != NULL", p != NULL);
+  if ((header_size_increment == 0) || (p == NULL)) {
+   2:	2900      	cmp	r1, #0
+   4:	d02b      	beq.n	5e <pbuf_header+0x5e>
+   6:	2800      	cmp	r0, #0
+   8:	d02e      	beq.n	68 <pbuf_header+0x68>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:499
+    return 0;
+  }
+ 
+  if (header_size_increment < 0){
+   a:	2900      	cmp	r1, #0
+   c:	da05      	bge.n	1a <pbuf_header+0x1a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:500
+    increment_magnitude = -header_size_increment;
+   e:	424a      	negs	r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:502
+    /* Check that we aren't going to move off the end of the pbuf */
+    LWIP_ERROR("increment_magnitude <= p->len", (increment_magnitude <= p->len), return 1;);
+  10:	8943      	ldrh	r3, [r0, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:500
+  if ((header_size_increment == 0) || (p == NULL)) {
+    return 0;
+  }
+ 
+  if (header_size_increment < 0){
+    increment_magnitude = -header_size_increment;
+  12:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:502
+    /* Check that we aren't going to move off the end of the pbuf */
+    LWIP_ERROR("increment_magnitude <= p->len", (increment_magnitude <= p->len), return 1;);
+  14:	4293      	cmp	r3, r2
+  16:	d201      	bcs.n	1c <pbuf_header+0x1c>
+  18:	e023      	b.n	62 <pbuf_header+0x62>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:504
+  } else {
+    increment_magnitude = header_size_increment;
+  1a:	b28a      	uxth	r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:517
+    LWIP_ASSERT("p->payload - increment_magnitude >= p + SIZEOF_STRUCT_PBUF",
+                (u8_t *)p->payload - increment_magnitude >= (u8_t *)p + SIZEOF_STRUCT_PBUF);
+#endif
+  }
+
+  type = p->type;
+  1c:	7b04      	ldrb	r4, [r0, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:519
+  /* remember current payload pointer */
+  payload = p->payload;
+  1e:	6843      	ldr	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:522
+
+  /* pbuf types containing payloads? */
+  if (type == PBUF_RAM || type == PBUF_POOL) {
+  20:	b10c      	cbz	r4, 26 <pbuf_header+0x26>
+  22:	2c03      	cmp	r4, #3
+  24:	d107      	bne.n	36 <pbuf_header+0x36>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:524
+    /* set new payload pointer */
+    p->payload = (u8_t *)p->payload - header_size_increment;
+  26:	1a5a      	subs	r2, r3, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:526
+    /* boundary check fails? */
+    if ((u8_t *)p->payload < (u8_t *)p + SIZEOF_STRUCT_PBUF) {
+  28:	f100 0410 	add.w	r4, r0, #16
+  2c:	42a2      	cmp	r2, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:524
+  payload = p->payload;
+
+  /* pbuf types containing payloads? */
+  if (type == PBUF_RAM || type == PBUF_POOL) {
+    /* set new payload pointer */
+    p->payload = (u8_t *)p->payload - header_size_increment;
+  2e:	6042      	str	r2, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:526
+    /* boundary check fails? */
+    if ((u8_t *)p->payload < (u8_t *)p + SIZEOF_STRUCT_PBUF) {
+  30:	d20c      	bcs.n	4c <pbuf_header+0x4c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:531
+      LWIP_DEBUGF( PBUF_DEBUG | LWIP_DBG_LEVEL_SERIOUS,
+        ("pbuf_header: failed as %p < %p (not enough space for new header size)\n",
+        (void *)p->payload, (void *)(p + 1)));
+      /* restore old payload pointer */
+      p->payload = payload;
+  32:	6043      	str	r3, [r0, #4]
+  34:	e015      	b.n	62 <pbuf_header+0x62>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:536
+      /* bail out unsuccesfully */
+      return 1;
+    }
+  /* pbuf types refering to external payloads? */
+  } else if (type == PBUF_REF || type == PBUF_ROM) {
+  36:	3c01      	subs	r4, #1
+  38:	b2a4      	uxth	r4, r4
+  3a:	2c01      	cmp	r4, #1
+  3c:	d811      	bhi.n	62 <pbuf_header+0x62>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:538
+    /* hide a header in the payload? */
+    if ((header_size_increment < 0) && (increment_magnitude <= p->len)) {
+  3e:	2900      	cmp	r1, #0
+  40:	da0f      	bge.n	62 <pbuf_header+0x62>
+  42:	8944      	ldrh	r4, [r0, #10]
+  44:	4294      	cmp	r4, r2
+  46:	d30e      	bcc.n	66 <pbuf_header+0x66>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:540
+      /* increase payload pointer */
+      p->payload = (u8_t *)p->payload - header_size_increment;
+  48:	1a5b      	subs	r3, r3, r1
+  4a:	6043      	str	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:552
+    /* Unknown type */
+    LWIP_ASSERT("bad pbuf type", 0);
+    return 1;
+  }
+  /* modify pbuf length fields */
+  p->len += header_size_increment;
+  4c:	8943      	ldrh	r3, [r0, #10]
+  4e:	b289      	uxth	r1, r1
+  50:	18cb      	adds	r3, r1, r3
+  52:	8143      	strh	r3, [r0, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:553
+  p->tot_len += header_size_increment;
+  54:	8903      	ldrh	r3, [r0, #8]
+  56:	18c9      	adds	r1, r1, r3
+  58:	8101      	strh	r1, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:558
+
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_header: old %p new %p (%"S16_F")\n",
+    (void *)payload, (void *)p->payload, header_size_increment));
+
+  return 0;
+  5a:	2000      	movs	r0, #0
+  5c:	bd10      	pop	{r4, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:496
+  void *payload;
+  u16_t increment_magnitude;
+
+  LWIP_ASSERT("p != NULL", p != NULL);
+  if ((header_size_increment == 0) || (p == NULL)) {
+    return 0;
+  5e:	4608      	mov	r0, r1
+  60:	bd10      	pop	{r4, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:544
+      /* increase payload pointer */
+      p->payload = (u8_t *)p->payload - header_size_increment;
+    } else {
+      /* cannot expand payload to front (yet!)
+       * bail out unsuccesfully */
+      return 1;
+  62:	2001      	movs	r0, #1
+  64:	bd10      	pop	{r4, pc}
+  66:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:559
+
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_header: old %p new %p (%"S16_F")\n",
+    (void *)payload, (void *)p->payload, header_size_increment));
+
+  return 0;
+}
+  68:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.pbuf_free:
+
+00000000 <pbuf_free>:
+pbuf_free():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:596
+ * 1->1->1 becomes .......
+ *
+ */
+u8_t
+pbuf_free(struct pbuf *p)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:601
+  u16_t type;
+  struct pbuf *q;
+  u8_t count;
+
+  if (p == NULL) {
+   2:	4601      	mov	r1, r0
+   4:	b328      	cbz	r0, 52 <pbuf_free+0x52>
+   6:	2400      	movs	r4, #0
+   8:	e000      	b.n	c <pbuf_free+0xc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:659
+          mem_free(p);
+        }
+      }
+      count++;
+      /* proceed to next pbuf */
+      p = q;
+   a:	4629      	mov	r1, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:629
+     * further protection. */
+    SYS_ARCH_PROTECT(old_level);
+    /* all pbufs in a chain are referenced at least once */
+    LWIP_ASSERT("pbuf_free: p->ref > 0", p->ref > 0);
+    /* decrease reference count (number of pointers to pbuf) */
+    ref = --(p->ref);
+   c:	89cb      	ldrh	r3, [r1, #14]
+   e:	3b01      	subs	r3, #1
+  10:	b29b      	uxth	r3, r3
+  12:	81cb      	strh	r3, [r1, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:632
+    SYS_ARCH_UNPROTECT(old_level);
+    /* this pbuf is no longer referenced to? */
+    if (ref == 0) {
+  14:	b9f3      	cbnz	r3, 54 <pbuf_free+0x54>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:639
+      q = p->next;
+      LWIP_DEBUGF( PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_free: deallocating %p\n", (void *)p));
+      type = p->type;
+#if LWIP_SUPPORT_CUSTOM_PBUF
+      /* is this a custom pbuf? */
+      if ((p->flags & PBUF_FLAG_IS_CUSTOM) != 0) {
+  16:	7b4a      	ldrb	r2, [r1, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:634
+    ref = --(p->ref);
+    SYS_ARCH_UNPROTECT(old_level);
+    /* this pbuf is no longer referenced to? */
+    if (ref == 0) {
+      /* remember next pbuf in chain for next iteration */
+      q = p->next;
+  18:	680d      	ldr	r5, [r1, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:639
+      LWIP_DEBUGF( PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_free: deallocating %p\n", (void *)p));
+      type = p->type;
+#if LWIP_SUPPORT_CUSTOM_PBUF
+      /* is this a custom pbuf? */
+      if ((p->flags & PBUF_FLAG_IS_CUSTOM) != 0) {
+  1a:	f012 0f02 	tst.w	r2, #2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:636
+    /* this pbuf is no longer referenced to? */
+    if (ref == 0) {
+      /* remember next pbuf in chain for next iteration */
+      q = p->next;
+      LWIP_DEBUGF( PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_free: deallocating %p\n", (void *)p));
+      type = p->type;
+  1e:	7b0b      	ldrb	r3, [r1, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:639
+#if LWIP_SUPPORT_CUSTOM_PBUF
+      /* is this a custom pbuf? */
+      if ((p->flags & PBUF_FLAG_IS_CUSTOM) != 0) {
+  20:	d003      	beq.n	2a <pbuf_free+0x2a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:642
+        struct pbuf_custom *pc = (struct pbuf_custom*)p;
+        LWIP_ASSERT("pc->custom_free_function != NULL", pc->custom_free_function != NULL);
+        pc->custom_free_function(p);
+  22:	690b      	ldr	r3, [r1, #16]
+  24:	4608      	mov	r0, r1
+  26:	4798      	blx	r3
+  28:	e00e      	b.n	48 <pbuf_free+0x48>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:647
+      } else
+#endif /* LWIP_SUPPORT_CUSTOM_PBUF */
+      {
+        /* is this a pbuf from the pool? */
+        if (type == PBUF_POOL) {
+  2a:	2b03      	cmp	r3, #3
+  2c:	d101      	bne.n	32 <pbuf_free+0x32>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:648
+          memp_free(MEMP_PBUF_POOL, p);
+  2e:	2009      	movs	r0, #9
+  30:	e004      	b.n	3c <pbuf_free+0x3c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:650
+        /* is this a ROM or RAM referencing pbuf? */
+        } else if (type == PBUF_ROM || type == PBUF_REF) {
+  32:	3b01      	subs	r3, #1
+  34:	b29b      	uxth	r3, r3
+  36:	2b01      	cmp	r3, #1
+  38:	d803      	bhi.n	42 <pbuf_free+0x42>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:651
+          memp_free(MEMP_PBUF, p);
+  3a:	2008      	movs	r0, #8
+  3c:	f7ff fffe 	bl	0 <memp_free>
+  40:	e002      	b.n	48 <pbuf_free+0x48>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:654
+        /* type == PBUF_RAM */
+        } else {
+          mem_free(p);
+  42:	4608      	mov	r0, r1
+  44:	f7ff fffe 	bl	0 <mem_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:657
+        }
+      }
+      count++;
+  48:	3401      	adds	r4, #1
+  4a:	b2e4      	uxtb	r4, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:619
+    p->type == PBUF_REF || p->type == PBUF_POOL);
+
+  count = 0;
+  /* de-allocate all consecutive pbufs from the head of the chain that
+   * obtain a zero reference count after decrementing*/
+  while (p != NULL) {
+  4c:	2d00      	cmp	r5, #0
+  4e:	d1dc      	bne.n	a <pbuf_free+0xa>
+  50:	e000      	b.n	54 <pbuf_free+0x54>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:606
+  if (p == NULL) {
+    LWIP_ASSERT("p != NULL", p != NULL);
+    /* if assertions are disabled, proceed with debug output */
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_LEVEL_SERIOUS,
+      ("pbuf_free(p == NULL) was called.\n"));
+    return 0;
+  52:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:671
+    }
+  }
+  PERF_STOP("pbuf_free");
+  /* return number of de-allocated pbufs */
+  return count;
+}
+  54:	4620      	mov	r0, r4
+  56:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.pbuf_realloc:
+
+00000000 <pbuf_realloc>:
+pbuf_realloc():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:408
+ *
+ * @note Despite its name, pbuf_realloc cannot grow the size of a pbuf (chain).
+ */
+void
+pbuf_realloc(struct pbuf *p, u16_t new_len)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:420
+              p->type == PBUF_ROM ||
+              p->type == PBUF_RAM ||
+              p->type == PBUF_REF);
+
+  /* desired length larger than current length? */
+  if (new_len >= p->tot_len) {
+   2:	8903      	ldrh	r3, [r0, #8]
+   4:	4299      	cmp	r1, r3
+   6:	d220      	bcs.n	4a <pbuf_realloc+0x4a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:427
+    return;
+  }
+
+  /* the pbuf chain grows by (new_len - p->tot_len) bytes
+   * (which may be negative in case of shrinking) */
+  grow = new_len - p->tot_len;
+   8:	1aca      	subs	r2, r1, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:433
+
+  /* first, step over any pbufs that should remain in the chain */
+  rem_len = new_len;
+  q = p;
+  /* should this pbuf be kept? */
+  while (rem_len > q->len) {
+   a:	460c      	mov	r4, r1
+   c:	4605      	mov	r5, r0
+   e:	e005      	b.n	1c <pbuf_realloc+0x1c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:435
+    /* decrease remaining length by pbuf length */
+    rem_len -= q->len;
+  10:	1ae4      	subs	r4, r4, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:438
+    /* decrease total length indicator */
+    LWIP_ASSERT("grow < max_u16_t", grow < 0xffff);
+    q->tot_len += (u16_t)grow;
+  12:	892b      	ldrh	r3, [r5, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:435
+  rem_len = new_len;
+  q = p;
+  /* should this pbuf be kept? */
+  while (rem_len > q->len) {
+    /* decrease remaining length by pbuf length */
+    rem_len -= q->len;
+  14:	b2a4      	uxth	r4, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:438
+    /* decrease total length indicator */
+    LWIP_ASSERT("grow < max_u16_t", grow < 0xffff);
+    q->tot_len += (u16_t)grow;
+  16:	18d3      	adds	r3, r2, r3
+  18:	812b      	strh	r3, [r5, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:440
+    /* proceed to next pbuf in chain */
+    q = q->next;
+  1a:	682d      	ldr	r5, [r5, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:433
+
+  /* first, step over any pbufs that should remain in the chain */
+  rem_len = new_len;
+  q = p;
+  /* should this pbuf be kept? */
+  while (rem_len > q->len) {
+  1c:	896b      	ldrh	r3, [r5, #10]
+  1e:	429c      	cmp	r4, r3
+  20:	d8f6      	bhi.n	10 <pbuf_realloc+0x10>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:448
+  /* we have now reached the new last pbuf (in q) */
+  /* rem_len == desired length for pbuf q */
+
+  /* shrink allocated memory for PBUF_RAM */
+  /* (other types merely adjust their length fields */
+  if ((q->type == PBUF_RAM) && (rem_len != q->len)) {
+  22:	7b2a      	ldrb	r2, [r5, #12]
+  24:	b94a      	cbnz	r2, 3a <pbuf_realloc+0x3a>
+  26:	429c      	cmp	r4, r3
+  28:	d007      	beq.n	3a <pbuf_realloc+0x3a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:450
+    /* reallocate and adjust the length of the pbuf that will be split */
+    q = (struct pbuf *)mem_trim(q, (u16_t)((u8_t *)q->payload - (u8_t *)q) + rem_len);
+  2a:	6869      	ldr	r1, [r5, #4]
+  2c:	4628      	mov	r0, r5
+  2e:	1861      	adds	r1, r4, r1
+  30:	1b49      	subs	r1, r1, r5
+  32:	b289      	uxth	r1, r1
+  34:	f7ff fffe 	bl	0 <mem_trim>
+  38:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:458
+  /* adjust length fields for new last pbuf */
+  q->len = rem_len;
+  q->tot_len = q->len;
+
+  /* any remaining pbufs in chain? */
+  if (q->next != NULL) {
+  3a:	6828      	ldr	r0, [r5, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:454
+    /* reallocate and adjust the length of the pbuf that will be split */
+    q = (struct pbuf *)mem_trim(q, (u16_t)((u8_t *)q->payload - (u8_t *)q) + rem_len);
+    LWIP_ASSERT("mem_trim returned q == NULL", q != NULL);
+  }
+  /* adjust length fields for new last pbuf */
+  q->len = rem_len;
+  3c:	816c      	strh	r4, [r5, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:455
+  q->tot_len = q->len;
+  3e:	812c      	strh	r4, [r5, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:458
+
+  /* any remaining pbufs in chain? */
+  if (q->next != NULL) {
+  40:	b108      	cbz	r0, 46 <pbuf_realloc+0x46>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:460
+    /* free remaining pbufs in chain */
+    pbuf_free(q->next);
+  42:	f7ff fffe 	bl	0 <pbuf_realloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:463
+  }
+  /* q is last packet in chain */
+  q->next = NULL;
+  46:	2300      	movs	r3, #0
+  48:	602b      	str	r3, [r5, #0]
+  4a:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.pbuf_alloc:
+
+00000000 <pbuf_alloc>:
+pbuf_alloc():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:186
+ * @return the allocated pbuf. If multiple pbufs where allocated, this
+ * is the first pbuf of a pbuf chain.
+ */
+struct pbuf *
+pbuf_alloc(pbuf_layer layer, u16_t length, pbuf_type type)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+   2:	460c      	mov	r4, r1
+   4:	4617      	mov	r7, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:194
+  s32_t rem_len; /* remaining length */
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloc(length=%"U16_F")\n", length));
+
+  /* determine header offset */
+  offset = 0;
+  switch (layer) {
+   6:	2803      	cmp	r0, #3
+   8:	f200 8083 	bhi.w	112 <pbuf_alloc+0x112>
+   c:	e8df f000 	tbb	[pc, r0]
+  10:	0b070204 	.word	0x0b070204
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:193
+  u16_t offset;
+  s32_t rem_len; /* remaining length */
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloc(length=%"U16_F")\n", length));
+
+  /* determine header offset */
+  offset = 0;
+  14:	2600      	movs	r6, #0
+  16:	e000      	b.n	1a <pbuf_alloc+0x1a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:197
+  switch (layer) {
+  case PBUF_TRANSPORT:
+    /* add room for transport (often TCP) layer header */
+    offset += PBUF_TRANSPORT_HLEN;
+  18:	2614      	movs	r6, #20
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:201
+    /* FALLTHROUGH */
+  case PBUF_IP:
+    /* add room for IP layer header */
+    offset += PBUF_IP_HLEN;
+  1a:	3614      	adds	r6, #20
+  1c:	e000      	b.n	20 <pbuf_alloc+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:193
+  u16_t offset;
+  s32_t rem_len; /* remaining length */
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloc(length=%"U16_F")\n", length));
+
+  /* determine header offset */
+  offset = 0;
+  1e:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:205
+    /* add room for IP layer header */
+    offset += PBUF_IP_HLEN;
+    /* FALLTHROUGH */
+  case PBUF_LINK:
+    /* add room for link layer header */
+    offset += PBUF_LINK_HLEN;
+  20:	360e      	adds	r6, #14
+  22:	b2b6      	uxth	r6, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:206
+    break;
+  24:	e000      	b.n	28 <pbuf_alloc+0x28>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:193
+  u16_t offset;
+  s32_t rem_len; /* remaining length */
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloc(length=%"U16_F")\n", length));
+
+  /* determine header offset */
+  offset = 0;
+  26:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:214
+  default:
+    LWIP_ASSERT("pbuf_alloc: bad pbuf layer", 0);
+    return NULL;
+  }
+
+  switch (type) {
+  28:	2f03      	cmp	r7, #3
+  2a:	d872      	bhi.n	112 <pbuf_alloc+0x112>
+  2c:	e8df f007 	tbb	[pc, r7]
+  30:	02616146 	.word	0x02616146
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:217
+  case PBUF_POOL:
+    /* allocate head of pbuf chain into p */
+    p = (struct pbuf *)memp_malloc(MEMP_PBUF_POOL);
+  34:	2009      	movs	r0, #9
+  36:	f7ff fffe 	bl	0 <memp_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:219
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloc: allocated pbuf %p\n", (void *)p));
+    if (p == NULL) {
+  3a:	4605      	mov	r5, r0
+  3c:	2800      	cmp	r0, #0
+  3e:	d069      	beq.n	114 <pbuf_alloc+0x114>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:223
+      PBUF_POOL_IS_EMPTY();
+      return NULL;
+    }
+    p->type = type;
+  40:	2303      	movs	r3, #3
+  42:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:224
+    p->next = NULL;
+  44:	3b03      	subs	r3, #3
+  46:	6003      	str	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:227
+
+    /* make the payload pointer point 'offset' bytes into pbuf data memory */
+    p->payload = LWIP_MEM_ALIGN((void *)((u8_t *)p + (SIZEOF_STRUCT_PBUF + offset)));
+  48:	1983      	adds	r3, r0, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:233
+    LWIP_ASSERT("pbuf_alloc: pbuf p->payload properly aligned",
+            ((mem_ptr_t)p->payload % MEM_ALIGNMENT) == 0);
+    /* the total length of the pbuf chain is the requested size */
+    p->tot_len = length;
+    /* set the length of the first pbuf in the chain */
+    p->len = LWIP_MIN(length, PBUF_POOL_BUFSIZE_ALIGNED - LWIP_MEM_ALIGN_SIZE(offset));
+  4a:	3603      	adds	r6, #3
+  4c:	f026 0603 	bic.w	r6, r6, #3
+  50:	f5c6 66ba 	rsb	r6, r6, #1488	; 0x5d0
+  54:	360c      	adds	r6, #12
+  56:	42a6      	cmp	r6, r4
+  58:	bfa8      	it	ge
+  5a:	4626      	movge	r6, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:227
+    }
+    p->type = type;
+    p->next = NULL;
+
+    /* make the payload pointer point 'offset' bytes into pbuf data memory */
+    p->payload = LWIP_MEM_ALIGN((void *)((u8_t *)p + (SIZEOF_STRUCT_PBUF + offset)));
+  5c:	3313      	adds	r3, #19
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:233
+    LWIP_ASSERT("pbuf_alloc: pbuf p->payload properly aligned",
+            ((mem_ptr_t)p->payload % MEM_ALIGNMENT) == 0);
+    /* the total length of the pbuf chain is the requested size */
+    p->tot_len = length;
+    /* set the length of the first pbuf in the chain */
+    p->len = LWIP_MIN(length, PBUF_POOL_BUFSIZE_ALIGNED - LWIP_MEM_ALIGN_SIZE(offset));
+  5e:	b2b6      	uxth	r6, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:227
+    }
+    p->type = type;
+    p->next = NULL;
+
+    /* make the payload pointer point 'offset' bytes into pbuf data memory */
+    p->payload = LWIP_MEM_ALIGN((void *)((u8_t *)p + (SIZEOF_STRUCT_PBUF + offset)));
+  60:	f023 0303 	bic.w	r3, r3, #3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:240
+                ((u8_t*)p->payload + p->len <=
+                 (u8_t*)p + SIZEOF_STRUCT_PBUF + PBUF_POOL_BUFSIZE_ALIGNED));
+    LWIP_ASSERT("PBUF_POOL_BUFSIZE must be bigger than MEM_ALIGNMENT",
+      (PBUF_POOL_BUFSIZE_ALIGNED - LWIP_MEM_ALIGN_SIZE(offset)) > 0 );
+    /* set reference count (needed here in case we fail) */
+    p->ref = 1;
+  64:	2201      	movs	r2, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:231
+    /* make the payload pointer point 'offset' bytes into pbuf data memory */
+    p->payload = LWIP_MEM_ALIGN((void *)((u8_t *)p + (SIZEOF_STRUCT_PBUF + offset)));
+    LWIP_ASSERT("pbuf_alloc: pbuf p->payload properly aligned",
+            ((mem_ptr_t)p->payload % MEM_ALIGNMENT) == 0);
+    /* the total length of the pbuf chain is the requested size */
+    p->tot_len = length;
+  66:	8104      	strh	r4, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:227
+    }
+    p->type = type;
+    p->next = NULL;
+
+    /* make the payload pointer point 'offset' bytes into pbuf data memory */
+    p->payload = LWIP_MEM_ALIGN((void *)((u8_t *)p + (SIZEOF_STRUCT_PBUF + offset)));
+  68:	6043      	str	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:233
+    LWIP_ASSERT("pbuf_alloc: pbuf p->payload properly aligned",
+            ((mem_ptr_t)p->payload % MEM_ALIGNMENT) == 0);
+    /* the total length of the pbuf chain is the requested size */
+    p->tot_len = length;
+    /* set the length of the first pbuf in the chain */
+    p->len = LWIP_MIN(length, PBUF_POOL_BUFSIZE_ALIGNED - LWIP_MEM_ALIGN_SIZE(offset));
+  6a:	8146      	strh	r6, [r0, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:240
+                ((u8_t*)p->payload + p->len <=
+                 (u8_t*)p + SIZEOF_STRUCT_PBUF + PBUF_POOL_BUFSIZE_ALIGNED));
+    LWIP_ASSERT("PBUF_POOL_BUFSIZE must be bigger than MEM_ALIGNMENT",
+      (PBUF_POOL_BUFSIZE_ALIGNED - LWIP_MEM_ALIGN_SIZE(offset)) > 0 );
+    /* set reference count (needed here in case we fail) */
+    p->ref = 1;
+  6c:	81c2      	strh	r2, [r0, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:247
+    /* now allocate the tail of the pbuf chain */
+
+    /* remember first pbuf for linkage in next iteration */
+    r = p;
+    /* remaining length to be allocated */
+    rem_len = length - p->len;
+  6e:	1ba4      	subs	r4, r4, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:249
+    /* any remaining pbufs to be allocated? */
+    while (rem_len > 0) {
+  70:	4607      	mov	r7, r0
+  72:	e020      	b.n	b6 <pbuf_alloc+0xb6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:250
+      q = (struct pbuf *)memp_malloc(MEMP_PBUF_POOL);
+  74:	2009      	movs	r0, #9
+  76:	f7ff fffe 	bl	0 <memp_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:251
+      if (q == NULL) {
+  7a:	4606      	mov	r6, r0
+  7c:	b920      	cbnz	r0, 88 <pbuf_alloc+0x88>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:254
+        PBUF_POOL_IS_EMPTY();
+        /* free chain so far allocated */
+        pbuf_free(p);
+  7e:	4628      	mov	r0, r5
+  80:	f7ff fffe 	bl	0 <pbuf_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:256
+        /* bail out unsuccesfully */
+        return NULL;
+  84:	4635      	mov	r5, r6
+  86:	e045      	b.n	114 <pbuf_alloc+0x114>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:258
+      }
+      q->type = type;
+  88:	2303      	movs	r3, #3
+  8a:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:259
+      q->flags = 0;
+  8c:	3b03      	subs	r3, #3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:260
+      q->next = NULL;
+  8e:	6003      	str	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:267
+      r->next = q;
+      /* set total length of this pbuf and next in chain */
+      LWIP_ASSERT("rem_len < max_u16_t", rem_len < 0xffff);
+      q->tot_len = (u16_t)rem_len;
+      /* this pbuf length is pool size, unless smaller sized tail */
+      q->len = LWIP_MIN((u16_t)rem_len, PBUF_POOL_BUFSIZE_ALIGNED);
+  90:	f240 52dc 	movw	r2, #1500	; 0x5dc
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:259
+        pbuf_free(p);
+        /* bail out unsuccesfully */
+        return NULL;
+      }
+      q->type = type;
+      q->flags = 0;
+  94:	7343      	strb	r3, [r0, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:267
+      r->next = q;
+      /* set total length of this pbuf and next in chain */
+      LWIP_ASSERT("rem_len < max_u16_t", rem_len < 0xffff);
+      q->tot_len = (u16_t)rem_len;
+      /* this pbuf length is pool size, unless smaller sized tail */
+      q->len = LWIP_MIN((u16_t)rem_len, PBUF_POOL_BUFSIZE_ALIGNED);
+  96:	f240 51db 	movw	r1, #1499	; 0x5db
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:265
+      q->next = NULL;
+      /* make previous pbuf point to this pbuf */
+      r->next = q;
+      /* set total length of this pbuf and next in chain */
+      LWIP_ASSERT("rem_len < max_u16_t", rem_len < 0xffff);
+      q->tot_len = (u16_t)rem_len;
+  9a:	b2a3      	uxth	r3, r4
+  9c:	8103      	strh	r3, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:267
+      /* this pbuf length is pool size, unless smaller sized tail */
+      q->len = LWIP_MIN((u16_t)rem_len, PBUF_POOL_BUFSIZE_ALIGNED);
+  9e:	428b      	cmp	r3, r1
+  a0:	bf88      	it	hi
+  a2:	4613      	movhi	r3, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:268
+      q->payload = (void *)((u8_t *)q + SIZEOF_STRUCT_PBUF);
+  a4:	f100 0210 	add.w	r2, r0, #16
+  a8:	6042      	str	r2, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:274
+      LWIP_ASSERT("pbuf_alloc: pbuf q->payload properly aligned",
+              ((mem_ptr_t)q->payload % MEM_ALIGNMENT) == 0);
+      LWIP_ASSERT("check p->payload + p->len does not overflow pbuf",
+                  ((u8_t*)p->payload + p->len <=
+                   (u8_t*)p + SIZEOF_STRUCT_PBUF + PBUF_POOL_BUFSIZE_ALIGNED));
+      q->ref = 1;
+  aa:	2201      	movs	r2, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:262
+      }
+      q->type = type;
+      q->flags = 0;
+      q->next = NULL;
+      /* make previous pbuf point to this pbuf */
+      r->next = q;
+  ac:	6038      	str	r0, [r7, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:267
+      /* set total length of this pbuf and next in chain */
+      LWIP_ASSERT("rem_len < max_u16_t", rem_len < 0xffff);
+      q->tot_len = (u16_t)rem_len;
+      /* this pbuf length is pool size, unless smaller sized tail */
+      q->len = LWIP_MIN((u16_t)rem_len, PBUF_POOL_BUFSIZE_ALIGNED);
+  ae:	8143      	strh	r3, [r0, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:274
+      LWIP_ASSERT("pbuf_alloc: pbuf q->payload properly aligned",
+              ((mem_ptr_t)q->payload % MEM_ALIGNMENT) == 0);
+      LWIP_ASSERT("check p->payload + p->len does not overflow pbuf",
+                  ((u8_t*)p->payload + p->len <=
+                   (u8_t*)p + SIZEOF_STRUCT_PBUF + PBUF_POOL_BUFSIZE_ALIGNED));
+      q->ref = 1;
+  b0:	81c2      	strh	r2, [r0, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:276
+      /* calculate remaining length to be allocated */
+      rem_len -= q->len;
+  b2:	1ae4      	subs	r4, r4, r3
+  b4:	4607      	mov	r7, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:249
+    /* remember first pbuf for linkage in next iteration */
+    r = p;
+    /* remaining length to be allocated */
+    rem_len = length - p->len;
+    /* any remaining pbufs to be allocated? */
+    while (rem_len > 0) {
+  b6:	2c00      	cmp	r4, #0
+  b8:	dcdc      	bgt.n	74 <pbuf_alloc+0x74>
+  ba:	e025      	b.n	108 <pbuf_alloc+0x108>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:286
+    /*r->next = NULL;*/
+
+    break;
+  case PBUF_RAM:
+    /* If pbuf is to be allocated in RAM, allocate memory for it. */
+    p = (struct pbuf*)mem_malloc(LWIP_MEM_ALIGN_SIZE(SIZEOF_STRUCT_PBUF + offset) + LWIP_MEM_ALIGN_SIZE(length));
+  bc:	f106 0213 	add.w	r2, r6, #19
+  c0:	1ce3      	adds	r3, r4, #3
+  c2:	f022 0203 	bic.w	r2, r2, #3
+  c6:	f023 0303 	bic.w	r3, r3, #3
+  ca:	18d3      	adds	r3, r2, r3
+  cc:	f64f 70fc 	movw	r0, #65532	; 0xfffc
+  d0:	ea03 0000 	and.w	r0, r3, r0
+  d4:	f7ff fffe 	bl	0 <mem_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:287
+    if (p == NULL) {
+  d8:	4605      	mov	r5, r0
+  da:	b1d8      	cbz	r0, 114 <pbuf_alloc+0x114>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:291
+      return NULL;
+    }
+    /* Set up internal structure of the pbuf. */
+    p->payload = LWIP_MEM_ALIGN((void *)((u8_t *)p + SIZEOF_STRUCT_PBUF + offset));
+  dc:	1986      	adds	r6, r0, r6
+  de:	3613      	adds	r6, #19
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:293
+    p->len = p->tot_len = length;
+    p->next = NULL;
+  e0:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:291
+    p = (struct pbuf*)mem_malloc(LWIP_MEM_ALIGN_SIZE(SIZEOF_STRUCT_PBUF + offset) + LWIP_MEM_ALIGN_SIZE(length));
+    if (p == NULL) {
+      return NULL;
+    }
+    /* Set up internal structure of the pbuf. */
+    p->payload = LWIP_MEM_ALIGN((void *)((u8_t *)p + SIZEOF_STRUCT_PBUF + offset));
+  e2:	f026 0603 	bic.w	r6, r6, #3
+  e6:	6046      	str	r6, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:292
+    p->len = p->tot_len = length;
+  e8:	8104      	strh	r4, [r0, #8]
+  ea:	8144      	strh	r4, [r0, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:293
+    p->next = NULL;
+  ec:	6003      	str	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:294
+    p->type = type;
+  ee:	7303      	strb	r3, [r0, #12]
+  f0:	e00a      	b.n	108 <pbuf_alloc+0x108>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:304
+  /* pbuf references existing (non-volatile static constant) ROM payload? */
+  case PBUF_ROM:
+  /* pbuf references existing (externally allocated) RAM payload? */
+  case PBUF_REF:
+    /* only allocate memory for the pbuf structure */
+    p = (struct pbuf *)memp_malloc(MEMP_PBUF);
+  f2:	2008      	movs	r0, #8
+  f4:	f7ff fffe 	bl	0 <memp_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:305
+    if (p == NULL) {
+  f8:	4605      	mov	r5, r0
+  fa:	b158      	cbz	r0, 114 <pbuf_alloc+0x114>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:312
+                  ("pbuf_alloc: Could not allocate MEMP_PBUF for PBUF_%s.\n",
+                  (type == PBUF_ROM) ? "ROM" : "REF"));
+      return NULL;
+    }
+    /* caller must set this field properly, afterwards */
+    p->payload = NULL;
+  fc:	2300      	movs	r3, #0
+  fe:	6043      	str	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:313
+    p->len = p->tot_len = length;
+ 100:	8104      	strh	r4, [r0, #8]
+ 102:	8144      	strh	r4, [r0, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:314
+    p->next = NULL;
+ 104:	6003      	str	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:315
+    p->type = type;
+ 106:	7307      	strb	r7, [r0, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:322
+  default:
+    LWIP_ASSERT("pbuf_alloc: erroneous type", 0);
+    return NULL;
+  }
+  /* set reference count */
+  p->ref = 1;
+ 108:	2301      	movs	r3, #1
+ 10a:	81eb      	strh	r3, [r5, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:324
+  /* set flags */
+  p->flags = 0;
+ 10c:	2300      	movs	r3, #0
+ 10e:	736b      	strb	r3, [r5, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:326
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloc(length=%"U16_F") == %p\n", length, (void *)p));
+  return p;
+ 110:	e000      	b.n	114 <pbuf_alloc+0x114>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:319
+    p->next = NULL;
+    p->type = type;
+    break;
+  default:
+    LWIP_ASSERT("pbuf_alloc: erroneous type", 0);
+    return NULL;
+ 112:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:327
+  p->ref = 1;
+  /* set flags */
+  p->flags = 0;
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_alloc(length=%"U16_F") == %p\n", length, (void *)p));
+  return p;
+}
+ 114:	4628      	mov	r0, r5
+ 116:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+
+Disassembly of section .text.pbuf_clen:
+
+00000000 <pbuf_clen>:
+pbuf_clen():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:682
+ * @return the number of pbufs in a chain
+ */
+
+u8_t
+pbuf_clen(struct pbuf *p)
+{
+   0:	4603      	mov	r3, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:685
+  u8_t len;
+
+  len = 0;
+   2:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:686
+  while (p != NULL) {
+   4:	e002      	b.n	c <pbuf_clen+0xc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:687
+    ++len;
+   6:	3001      	adds	r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:688
+    p = p->next;
+   8:	681b      	ldr	r3, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:687
+{
+  u8_t len;
+
+  len = 0;
+  while (p != NULL) {
+    ++len;
+   a:	b2c0      	uxtb	r0, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:686
+pbuf_clen(struct pbuf *p)
+{
+  u8_t len;
+
+  len = 0;
+  while (p != NULL) {
+   c:	2b00      	cmp	r3, #0
+   e:	d1fa      	bne.n	6 <pbuf_clen+0x6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:691
+    ++len;
+    p = p->next;
+  }
+  return len;
+}
+  10:	4770      	bx	lr
+
+Disassembly of section .text.pbuf_ref:
+
+00000000 <pbuf_ref>:
+pbuf_ref():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:704
+void
+pbuf_ref(struct pbuf *p)
+{
+  SYS_ARCH_DECL_PROTECT(old_level);
+  /* pbuf given? */
+  if (p != NULL) {
+   0:	b110      	cbz	r0, 8 <pbuf_ref+0x8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:706
+    SYS_ARCH_PROTECT(old_level);
+    ++(p->ref);
+   2:	89c3      	ldrh	r3, [r0, #14]
+   4:	3301      	adds	r3, #1
+   6:	81c3      	strh	r3, [r0, #14]
+   8:	4770      	bx	lr
+
+Disassembly of section .text.pbuf_cat:
+
+00000000 <pbuf_cat>:
+pbuf_cat():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:723
+ * @see pbuf_chain()
+ */
+
+void
+pbuf_cat(struct pbuf *h, struct pbuf *t)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:726
+  struct pbuf *p;
+
+  LWIP_ERROR("(h != NULL) && (t != NULL) (programmer violates API)",
+   2:	b168      	cbz	r0, 20 <pbuf_cat+0x20>
+   4:	b921      	cbnz	r1, 10 <pbuf_cat+0x10>
+   6:	e00b      	b.n	20 <pbuf_cat+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:732
+             ((h != NULL) && (t != NULL)), return;);
+
+  /* proceed to last pbuf of chain */
+  for (p = h; p->next != NULL; p = p->next) {
+    /* add total length of second chain to all totals of first chain */
+    p->tot_len += t->tot_len;
+   8:	8904      	ldrh	r4, [r0, #8]
+   a:	191b      	adds	r3, r3, r4
+   c:	8103      	strh	r3, [r0, #8]
+   e:	4610      	mov	r0, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:730
+
+  LWIP_ERROR("(h != NULL) && (t != NULL) (programmer violates API)",
+             ((h != NULL) && (t != NULL)), return;);
+
+  /* proceed to last pbuf of chain */
+  for (p = h; p->next != NULL; p = p->next) {
+  10:	6802      	ldr	r2, [r0, #0]
+  12:	890b      	ldrh	r3, [r1, #8]
+  14:	2a00      	cmp	r2, #0
+  16:	d1f7      	bne.n	8 <pbuf_cat+0x8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:738
+  }
+  /* { p is last pbuf of first h chain, p->next == NULL } */
+  LWIP_ASSERT("p->tot_len == p->len (of last pbuf in chain)", p->tot_len == p->len);
+  LWIP_ASSERT("p->next == NULL", p->next == NULL);
+  /* add total length of second chain to last pbuf total of first chain */
+  p->tot_len += t->tot_len;
+  18:	8902      	ldrh	r2, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:740
+  /* chain last pbuf of head (p) with first of tail (t) */
+  p->next = t;
+  1a:	6001      	str	r1, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:738
+  }
+  /* { p is last pbuf of first h chain, p->next == NULL } */
+  LWIP_ASSERT("p->tot_len == p->len (of last pbuf in chain)", p->tot_len == p->len);
+  LWIP_ASSERT("p->next == NULL", p->next == NULL);
+  /* add total length of second chain to last pbuf total of first chain */
+  p->tot_len += t->tot_len;
+  1c:	189b      	adds	r3, r3, r2
+  1e:	8103      	strh	r3, [r0, #8]
+  20:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.pbuf_chain:
+
+00000000 <pbuf_chain>:
+pbuf_chain():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:764
+ * The ->ref field of the first pbuf of the tail chain is adjusted.
+ *
+ */
+void
+pbuf_chain(struct pbuf *h, struct pbuf *t)
+{
+   0:	b510      	push	{r4, lr}
+   2:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:765
+  pbuf_cat(h, t);
+   4:	f7ff fffe 	bl	0 <pbuf_chain>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:767
+  /* t is now referenced by h */
+  pbuf_ref(t);
+   8:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:769
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_chain: %p references %p\n", (void *)h, (void *)t));
+}
+   a:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:767
+void
+pbuf_chain(struct pbuf *h, struct pbuf *t)
+{
+  pbuf_cat(h, t);
+  /* t is now referenced by h */
+  pbuf_ref(t);
+   e:	f7ff bffe 	b.w	0 <pbuf_chain>
+
+Disassembly of section .text.pbuf_dechain:
+
+00000000 <pbuf_dechain>:
+pbuf_dechain():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:781
+ * @return remainder of the pbuf chain, or NULL if it was de-allocated.
+ * @note May not be called on a packet queue.
+ */
+struct pbuf *
+pbuf_dechain(struct pbuf *p)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:785
+  struct pbuf *q;
+  u8_t tail_gone = 1;
+  /* tail */
+  q = p->next;
+   2:	6804      	ldr	r4, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:787
+  /* pbuf has successor in chain? */
+  if (q != NULL) {
+   4:	b164      	cbz	r4, 20 <pbuf_dechain+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:791
+    /* assert tot_len invariant: (p->tot_len == p->len + (p->next? p->next->tot_len: 0) */
+    LWIP_ASSERT("p->tot_len == p->len + q->tot_len", q->tot_len == p->tot_len - p->len);
+    /* enforce invariant if assertion is disabled */
+    q->tot_len = p->tot_len - p->len;
+   6:	8902      	ldrh	r2, [r0, #8]
+   8:	8943      	ldrh	r3, [r0, #10]
+   a:	1ad2      	subs	r2, r2, r3
+   c:	8122      	strh	r2, [r4, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:793
+    /* decouple pbuf from remainder */
+    p->next = NULL;
+   e:	2200      	movs	r2, #0
+  10:	6002      	str	r2, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:795
+    /* total length of pbuf p is its own length only */
+    p->tot_len = p->len;
+  12:	8103      	strh	r3, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:798
+    /* q is no longer referenced by p, free it */
+    LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_dechain: unreferencing %p\n", (void *)q));
+    tail_gone = pbuf_free(q);
+  14:	4620      	mov	r0, r4
+  16:	f7ff fffe 	bl	0 <pbuf_dechain>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:807
+    }
+    /* return remaining tail or NULL if deallocated */
+  }
+  /* assert tot_len invariant: (p->tot_len == p->len + (p->next? p->next->tot_len: 0) */
+  LWIP_ASSERT("p->tot_len == p->len", p->tot_len == p->len);
+  return ((tail_gone > 0) ? NULL : q);
+  1a:	2800      	cmp	r0, #0
+  1c:	bf18      	it	ne
+  1e:	2400      	movne	r4, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:808
+}
+  20:	4620      	mov	r0, r4
+  22:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.pbuf_copy:
+
+00000000 <pbuf_copy>:
+pbuf_copy():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:830
+ *         ERR_ARG if one of the pbufs is NULL or p_to is not big
+ *                 enough to hold p_from
+ */
+err_t
+pbuf_copy(struct pbuf *p_to, struct pbuf *p_from)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:837
+
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_copy(%p, %p)\n",
+    (void*)p_to, (void*)p_from));
+
+  /* is the target big enough to hold the source? */
+  LWIP_ERROR("pbuf_copy: target not big enough to hold source", ((p_to != NULL) &&
+   6:	4605      	mov	r5, r0
+   8:	2800      	cmp	r0, #0
+   a:	d039      	beq.n	80 <pbuf_copy+0x80>
+   c:	2900      	cmp	r1, #0
+   e:	d037      	beq.n	80 <pbuf_copy+0x80>
+  10:	8902      	ldrh	r2, [r0, #8]
+  12:	890b      	ldrh	r3, [r1, #8]
+  14:	429a      	cmp	r2, r3
+  16:	d333      	bcc.n	80 <pbuf_copy+0x80>
+  18:	2600      	movs	r6, #0
+  1a:	4637      	mov	r7, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:845
+  /* iterate through pbuf chain */
+  do
+  {
+    LWIP_ASSERT("p_to != NULL", p_to != NULL);
+    /* copy one part of the original chain */
+    if ((p_to->len - offset_to) >= (p_from->len - offset_from)) {
+  1c:	896b      	ldrh	r3, [r5, #10]
+  1e:	f8b4 800a 	ldrh.w	r8, [r4, #10]
+  22:	1bdb      	subs	r3, r3, r7
+  24:	ebc6 0808 	rsb	r8, r6, r8
+  28:	4543      	cmp	r3, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:852
+      len = p_from->len - offset_from;
+    } else {
+      /* current p_from does not fit into current p_to */
+      len = p_to->len - offset_to;
+    }
+    MEMCPY((u8_t*)p_to->payload + offset_to, (u8_t*)p_from->payload + offset_from, len);
+  2a:	6868      	ldr	r0, [r5, #4]
+  2c:	6861      	ldr	r1, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:850
+    if ((p_to->len - offset_to) >= (p_from->len - offset_from)) {
+      /* complete current p_from fits into current p_to */
+      len = p_from->len - offset_from;
+    } else {
+      /* current p_from does not fit into current p_to */
+      len = p_to->len - offset_to;
+  2e:	bfb4      	ite	lt
+  30:	fa1f f883 	uxthlt.w	r8, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:847
+  {
+    LWIP_ASSERT("p_to != NULL", p_to != NULL);
+    /* copy one part of the original chain */
+    if ((p_to->len - offset_to) >= (p_from->len - offset_from)) {
+      /* complete current p_from fits into current p_to */
+      len = p_from->len - offset_from;
+  34:	fa1f f888 	uxthge.w	r8, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:852
+    } else {
+      /* current p_from does not fit into current p_to */
+      len = p_to->len - offset_to;
+    }
+    MEMCPY((u8_t*)p_to->payload + offset_to, (u8_t*)p_from->payload + offset_from, len);
+  38:	19c0      	adds	r0, r0, r7
+  3a:	1989      	adds	r1, r1, r6
+  3c:	4642      	mov	r2, r8
+  3e:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:853
+    offset_to += len;
+  42:	4447      	add	r7, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:856
+    offset_from += len;
+    LWIP_ASSERT("offset_to <= p_to->len", offset_to <= p_to->len);
+    if (offset_to == p_to->len) {
+  44:	896b      	ldrh	r3, [r5, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:853
+    } else {
+      /* current p_from does not fit into current p_to */
+      len = p_to->len - offset_to;
+    }
+    MEMCPY((u8_t*)p_to->payload + offset_to, (u8_t*)p_from->payload + offset_from, len);
+    offset_to += len;
+  46:	b2bf      	uxth	r7, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:856
+    offset_from += len;
+    LWIP_ASSERT("offset_to <= p_to->len", offset_to <= p_to->len);
+    if (offset_to == p_to->len) {
+  48:	42bb      	cmp	r3, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:854
+      /* current p_from does not fit into current p_to */
+      len = p_to->len - offset_to;
+    }
+    MEMCPY((u8_t*)p_to->payload + offset_to, (u8_t*)p_from->payload + offset_from, len);
+    offset_to += len;
+    offset_from += len;
+  4a:	4446      	add	r6, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:862
+      /* on to next p_to (if any) */
+      offset_to = 0;
+      p_to = p_to->next;
+    }
+    LWIP_ASSERT("offset_from <= p_from->len", offset_from <= p_from->len);
+    if (offset_from >= p_from->len) {
+  4c:	8963      	ldrh	r3, [r4, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:854
+      /* current p_from does not fit into current p_to */
+      len = p_to->len - offset_to;
+    }
+    MEMCPY((u8_t*)p_to->payload + offset_to, (u8_t*)p_from->payload + offset_from, len);
+    offset_to += len;
+    offset_from += len;
+  4e:	b2b6      	uxth	r6, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:859
+    LWIP_ASSERT("offset_to <= p_to->len", offset_to <= p_to->len);
+    if (offset_to == p_to->len) {
+      /* on to next p_to (if any) */
+      offset_to = 0;
+      p_to = p_to->next;
+  50:	bf04      	itt	eq
+  52:	682d      	ldreq	r5, [r5, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:858
+    offset_to += len;
+    offset_from += len;
+    LWIP_ASSERT("offset_to <= p_to->len", offset_to <= p_to->len);
+    if (offset_to == p_to->len) {
+      /* on to next p_to (if any) */
+      offset_to = 0;
+  54:	2700      	moveq	r7, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:862
+      p_to = p_to->next;
+    }
+    LWIP_ASSERT("offset_from <= p_from->len", offset_from <= p_from->len);
+    if (offset_from >= p_from->len) {
+  56:	42b3      	cmp	r3, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:865
+      /* on to next p_from (if any) */
+      offset_from = 0;
+      p_from = p_from->next;
+  58:	bf9c      	itt	ls
+  5a:	6824      	ldrls	r4, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:864
+      p_to = p_to->next;
+    }
+    LWIP_ASSERT("offset_from <= p_from->len", offset_from <= p_from->len);
+    if (offset_from >= p_from->len) {
+      /* on to next p_from (if any) */
+      offset_from = 0;
+  5c:	2600      	movls	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:868
+      p_from = p_from->next;
+    }
+
+    if((p_from != NULL) && (p_from->len == p_from->tot_len)) {
+  5e:	b12c      	cbz	r4, 6c <pbuf_copy+0x6c>
+  60:	8962      	ldrh	r2, [r4, #10]
+  62:	8923      	ldrh	r3, [r4, #8]
+  64:	429a      	cmp	r2, r3
+  66:	d101      	bne.n	6c <pbuf_copy+0x6c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:870
+      /* don't copy more than one packet! */
+      LWIP_ERROR("pbuf_copy() does not allow packet queues!\n",
+  68:	6823      	ldr	r3, [r4, #0]
+  6a:	b95b      	cbnz	r3, 84 <pbuf_copy+0x84>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:873
+                 (p_from->next == NULL), return ERR_VAL;);
+    }
+    if((p_to != NULL) && (p_to->len == p_to->tot_len)) {
+  6c:	b12d      	cbz	r5, 7a <pbuf_copy+0x7a>
+  6e:	896a      	ldrh	r2, [r5, #10]
+  70:	892b      	ldrh	r3, [r5, #8]
+  72:	429a      	cmp	r2, r3
+  74:	d101      	bne.n	7a <pbuf_copy+0x7a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:875
+      /* don't copy more than one packet! */
+      LWIP_ERROR("pbuf_copy() does not allow packet queues!\n",
+  76:	682b      	ldr	r3, [r5, #0]
+  78:	b923      	cbnz	r3, 84 <pbuf_copy+0x84>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:878
+                  (p_to->next == NULL), return ERR_VAL;);
+    }
+  } while (p_from);
+  7a:	2c00      	cmp	r4, #0
+  7c:	d1ce      	bne.n	1c <pbuf_copy+0x1c>
+  7e:	e002      	b.n	86 <pbuf_copy+0x86>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:837
+
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_copy(%p, %p)\n",
+    (void*)p_to, (void*)p_from));
+
+  /* is the target big enough to hold the source? */
+  LWIP_ERROR("pbuf_copy: target not big enough to hold source", ((p_to != NULL) &&
+  80:	24f2      	movs	r4, #242	; 0xf2
+  82:	e000      	b.n	86 <pbuf_copy+0x86>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:875
+      LWIP_ERROR("pbuf_copy() does not allow packet queues!\n",
+                 (p_from->next == NULL), return ERR_VAL;);
+    }
+    if((p_to != NULL) && (p_to->len == p_to->tot_len)) {
+      /* don't copy more than one packet! */
+      LWIP_ERROR("pbuf_copy() does not allow packet queues!\n",
+  84:	24fa      	movs	r4, #250	; 0xfa
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:881
+                  (p_to->next == NULL), return ERR_VAL;);
+    }
+  } while (p_from);
+  LWIP_DEBUGF(PBUF_DEBUG | LWIP_DBG_TRACE, ("pbuf_copy: end of chain reached.\n"));
+  return ERR_OK;
+}
+  86:	b260      	sxtb	r0, r4
+  88:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.pbuf_copy_partial:
+
+00000000 <pbuf_copy_partial>:
+pbuf_copy_partial():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:896
+ * @param offset offset into the packet buffer from where to begin copying len bytes
+ * @return the number of bytes copied, or 0 on failure
+ */
+u16_t
+pbuf_copy_partial(struct pbuf *buf, void *dataptr, u16_t len, u16_t offset)
+{
+   0:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+   4:	460d      	mov	r5, r1
+   6:	4614      	mov	r4, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:902
+  struct pbuf *p;
+  u16_t left;
+  u16_t buf_copy_len;
+  u16_t copied_total = 0;
+
+  LWIP_ERROR("pbuf_copy_partial: invalid buf", (buf != NULL), return 0;);
+   8:	2800      	cmp	r0, #0
+   a:	d02a      	beq.n	62 <pbuf_copy_partial+0x62>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:903
+  LWIP_ERROR("pbuf_copy_partial: invalid dataptr", (dataptr != NULL), return 0;);
+   c:	2900      	cmp	r1, #0
+   e:	d02a      	beq.n	66 <pbuf_copy_partial+0x66>
+  10:	2600      	movs	r6, #0
+  12:	4607      	mov	r7, r0
+  14:	46b1      	mov	r9, r6
+  16:	e020      	b.n	5a <pbuf_copy_partial+0x5a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:913
+    return 0;
+  }
+
+  /* Note some systems use byte copy if dataptr or one of the pbuf payload pointers are unaligned. */
+  for(p = buf; len != 0 && p != NULL; p = p->next) {
+    if ((offset != 0) && (offset >= p->len)) {
+  18:	b12b      	cbz	r3, 26 <pbuf_copy_partial+0x26>
+  1a:	897a      	ldrh	r2, [r7, #10]
+  1c:	4293      	cmp	r3, r2
+  1e:	d302      	bcc.n	26 <pbuf_copy_partial+0x26>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:915
+      /* don't copy from this buffer -> on to the next */
+      offset -= p->len;
+  20:	1a9b      	subs	r3, r3, r2
+  22:	b29b      	uxth	r3, r3
+  24:	e018      	b.n	58 <pbuf_copy_partial+0x58>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:918
+    } else {
+      /* copy from this buffer. maybe only partially. */
+      buf_copy_len = p->len - offset;
+  26:	f8b7 800a 	ldrh.w	r8, [r7, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:922
+      if (buf_copy_len > len)
+          buf_copy_len = len;
+      /* copy the necessary parts of the buffer */
+      MEMCPY(&((char*)dataptr)[left], &((char*)p->payload)[offset], buf_copy_len);
+  2a:	6879      	ldr	r1, [r7, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:918
+    if ((offset != 0) && (offset >= p->len)) {
+      /* don't copy from this buffer -> on to the next */
+      offset -= p->len;
+    } else {
+      /* copy from this buffer. maybe only partially. */
+      buf_copy_len = p->len - offset;
+  2c:	ebc3 0808 	rsb	r8, r3, r8
+  30:	fa1f f888 	uxth.w	r8, r8
+  34:	45a0      	cmp	r8, r4
+  36:	bf28      	it	cs
+  38:	46a0      	movcs	r8, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:922
+      if (buf_copy_len > len)
+          buf_copy_len = len;
+      /* copy the necessary parts of the buffer */
+      MEMCPY(&((char*)dataptr)[left], &((char*)p->payload)[offset], buf_copy_len);
+  3a:	eb05 0009 	add.w	r0, r5, r9
+  3e:	18c9      	adds	r1, r1, r3
+  40:	4642      	mov	r2, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:923
+      copied_total += buf_copy_len;
+  42:	4446      	add	r6, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:924
+      left += buf_copy_len;
+  44:	44c1      	add	r9, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:925
+      len -= buf_copy_len;
+  46:	ebc8 0404 	rsb	r4, r8, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:922
+      /* copy from this buffer. maybe only partially. */
+      buf_copy_len = p->len - offset;
+      if (buf_copy_len > len)
+          buf_copy_len = len;
+      /* copy the necessary parts of the buffer */
+      MEMCPY(&((char*)dataptr)[left], &((char*)p->payload)[offset], buf_copy_len);
+  4a:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:923
+      copied_total += buf_copy_len;
+  4e:	b2b6      	uxth	r6, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:924
+      left += buf_copy_len;
+  50:	fa1f f989 	uxth.w	r9, r9
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:925
+      len -= buf_copy_len;
+  54:	b2a4      	uxth	r4, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:926
+      offset = 0;
+  56:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:912
+  if((buf == NULL) || (dataptr == NULL)) {
+    return 0;
+  }
+
+  /* Note some systems use byte copy if dataptr or one of the pbuf payload pointers are unaligned. */
+  for(p = buf; len != 0 && p != NULL; p = p->next) {
+  58:	683f      	ldr	r7, [r7, #0]
+  5a:	b12c      	cbz	r4, 68 <pbuf_copy_partial+0x68>
+  5c:	2f00      	cmp	r7, #0
+  5e:	d1db      	bne.n	18 <pbuf_copy_partial+0x18>
+  60:	e002      	b.n	68 <pbuf_copy_partial+0x68>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:902
+  struct pbuf *p;
+  u16_t left;
+  u16_t buf_copy_len;
+  u16_t copied_total = 0;
+
+  LWIP_ERROR("pbuf_copy_partial: invalid buf", (buf != NULL), return 0;);
+  62:	4606      	mov	r6, r0
+  64:	e000      	b.n	68 <pbuf_copy_partial+0x68>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:903
+  LWIP_ERROR("pbuf_copy_partial: invalid dataptr", (dataptr != NULL), return 0;);
+  66:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:930
+      len -= buf_copy_len;
+      offset = 0;
+    }
+  }
+  return copied_total;
+}
+  68:	4630      	mov	r0, r6
+  6a:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+
+Disassembly of section .text.pbuf_take:
+
+00000000 <pbuf_take>:
+pbuf_take():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:944
+ *
+ * @return ERR_OK if successful, ERR_MEM if the pbuf is not big enough
+ */
+err_t
+pbuf_take(struct pbuf *buf, const void *dataptr, u16_t len)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:950
+  struct pbuf *p;
+  u16_t buf_copy_len;
+  u16_t total_copy_len = len;
+  u16_t copied_total = 0;
+
+  LWIP_ERROR("pbuf_take: invalid buf", (buf != NULL), return 0;);
+   6:	b1d0      	cbz	r0, 3e <pbuf_take+0x3e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:951
+  LWIP_ERROR("pbuf_take: invalid dataptr", (dataptr != NULL), return 0;);
+   8:	b1d9      	cbz	r1, 42 <pbuf_take+0x42>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:953
+
+  if ((buf == NULL) || (dataptr == NULL) || (buf->tot_len < len)) {
+   a:	8903      	ldrh	r3, [r0, #8]
+   c:	4293      	cmp	r3, r2
+   e:	d31a      	bcc.n	46 <pbuf_take+0x46>
+  10:	4614      	mov	r4, r2
+  12:	4605      	mov	r5, r0
+  14:	2700      	movs	r7, #0
+  16:	e00f      	b.n	38 <pbuf_take+0x38>
+  18:	f8b5 800a 	ldrh.w	r8, [r5, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:966
+    if (buf_copy_len > p->len) {
+      /* this pbuf cannot hold all remaining data */
+      buf_copy_len = p->len;
+    }
+    /* copy the necessary parts of the buffer */
+    MEMCPY(p->payload, &((char*)dataptr)[copied_total], buf_copy_len);
+  1c:	6868      	ldr	r0, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:953
+  u16_t copied_total = 0;
+
+  LWIP_ERROR("pbuf_take: invalid buf", (buf != NULL), return 0;);
+  LWIP_ERROR("pbuf_take: invalid dataptr", (dataptr != NULL), return 0;);
+
+  if ((buf == NULL) || (dataptr == NULL) || (buf->tot_len < len)) {
+  1e:	4544      	cmp	r4, r8
+  20:	bf38      	it	cc
+  22:	46a0      	movcc	r8, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:966
+    if (buf_copy_len > p->len) {
+      /* this pbuf cannot hold all remaining data */
+      buf_copy_len = p->len;
+    }
+    /* copy the necessary parts of the buffer */
+    MEMCPY(p->payload, &((char*)dataptr)[copied_total], buf_copy_len);
+  24:	19f1      	adds	r1, r6, r7
+  26:	4642      	mov	r2, r8
+  28:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:967
+    total_copy_len -= buf_copy_len;
+  2c:	ebc8 0404 	rsb	r4, r8, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:968
+    copied_total += buf_copy_len;
+  30:	4447      	add	r7, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:958
+  if ((buf == NULL) || (dataptr == NULL) || (buf->tot_len < len)) {
+    return ERR_ARG;
+  }
+
+  /* Note some systems use byte copy if dataptr or one of the pbuf payload pointers are unaligned. */
+  for(p = buf; total_copy_len != 0; p = p->next) {
+  32:	682d      	ldr	r5, [r5, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:967
+      /* this pbuf cannot hold all remaining data */
+      buf_copy_len = p->len;
+    }
+    /* copy the necessary parts of the buffer */
+    MEMCPY(p->payload, &((char*)dataptr)[copied_total], buf_copy_len);
+    total_copy_len -= buf_copy_len;
+  34:	b2a4      	uxth	r4, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:968
+    copied_total += buf_copy_len;
+  36:	b2bf      	uxth	r7, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:958
+  if ((buf == NULL) || (dataptr == NULL) || (buf->tot_len < len)) {
+    return ERR_ARG;
+  }
+
+  /* Note some systems use byte copy if dataptr or one of the pbuf payload pointers are unaligned. */
+  for(p = buf; total_copy_len != 0; p = p->next) {
+  38:	2c00      	cmp	r4, #0
+  3a:	d1ed      	bne.n	18 <pbuf_take+0x18>
+  3c:	e004      	b.n	48 <pbuf_take+0x48>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:950
+  struct pbuf *p;
+  u16_t buf_copy_len;
+  u16_t total_copy_len = len;
+  u16_t copied_total = 0;
+
+  LWIP_ERROR("pbuf_take: invalid buf", (buf != NULL), return 0;);
+  3e:	4604      	mov	r4, r0
+  40:	e002      	b.n	48 <pbuf_take+0x48>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:951
+  LWIP_ERROR("pbuf_take: invalid dataptr", (dataptr != NULL), return 0;);
+  42:	460c      	mov	r4, r1
+  44:	e000      	b.n	48 <pbuf_take+0x48>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:954
+
+  if ((buf == NULL) || (dataptr == NULL) || (buf->tot_len < len)) {
+    return ERR_ARG;
+  46:	24f2      	movs	r4, #242	; 0xf2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:972
+    total_copy_len -= buf_copy_len;
+    copied_total += buf_copy_len;
+  }
+  LWIP_ASSERT("did not copy all data", total_copy_len == 0 && copied_total == len);
+  return ERR_OK;
+}
+  48:	b260      	sxtb	r0, r4
+  4a:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.pbuf_coalesce:
+
+00000000 <pbuf_coalesce>:
+pbuf_coalesce():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:988
+ * @return a new, single pbuf (p->next is NULL)
+ *         or the old pbuf if allocation fails
+ */
+struct pbuf*
+pbuf_coalesce(struct pbuf *p, pbuf_layer layer)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:991
+  struct pbuf *q;
+  err_t err;
+  if (p->next == NULL) {
+   2:	6803      	ldr	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:988
+ * @return a new, single pbuf (p->next is NULL)
+ *         or the old pbuf if allocation fails
+ */
+struct pbuf*
+pbuf_coalesce(struct pbuf *p, pbuf_layer layer)
+{
+   4:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:991
+  struct pbuf *q;
+  err_t err;
+  if (p->next == NULL) {
+   6:	b16b      	cbz	r3, 24 <pbuf_coalesce+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:994
+    return p;
+  }
+  q = pbuf_alloc(layer, p->tot_len, PBUF_RAM);
+   8:	4608      	mov	r0, r1
+   a:	2200      	movs	r2, #0
+   c:	8921      	ldrh	r1, [r4, #8]
+   e:	f7ff fffe 	bl	0 <pbuf_coalesce>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:995
+  if (q == NULL) {
+  12:	4605      	mov	r5, r0
+  14:	b130      	cbz	r0, 24 <pbuf_coalesce+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:999
+    /* @todo: what do we do now? */
+    return p;
+  }
+  err = pbuf_copy(q, p);
+  16:	4621      	mov	r1, r4
+  18:	f7ff fffe 	bl	0 <pbuf_coalesce>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1001
+  LWIP_ASSERT("pbuf_copy failed", err == ERR_OK);
+  pbuf_free(p);
+  1c:	4620      	mov	r0, r4
+  1e:	f7ff fffe 	bl	0 <pbuf_coalesce>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1002
+  return q;
+  22:	462c      	mov	r4, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1003
+}
+  24:	4620      	mov	r0, r4
+  26:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.pbuf_get_at:
+
+00000000 <pbuf_get_at>:
+pbuf_get_at():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1060
+{
+  u16_t copy_from = offset;
+  struct pbuf* q = p;
+
+  /* get the correct pbuf */
+  while ((q != NULL) && (q->len <= copy_from)) {
+   0:	e002      	b.n	8 <pbuf_get_at+0x8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1061
+    copy_from -= q->len;
+   2:	1ac9      	subs	r1, r1, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1062
+    q = q->next;
+   4:	6800      	ldr	r0, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1061
+  u16_t copy_from = offset;
+  struct pbuf* q = p;
+
+  /* get the correct pbuf */
+  while ((q != NULL) && (q->len <= copy_from)) {
+    copy_from -= q->len;
+   6:	b289      	uxth	r1, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1060
+{
+  u16_t copy_from = offset;
+  struct pbuf* q = p;
+
+  /* get the correct pbuf */
+  while ((q != NULL) && (q->len <= copy_from)) {
+   8:	b120      	cbz	r0, 14 <pbuf_get_at+0x14>
+   a:	8943      	ldrh	r3, [r0, #10]
+   c:	428b      	cmp	r3, r1
+   e:	d9f8      	bls.n	2 <pbuf_get_at+0x2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1066
+    copy_from -= q->len;
+    q = q->next;
+  }
+  /* return requested data if pbuf is OK */
+  if ((q != NULL) && (q->len > copy_from)) {
+    return ((u8_t*)q->payload)[copy_from];
+  10:	6843      	ldr	r3, [r0, #4]
+  12:	5c58      	ldrb	r0, [r3, r1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1069
+  }
+  return 0;
+}
+  14:	4770      	bx	lr
+
+Disassembly of section .text.pbuf_memcmp:
+
+00000000 <pbuf_memcmp>:
+pbuf_memcmp():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1082
+ * @return zero if equal, nonzero otherwise
+ *         (0xffff if p is too short, diffoffset+1 otherwise)
+ */
+u16_t
+pbuf_memcmp(struct pbuf* p, u16_t offset, const void* s2, u16_t n)
+{
+   0:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+   4:	4614      	mov	r4, r2
+   6:	4699      	mov	r9, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1084
+  u16_t start = offset;
+  struct pbuf* q = p;
+   8:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1083
+ *         (0xffff if p is too short, diffoffset+1 otherwise)
+ */
+u16_t
+pbuf_memcmp(struct pbuf* p, u16_t offset, const void* s2, u16_t n)
+{
+  u16_t start = offset;
+   a:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1087
+  struct pbuf* q = p;
+
+  /* get the correct pbuf */
+  while ((q != NULL) && (q->len <= start)) {
+   c:	e002      	b.n	14 <pbuf_memcmp+0x14>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1088
+    start -= q->len;
+   e:	1aed      	subs	r5, r5, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1089
+    q = q->next;
+  10:	6836      	ldr	r6, [r6, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1088
+  u16_t start = offset;
+  struct pbuf* q = p;
+
+  /* get the correct pbuf */
+  while ((q != NULL) && (q->len <= start)) {
+    start -= q->len;
+  12:	b2ad      	uxth	r5, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1087
+{
+  u16_t start = offset;
+  struct pbuf* q = p;
+
+  /* get the correct pbuf */
+  while ((q != NULL) && (q->len <= start)) {
+  14:	b1de      	cbz	r6, 4e <pbuf_memcmp+0x4e>
+  16:	8973      	ldrh	r3, [r6, #10]
+  18:	42ab      	cmp	r3, r5
+  1a:	d9f8      	bls.n	e <pbuf_memcmp+0xe>
+  1c:	e00f      	b.n	3e <pbuf_memcmp+0x3e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1095
+  }
+  /* return requested data if pbuf is OK */
+  if ((q != NULL) && (q->len > start)) {
+    u16_t i;
+    for(i = 0; i < n; i++) {
+      u8_t a = pbuf_get_at(q, start + i);
+  1e:	4629      	mov	r1, r5
+  20:	4630      	mov	r0, r6
+  22:	f7ff fffe 	bl	0 <pbuf_memcmp>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1096
+      u8_t b = ((u8_t*)s2)[i];
+  26:	5de3      	ldrb	r3, [r4, r7]
+  28:	3501      	adds	r5, #1
+  2a:	3701      	adds	r7, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1097
+      if (a != b) {
+  2c:	4298      	cmp	r0, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1096
+  /* return requested data if pbuf is OK */
+  if ((q != NULL) && (q->len > start)) {
+    u16_t i;
+    for(i = 0; i < n; i++) {
+      u8_t a = pbuf_get_at(q, start + i);
+      u8_t b = ((u8_t*)s2)[i];
+  2e:	b2ad      	uxth	r5, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1097
+      if (a != b) {
+  30:	d006      	beq.n	40 <pbuf_memcmp+0x40>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1098
+        return i+1;
+  32:	f108 0801 	add.w	r8, r8, #1
+  36:	fa1f f088 	uxth.w	r0, r8
+  3a:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1092
+  while ((q != NULL) && (q->len <= start)) {
+    start -= q->len;
+    q = q->next;
+  }
+  /* return requested data if pbuf is OK */
+  if ((q != NULL) && (q->len > start)) {
+  3e:	2700      	movs	r7, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1098
+    u16_t i;
+    for(i = 0; i < n; i++) {
+      u8_t a = pbuf_get_at(q, start + i);
+      u8_t b = ((u8_t*)s2)[i];
+      if (a != b) {
+        return i+1;
+  40:	fa1f f887 	uxth.w	r8, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1094
+    q = q->next;
+  }
+  /* return requested data if pbuf is OK */
+  if ((q != NULL) && (q->len > start)) {
+    u16_t i;
+    for(i = 0; i < n; i++) {
+  44:	45c8      	cmp	r8, r9
+  46:	d3ea      	bcc.n	1e <pbuf_memcmp+0x1e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1101
+      u8_t b = ((u8_t*)s2)[i];
+      if (a != b) {
+        return i+1;
+      }
+    }
+    return 0;
+  48:	2000      	movs	r0, #0
+  4a:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1103
+  }
+  return 0xffff;
+  4e:	f64f 70ff 	movw	r0, #65535	; 0xffff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1104
+}
+  52:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+
+Disassembly of section .text.pbuf_memfind:
+
+00000000 <pbuf_memfind>:
+pbuf_memfind():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1118
+ * @param start_offset offset into p at which to start searching
+ * @return 0xFFFF if substr was not found in p or the index where it was found
+ */
+u16_t
+pbuf_memfind(struct pbuf* p, const void* mem, u16_t mem_len, u16_t start_offset)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1120
+  u16_t i;
+  u16_t max = p->tot_len - mem_len;
+   6:	8902      	ldrh	r2, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1118
+ * @param start_offset offset into p at which to start searching
+ * @return 0xFFFF if substr was not found in p or the index where it was found
+ */
+u16_t
+pbuf_memfind(struct pbuf* p, const void* mem, u16_t mem_len, u16_t start_offset)
+{
+   8:	460f      	mov	r7, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1121
+  u16_t i;
+  u16_t max = p->tot_len - mem_len;
+  if (p->tot_len >= mem_len + start_offset) {
+   a:	1959      	adds	r1, r3, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1120
+ */
+u16_t
+pbuf_memfind(struct pbuf* p, const void* mem, u16_t mem_len, u16_t start_offset)
+{
+  u16_t i;
+  u16_t max = p->tot_len - mem_len;
+   c:	ebc5 0802 	rsb	r8, r5, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1121
+  if (p->tot_len >= mem_len + start_offset) {
+  10:	428a      	cmp	r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1118
+ * @param start_offset offset into p at which to start searching
+ * @return 0xFFFF if substr was not found in p or the index where it was found
+ */
+u16_t
+pbuf_memfind(struct pbuf* p, const void* mem, u16_t mem_len, u16_t start_offset)
+{
+  12:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1120
+  u16_t i;
+  u16_t max = p->tot_len - mem_len;
+  14:	fa1f f888 	uxth.w	r8, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1121
+  if (p->tot_len >= mem_len + start_offset) {
+  18:	db0c      	blt.n	34 <pbuf_memfind+0x34>
+  1a:	461c      	mov	r4, r3
+  1c:	e008      	b.n	30 <pbuf_memfind+0x30>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1123
+    for(i = start_offset; i <= max; ) {
+      u16_t plus = pbuf_memcmp(p, i, mem, mem_len);
+  1e:	4630      	mov	r0, r6
+  20:	4621      	mov	r1, r4
+  22:	463a      	mov	r2, r7
+  24:	462b      	mov	r3, r5
+  26:	f7ff fffe 	bl	0 <pbuf_memfind>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1124
+      if (plus == 0) {
+  2a:	b128      	cbz	r0, 38 <pbuf_memfind+0x38>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1127
+        return i;
+      } else {
+        i += plus;
+  2c:	1904      	adds	r4, r0, r4
+  2e:	b2a4      	uxth	r4, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1122
+pbuf_memfind(struct pbuf* p, const void* mem, u16_t mem_len, u16_t start_offset)
+{
+  u16_t i;
+  u16_t max = p->tot_len - mem_len;
+  if (p->tot_len >= mem_len + start_offset) {
+    for(i = start_offset; i <= max; ) {
+  30:	4544      	cmp	r4, r8
+  32:	d9f4      	bls.n	1e <pbuf_memfind+0x1e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1131
+      } else {
+        i += plus;
+      }
+    }
+  }
+  return 0xFFFF;
+  34:	f64f 74ff 	movw	r4, #65535	; 0xffff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1132
+}
+  38:	4620      	mov	r0, r4
+  3a:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.pbuf_strstr:
+
+00000000 <pbuf_strstr>:
+pbuf_strstr():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1146
+ * @param substr string to search for in p, maximum length is 0xFFFE
+ * @return 0xFFFF if substr was not found in p or the index where it was found
+ */
+u16_t
+pbuf_strstr(struct pbuf* p, const char* substr)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1148
+  size_t substr_len;
+  if ((substr == NULL) || (substr[0] == 0) || (p->tot_len == 0xFFFF)) {
+   4:	460d      	mov	r5, r1
+   6:	b1b9      	cbz	r1, 38 <pbuf_strstr+0x38>
+   8:	f991 3000 	ldrsb.w	r3, [r1]
+   c:	b1a3      	cbz	r3, 38 <pbuf_strstr+0x38>
+   e:	8900      	ldrh	r0, [r0, #8]
+  10:	f64f 76ff 	movw	r6, #65535	; 0xffff
+  14:	42b0      	cmp	r0, r6
+  16:	d013      	beq.n	40 <pbuf_strstr+0x40>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1151
+    return 0xFFFF;
+  }
+  substr_len = strlen(substr);
+  18:	4608      	mov	r0, r1
+  1a:	f7ff fffe 	bl	0 <strlen>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1152
+  if (substr_len >= 0xFFFF) {
+  1e:	f64f 73fe 	movw	r3, #65534	; 0xfffe
+  22:	4298      	cmp	r0, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1151
+{
+  size_t substr_len;
+  if ((substr == NULL) || (substr[0] == 0) || (p->tot_len == 0xFFFF)) {
+    return 0xFFFF;
+  }
+  substr_len = strlen(substr);
+  24:	4602      	mov	r2, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1152
+  if (substr_len >= 0xFFFF) {
+  26:	d80a      	bhi.n	3e <pbuf_strstr+0x3e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1155
+    return 0xFFFF;
+  }
+  return pbuf_memfind(p, substr, (u16_t)substr_len, 0);
+  28:	4620      	mov	r0, r4
+  2a:	4629      	mov	r1, r5
+  2c:	b292      	uxth	r2, r2
+  2e:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1156
+}
+  30:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1155
+  }
+  substr_len = strlen(substr);
+  if (substr_len >= 0xFFFF) {
+    return 0xFFFF;
+  }
+  return pbuf_memfind(p, substr, (u16_t)substr_len, 0);
+  34:	f7ff bffe 	b.w	0 <pbuf_strstr>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1149
+u16_t
+pbuf_strstr(struct pbuf* p, const char* substr)
+{
+  size_t substr_len;
+  if ((substr == NULL) || (substr[0] == 0) || (p->tot_len == 0xFFFF)) {
+    return 0xFFFF;
+  38:	f64f 70ff 	movw	r0, #65535	; 0xffff
+  3c:	bd70      	pop	{r4, r5, r6, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1153
+  }
+  substr_len = strlen(substr);
+  if (substr_len >= 0xFFFF) {
+    return 0xFFFF;
+  3e:	4630      	mov	r0, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/pbuf.c:1156
+  }
+  return pbuf_memfind(p, substr, (u16_t)substr_len, 0);
+}
+  40:	bd70      	pop	{r4, r5, r6, pc}

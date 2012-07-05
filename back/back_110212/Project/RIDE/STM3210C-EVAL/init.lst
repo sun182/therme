@@ -1,0 +1,48 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\init.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\init.o
+
+
+Disassembly of section .text.lwip_init:
+
+00000000 <lwip_init>:
+lwip_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/init.c:261
+/**
+ * Perform Sanity check of user-configurable values, and initialize all modules.
+ */
+void
+lwip_init(void)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/init.c:270
+  /* Modules initialization */
+  stats_init();
+#if !NO_SYS
+  sys_init();
+#endif /* !NO_SYS */
+  mem_init();
+   2:	f7ff fffe 	bl	0 <mem_init>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/init.c:271
+  memp_init();
+   6:	f7ff fffe 	bl	0 <memp_init>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/init.c:273
+  pbuf_init();
+  netif_init();
+   a:	f7ff fffe 	bl	0 <netif_init>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/init.c:306
+#endif /* LWIP_DNS */
+
+#if LWIP_TIMERS
+  sys_timeouts_init();
+#endif /* LWIP_TIMERS */
+}
+   e:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/init.c:304
+#if LWIP_DNS
+  dns_init();
+#endif /* LWIP_DNS */
+
+#if LWIP_TIMERS
+  sys_timeouts_init();
+  12:	f7ff bffe 	b.w	0 <sys_timeouts_init>

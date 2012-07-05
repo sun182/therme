@@ -1,0 +1,46 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\time.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\time.o
+
+
+Disassembly of section .text.fs_makeDate:
+
+00000000 <fs_makeDate>:
+fs_makeDate():
+D:\sunny\stm32\therme\Utilities\efsl\source/time.c:24
+		(y>127?127<<9:(y&0x3F)<<9)   |
+		((m==0||m>12)?1:(m&0xF)<<5)  |
+		((d==0||d>31)?1:(d&0x1F))
+	);
+#endif
+}
+   0:	2000      	movs	r0, #0
+   2:	4770      	bx	lr
+
+Disassembly of section .text.fs_makeTime:
+
+00000000 <fs_makeTime>:
+fs_makeTime():
+D:\sunny\stm32\therme\Utilities\efsl\source/time.c:44
+		(h>23?0:(h&0x1F)<<11) |
+		(m>59?0:(m&0x3F)<<5)  |
+		(s>59?0:(s-s%2)/2)
+	);
+#endif
+}
+   0:	2000      	movs	r0, #0
+   2:	4770      	bx	lr
+
+Disassembly of section .text.fs_hasTimeSupport:
+
+00000000 <fs_hasTimeSupport>:
+fs_hasTimeSupport():
+D:\sunny\stm32\therme\Utilities\efsl\source/time.c:54
+#ifdef DATE_TIME_SUPPORT
+	return(1);
+#else
+	return(0);
+#endif
+}
+   0:	2000      	movs	r0, #0
+   2:	4770      	bx	lr

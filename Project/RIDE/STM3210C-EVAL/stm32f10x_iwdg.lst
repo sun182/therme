@@ -1,0 +1,132 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\stm32f10x_iwdg.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\stm32f10x_iwdg.o
+
+
+Disassembly of section .text.IWDG_WriteAccessCmd:
+
+00000000 <IWDG_WriteAccessCmd>:
+IWDG_WriteAccessCmd():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:95
+  */
+void IWDG_WriteAccessCmd(uint16_t IWDG_WriteAccess)
+{
+  /* Check the parameters */
+  assert_param(IS_IWDG_WRITE_ACCESS(IWDG_WriteAccess));
+  IWDG->KR = IWDG_WriteAccess;
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <IWDG_WriteAccessCmd+0x8>)
+   2:	6018      	str	r0, [r3, #0]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:96
+}
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	40003000 	.word	0x40003000
+
+Disassembly of section .text.IWDG_SetPrescaler:
+
+00000000 <IWDG_SetPrescaler>:
+IWDG_SetPrescaler():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:115
+  */
+void IWDG_SetPrescaler(uint8_t IWDG_Prescaler)
+{
+  /* Check the parameters */
+  assert_param(IS_IWDG_PRESCALER(IWDG_Prescaler));
+  IWDG->PR = IWDG_Prescaler;
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <IWDG_SetPrescaler+0x8>)
+   2:	6058      	str	r0, [r3, #4]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:116
+}
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	40003000 	.word	0x40003000
+
+Disassembly of section .text.IWDG_SetReload:
+
+00000000 <IWDG_SetReload>:
+IWDG_SetReload():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:128
+  */
+void IWDG_SetReload(uint16_t Reload)
+{
+  /* Check the parameters */
+  assert_param(IS_IWDG_RELOAD(Reload));
+  IWDG->RLR = Reload;
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <IWDG_SetReload+0x8>)
+   2:	6098      	str	r0, [r3, #8]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:129
+}
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	40003000 	.word	0x40003000
+
+Disassembly of section .text.IWDG_ReloadCounter:
+
+00000000 <IWDG_ReloadCounter>:
+IWDG_ReloadCounter():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:139
+  * @param  None
+  * @retval None
+  */
+void IWDG_ReloadCounter(void)
+{
+  IWDG->KR = KR_KEY_Reload;
+   0:	4b02      	ldr	r3, [pc, #8]	; (c <IWDG_ReloadCounter+0xc>)
+   2:	f64a 22aa 	movw	r2, #43690	; 0xaaaa
+   6:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:140
+}
+   8:	4770      	bx	lr
+   a:	bf00      	nop
+   c:	40003000 	.word	0x40003000
+
+Disassembly of section .text.IWDG_Enable:
+
+00000000 <IWDG_Enable>:
+IWDG_Enable():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:149
+  * @param  None
+  * @retval None
+  */
+void IWDG_Enable(void)
+{
+  IWDG->KR = KR_KEY_Enable;
+   0:	4b02      	ldr	r3, [pc, #8]	; (c <IWDG_Enable+0xc>)
+   2:	f64c 42cc 	movw	r2, #52428	; 0xcccc
+   6:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:150
+}
+   8:	4770      	bx	lr
+   a:	bf00      	nop
+   c:	40003000 	.word	0x40003000
+
+Disassembly of section .text.IWDG_GetFlagStatus:
+
+00000000 <IWDG_GetFlagStatus>:
+IWDG_GetFlagStatus():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:165
+FlagStatus IWDG_GetFlagStatus(uint16_t IWDG_FLAG)
+{
+  FlagStatus bitstatus = RESET;
+  /* Check the parameters */
+  assert_param(IS_IWDG_FLAG(IWDG_FLAG));
+  if ((IWDG->SR & IWDG_FLAG) != (uint32_t)RESET)
+   0:	4b03      	ldr	r3, [pc, #12]	; (10 <IWDG_GetFlagStatus+0x10>)
+   2:	68db      	ldr	r3, [r3, #12]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:167
+  {
+    bitstatus = SET;
+   4:	4218      	tst	r0, r3
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_iwdg.c:175
+  {
+    bitstatus = RESET;
+  }
+  /* Return the flag status */
+  return bitstatus;
+}
+   6:	bf0c      	ite	eq
+   8:	2000      	moveq	r0, #0
+   a:	2001      	movne	r0, #1
+   c:	4770      	bx	lr
+   e:	bf00      	nop
+  10:	40003000 	.word	0x40003000

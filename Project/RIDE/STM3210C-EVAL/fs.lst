@@ -1,0 +1,1897 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\fs.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\fs.o
+
+
+Disassembly of section .text.fs_isValidFat:
+
+00000000 <fs_isValidFat>:
+fs_isValidFat():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:70
+ * Description: This functions loads the volumeID and checks if the magic
+ * value is present.
+ * Return value: returns 0 when magic code is missing, 1 if it is there.
+*/
+eint16 fs_isValidFat(Partition *part)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:73
+	euint8 *buf;
+	
+	buf=part_getSect(part,0,IOM_MODE_READONLY|IOM_MODE_EXP_REQ); /* Load Volume label */
+   2:	2100      	movs	r1, #0
+   4:	2205      	movs	r2, #5
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:70
+ * Description: This functions loads the volumeID and checks if the magic
+ * value is present.
+ * Return value: returns 0 when magic code is missing, 1 if it is there.
+*/
+eint16 fs_isValidFat(Partition *part)
+{
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:73
+	euint8 *buf;
+	
+	buf=part_getSect(part,0,IOM_MODE_READONLY|IOM_MODE_EXP_REQ); /* Load Volume label */
+   8:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:74
+	if( ex_getb16(buf,0x1FE) != 0xAA55 ){
+   c:	f44f 71ff 	mov.w	r1, #510	; 0x1fe
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:73
+*/
+eint16 fs_isValidFat(Partition *part)
+{
+	euint8 *buf;
+	
+	buf=part_getSect(part,0,IOM_MODE_READONLY|IOM_MODE_EXP_REQ); /* Load Volume label */
+  10:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:74
+	if( ex_getb16(buf,0x1FE) != 0xAA55 ){
+  12:	f7ff fffe 	bl	0 <ex_getb16>
+  16:	f64a 2355 	movw	r3, #43605	; 0xaa55
+  1a:	4298      	cmp	r0, r3
+  1c:	d105      	bne.n	2a <fs_isValidFat+0x2a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:77
+		return (0);
+	}
+	part_relSect(part,buf);
+  1e:	4620      	mov	r0, r4
+  20:	4629      	mov	r1, r5
+  22:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:78
+	return(1);
+  26:	2001      	movs	r0, #1
+  28:	bd38      	pop	{r3, r4, r5, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:75
+{
+	euint8 *buf;
+	
+	buf=part_getSect(part,0,IOM_MODE_READONLY|IOM_MODE_EXP_REQ); /* Load Volume label */
+	if( ex_getb16(buf,0x1FE) != 0xAA55 ){
+		return (0);
+  2a:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:79
+	}
+	part_relSect(part,buf);
+	return(1);
+}
+  2c:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.fs_loadVolumeId:
+
+00000000 <fs_loadVolumeId>:
+fs_loadVolumeId():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:87
+/* ****************************************************************************  
+ * void fs_loadVolumeId(FileSystem *fs, Partition *part)
+ * Description: This function loads all relevant fields from the volumeid.
+*/
+void fs_loadVolumeId(FileSystem *fs, Partition *part)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:90
+	euint8 *buf;
+	
+	buf=part_getSect(part,0,IOM_MODE_READONLY|IOM_MODE_EXP_REQ);
+   2:	2205      	movs	r2, #5
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:87
+/* ****************************************************************************  
+ * void fs_loadVolumeId(FileSystem *fs, Partition *part)
+ * Description: This function loads all relevant fields from the volumeid.
+*/
+void fs_loadVolumeId(FileSystem *fs, Partition *part)
+{
+   4:	4604      	mov	r4, r0
+   6:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:90
+	euint8 *buf;
+	
+	buf=part_getSect(part,0,IOM_MODE_READONLY|IOM_MODE_EXP_REQ);
+   8:	4608      	mov	r0, r1
+   a:	2100      	movs	r1, #0
+   c:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:92
+	
+	fs->volumeId.BytesPerSector=ex_getb16(buf,0x0B);
+  10:	210b      	movs	r1, #11
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:90
+*/
+void fs_loadVolumeId(FileSystem *fs, Partition *part)
+{
+	euint8 *buf;
+	
+	buf=part_getSect(part,0,IOM_MODE_READONLY|IOM_MODE_EXP_REQ);
+  12:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:92
+	
+	fs->volumeId.BytesPerSector=ex_getb16(buf,0x0B);
+  14:	f7ff fffe 	bl	0 <ex_getb16>
+  18:	80a0      	strh	r0, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:93
+	fs->volumeId.SectorsPerCluster=*((eint8*)(buf+0x0D));
+  1a:	7b73      	ldrb	r3, [r6, #13]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:94
+	fs->volumeId.ReservedSectorCount=ex_getb16(buf,0x0E);
+  1c:	210e      	movs	r1, #14
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:93
+	euint8 *buf;
+	
+	buf=part_getSect(part,0,IOM_MODE_READONLY|IOM_MODE_EXP_REQ);
+	
+	fs->volumeId.BytesPerSector=ex_getb16(buf,0x0B);
+	fs->volumeId.SectorsPerCluster=*((eint8*)(buf+0x0D));
+  1e:	71a3      	strb	r3, [r4, #6]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:94
+	fs->volumeId.ReservedSectorCount=ex_getb16(buf,0x0E);
+  20:	4630      	mov	r0, r6
+  22:	f7ff fffe 	bl	0 <ex_getb16>
+  26:	8120      	strh	r0, [r4, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:95
+	fs->volumeId.NumberOfFats=*((eint8*)(buf+0x10));
+  28:	7c33      	ldrb	r3, [r6, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:96
+	fs->volumeId.RootEntryCount=ex_getb16(buf,0x11);
+  2a:	2111      	movs	r1, #17
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:95
+	buf=part_getSect(part,0,IOM_MODE_READONLY|IOM_MODE_EXP_REQ);
+	
+	fs->volumeId.BytesPerSector=ex_getb16(buf,0x0B);
+	fs->volumeId.SectorsPerCluster=*((eint8*)(buf+0x0D));
+	fs->volumeId.ReservedSectorCount=ex_getb16(buf,0x0E);
+	fs->volumeId.NumberOfFats=*((eint8*)(buf+0x10));
+  2c:	72a3      	strb	r3, [r4, #10]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:96
+	fs->volumeId.RootEntryCount=ex_getb16(buf,0x11);
+  2e:	4630      	mov	r0, r6
+  30:	f7ff fffe 	bl	0 <ex_getb16>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:97
+	fs->volumeId.SectorCount16=ex_getb16(buf,0x13);
+  34:	2113      	movs	r1, #19
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:96
+	
+	fs->volumeId.BytesPerSector=ex_getb16(buf,0x0B);
+	fs->volumeId.SectorsPerCluster=*((eint8*)(buf+0x0D));
+	fs->volumeId.ReservedSectorCount=ex_getb16(buf,0x0E);
+	fs->volumeId.NumberOfFats=*((eint8*)(buf+0x10));
+	fs->volumeId.RootEntryCount=ex_getb16(buf,0x11);
+  36:	81a0      	strh	r0, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:97
+	fs->volumeId.SectorCount16=ex_getb16(buf,0x13);
+  38:	4630      	mov	r0, r6
+  3a:	f7ff fffe 	bl	0 <ex_getb16>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:98
+	fs->volumeId.FatSectorCount16=ex_getb16(buf,0x16);
+  3e:	2116      	movs	r1, #22
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:97
+	fs->volumeId.BytesPerSector=ex_getb16(buf,0x0B);
+	fs->volumeId.SectorsPerCluster=*((eint8*)(buf+0x0D));
+	fs->volumeId.ReservedSectorCount=ex_getb16(buf,0x0E);
+	fs->volumeId.NumberOfFats=*((eint8*)(buf+0x10));
+	fs->volumeId.RootEntryCount=ex_getb16(buf,0x11);
+	fs->volumeId.SectorCount16=ex_getb16(buf,0x13);
+  40:	81e0      	strh	r0, [r4, #14]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:98
+	fs->volumeId.FatSectorCount16=ex_getb16(buf,0x16);
+  42:	4630      	mov	r0, r6
+  44:	f7ff fffe 	bl	0 <ex_getb16>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:99
+	fs->volumeId.SectorCount32=ex_getb32(buf,0x20);
+  48:	2120      	movs	r1, #32
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:98
+	fs->volumeId.SectorsPerCluster=*((eint8*)(buf+0x0D));
+	fs->volumeId.ReservedSectorCount=ex_getb16(buf,0x0E);
+	fs->volumeId.NumberOfFats=*((eint8*)(buf+0x10));
+	fs->volumeId.RootEntryCount=ex_getb16(buf,0x11);
+	fs->volumeId.SectorCount16=ex_getb16(buf,0x13);
+	fs->volumeId.FatSectorCount16=ex_getb16(buf,0x16);
+  4a:	8220      	strh	r0, [r4, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:99
+	fs->volumeId.SectorCount32=ex_getb32(buf,0x20);
+  4c:	4630      	mov	r0, r6
+  4e:	f7ff fffe 	bl	0 <ex_getb32>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:100
+	fs->volumeId.FatSectorCount32=ex_getb32(buf,0x24);
+  52:	2124      	movs	r1, #36	; 0x24
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:99
+	fs->volumeId.ReservedSectorCount=ex_getb16(buf,0x0E);
+	fs->volumeId.NumberOfFats=*((eint8*)(buf+0x10));
+	fs->volumeId.RootEntryCount=ex_getb16(buf,0x11);
+	fs->volumeId.SectorCount16=ex_getb16(buf,0x13);
+	fs->volumeId.FatSectorCount16=ex_getb16(buf,0x16);
+	fs->volumeId.SectorCount32=ex_getb32(buf,0x20);
+  54:	6160      	str	r0, [r4, #20]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:100
+	fs->volumeId.FatSectorCount32=ex_getb32(buf,0x24);
+  56:	4630      	mov	r0, r6
+  58:	f7ff fffe 	bl	0 <ex_getb32>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:101
+	fs->volumeId.RootCluster=ex_getb32(buf,0x2C);
+  5c:	212c      	movs	r1, #44	; 0x2c
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:100
+	fs->volumeId.NumberOfFats=*((eint8*)(buf+0x10));
+	fs->volumeId.RootEntryCount=ex_getb16(buf,0x11);
+	fs->volumeId.SectorCount16=ex_getb16(buf,0x13);
+	fs->volumeId.FatSectorCount16=ex_getb16(buf,0x16);
+	fs->volumeId.SectorCount32=ex_getb32(buf,0x20);
+	fs->volumeId.FatSectorCount32=ex_getb32(buf,0x24);
+  5e:	61a0      	str	r0, [r4, #24]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:101
+	fs->volumeId.RootCluster=ex_getb32(buf,0x2C);
+  60:	4630      	mov	r0, r6
+  62:	f7ff fffe 	bl	0 <ex_getb32>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:103
+	
+	part_relSect(part,buf);
+  66:	4631      	mov	r1, r6
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:101
+	fs->volumeId.RootEntryCount=ex_getb16(buf,0x11);
+	fs->volumeId.SectorCount16=ex_getb16(buf,0x13);
+	fs->volumeId.FatSectorCount16=ex_getb16(buf,0x16);
+	fs->volumeId.SectorCount32=ex_getb32(buf,0x20);
+	fs->volumeId.FatSectorCount32=ex_getb32(buf,0x24);
+	fs->volumeId.RootCluster=ex_getb32(buf,0x2C);
+  68:	61e0      	str	r0, [r4, #28]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:103
+	
+	part_relSect(part,buf);
+  6a:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:105
+	
+}
+  6c:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:103
+	fs->volumeId.FatSectorCount16=ex_getb16(buf,0x16);
+	fs->volumeId.SectorCount32=ex_getb32(buf,0x20);
+	fs->volumeId.FatSectorCount32=ex_getb32(buf,0x24);
+	fs->volumeId.RootCluster=ex_getb32(buf,0x2C);
+	
+	part_relSect(part,buf);
+  70:	f7ff bffe 	b.w	0 <part_relSect>
+
+Disassembly of section .text.fs_verifySanity:
+
+00000000 <fs_verifySanity>:
+fs_verifySanity():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:114
+ * esint16 fs_verifySanity(FileSystem *fs)
+ * Description: Does some sanity calculations.
+ * Return value: 1 on success, 0 when discrepancies were found.
+*/
+esint16 fs_verifySanity(FileSystem *fs)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:119
+	esint16 sane=1; /* Sane until proven otherwise */
+	/* First check, BPS, we only support 512 */
+	if(fs->volumeId.BytesPerSector!=512)sane=0;
+	/* Check is SPC is valid (multiple of 2, and clustersize >=32KB */
+	if(!((fs->volumeId.SectorsPerCluster == 1 ) |
+   2:	7982      	ldrb	r2, [r0, #6]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:117
+*/
+esint16 fs_verifySanity(FileSystem *fs)
+{
+	esint16 sane=1; /* Sane until proven otherwise */
+	/* First check, BPS, we only support 512 */
+	if(fs->volumeId.BytesPerSector!=512)sane=0;
+   4:	8884      	ldrh	r4, [r0, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:122
+	/* Check is SPC is valid (multiple of 2, and clustersize >=32KB */
+	if(!((fs->volumeId.SectorsPerCluster == 1 ) |
+	     (fs->volumeId.SectorsPerCluster == 2 ) |
+	     (fs->volumeId.SectorsPerCluster == 4 ) |
+	     (fs->volumeId.SectorsPerCluster == 8 ) |
+   6:	f1a2 0308 	sub.w	r3, r2, #8
+   a:	4259      	negs	r1, r3
+   c:	eb41 0103 	adc.w	r1, r1, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:121
+	/* First check, BPS, we only support 512 */
+	if(fs->volumeId.BytesPerSector!=512)sane=0;
+	/* Check is SPC is valid (multiple of 2, and clustersize >=32KB */
+	if(!((fs->volumeId.SectorsPerCluster == 1 ) |
+	     (fs->volumeId.SectorsPerCluster == 2 ) |
+	     (fs->volumeId.SectorsPerCluster == 4 ) |
+  10:	2a10      	cmp	r2, #16
+  12:	bf08      	it	eq
+  14:	f041 0101 	orreq.w	r1, r1, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:122
+	     (fs->volumeId.SectorsPerCluster == 8 ) |
+  18:	2a20      	cmp	r2, #32
+  1a:	bf08      	it	eq
+  1c:	f041 0101 	orreq.w	r1, r1, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:121
+	/* First check, BPS, we only support 512 */
+	if(fs->volumeId.BytesPerSector!=512)sane=0;
+	/* Check is SPC is valid (multiple of 2, and clustersize >=32KB */
+	if(!((fs->volumeId.SectorsPerCluster == 1 ) |
+	     (fs->volumeId.SectorsPerCluster == 2 ) |
+	     (fs->volumeId.SectorsPerCluster == 4 ) |
+  20:	f1a2 0c04 	sub.w	ip, r2, #4
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:123
+	     (fs->volumeId.SectorsPerCluster == 8 ) |
+	     (fs->volumeId.SectorsPerCluster == 16) |
+  24:	2a40      	cmp	r2, #64	; 0x40
+  26:	bf08      	it	eq
+  28:	f041 0101 	orreq.w	r1, r1, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:119
+{
+	esint16 sane=1; /* Sane until proven otherwise */
+	/* First check, BPS, we only support 512 */
+	if(fs->volumeId.BytesPerSector!=512)sane=0;
+	/* Check is SPC is valid (multiple of 2, and clustersize >=32KB */
+	if(!((fs->volumeId.SectorsPerCluster == 1 ) |
+  2c:	1e53      	subs	r3, r2, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:121
+	     (fs->volumeId.SectorsPerCluster == 2 ) |
+	     (fs->volumeId.SectorsPerCluster == 4 ) |
+  2e:	f1dc 0200 	rsbs	r2, ip, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:119
+{
+	esint16 sane=1; /* Sane until proven otherwise */
+	/* First check, BPS, we only support 512 */
+	if(fs->volumeId.BytesPerSector!=512)sane=0;
+	/* Check is SPC is valid (multiple of 2, and clustersize >=32KB */
+	if(!((fs->volumeId.SectorsPerCluster == 1 ) |
+  32:	b2db      	uxtb	r3, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:121
+	     (fs->volumeId.SectorsPerCluster == 2 ) |
+	     (fs->volumeId.SectorsPerCluster == 4 ) |
+  34:	eb42 020c 	adc.w	r2, r2, ip
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:120
+	esint16 sane=1; /* Sane until proven otherwise */
+	/* First check, BPS, we only support 512 */
+	if(fs->volumeId.BytesPerSector!=512)sane=0;
+	/* Check is SPC is valid (multiple of 2, and clustersize >=32KB */
+	if(!((fs->volumeId.SectorsPerCluster == 1 ) |
+	     (fs->volumeId.SectorsPerCluster == 2 ) |
+  38:	2b01      	cmp	r3, #1
+  3a:	bf98      	it	ls
+  3c:	f042 0201 	orrls.w	r2, r2, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:119
+{
+	esint16 sane=1; /* Sane until proven otherwise */
+	/* First check, BPS, we only support 512 */
+	if(fs->volumeId.BytesPerSector!=512)sane=0;
+	/* Check is SPC is valid (multiple of 2, and clustersize >=32KB */
+	if(!((fs->volumeId.SectorsPerCluster == 1 ) |
+  40:	ea51 0302 	orrs.w	r3, r1, r2
+  44:	d004      	beq.n	50 <fs_verifySanity+0x50>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:115
+ * Description: Does some sanity calculations.
+ * Return value: 1 on success, 0 when discrepancies were found.
+*/
+esint16 fs_verifySanity(FileSystem *fs)
+{
+	esint16 sane=1; /* Sane until proven otherwise */
+  46:	f5a4 7200 	sub.w	r2, r4, #512	; 0x200
+  4a:	4253      	negs	r3, r2
+  4c:	eb43 0302 	adc.w	r3, r3, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:128
+	     (fs->volumeId.SectorsPerCluster == 16) |
+	     (fs->volumeId.SectorsPerCluster == 32) |
+	     (fs->volumeId.SectorsPerCluster == 64) ))sane=0;
+	/* Any number of FAT's should be supported... (untested) */
+	/* There should be at least 1 reserved sector */
+	if(fs->volumeId.ReservedSectorCount==0)sane=0;
+  50:	8902      	ldrh	r2, [r0, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:129
+	if(fs->volumeId.FatSectorCount16 != 0){
+  52:	8a01      	ldrh	r1, [r0, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:128
+	     (fs->volumeId.SectorsPerCluster == 16) |
+	     (fs->volumeId.SectorsPerCluster == 32) |
+	     (fs->volumeId.SectorsPerCluster == 64) ))sane=0;
+	/* Any number of FAT's should be supported... (untested) */
+	/* There should be at least 1 reserved sector */
+	if(fs->volumeId.ReservedSectorCount==0)sane=0;
+  54:	2a00      	cmp	r2, #0
+  56:	bf08      	it	eq
+  58:	2300      	moveq	r3, #0
+  5a:	6802      	ldr	r2, [r0, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:129
+	if(fs->volumeId.FatSectorCount16 != 0){
+  5c:	b129      	cbz	r1, 6a <fs_verifySanity+0x6a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:130
+		if(fs->volumeId.FatSectorCount16 > fs->part->disc->partitions[fs->part->activePartition].numSectors)sane=0;
+  5e:	6810      	ldr	r0, [r2, #0]
+  60:	f992 2004 	ldrsb.w	r2, [r2, #4]
+  64:	eb00 1202 	add.w	r2, r0, r2, lsl #4
+  68:	e005      	b.n	76 <fs_verifySanity+0x76>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:132
+	}else{
+		if(fs->volumeId.FatSectorCount32 > fs->part->disc->partitions[fs->part->activePartition].numSectors)sane=0;
+  6a:	6811      	ldr	r1, [r2, #0]
+  6c:	f992 2004 	ldrsb.w	r2, [r2, #4]
+  70:	eb01 1202 	add.w	r2, r1, r2, lsl #4
+  74:	6981      	ldr	r1, [r0, #24]
+  76:	6952      	ldr	r2, [r2, #20]
+  78:	4291      	cmp	r1, r2
+  7a:	bf88      	it	hi
+  7c:	2300      	movhi	r3, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:135
+	} 
+	return(sane);
+}
+  7e:	b218      	sxth	r0, r3
+  80:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.fs_countDataSectors:
+
+00000000 <fs_countDataSectors>:
+fs_countDataSectors():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:148
+void fs_countDataSectors(FileSystem *fs)
+{
+  euint32 rootDirSectors,dataSectorCount;
+
+  rootDirSectors=((fs->volumeId.RootEntryCount*32) +
+                 (fs->volumeId.BytesPerSector - 1)) /
+   0:	8883      	ldrh	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:147
+*/
+void fs_countDataSectors(FileSystem *fs)
+{
+  euint32 rootDirSectors,dataSectorCount;
+
+  rootDirSectors=((fs->volumeId.RootEntryCount*32) +
+   2:	8982      	ldrh	r2, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:148
+                 (fs->volumeId.BytesPerSector - 1)) /
+   4:	1e59      	subs	r1, r3, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:147
+*/
+void fs_countDataSectors(FileSystem *fs)
+{
+  euint32 rootDirSectors,dataSectorCount;
+
+  rootDirSectors=((fs->volumeId.RootEntryCount*32) +
+   6:	0152      	lsls	r2, r2, #5
+   8:	188a      	adds	r2, r1, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:148
+                 (fs->volumeId.BytesPerSector - 1)) /
+   a:	fb92 f2f3 	sdiv	r2, r2, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:151
+                 fs->volumeId.BytesPerSector;
+
+  if(fs->volumeId.FatSectorCount16 != 0)
+   e:	8a03      	ldrh	r3, [r0, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:144
+ * void fs_countDataSectors(FileSystem *fs)
+ * Description: This functions calculates the sectorcounts, fatsectorcounts and
+ * dataclustercounts. It fills in the general fields.
+*/
+void fs_countDataSectors(FileSystem *fs)
+{
+  10:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:151
+
+  rootDirSectors=((fs->volumeId.RootEntryCount*32) +
+                 (fs->volumeId.BytesPerSector - 1)) /
+                 fs->volumeId.BytesPerSector;
+
+  if(fs->volumeId.FatSectorCount16 != 0)
+  12:	b11b      	cbz	r3, 1c <fs_countDataSectors+0x1c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:153
+  {
+    fs->FatSectorCount=fs->volumeId.FatSectorCount16;
+  14:	6243      	str	r3, [r0, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:154
+    fs->volumeId.FatSectorCount32=0;
+  16:	2300      	movs	r3, #0
+  18:	6183      	str	r3, [r0, #24]
+  1a:	e002      	b.n	22 <fs_countDataSectors+0x22>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:158
+  }
+  else
+  {
+    fs->FatSectorCount=fs->volumeId.FatSectorCount32;
+  1c:	6981      	ldr	r1, [r0, #24]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:159
+    fs->volumeId.FatSectorCount16=0;
+  1e:	8203      	strh	r3, [r0, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:158
+    fs->FatSectorCount=fs->volumeId.FatSectorCount16;
+    fs->volumeId.FatSectorCount32=0;
+  }
+  else
+  {
+    fs->FatSectorCount=fs->volumeId.FatSectorCount32;
+  20:	6241      	str	r1, [r0, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:162
+    fs->volumeId.FatSectorCount16=0;
+  }
+
+  if(fs->volumeId.SectorCount16!=0)
+  22:	89c3      	ldrh	r3, [r0, #14]
+  24:	b11b      	cbz	r3, 2e <fs_countDataSectors+0x2e>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:164
+  {
+    fs->SectorCount=fs->volumeId.SectorCount16;
+  26:	6283      	str	r3, [r0, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:165
+    fs->volumeId.SectorCount32=0;
+  28:	2300      	movs	r3, #0
+  2a:	6143      	str	r3, [r0, #20]
+  2c:	e002      	b.n	34 <fs_countDataSectors+0x34>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:169
+  }
+  else
+  {
+    fs->SectorCount=fs->volumeId.SectorCount32;
+  2e:	6941      	ldr	r1, [r0, #20]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:170
+    fs->volumeId.SectorCount16=0;
+  30:	81c3      	strh	r3, [r0, #14]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:169
+    fs->SectorCount=fs->volumeId.SectorCount16;
+    fs->volumeId.SectorCount32=0;
+  }
+  else
+  {
+    fs->SectorCount=fs->volumeId.SectorCount32;
+  32:	6281      	str	r1, [r0, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:174
+    fs->volumeId.SectorCount16=0;
+  }
+
+  dataSectorCount=fs->SectorCount - (
+                  fs->volumeId.ReservedSectorCount +
+  34:	6a81      	ldr	r1, [r0, #40]	; 0x28
+  36:	8903      	ldrh	r3, [r0, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:175
+                  (fs->volumeId.NumberOfFats * fs->FatSectorCount) +
+  38:	6a44      	ldr	r4, [r0, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:174
+    fs->SectorCount=fs->volumeId.SectorCount32;
+    fs->volumeId.SectorCount16=0;
+  }
+
+  dataSectorCount=fs->SectorCount - (
+                  fs->volumeId.ReservedSectorCount +
+  3a:	1acb      	subs	r3, r1, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:175
+                  (fs->volumeId.NumberOfFats * fs->FatSectorCount) +
+  3c:	7a81      	ldrb	r1, [r0, #10]
+  3e:	fb04 3311 	mls	r3, r4, r1, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:173
+  {
+    fs->SectorCount=fs->volumeId.SectorCount32;
+    fs->volumeId.SectorCount16=0;
+  }
+
+  dataSectorCount=fs->SectorCount - (
+  42:	1a9b      	subs	r3, r3, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:178
+                  fs->volumeId.ReservedSectorCount +
+                  (fs->volumeId.NumberOfFats * fs->FatSectorCount) +
+                  rootDirSectors);
+
+  fs->DataClusterCount=dataSectorCount/fs->volumeId.SectorsPerCluster;
+  44:	7982      	ldrb	r2, [r0, #6]
+  46:	fbb3 f3f2 	udiv	r3, r3, r2
+  4a:	6203      	str	r3, [r0, #32]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:179
+}
+  4c:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.fs_determineFatType:
+
+00000000 <fs_determineFatType>:
+fs_determineFatType():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:189
+ * Description: This function looks af the Dataclustercount and determines the
+ * FAT type. It fills in fs->type.
+*/
+void fs_determineFatType(FileSystem *fs)
+{
+	if(fs->DataClusterCount < 4085)
+   0:	6a03      	ldr	r3, [r0, #32]
+   2:	f640 72f4 	movw	r2, #4084	; 0xff4
+   6:	4293      	cmp	r3, r2
+   8:	d804      	bhi.n	14 <fs_determineFatType+0x14>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:191
+	{
+		fs->type=FAT12;
+   a:	2301      	movs	r3, #1
+   c:	f880 303c 	strb.w	r3, [r0, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:192
+		fs->volumeId.RootCluster=0;
+  10:	3b01      	subs	r3, #1
+  12:	e007      	b.n	24 <fs_determineFatType+0x24>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:194
+	}
+	else if(fs->DataClusterCount < 65525)
+  14:	f64f 72f4 	movw	r2, #65524	; 0xfff4
+  18:	4293      	cmp	r3, r2
+  1a:	d805      	bhi.n	28 <fs_determineFatType+0x28>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:196
+	{
+		fs->type=FAT16;
+  1c:	2302      	movs	r3, #2
+  1e:	f880 303c 	strb.w	r3, [r0, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:197
+		fs->volumeId.RootCluster=0;
+  22:	3b02      	subs	r3, #2
+  24:	61c3      	str	r3, [r0, #28]
+  26:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:201
+	}
+	else
+	{
+		fs->type=FAT32;
+  28:	2303      	movs	r3, #3
+  2a:	f880 303c 	strb.w	r3, [r0, #60]	; 0x3c
+  2e:	4770      	bx	lr
+
+Disassembly of section .text.fs_findFirstSectorRootDir:
+
+00000000 <fs_findFirstSectorRootDir>:
+fs_findFirstSectorRootDir():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:213
+ * Description: This functions fills in the fs->FirstSectorRootDir field, even
+ * for FAT32, although that is not necessary (because you have FirstClusterRootDir).
+*/
+void fs_findFirstSectorRootDir(FileSystem *fs)
+{
+	if(fs->type==FAT32)
+   0:	f890 303c 	ldrb.w	r3, [r0, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:212
+ * void fs_findFirstSectorRootDir(FileSystem *fs)
+ * Description: This functions fills in the fs->FirstSectorRootDir field, even
+ * for FAT32, although that is not necessary (because you have FirstClusterRootDir).
+*/
+void fs_findFirstSectorRootDir(FileSystem *fs)
+{
+   4:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:213
+	if(fs->type==FAT32)
+   6:	2b03      	cmp	r3, #3
+   8:	d10a      	bne.n	20 <fs_findFirstSectorRootDir+0x20>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:215
+		fs->FirstSectorRootDir = fs->volumeId.ReservedSectorCount + 
+		                         (fs->volumeId.NumberOfFats*fs->volumeId.FatSectorCount32) +
+   a:	7a82      	ldrb	r2, [r0, #10]
+   c:	6984      	ldr	r4, [r0, #24]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:216
+								 (fs->volumeId.RootCluster-2)*fs->volumeId.SectorsPerCluster;
+   e:	69c3      	ldr	r3, [r0, #28]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:215
+*/
+void fs_findFirstSectorRootDir(FileSystem *fs)
+{
+	if(fs->type==FAT32)
+		fs->FirstSectorRootDir = fs->volumeId.ReservedSectorCount + 
+		                         (fs->volumeId.NumberOfFats*fs->volumeId.FatSectorCount32) +
+  10:	4362      	muls	r2, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:216
+								 (fs->volumeId.RootCluster-2)*fs->volumeId.SectorsPerCluster;
+  12:	7981      	ldrb	r1, [r0, #6]
+  14:	3b02      	subs	r3, #2
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:215
+*/
+void fs_findFirstSectorRootDir(FileSystem *fs)
+{
+	if(fs->type==FAT32)
+		fs->FirstSectorRootDir = fs->volumeId.ReservedSectorCount + 
+		                         (fs->volumeId.NumberOfFats*fs->volumeId.FatSectorCount32) +
+  16:	fb03 2301 	mla	r3, r3, r1, r2
+  1a:	8902      	ldrh	r2, [r0, #8]
+  1c:	189b      	adds	r3, r3, r2
+  1e:	e004      	b.n	2a <fs_findFirstSectorRootDir+0x2a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:219
+								 (fs->volumeId.RootCluster-2)*fs->volumeId.SectorsPerCluster;
+	else
+		fs->FirstSectorRootDir = fs->volumeId.ReservedSectorCount + 
+		                         (fs->volumeId.NumberOfFats*fs->volumeId.FatSectorCount16);
+  20:	8a03      	ldrh	r3, [r0, #16]
+  22:	7a81      	ldrb	r1, [r0, #10]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:218
+	if(fs->type==FAT32)
+		fs->FirstSectorRootDir = fs->volumeId.ReservedSectorCount + 
+		                         (fs->volumeId.NumberOfFats*fs->volumeId.FatSectorCount32) +
+								 (fs->volumeId.RootCluster-2)*fs->volumeId.SectorsPerCluster;
+	else
+		fs->FirstSectorRootDir = fs->volumeId.ReservedSectorCount + 
+  24:	8902      	ldrh	r2, [r0, #8]
+  26:	fb01 2303 	mla	r3, r1, r3, r2
+  2a:	62c3      	str	r3, [r0, #44]	; 0x2c
+  2c:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.fs_clusterToSector:
+
+00000000 <fs_clusterToSector>:
+fs_clusterToSector():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:236
+ * Description: This function converts a clusternumber in the effective sector
+ * number where this cluster starts. Boundary check is not implemented
+ * Return value: A long is returned representing the sectornumber.
+*/
+euint32 fs_clusterToSector(FileSystem *fs,euint32 cluster)
+{
+   0:	b530      	push	{r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:239
+	eint32 base;
+	
+	if(fs->type==FAT32)
+   2:	f890 303c 	ldrb.w	r3, [r0, #60]	; 0x3c
+   6:	7a82      	ldrb	r2, [r0, #10]
+   8:	2b03      	cmp	r3, #3
+   a:	6a44      	ldr	r4, [r0, #36]	; 0x24
+   c:	d103      	bne.n	16 <fs_clusterToSector+0x16>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:242
+	{
+		base=
+			fs->volumeId.ReservedSectorCount+
+   e:	8903      	ldrh	r3, [r0, #8]
+  10:	fb04 3302 	mla	r3, r4, r2, r3
+  14:	e005      	b.n	22 <fs_clusterToSector+0x22>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:249
+	}
+	else
+	{
+		base=
+			fs->volumeId.ReservedSectorCount+
+			fs->FatSectorCount*fs->volumeId.NumberOfFats+
+  16:	8983      	ldrh	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:248
+			fs->FatSectorCount*fs->volumeId.NumberOfFats;
+	}
+	else
+	{
+		base=
+			fs->volumeId.ReservedSectorCount+
+  18:	8905      	ldrh	r5, [r0, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:249
+			fs->FatSectorCount*fs->volumeId.NumberOfFats+
+  1a:	091b      	lsrs	r3, r3, #4
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:248
+			fs->FatSectorCount*fs->volumeId.NumberOfFats;
+	}
+	else
+	{
+		base=
+			fs->volumeId.ReservedSectorCount+
+  1c:	fb04 3302 	mla	r3, r4, r2, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:249
+			fs->FatSectorCount*fs->volumeId.NumberOfFats+
+  20:	195b      	adds	r3, r3, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:252
+			fs->volumeId.RootEntryCount/16;
+	}
+	return( base + (cluster-2)*fs->volumeId.SectorsPerCluster );
+  22:	7980      	ldrb	r0, [r0, #6]
+  24:	3902      	subs	r1, #2
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:253
+}
+  26:	fb00 3001 	mla	r0, r0, r1, r3
+  2a:	bd30      	pop	{r4, r5, pc}
+
+Disassembly of section .text.fs_sectorToCluster:
+
+00000000 <fs_sectorToCluster>:
+fs_sectorToCluster():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:258
+/*****************************************************************************/ 
+
+/* Function is unused, but may be usefull */
+euint32 fs_sectorToCluster(FileSystem *fs,euint32 sector)
+{
+   0:	b530      	push	{r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:261
+	eint32 base;
+	
+	if(fs->type==FAT32)
+   2:	f890 303c 	ldrb.w	r3, [r0, #60]	; 0x3c
+   6:	7a82      	ldrb	r2, [r0, #10]
+   8:	2b03      	cmp	r3, #3
+   a:	6a44      	ldr	r4, [r0, #36]	; 0x24
+   c:	d103      	bne.n	16 <fs_sectorToCluster+0x16>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:264
+	{
+		base=
+			fs->volumeId.ReservedSectorCount+
+   e:	8903      	ldrh	r3, [r0, #8]
+  10:	fb04 3302 	mla	r3, r4, r2, r3
+  14:	e005      	b.n	22 <fs_sectorToCluster+0x22>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:271
+	}
+	else
+	{
+		base=
+			fs->volumeId.ReservedSectorCount+
+			fs->FatSectorCount*fs->volumeId.NumberOfFats+
+  16:	8983      	ldrh	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:270
+			fs->FatSectorCount*fs->volumeId.NumberOfFats;
+	}
+	else
+	{
+		base=
+			fs->volumeId.ReservedSectorCount+
+  18:	8905      	ldrh	r5, [r0, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:271
+			fs->FatSectorCount*fs->volumeId.NumberOfFats+
+  1a:	091b      	lsrs	r3, r3, #4
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:270
+			fs->FatSectorCount*fs->volumeId.NumberOfFats;
+	}
+	else
+	{
+		base=
+			fs->volumeId.ReservedSectorCount+
+  1c:	fb04 3302 	mla	r3, r4, r2, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:271
+			fs->FatSectorCount*fs->volumeId.NumberOfFats+
+  20:	195b      	adds	r3, r3, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:274
+			fs->volumeId.RootEntryCount/16;
+	}
+	return(((sector-base)-((sector-base)%fs->volumeId.SectorsPerCluster))/fs->volumeId.SectorsPerCluster+2 );
+  22:	1ac9      	subs	r1, r1, r3
+  24:	7983      	ldrb	r3, [r0, #6]
+  26:	fbb1 f2f3 	udiv	r2, r1, r3
+  2a:	fb03 1212 	mls	r2, r3, r2, r1
+  2e:	1a89      	subs	r1, r1, r2
+  30:	fbb1 f3f3 	udiv	r3, r1, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:275
+}
+  34:	1c98      	adds	r0, r3, #2
+  36:	bd30      	pop	{r4, r5, pc}
+
+Disassembly of section .text.fs_getNextFreeCluster:
+
+00000000 <fs_getNextFreeCluster>:
+fs_getNextFreeCluster():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:287
+ * fragmentation. Implementing rollover search is still to be done.
+ * Return value: If a free cluster is found it's number is returned. If none is 
+ * found 0 is returned.
+*/
+euint32 fs_getNextFreeCluster(FileSystem *fs,euint32 startingcluster)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4605      	mov	r5, r0
+   4:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:290
+	euint32 r;
+	
+	while(startingcluster<fs->DataClusterCount){
+   6:	e006      	b.n	16 <fs_getNextFreeCluster+0x16>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:291
+		r=fat_getNextClusterAddress(fs,startingcluster,0);
+   8:	4628      	mov	r0, r5
+   a:	4621      	mov	r1, r4
+   c:	2200      	movs	r2, #0
+   e:	f7ff fffe 	bl	0 <fat_getNextClusterAddress>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:292
+		if(r==0){
+  12:	b120      	cbz	r0, 1e <fs_getNextFreeCluster+0x1e>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:295
+			return(startingcluster);
+		}
+		startingcluster++;
+  14:	3401      	adds	r4, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:290
+*/
+euint32 fs_getNextFreeCluster(FileSystem *fs,euint32 startingcluster)
+{
+	euint32 r;
+	
+	while(startingcluster<fs->DataClusterCount){
+  16:	6a2b      	ldr	r3, [r5, #32]
+  18:	429c      	cmp	r4, r3
+  1a:	d3f5      	bcc.n	8 <fs_getNextFreeCluster+0x8>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:297
+		if(r==0){
+			return(startingcluster);
+		}
+		startingcluster++;
+	}
+	return(0);
+  1c:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:298
+}
+  1e:	4620      	mov	r0, r4
+  20:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.fs_giveFreeClusterHint:
+
+00000000 <fs_giveFreeClusterHint>:
+fs_giveFreeClusterHint():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:314
+ * Return value: Returns it's best guess.
+*/
+euint32 fs_giveFreeClusterHint(FileSystem *fs)
+{
+	return(2); /* Now THIS is a hint ;) */
+}
+   0:	2002      	movs	r0, #2
+   2:	4770      	bx	lr
+
+Disassembly of section .text.fs_getLastCluster:
+
+00000000 <fs_getLastCluster>:
+fs_getLastCluster():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:414
+ * euint32 fs_getLastCluster(FileSystem *fs,ClusterChain *Cache)
+ * Description: This function searches the last cluster of a chain.
+ * Return value: The LastCluster (also stored in cache);
+*/
+euint32 fs_getLastCluster(FileSystem *fs,ClusterChain *Cache)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:415
+	if(Cache->DiscCluster==0){
+   2:	688b      	ldr	r3, [r1, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:414
+ * euint32 fs_getLastCluster(FileSystem *fs,ClusterChain *Cache)
+ * Description: This function searches the last cluster of a chain.
+ * Return value: The LastCluster (also stored in cache);
+*/
+euint32 fs_getLastCluster(FileSystem *fs,ClusterChain *Cache)
+{
+   4:	4605      	mov	r5, r0
+   6:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:415
+	if(Cache->DiscCluster==0){
+   8:	b913      	cbnz	r3, 10 <fs_getLastCluster+0x10>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:416
+		Cache->DiscCluster=Cache->FirstCluster;
+   a:	68ca      	ldr	r2, [r1, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:417
+		Cache->LogicCluster=0;
+   c:	604b      	str	r3, [r1, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:416
+ * Return value: The LastCluster (also stored in cache);
+*/
+euint32 fs_getLastCluster(FileSystem *fs,ClusterChain *Cache)
+{
+	if(Cache->DiscCluster==0){
+		Cache->DiscCluster=Cache->FirstCluster;
+   e:	608a      	str	r2, [r1, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:420
+		Cache->LogicCluster=0;
+	}
+	
+	if(Cache->LastCluster==0)
+  10:	6923      	ldr	r3, [r4, #16]
+  12:	b143      	cbz	r3, 26 <fs_getLastCluster+0x26>
+  14:	e00d      	b.n	32 <fs_getLastCluster+0x32>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:424
+	{
+		while(fat_getNextClusterChain(fs, Cache)==0)
+		{
+			Cache->LogicCluster+=Cache->Linear;
+  16:	7823      	ldrb	r3, [r4, #0]
+  18:	6862      	ldr	r2, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:426
+			Cache->DiscCluster+=Cache->Linear;
+			Cache->Linear=0;
+  1a:	7020      	strb	r0, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:424
+	
+	if(Cache->LastCluster==0)
+	{
+		while(fat_getNextClusterChain(fs, Cache)==0)
+		{
+			Cache->LogicCluster+=Cache->Linear;
+  1c:	18d2      	adds	r2, r2, r3
+  1e:	6062      	str	r2, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:425
+			Cache->DiscCluster+=Cache->Linear;
+  20:	68a2      	ldr	r2, [r4, #8]
+  22:	18d3      	adds	r3, r2, r3
+  24:	60a3      	str	r3, [r4, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:422
+		Cache->LogicCluster=0;
+	}
+	
+	if(Cache->LastCluster==0)
+	{
+		while(fat_getNextClusterChain(fs, Cache)==0)
+  26:	4628      	mov	r0, r5
+  28:	4621      	mov	r1, r4
+  2a:	f7ff fffe 	bl	0 <fat_getNextClusterChain>
+  2e:	2800      	cmp	r0, #0
+  30:	d0f1      	beq.n	16 <fs_getLastCluster+0x16>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:430
+			Cache->DiscCluster+=Cache->Linear;
+			Cache->Linear=0;
+		}
+	}
+	return(Cache->LastCluster);
+}
+  32:	6920      	ldr	r0, [r4, #16]
+  34:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.fs_getFirstClusterRootDir:
+
+00000000 <fs_getFirstClusterRootDir>:
+fs_getFirstClusterRootDir():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:435
+/*****************************************************************************/
+
+euint32 fs_getFirstClusterRootDir(FileSystem *fs)
+{
+	switch(fs->type){
+   0:	f890 303c 	ldrb.w	r3, [r0, #60]	; 0x3c
+   4:	2b03      	cmp	r3, #3
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:437
+		case FAT32:
+			return(fs->volumeId.RootCluster);
+   6:	bf0c      	ite	eq
+   8:	69c0      	ldreq	r0, [r0, #28]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:440
+			//break;
+		default:
+				return(1);
+   a:	2001      	movne	r0, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:443
+				//break;
+	}
+}
+   c:	4770      	bx	lr
+
+Disassembly of section .text.fs_findFile:
+
+00000000 <fs_findFile>:
+fs_findFile():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:334
+ * Return value: Returns 0 when nothing was found, 1 when the thing found
+ * was a file and 2 if the thing found was a directory.
+*/
+
+esint8 fs_findFile(FileSystem *fs,eint8* filename,FileLocation *loc,euint32 *lastDir)
+{
+   0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+   4:	b089      	sub	sp, #36	; 0x24
+   6:	9003      	str	r0, [sp, #12]
+   8:	461c      	mov	r4, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:338
+	euint32 fccd,tmpclus;
+	eint8 ffname[11],*next,it=0,filefound=0;
+	
+	if(*filename=='/'){
+   a:	f991 3000 	ldrsb.w	r3, [r1]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:334
+ * Return value: Returns 0 when nothing was found, 1 when the thing found
+ * was a file and 2 if the thing found was a directory.
+*/
+
+esint8 fs_findFile(FileSystem *fs,eint8* filename,FileLocation *loc,euint32 *lastDir)
+{
+   e:	460f      	mov	r7, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:338
+	euint32 fccd,tmpclus;
+	eint8 ffname[11],*next,it=0,filefound=0;
+	
+	if(*filename=='/'){
+  10:	2b2f      	cmp	r3, #47	; 0x2f
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:334
+ * Return value: Returns 0 when nothing was found, 1 when the thing found
+ * was a file and 2 if the thing found was a directory.
+*/
+
+esint8 fs_findFile(FileSystem *fs,eint8* filename,FileLocation *loc,euint32 *lastDir)
+{
+  12:	4691      	mov	r9, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:338
+	euint32 fccd,tmpclus;
+	eint8 ffname[11],*next,it=0,filefound=0;
+	
+	if(*filename=='/'){
+  14:	d109      	bne.n	2a <fs_findFile+0x2a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:339
+		fccd = fs_getFirstClusterRootDir(fs);
+  16:	f7ff fffe 	bl	0 <fs_findFile>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:340
+		filename++;
+  1a:	3701      	adds	r7, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:339
+{
+	euint32 fccd,tmpclus;
+	eint8 ffname[11],*next,it=0,filefound=0;
+	
+	if(*filename=='/'){
+		fccd = fs_getFirstClusterRootDir(fs);
+  1c:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:341
+		filename++;
+		if(lastDir)*lastDir=fccd;
+  1e:	b104      	cbz	r4, 22 <fs_findFile+0x22>
+  20:	6020      	str	r0, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:342
+		if(!*filename){
+  22:	f997 3000 	ldrsb.w	r3, [r7]
+  26:	b923      	cbnz	r3, 32 <fs_findFile+0x32>
+  28:	e050      	b.n	cc <fs_findFile+0xcc>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:346
+			return(2);
+		}
+	}else{
+		fccd = fs->FirstClusterCurrentDir;
+  2a:	9b03      	ldr	r3, [sp, #12]
+  2c:	6b1d      	ldr	r5, [r3, #48]	; 0x30
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:347
+		if(lastDir)*lastDir=fccd;
+  2e:	b104      	cbz	r4, 32 <fs_findFile+0x32>
+  30:	6025      	str	r5, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:367
+		it++;
+		if(loc->attrib&ATTR_DIRECTORY){
+			fccd = tmpclus;
+			filename = next;
+			if(lastDir)*lastDir=fccd;
+			if(filefound)*lastDir=0;
+  32:	2600      	movs	r6, #0
+  34:	46b0      	mov	r8, r6
+  36:	e031      	b.n	9c <fs_findFile+0x9c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:352
+		if(lastDir)*lastDir=fccd;
+	}
+	
+	
+	while((next=file_normalToFatName(filename,ffname))!=0){
+		if((tmpclus=dir_findinDir(fs,ffname,fccd,loc,DIRFIND_FILE))==0){
+  38:	2300      	movs	r3, #0
+  3a:	9300      	str	r3, [sp, #0]
+  3c:	9803      	ldr	r0, [sp, #12]
+  3e:	a905      	add	r1, sp, #20
+  40:	462a      	mov	r2, r5
+  42:	464b      	mov	r3, r9
+  44:	f7ff fffe 	bl	0 <dir_findinDir>
+  48:	4682      	mov	sl, r0
+  4a:	b958      	cbnz	r0, 64 <fs_findFile+0x64>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:357
+			/* We didn't find what we wanted */
+			/* We should check, to see if there is more after it, so that
+			 * we can invalidate lastDir
+			 */
+			if((file_normalToFatName(next,ffname))!=0){
+  4c:	4638      	mov	r0, r7
+  4e:	a905      	add	r1, sp, #20
+  50:	f7ff fffe 	bl	0 <file_normalToFatName>
+  54:	2800      	cmp	r0, #0
+  56:	d035      	beq.n	c4 <fs_findFile+0xc4>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:358
+				if(lastDir)*lastDir=0;
+  58:	2c00      	cmp	r4, #0
+  5a:	d038      	beq.n	ce <fs_findFile+0xce>
+  5c:	f8c4 a000 	str.w	sl, [r4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:360
+			}			 
+			return(0);
+  60:	4654      	mov	r4, sl
+  62:	e034      	b.n	ce <fs_findFile+0xce>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:363
+		}
+		it++;
+		if(loc->attrib&ATTR_DIRECTORY){
+  64:	f899 b005 	ldrb.w	fp, [r9, #5]
+  68:	f01b 0b10 	ands.w	fp, fp, #16
+  6c:	d005      	beq.n	7a <fs_findFile+0x7a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:366
+			fccd = tmpclus;
+			filename = next;
+			if(lastDir)*lastDir=fccd;
+  6e:	b104      	cbz	r4, 72 <fs_findFile+0x72>
+  70:	6020      	str	r0, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:367
+			if(filefound)*lastDir=0;
+  72:	b166      	cbz	r6, 8e <fs_findFile+0x8e>
+  74:	2300      	movs	r3, #0
+  76:	6023      	str	r3, [r4, #0]
+  78:	e009      	b.n	8e <fs_findFile+0x8e>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:370
+		}else{
+			filefound=1;
+			if((file_normalToFatName(next,ffname))!=0){
+  7a:	4638      	mov	r0, r7
+  7c:	a905      	add	r1, sp, #20
+  7e:	f7ff fffe 	bl	0 <file_normalToFatName>
+  82:	b130      	cbz	r0, 92 <fs_findFile+0x92>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:371
+				if(lastDir)*lastDir=0;
+  84:	b31c      	cbz	r4, ce <fs_findFile+0xce>
+  86:	f8c4 b000 	str.w	fp, [r4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:372
+				return(0);
+  8a:	465c      	mov	r4, fp
+  8c:	e01f      	b.n	ce <fs_findFile+0xce>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:367
+		it++;
+		if(loc->attrib&ATTR_DIRECTORY){
+			fccd = tmpclus;
+			filename = next;
+			if(lastDir)*lastDir=fccd;
+			if(filefound)*lastDir=0;
+  8e:	4655      	mov	r5, sl
+  90:	e000      	b.n	94 <fs_findFile+0x94>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:369
+		}else{
+			filefound=1;
+  92:	2601      	movs	r6, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:362
+			if((file_normalToFatName(next,ffname))!=0){
+				if(lastDir)*lastDir=0;
+			}			 
+			return(0);
+		}
+		it++;
+  94:	f108 0801 	add.w	r8, r8, #1
+  98:	fa5f f888 	uxtb.w	r8, r8
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:351
+		fccd = fs->FirstClusterCurrentDir;
+		if(lastDir)*lastDir=fccd;
+	}
+	
+	
+	while((next=file_normalToFatName(filename,ffname))!=0){
+  9c:	4638      	mov	r0, r7
+  9e:	a905      	add	r1, sp, #20
+  a0:	f7ff fffe 	bl	0 <file_normalToFatName>
+  a4:	4607      	mov	r7, r0
+  a6:	2800      	cmp	r0, #0
+  a8:	d1c6      	bne.n	38 <fs_findFile+0x38>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:379
+				filename=next;	
+			}
+		}
+	}
+	
+	if(it==0)return(0);
+  aa:	f1b8 0f00 	cmp.w	r8, #0
+  ae:	d00b      	beq.n	c8 <fs_findFile+0xc8>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:380
+	if(loc->attrib&ATTR_DIRECTORY || !filefound)return(2);
+  b0:	f899 3005 	ldrb.w	r3, [r9, #5]
+  b4:	f013 0f10 	tst.w	r3, #16
+  b8:	d108      	bne.n	cc <fs_findFile+0xcc>
+  ba:	2e00      	cmp	r6, #0
+  bc:	bf14      	ite	ne
+  be:	2401      	movne	r4, #1
+  c0:	2402      	moveq	r4, #2
+  c2:	e004      	b.n	ce <fs_findFile+0xce>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:360
+			 * we can invalidate lastDir
+			 */
+			if((file_normalToFatName(next,ffname))!=0){
+				if(lastDir)*lastDir=0;
+			}			 
+			return(0);
+  c4:	4604      	mov	r4, r0
+  c6:	e002      	b.n	ce <fs_findFile+0xce>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:379
+				filename=next;	
+			}
+		}
+	}
+	
+	if(it==0)return(0);
+  c8:	4644      	mov	r4, r8
+  ca:	e000      	b.n	ce <fs_findFile+0xce>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:380
+	if(loc->attrib&ATTR_DIRECTORY || !filefound)return(2);
+  cc:	2402      	movs	r4, #2
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:382
+	return(1);
+}
+  ce:	b260      	sxtb	r0, r4
+  d0:	b009      	add	sp, #36	; 0x24
+  d2:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+
+Disassembly of section .text.fs_findFreeFile:
+
+00000000 <fs_findFreeFile>:
+fs_findFreeFile():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:386
+/*****************************************************************************/
+
+esint16 fs_findFreeFile(FileSystem *fs,eint8* filename,FileLocation *loc,euint8 mode)
+{
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+   2:	b087      	sub	sp, #28
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:387
+	euint32 targetdir=0;
+   4:	2400      	movs	r4, #0
+   6:	ab06      	add	r3, sp, #24
+   8:	f843 4d04 	str.w	r4, [r3, #-4]!
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:386
+	return(1);
+}
+/*****************************************************************************/
+
+esint16 fs_findFreeFile(FileSystem *fs,eint8* filename,FileLocation *loc,euint8 mode)
+{
+   c:	4605      	mov	r5, r0
+   e:	460f      	mov	r7, r1
+  10:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:390
+	euint32 targetdir=0;
+	eint8 ffname[11];
+	
+	if(fs_findFile(fs,filename,loc,&targetdir))return(0);
+  12:	f7ff fffe 	bl	0 <fs_findFreeFile>
+  16:	bb08      	cbnz	r0, 5c <fs_findFreeFile+0x5c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:391
+	if(!dir_getFatFileName(filename,ffname))return(0);
+  18:	4638      	mov	r0, r7
+  1a:	a902      	add	r1, sp, #8
+  1c:	f7ff fffe 	bl	0 <dir_getFatFileName>
+  20:	b1c8      	cbz	r0, 56 <fs_findFreeFile+0x56>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:392
+	if(dir_findinDir(fs,ffname,targetdir,loc,DIRFIND_FREE)){
+  22:	3401      	adds	r4, #1
+  24:	4628      	mov	r0, r5
+  26:	a902      	add	r1, sp, #8
+  28:	9a05      	ldr	r2, [sp, #20]
+  2a:	4633      	mov	r3, r6
+  2c:	9400      	str	r4, [sp, #0]
+  2e:	f7ff fffe 	bl	0 <dir_findinDir>
+  32:	4607      	mov	r7, r0
+  34:	b990      	cbnz	r0, 5c <fs_findFreeFile+0x5c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:395
+		return(1);
+	}else{
+		if(dir_addCluster(fs,targetdir)){
+  36:	4628      	mov	r0, r5
+  38:	9905      	ldr	r1, [sp, #20]
+  3a:	f7ff fffe 	bl	0 <dir_addCluster>
+  3e:	b960      	cbnz	r0, 5a <fs_findFreeFile+0x5a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:398
+			return(0);
+		}else{
+			if(dir_findinDir(fs,ffname,targetdir,loc,DIRFIND_FREE)){
+  40:	4628      	mov	r0, r5
+  42:	a902      	add	r1, sp, #8
+  44:	9a05      	ldr	r2, [sp, #20]
+  46:	4633      	mov	r3, r6
+  48:	9400      	str	r4, [sp, #0]
+  4a:	f7ff fffe 	bl	0 <dir_findinDir>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:390
+esint16 fs_findFreeFile(FileSystem *fs,eint8* filename,FileLocation *loc,euint8 mode)
+{
+	euint32 targetdir=0;
+	eint8 ffname[11];
+	
+	if(fs_findFile(fs,filename,loc,&targetdir))return(0);
+  4e:	1e04      	subs	r4, r0, #0
+  50:	bf18      	it	ne
+  52:	2401      	movne	r4, #1
+  54:	e002      	b.n	5c <fs_findFreeFile+0x5c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:391
+	if(!dir_getFatFileName(filename,ffname))return(0);
+  56:	4604      	mov	r4, r0
+  58:	e000      	b.n	5c <fs_findFreeFile+0x5c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:396
+	if(dir_findinDir(fs,ffname,targetdir,loc,DIRFIND_FREE)){
+		return(1);
+	}else{
+		if(dir_addCluster(fs,targetdir)){
+			return(0);
+  5a:	463c      	mov	r4, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:405
+			}
+		}
+	}
+		
+	return(0);
+}
+  5c:	b220      	sxth	r0, r4
+  5e:	b007      	add	sp, #28
+  60:	bdf0      	pop	{r4, r5, r6, r7, pc}
+
+Disassembly of section .text.fs_initCurrentDir:
+
+00000000 <fs_initCurrentDir>:
+fs_initCurrentDir():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:224
+		                         (fs->volumeId.NumberOfFats*fs->volumeId.FatSectorCount16);
+}
+/*****************************************************************************/ 
+
+void fs_initCurrentDir(FileSystem *fs)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:225
+	fs->FirstClusterCurrentDir = fs_getFirstClusterRootDir(fs);
+   4:	f7ff fffe 	bl	0 <fs_initCurrentDir>
+   8:	6320      	str	r0, [r4, #48]	; 0x30
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:226
+}
+   a:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.fs_initFs:
+
+00000000 <fs_initFs>:
+fs_initFs():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:48
+ * Description: This functions glues the initialisation of the filesystem together.
+ * It loads the volumeID, computes the FS type and searches for the rootsector.
+ * Return value: Returns 0 on succes and -1 on error (if magic code is wrong)
+*/
+eint16 fs_initFs(FileSystem *fs,Partition *part)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:49
+	if(!fs_isValidFat(part)){
+   4:	4608      	mov	r0, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:48
+ * Description: This functions glues the initialisation of the filesystem together.
+ * It loads the volumeID, computes the FS type and searches for the rootsector.
+ * Return value: Returns 0 on succes and -1 on error (if magic code is wrong)
+*/
+eint16 fs_initFs(FileSystem *fs,Partition *part)
+{
+   6:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:49
+	if(!fs_isValidFat(part)){
+   8:	f7ff fffe 	bl	0 <fs_initFs>
+   c:	b1b0      	cbz	r0, 3c <fs_initFs+0x3c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:53
+		return(-1);
+	}
+	fs->part=part;
+	fs_loadVolumeId(fs,part);
+   e:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:52
+eint16 fs_initFs(FileSystem *fs,Partition *part)
+{
+	if(!fs_isValidFat(part)){
+		return(-1);
+	}
+	fs->part=part;
+  10:	6025      	str	r5, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:53
+	fs_loadVolumeId(fs,part);
+  12:	4629      	mov	r1, r5
+  14:	f7ff fffe 	bl	0 <fs_initFs>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:54
+	if(!fs_verifySanity(fs))return(-2);
+  18:	4620      	mov	r0, r4
+  1a:	f7ff fffe 	bl	0 <fs_initFs>
+  1e:	b180      	cbz	r0, 42 <fs_initFs+0x42>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:55
+  	fs_countDataSectors(fs);
+  20:	4620      	mov	r0, r4
+  22:	f7ff fffe 	bl	0 <fs_initFs>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:56
+	fs_determineFatType(fs);
+  26:	4620      	mov	r0, r4
+  28:	f7ff fffe 	bl	0 <fs_initFs>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:57
+	fs_findFirstSectorRootDir(fs);
+  2c:	4620      	mov	r0, r4
+  2e:	f7ff fffe 	bl	0 <fs_initFs>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:58
+	fs_initCurrentDir(fs); 
+  32:	4620      	mov	r0, r4
+  34:	f7ff fffe 	bl	0 <fs_initFs>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:59
+	return(0);
+  38:	2000      	movs	r0, #0
+  3a:	e004      	b.n	46 <fs_initFs+0x46>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:50
+ * Return value: Returns 0 on succes and -1 on error (if magic code is wrong)
+*/
+eint16 fs_initFs(FileSystem *fs,Partition *part)
+{
+	if(!fs_isValidFat(part)){
+		return(-1);
+  3c:	f64f 70ff 	movw	r0, #65535	; 0xffff
+  40:	e001      	b.n	46 <fs_initFs+0x46>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:54
+	}
+	fs->part=part;
+	fs_loadVolumeId(fs,part);
+	if(!fs_verifySanity(fs))return(-2);
+  42:	f64f 70fe 	movw	r0, #65534	; 0xfffe
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:60
+  	fs_countDataSectors(fs);
+	fs_determineFatType(fs);
+	fs_findFirstSectorRootDir(fs);
+	fs_initCurrentDir(fs); 
+	return(0);
+}
+  46:	b200      	sxth	r0, r0
+  48:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.fs_initClusterChain:
+
+00000000 <fs_initClusterChain>:
+fs_initClusterChain():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:450
+
+void fs_initClusterChain(FileSystem *fs,ClusterChain *cache,euint32 cluster_addr)
+{
+	cache->FirstCluster=cluster_addr;
+	cache->DiscCluster=cluster_addr;
+	cache->LogicCluster=0;
+   0:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:448
+}
+/*****************************************************************************/
+
+void fs_initClusterChain(FileSystem *fs,ClusterChain *cache,euint32 cluster_addr)
+{
+	cache->FirstCluster=cluster_addr;
+   2:	60ca      	str	r2, [r1, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:449
+	cache->DiscCluster=cluster_addr;
+   4:	608a      	str	r2, [r1, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:450
+	cache->LogicCluster=0;
+   6:	604b      	str	r3, [r1, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:451
+	cache->LastCluster=0; /* Warning flag here */
+   8:	610b      	str	r3, [r1, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:452
+	cache->Linear=0;
+   a:	700b      	strb	r3, [r1, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:453
+	cache->ClusterCount=0; /* 0 means NOT known */
+   c:	614b      	str	r3, [r1, #20]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:454
+}
+   e:	4770      	bx	lr
+
+Disassembly of section .text.fs_setFirstClusterInDirEntry:
+
+00000000 <fs_setFirstClusterInDirEntry>:
+fs_setFirstClusterInDirEntry():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:459
+/*****************************************************************************/
+
+void fs_setFirstClusterInDirEntry(FileRecord *rec,euint32 cluster_addr)
+{
+	rec->FirstClusterHigh=cluster_addr>>16;
+   0:	0c0b      	lsrs	r3, r1, #16
+   2:	8283      	strh	r3, [r0, #20]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:460
+	rec->FirstClusterLow=cluster_addr&0xFFFF;
+   4:	8341      	strh	r1, [r0, #26]
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:461
+}
+   6:	4770      	bx	lr
+
+Disassembly of section .text.fs_flushFs:
+
+00000000 <fs_flushFs>:
+fs_flushFs():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:465
+/*****************************************************************************/
+
+esint8 fs_flushFs(FileSystem *fs)
+{
+   0:	4603      	mov	r3, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:466
+	return(part_flushPart(fs->part,0,fs->SectorCount));
+   2:	6a9a      	ldr	r2, [r3, #40]	; 0x28
+   4:	6800      	ldr	r0, [r0, #0]
+   6:	2100      	movs	r1, #0
+   8:	f7ff bffe 	b.w	0 <part_flushPart>
+
+Disassembly of section .text.fs_umount:
+
+00000000 <fs_umount>:
+fs_umount():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:472
+}
+/*****************************************************************************/
+
+esint8 fs_umount(FileSystem *fs)
+{
+	return(fs_flushFs(fs));
+   0:	f7ff bffe 	b.w	0 <fs_umount>
+
+Disassembly of section .text.fs_clearCluster:
+
+00000000 <fs_clearCluster>:
+fs_clearCluster():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:477
+}
+/*****************************************************************************/
+
+esint8 fs_clearCluster(FileSystem *fs,euint32 cluster)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+   2:	4605      	mov	r5, r0
+   4:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:481
+	euint16 c;
+	euint8* buf;
+	
+	for(c=0;c<(fs->volumeId.SectorsPerCluster);c++){
+   6:	2400      	movs	r4, #0
+   8:	e013      	b.n	32 <fs_clearCluster+0x32>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:482
+		buf = part_getSect(fs->part,fs_clusterToSector(fs,cluster)+c,IOM_MODE_READWRITE);
+   a:	4631      	mov	r1, r6
+   c:	4628      	mov	r0, r5
+   e:	f7ff fffe 	bl	0 <fs_clearCluster>
+  12:	2202      	movs	r2, #2
+  14:	1901      	adds	r1, r0, r4
+  16:	6828      	ldr	r0, [r5, #0]
+  18:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:483
+		memClr(buf,512);
+  1c:	f44f 7100 	mov.w	r1, #512	; 0x200
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:482
+{
+	euint16 c;
+	euint8* buf;
+	
+	for(c=0;c<(fs->volumeId.SectorsPerCluster);c++){
+		buf = part_getSect(fs->part,fs_clusterToSector(fs,cluster)+c,IOM_MODE_READWRITE);
+  20:	4607      	mov	r7, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:483
+		memClr(buf,512);
+  22:	f7ff fffe 	bl	0 <memClr>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:484
+		part_relSect(fs->part,buf);
+  26:	6828      	ldr	r0, [r5, #0]
+  28:	4639      	mov	r1, r7
+  2a:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:481
+esint8 fs_clearCluster(FileSystem *fs,euint32 cluster)
+{
+	euint16 c;
+	euint8* buf;
+	
+	for(c=0;c<(fs->volumeId.SectorsPerCluster);c++){
+  2e:	3401      	adds	r4, #1
+  30:	b2a4      	uxth	r4, r4
+  32:	79ab      	ldrb	r3, [r5, #6]
+  34:	42a3      	cmp	r3, r4
+  36:	d8e8      	bhi.n	a <fs_clearCluster+0xa>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:487
+		buf = part_getSect(fs->part,fs_clusterToSector(fs,cluster)+c,IOM_MODE_READWRITE);
+		memClr(buf,512);
+		part_relSect(fs->part,buf);
+	}
+	return(0);
+}
+  38:	2000      	movs	r0, #0
+  3a:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+
+Disassembly of section .text.fs_getFsInfo:
+
+00000000 <fs_getFsInfo>:
+fs_getFsInfo():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:490
+
+esint8 fs_getFsInfo(FileSystem *fs,euint8 force_update)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:494
+	euint8 *buf;
+		
+ 	if(!fs->type==FAT32)return(0);
+	buf = part_getSect(fs->part,FS_INFO_SECTOR,IOM_MODE_READONLY);
+   4:	2101      	movs	r1, #1
+   6:	460a      	mov	r2, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:490
+	}
+	return(0);
+}
+
+esint8 fs_getFsInfo(FileSystem *fs,euint8 force_update)
+{
+   8:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:494
+	euint8 *buf;
+		
+ 	if(!fs->type==FAT32)return(0);
+	buf = part_getSect(fs->part,FS_INFO_SECTOR,IOM_MODE_READONLY);
+   a:	6800      	ldr	r0, [r0, #0]
+   c:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:495
+	if(ex_getb32(buf,0)!=FSINFO_MAGIC_BEGIN || ex_getb32(buf,508)!=FSINFO_MAGIC_END){
+  10:	2100      	movs	r1, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:494
+esint8 fs_getFsInfo(FileSystem *fs,euint8 force_update)
+{
+	euint8 *buf;
+		
+ 	if(!fs->type==FAT32)return(0);
+	buf = part_getSect(fs->part,FS_INFO_SECTOR,IOM_MODE_READONLY);
+  12:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:495
+	if(ex_getb32(buf,0)!=FSINFO_MAGIC_BEGIN || ex_getb32(buf,508)!=FSINFO_MAGIC_END){
+  14:	f7ff fffe 	bl	0 <ex_getb32>
+  18:	4b14      	ldr	r3, [pc, #80]	; (6c <fs_getFsInfo+0x6c>)
+  1a:	4298      	cmp	r0, r3
+  1c:	d107      	bne.n	2e <fs_getFsInfo+0x2e>
+  1e:	4630      	mov	r0, r6
+  20:	f44f 71fe 	mov.w	r1, #508	; 0x1fc
+  24:	f7ff fffe 	bl	0 <ex_getb32>
+  28:	4b11      	ldr	r3, [pc, #68]	; (70 <fs_getFsInfo+0x70>)
+  2a:	4298      	cmp	r0, r3
+  2c:	d005      	beq.n	3a <fs_getFsInfo+0x3a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:496
+		part_relSect(fs->part,buf);
+  2e:	6820      	ldr	r0, [r4, #0]
+  30:	4631      	mov	r1, r6
+  32:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:497
+		return(-1);
+  36:	25ff      	movs	r5, #255	; 0xff
+  38:	e015      	b.n	66 <fs_getFsInfo+0x66>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:499
+	}
+	fs->FreeClusterCount = ex_getb32(buf,488);
+  3a:	f44f 71f4 	mov.w	r1, #488	; 0x1e8
+  3e:	4630      	mov	r0, r6
+  40:	f7ff fffe 	bl	0 <ex_getb32>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:500
+	fs->NextFreeCluster  = ex_getb32(buf,492);
+  44:	f44f 71f6 	mov.w	r1, #492	; 0x1ec
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:499
+	buf = part_getSect(fs->part,FS_INFO_SECTOR,IOM_MODE_READONLY);
+	if(ex_getb32(buf,0)!=FSINFO_MAGIC_BEGIN || ex_getb32(buf,508)!=FSINFO_MAGIC_END){
+		part_relSect(fs->part,buf);
+		return(-1);
+	}
+	fs->FreeClusterCount = ex_getb32(buf,488);
+  48:	6360      	str	r0, [r4, #52]	; 0x34
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:500
+	fs->NextFreeCluster  = ex_getb32(buf,492);
+  4a:	4630      	mov	r0, r6
+  4c:	f7ff fffe 	bl	0 <ex_getb32>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:501
+	part_relSect(fs->part,buf);
+  50:	4631      	mov	r1, r6
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:500
+	if(ex_getb32(buf,0)!=FSINFO_MAGIC_BEGIN || ex_getb32(buf,508)!=FSINFO_MAGIC_END){
+		part_relSect(fs->part,buf);
+		return(-1);
+	}
+	fs->FreeClusterCount = ex_getb32(buf,488);
+	fs->NextFreeCluster  = ex_getb32(buf,492);
+  52:	63a0      	str	r0, [r4, #56]	; 0x38
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:501
+	part_relSect(fs->part,buf);
+  54:	6820      	ldr	r0, [r4, #0]
+  56:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:502
+	if(force_update){
+  5a:	b125      	cbz	r5, 66 <fs_getFsInfo+0x66>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:503
+		fs->FreeClusterCount=fat_countFreeClusters(fs);
+  5c:	4620      	mov	r0, r4
+  5e:	f7ff fffe 	bl	0 <fat_countFreeClusters>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:505
+	}
+	return(0);
+  62:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:503
+	}
+	fs->FreeClusterCount = ex_getb32(buf,488);
+	fs->NextFreeCluster  = ex_getb32(buf,492);
+	part_relSect(fs->part,buf);
+	if(force_update){
+		fs->FreeClusterCount=fat_countFreeClusters(fs);
+  64:	6360      	str	r0, [r4, #52]	; 0x34
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:506
+	}
+	return(0);
+}
+  66:	b268      	sxtb	r0, r5
+  68:	bd70      	pop	{r4, r5, r6, pc}
+  6a:	bf00      	nop
+  6c:	41615252 	.word	0x41615252
+  70:	aa550000 	.word	0xaa550000
+
+Disassembly of section .text.fs_setFsInfo:
+
+00000000 <fs_setFsInfo>:
+fs_setFsInfo():
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:509
+
+esint8 fs_setFsInfo(FileSystem *fs)
+{
+   0:	2101b538 	.word	0x2101b538
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:513
+	euint8* buf;
+
+	if(!fs->type==FAT32)return(0);
+	buf = part_getSect(fs->part,FS_INFO_SECTOR,IOM_MODE_READWRITE);
+   4:	2202      	movs	r2, #2
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:509
+	}
+	return(0);
+}
+
+esint8 fs_setFsInfo(FileSystem *fs)
+{
+   6:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:513
+	euint8* buf;
+
+	if(!fs->type==FAT32)return(0);
+	buf = part_getSect(fs->part,FS_INFO_SECTOR,IOM_MODE_READWRITE);
+   8:	6800      	ldr	r0, [r0, #0]
+   a:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:514
+	if(ex_getb32(buf,0)!=FSINFO_MAGIC_BEGIN || ex_getb32(buf,508)!=FSINFO_MAGIC_END){
+   e:	2100      	movs	r1, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:513
+esint8 fs_setFsInfo(FileSystem *fs)
+{
+	euint8* buf;
+
+	if(!fs->type==FAT32)return(0);
+	buf = part_getSect(fs->part,FS_INFO_SECTOR,IOM_MODE_READWRITE);
+  10:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:514
+	if(ex_getb32(buf,0)!=FSINFO_MAGIC_BEGIN || ex_getb32(buf,508)!=FSINFO_MAGIC_END){
+  12:	f7ff fffe 	bl	0 <ex_getb32>
+  16:	4b12      	ldr	r3, [pc, #72]	; (60 <fs_setFsInfo+0x60>)
+  18:	4298      	cmp	r0, r3
+  1a:	d107      	bne.n	2c <fs_setFsInfo+0x2c>
+  1c:	4620      	mov	r0, r4
+  1e:	f44f 71fe 	mov.w	r1, #508	; 0x1fc
+  22:	f7ff fffe 	bl	0 <ex_getb32>
+  26:	4b0f      	ldr	r3, [pc, #60]	; (64 <fs_setFsInfo+0x64>)
+  28:	4298      	cmp	r0, r3
+  2a:	d005      	beq.n	38 <fs_setFsInfo+0x38>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:515
+		part_relSect(fs->part,buf);
+  2c:	6828      	ldr	r0, [r5, #0]
+  2e:	4621      	mov	r1, r4
+  30:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:516
+		return(-1);
+  34:	20ff      	movs	r0, #255	; 0xff
+  36:	e010      	b.n	5a <fs_setFsInfo+0x5a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:518
+	}
+	ex_setb32(buf,488,fs->FreeClusterCount);
+  38:	4620      	mov	r0, r4
+  3a:	f44f 71f4 	mov.w	r1, #488	; 0x1e8
+  3e:	6b6a      	ldr	r2, [r5, #52]	; 0x34
+  40:	f7ff fffe 	bl	0 <ex_setb32>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:519
+	ex_setb32(buf,492,fs->NextFreeCluster);
+  44:	4620      	mov	r0, r4
+  46:	f44f 71f6 	mov.w	r1, #492	; 0x1ec
+  4a:	6baa      	ldr	r2, [r5, #56]	; 0x38
+  4c:	f7ff fffe 	bl	0 <ex_setb32>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:520
+	part_relSect(fs->part,buf);
+  50:	6828      	ldr	r0, [r5, #0]
+  52:	4621      	mov	r1, r4
+  54:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:521
+	return(0);
+  58:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fs.c:522
+}
+  5a:	b240      	sxtb	r0, r0
+  5c:	bd38      	pop	{r3, r4, r5, pc}
+  5e:	bf00      	nop
+  60:	41615252 	.word	0x41615252
+  64:	aa550000 	.word	0xaa550000

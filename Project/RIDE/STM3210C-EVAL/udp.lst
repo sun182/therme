@@ -1,0 +1,1335 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\udp.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\udp.o
+
+
+Disassembly of section .text.udp_input:
+
+00000000 <udp_input>:
+udp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:85
+ * @param inp network interface on which the datagram was received.
+ *
+ */
+void
+udp_input(struct pbuf *p, struct netif *inp)
+{
+   0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:98
+
+  PERF_START;
+
+  UDP_STATS_INC(udp.recv);
+
+  iphdr = (struct ip_hdr *)p->payload;
+   4:	6846      	ldr	r6, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:102
+
+  /* Check minimum length (IP header + UDP header)
+   * and move payload pointer to UDP header */
+  if (p->tot_len < (IPH_HL(iphdr) * 4 + UDP_HLEN) || pbuf_header(p, -(s16_t)(IPH_HL(iphdr) * 4))) {
+   6:	8904      	ldrh	r4, [r0, #8]
+   8:	7833      	ldrb	r3, [r6, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:85
+ * @param inp network interface on which the datagram was received.
+ *
+ */
+void
+udp_input(struct pbuf *p, struct netif *inp)
+{
+   a:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:102
+
+  iphdr = (struct ip_hdr *)p->payload;
+
+  /* Check minimum length (IP header + UDP header)
+   * and move payload pointer to UDP header */
+  if (p->tot_len < (IPH_HL(iphdr) * 4 + UDP_HLEN) || pbuf_header(p, -(s16_t)(IPH_HL(iphdr) * 4))) {
+   c:	7870      	ldrb	r0, [r6, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:85
+ * @param inp network interface on which the datagram was received.
+ *
+ */
+void
+udp_input(struct pbuf *p, struct netif *inp)
+{
+   e:	b087      	sub	sp, #28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:102
+
+  iphdr = (struct ip_hdr *)p->payload;
+
+  /* Check minimum length (IP header + UDP header)
+   * and move payload pointer to UDP header */
+  if (p->tot_len < (IPH_HL(iphdr) * 4 + UDP_HLEN) || pbuf_header(p, -(s16_t)(IPH_HL(iphdr) * 4))) {
+  10:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:85
+ * @param inp network interface on which the datagram was received.
+ *
+ */
+void
+udp_input(struct pbuf *p, struct netif *inp)
+{
+  14:	468a      	mov	sl, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:102
+
+  iphdr = (struct ip_hdr *)p->payload;
+
+  /* Check minimum length (IP header + UDP header)
+   * and move payload pointer to UDP header */
+  if (p->tot_len < (IPH_HL(iphdr) * 4 + UDP_HLEN) || pbuf_header(p, -(s16_t)(IPH_HL(iphdr) * 4))) {
+  16:	f7ff fffe 	bl	0 <lwip_ntohs>
+  1a:	0a03      	lsrs	r3, r0, #8
+  1c:	f003 030f 	and.w	r3, r3, #15
+  20:	3302      	adds	r3, #2
+  22:	ebb4 0f83 	cmp.w	r4, r3, lsl #2
+  26:	f2c0 8090 	blt.w	14a <udp_input+0x14a>
+  2a:	7833      	ldrb	r3, [r6, #0]
+  2c:	7870      	ldrb	r0, [r6, #1]
+  2e:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  32:	f7ff fffe 	bl	0 <lwip_ntohs>
+  36:	0981      	lsrs	r1, r0, #6
+  38:	f001 013c 	and.w	r1, r1, #60	; 0x3c
+  3c:	4628      	mov	r0, r5
+  3e:	4249      	negs	r1, r1
+  40:	f7ff fffe 	bl	0 <pbuf_header>
+  44:	4683      	mov	fp, r0
+  46:	2800      	cmp	r0, #0
+  48:	d17f      	bne.n	14a <udp_input+0x14a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:116
+  }
+
+  udphdr = (struct udp_hdr *)p->payload;
+
+  /* is broadcast packet ? */
+  broadcast = ip_addr_isbroadcast(&current_iphdr_dest, inp);
+  4a:	f8df 811c 	ldr.w	r8, [pc, #284]	; 168 <udp_input+0x168>
+  4e:	4651      	mov	r1, sl
+  50:	f8d8 0000 	ldr.w	r0, [r8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:113
+    snmp_inc_udpinerrors();
+    pbuf_free(p);
+    goto end;
+  }
+
+  udphdr = (struct udp_hdr *)p->payload;
+  54:	686c      	ldr	r4, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:116
+
+  /* is broadcast packet ? */
+  broadcast = ip_addr_isbroadcast(&current_iphdr_dest, inp);
+  56:	f7ff fffe 	bl	0 <ip4_addr_isbroadcast>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:121
+
+  LWIP_DEBUGF(UDP_DEBUG, ("udp_input: received datagram of length %"U16_F"\n", p->tot_len));
+
+  /* convert src and dest ports to host byte order */
+  src = ntohs(udphdr->src);
+  5a:	7823      	ldrb	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:116
+  }
+
+  udphdr = (struct udp_hdr *)p->payload;
+
+  /* is broadcast packet ? */
+  broadcast = ip_addr_isbroadcast(&current_iphdr_dest, inp);
+  5c:	4607      	mov	r7, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:121
+
+  LWIP_DEBUGF(UDP_DEBUG, ("udp_input: received datagram of length %"U16_F"\n", p->tot_len));
+
+  /* convert src and dest ports to host byte order */
+  src = ntohs(udphdr->src);
+  5e:	7860      	ldrb	r0, [r4, #1]
+  60:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  64:	f7ff fffe 	bl	0 <lwip_ntohs>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:122
+  dest = ntohs(udphdr->dest);
+  68:	78a3      	ldrb	r3, [r4, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:121
+  broadcast = ip_addr_isbroadcast(&current_iphdr_dest, inp);
+
+  LWIP_DEBUGF(UDP_DEBUG, ("udp_input: received datagram of length %"U16_F"\n", p->tot_len));
+
+  /* convert src and dest ports to host byte order */
+  src = ntohs(udphdr->src);
+  6a:	4681      	mov	r9, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:122
+  dest = ntohs(udphdr->dest);
+  6c:	78e0      	ldrb	r0, [r4, #3]
+  6e:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  72:	f7ff fffe 	bl	0 <lwip_ntohs>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:196
+      }
+      /* compare PCB remote addr+port to UDP source addr+port */
+      if ((local_match != 0) &&
+          (pcb->remote_port == src) &&
+          (ip_addr_isany(&pcb->remote_ip) ||
+           ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src))) {
+  76:	4b3a      	ldr	r3, [pc, #232]	; (160 <udp_input+0x160>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:122
+
+  LWIP_DEBUGF(UDP_DEBUG, ("udp_input: received datagram of length %"U16_F"\n", p->tot_len));
+
+  /* convert src and dest ports to host byte order */
+  src = ntohs(udphdr->src);
+  dest = ntohs(udphdr->dest);
+  78:	9004      	str	r0, [sp, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:162
+    uncon_pcb = NULL;
+    /* Iterate through the UDP pcb list for a matching pcb.
+     * 'Perfect match' pcbs (connected to the remote port & ip address) are
+     * preferred. If no perfect match is found, the first unconnected pcb that
+     * matches the local port and ip address gets the datagram. */
+    for (pcb = udp_pcbs; pcb != NULL; pcb = pcb->next) {
+  7a:	483a      	ldr	r0, [pc, #232]	; (164 <udp_input+0x164>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:196
+      }
+      /* compare PCB remote addr+port to UDP source addr+port */
+      if ((local_match != 0) &&
+          (pcb->remote_port == src) &&
+          (ip_addr_isany(&pcb->remote_ip) ||
+           ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src))) {
+  7c:	681b      	ldr	r3, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:162
+    uncon_pcb = NULL;
+    /* Iterate through the UDP pcb list for a matching pcb.
+     * 'Perfect match' pcbs (connected to the remote port & ip address) are
+     * preferred. If no perfect match is found, the first unconnected pcb that
+     * matches the local port and ip address gets the datagram. */
+    for (pcb = udp_pcbs; pcb != NULL; pcb = pcb->next) {
+  7e:	6801      	ldr	r1, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:176
+                   ip4_addr3_16(&pcb->remote_ip), ip4_addr4_16(&pcb->remote_ip), pcb->remote_port));
+
+      /* compare PCB local addr+port to UDP destination addr+port */
+      if ((pcb->local_port == dest) &&
+          ((!broadcast && ip_addr_isany(&pcb->local_ip)) ||
+           ip_addr_cmp(&(pcb->local_ip), &current_iphdr_dest) ||
+  80:	f8d8 2000 	ldr.w	r2, [r8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:196
+      }
+      /* compare PCB remote addr+port to UDP source addr+port */
+      if ((local_match != 0) &&
+          (pcb->remote_port == src) &&
+          (ip_addr_isany(&pcb->remote_ip) ||
+           ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src))) {
+  84:	9305      	str	r3, [sp, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:162
+    uncon_pcb = NULL;
+    /* Iterate through the UDP pcb list for a matching pcb.
+     * 'Perfect match' pcbs (connected to the remote port & ip address) are
+     * preferred. If no perfect match is found, the first unconnected pcb that
+     * matches the local port and ip address gets the datagram. */
+    for (pcb = udp_pcbs; pcb != NULL; pcb = pcb->next) {
+  86:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:157
+  } else
+#endif /* LWIP_DHCP */
+  {
+    prev = NULL;
+    local_match = 0;
+    uncon_pcb = NULL;
+  88:	465b      	mov	r3, fp
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:155
+      }
+    }
+  } else
+#endif /* LWIP_DHCP */
+  {
+    prev = NULL;
+  8a:	46dc      	mov	ip, fp
+  8c:	4680      	mov	r8, r0
+  8e:	9103      	str	r1, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:162
+    uncon_pcb = NULL;
+    /* Iterate through the UDP pcb list for a matching pcb.
+     * 'Perfect match' pcbs (connected to the remote port & ip address) are
+     * preferred. If no perfect match is found, the first unconnected pcb that
+     * matches the local port and ip address gets the datagram. */
+    for (pcb = udp_pcbs; pcb != NULL; pcb = pcb->next) {
+  90:	e024      	b.n	dc <udp_input+0xdc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:174
+                   ip4_addr3_16(&pcb->local_ip), ip4_addr4_16(&pcb->local_ip), pcb->local_port,
+                   ip4_addr1_16(&pcb->remote_ip), ip4_addr2_16(&pcb->remote_ip),
+                   ip4_addr3_16(&pcb->remote_ip), ip4_addr4_16(&pcb->remote_ip), pcb->remote_port));
+
+      /* compare PCB local addr+port to UDP destination addr+port */
+      if ((pcb->local_port == dest) &&
+  92:	8a60      	ldrh	r0, [r4, #18]
+  94:	9904      	ldr	r1, [sp, #16]
+  96:	4288      	cmp	r0, r1
+  98:	d11e      	bne.n	d8 <udp_input+0xd8>
+  9a:	6820      	ldr	r0, [r4, #0]
+  9c:	b907      	cbnz	r7, a0 <udp_input+0xa0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:175
+          ((!broadcast && ip_addr_isany(&pcb->local_ip)) ||
+  9e:	b110      	cbz	r0, a6 <udp_input+0xa6>
+  a0:	4290      	cmp	r0, r2
+  a2:	d000      	beq.n	a6 <udp_input+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:176
+           ip_addr_cmp(&(pcb->local_ip), &current_iphdr_dest) ||
+  a4:	b1c7      	cbz	r7, d8 <udp_input+0xd8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:186
+           (broadcast && (pcb->so_options & SOF_BROADCAST)))) {
+#else  /* IP_SOF_BROADCAST_RECV */
+           (broadcast))) {
+#endif /* IP_SOF_BROADCAST_RECV */
+        local_match = 1;
+        if ((uncon_pcb == NULL) && 
+  a6:	2b00      	cmp	r3, #0
+  a8:	d155      	bne.n	156 <udp_input+0x156>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:187
+            ((pcb->flags & UDP_FLAGS_CONNECTED) == 0)) {
+  aa:	7c20      	ldrb	r0, [r4, #16]
+  ac:	f000 0004 	and.w	r0, r0, #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:186
+           (broadcast && (pcb->so_options & SOF_BROADCAST)))) {
+#else  /* IP_SOF_BROADCAST_RECV */
+           (broadcast))) {
+#endif /* IP_SOF_BROADCAST_RECV */
+        local_match = 1;
+        if ((uncon_pcb == NULL) && 
+  b0:	2800      	cmp	r0, #0
+  b2:	bf08      	it	eq
+  b4:	4623      	moveq	r3, r4
+  b6:	e04e      	b.n	156 <udp_input+0x156>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:195
+        }
+      }
+      /* compare PCB remote addr+port to UDP source addr+port */
+      if ((local_match != 0) &&
+          (pcb->remote_port == src) &&
+          (ip_addr_isany(&pcb->remote_ip) ||
+  b8:	6860      	ldr	r0, [r4, #4]
+  ba:	b110      	cbz	r0, c2 <udp_input+0xc2>
+  bc:	9905      	ldr	r1, [sp, #20]
+  be:	4288      	cmp	r0, r1
+  c0:	d10a      	bne.n	d8 <udp_input+0xd8>
+  c2:	9903      	ldr	r1, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:198
+           ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src))) {
+        /* the first fully matching PCB */
+        if (prev != NULL) {
+  c4:	f1bc 0f00 	cmp.w	ip, #0
+  c8:	d011      	beq.n	ee <udp_input+0xee>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:201
+          /* move the pcb to the front of udp_pcbs so that is
+             found faster next time */
+          prev->next = pcb->next;
+  ca:	68e3      	ldr	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:203
+          pcb->next = udp_pcbs;
+          udp_pcbs = pcb;
+  cc:	f8c8 4000 	str.w	r4, [r8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:201
+           ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src))) {
+        /* the first fully matching PCB */
+        if (prev != NULL) {
+          /* move the pcb to the front of udp_pcbs so that is
+             found faster next time */
+          prev->next = pcb->next;
+  d0:	f8cc 300c 	str.w	r3, [ip, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:202
+          pcb->next = udp_pcbs;
+  d4:	60e1      	str	r1, [r4, #12]
+  d6:	e00a      	b.n	ee <udp_input+0xee>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:162
+    uncon_pcb = NULL;
+    /* Iterate through the UDP pcb list for a matching pcb.
+     * 'Perfect match' pcbs (connected to the remote port & ip address) are
+     * preferred. If no perfect match is found, the first unconnected pcb that
+     * matches the local port and ip address gets the datagram. */
+    for (pcb = udp_pcbs; pcb != NULL; pcb = pcb->next) {
+  d8:	46a4      	mov	ip, r4
+  da:	68e4      	ldr	r4, [r4, #12]
+  dc:	2c00      	cmp	r4, #0
+  de:	d1d8      	bne.n	92 <udp_input+0x92>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:218
+      pcb = uncon_pcb;
+    }
+  }
+
+  /* Check checksum if this is a match or if it was directed at us. */
+  if (pcb != NULL || ip_addr_cmp(&inp->ip_addr, &current_iphdr_dest)) {
+  e0:	b923      	cbnz	r3, ec <udp_input+0xec>
+  e2:	f8da 3004 	ldr.w	r3, [sl, #4]
+  e6:	4293      	cmp	r3, r2
+  e8:	d12f      	bne.n	14a <udp_input+0x14a>
+  ea:	e000      	b.n	ee <udp_input+0xee>
+  ec:	461c      	mov	r4, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:269
+          goto end;
+        }
+      }
+#endif /* CHECKSUM_CHECK_UDP */
+    }
+    if(pbuf_header(p, -UDP_HLEN)) {
+  ee:	4628      	mov	r0, r5
+  f0:	f06f 0107 	mvn.w	r1, #7
+  f4:	f7ff fffe 	bl	0 <pbuf_header>
+  f8:	2800      	cmp	r0, #0
+  fa:	d126      	bne.n	14a <udp_input+0x14a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:277
+      UDP_STATS_INC(udp.drop);
+      snmp_inc_udpinerrors();
+      pbuf_free(p);
+      goto end;
+    }
+    if (pcb != NULL) {
+  fc:	b164      	cbz	r4, 118 <udp_input+0x118>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:328
+          pbuf_header(p, -(s16_t)((IPH_HL(iphdr) * 4) + UDP_HLEN));
+        }
+      }
+#endif /* SO_REUSE && SO_REUSE_RXTOALL */
+      /* callback */
+      if (pcb->recv != NULL) {
+  fe:	69a6      	ldr	r6, [r4, #24]
+ 100:	2e00      	cmp	r6, #0
+ 102:	d022      	beq.n	14a <udp_input+0x14a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:330
+        /* now the recv function is responsible for freeing p */
+        pcb->recv(pcb->recv_arg, pcb, p, ip_current_src_addr(), src);
+ 104:	f8cd 9000 	str.w	r9, [sp]
+ 108:	69e0      	ldr	r0, [r4, #28]
+ 10a:	4621      	mov	r1, r4
+ 10c:	462a      	mov	r2, r5
+ 10e:	4b14      	ldr	r3, [pc, #80]	; (160 <udp_input+0x160>)
+ 110:	47b0      	blx	r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:360
+  } else {
+    pbuf_free(p);
+  }
+end:
+  PERF_STOP("udp_input");
+}
+ 112:	b007      	add	sp, #28
+ 114:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:342
+      LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, ("udp_input: not for us.\n"));
+
+#if LWIP_ICMP
+      /* No match was found, send ICMP destination port unreachable unless
+         destination address was broadcast/multicast. */
+      if (!broadcast &&
+ 118:	b9bf      	cbnz	r7, 14a <udp_input+0x14a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:343
+          !ip_addr_ismulticast(&current_iphdr_dest)) {
+ 11a:	4a13      	ldr	r2, [pc, #76]	; (168 <udp_input+0x168>)
+ 11c:	6813      	ldr	r3, [r2, #0]
+ 11e:	f003 03f0 	and.w	r3, r3, #240	; 0xf0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:342
+      LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, ("udp_input: not for us.\n"));
+
+#if LWIP_ICMP
+      /* No match was found, send ICMP destination port unreachable unless
+         destination address was broadcast/multicast. */
+      if (!broadcast &&
+ 122:	2be0      	cmp	r3, #224	; 0xe0
+ 124:	d011      	beq.n	14a <udp_input+0x14a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:345
+          !ip_addr_ismulticast(&current_iphdr_dest)) {
+        /* move payload pointer back to ip header */
+        pbuf_header(p, (IPH_HL(iphdr) * 4) + UDP_HLEN);
+ 126:	7833      	ldrb	r3, [r6, #0]
+ 128:	7870      	ldrb	r0, [r6, #1]
+ 12a:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+ 12e:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 132:	0a01      	lsrs	r1, r0, #8
+ 134:	f001 010f 	and.w	r1, r1, #15
+ 138:	3102      	adds	r1, #2
+ 13a:	0089      	lsls	r1, r1, #2
+ 13c:	4628      	mov	r0, r5
+ 13e:	f7ff fffe 	bl	0 <pbuf_header>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:347
+        LWIP_ASSERT("p->payload == iphdr", (p->payload == iphdr));
+        icmp_dest_unreach(p, ICMP_DUR_PORT);
+ 142:	4628      	mov	r0, r5
+ 144:	2103      	movs	r1, #3
+ 146:	f7ff fffe 	bl	0 <icmp_dest_unreach>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:356
+      UDP_STATS_INC(udp.drop);
+      snmp_inc_udpnoports();
+      pbuf_free(p);
+    }
+  } else {
+    pbuf_free(p);
+ 14a:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:360
+  }
+end:
+  PERF_STOP("udp_input");
+}
+ 14c:	b007      	add	sp, #28
+ 14e:	e8bd 4ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:356
+      UDP_STATS_INC(udp.drop);
+      snmp_inc_udpnoports();
+      pbuf_free(p);
+    }
+  } else {
+    pbuf_free(p);
+ 152:	f7ff bffe 	b.w	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:193
+          /* the first unconnected matching PCB */
+          uncon_pcb = pcb;
+        }
+      }
+      /* compare PCB remote addr+port to UDP source addr+port */
+      if ((local_match != 0) &&
+ 156:	8aa0      	ldrh	r0, [r4, #20]
+ 158:	4548      	cmp	r0, r9
+ 15a:	d1bd      	bne.n	d8 <udp_input+0xd8>
+ 15c:	e7ac      	b.n	b8 <udp_input+0xb8>
+ 15e:	bf00      	nop
+	...
+
+Disassembly of section .text.udp_bind:
+
+00000000 <udp_bind>:
+udp_bind():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:701
+ *
+ * @see udp_disconnect()
+ */
+err_t
+udp_bind(struct udp_pcb *pcb, ip_addr_t *ipaddr, u16_t port)
+{
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:711
+  ip_addr_debug_print(UDP_DEBUG, ipaddr);
+  LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, (", port = %"U16_F")\n", port));
+
+  rebind = 0;
+  /* Check for double bind and rebind of the same pcb */
+  for (ipcb = udp_pcbs; ipcb != NULL; ipcb = ipcb->next) {
+   2:	4e1c      	ldr	r6, [pc, #112]	; (74 <udp_bind+0x74>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:709
+
+  LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, ("udp_bind(ipaddr = "));
+  ip_addr_debug_print(UDP_DEBUG, ipaddr);
+  LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, (", port = %"U16_F")\n", port));
+
+  rebind = 0;
+   4:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:711
+  /* Check for double bind and rebind of the same pcb */
+  for (ipcb = udp_pcbs; ipcb != NULL; ipcb = ipcb->next) {
+   6:	6834      	ldr	r4, [r6, #0]
+   8:	46b4      	mov	ip, r6
+   a:	4623      	mov	r3, r4
+   c:	e00e      	b.n	2c <udp_bind+0x2c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:713
+    /* is this UDP PCB already on active list? */
+    if (pcb == ipcb) {
+   e:	4298      	cmp	r0, r3
+  10:	d00a      	beq.n	28 <udp_bind+0x28>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:730
+             ((ipcb->so_options & SOF_REUSEADDR) == 0)) {
+#else /* SO_REUSE */
+    /* port matches that of PCB in list and REUSEADDR not set -> reject */
+    else {
+#endif /* SO_REUSE */
+      if ((ipcb->local_port == port) &&
+  12:	8a5e      	ldrh	r6, [r3, #18]
+  14:	4296      	cmp	r6, r2
+  16:	d108      	bne.n	2a <udp_bind+0x2a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:732
+          /* IP address matches, or one is IP_ADDR_ANY? */
+          (ip_addr_isany(&(ipcb->local_ip)) ||
+  18:	681e      	ldr	r6, [r3, #0]
+  1a:	b336      	cbz	r6, 6a <udp_bind+0x6a>
+  1c:	b329      	cbz	r1, 6a <udp_bind+0x6a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:733
+           ip_addr_isany(ipaddr) ||
+  1e:	680f      	ldr	r7, [r1, #0]
+  20:	b31f      	cbz	r7, 6a <udp_bind+0x6a>
+  22:	42be      	cmp	r6, r7
+  24:	d101      	bne.n	2a <udp_bind+0x2a>
+  26:	e020      	b.n	6a <udp_bind+0x6a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:717
+    /* is this UDP PCB already on active list? */
+    if (pcb == ipcb) {
+      /* pcb may occur at most once in active list */
+      LWIP_ASSERT("rebind == 0", rebind == 0);
+      /* pcb already in list, just rebind */
+      rebind = 1;
+  28:	2501      	movs	r5, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:711
+  ip_addr_debug_print(UDP_DEBUG, ipaddr);
+  LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, (", port = %"U16_F")\n", port));
+
+  rebind = 0;
+  /* Check for double bind and rebind of the same pcb */
+  for (ipcb = udp_pcbs; ipcb != NULL; ipcb = ipcb->next) {
+  2a:	68db      	ldr	r3, [r3, #12]
+  2c:	2b00      	cmp	r3, #0
+  2e:	d1ee      	bne.n	e <udp_bind+0xe>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:743
+        return ERR_USE;
+      }
+    }
+  }
+
+  ip_addr_set(&pcb->local_ip, ipaddr);
+  30:	b101      	cbz	r1, 34 <udp_bind+0x34>
+  32:	6809      	ldr	r1, [r1, #0]
+  34:	6001      	str	r1, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:746
+
+  /* no port specified? */
+  if (port == 0) {
+  36:	b98a      	cbnz	r2, 5c <udp_bind+0x5c>
+  38:	4623      	mov	r3, r4
+  3a:	f44f 4240 	mov.w	r2, #49152	; 0xc000
+  3e:	e007      	b.n	50 <udp_bind+0x50>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:756
+#define UDP_LOCAL_PORT_RANGE_END    0xffff
+#endif
+    port = UDP_LOCAL_PORT_RANGE_START;
+    ipcb = udp_pcbs;
+    while ((ipcb != NULL) && (port != UDP_LOCAL_PORT_RANGE_END)) {
+      if (ipcb->local_port == port) {
+  40:	8a59      	ldrh	r1, [r3, #18]
+  42:	4291      	cmp	r1, r2
+  44:	d103      	bne.n	4e <udp_bind+0x4e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:758
+        /* port is already used by another udp_pcb */
+        port++;
+  46:	3201      	adds	r2, #1
+  48:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:760
+        /* restart scanning all udp pcbs */
+        ipcb = udp_pcbs;
+  4a:	4623      	mov	r3, r4
+  4c:	e000      	b.n	50 <udp_bind+0x50>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:763
+      } else {
+        /* go on with next udp pcb */
+        ipcb = ipcb->next;
+  4e:	68db      	ldr	r3, [r3, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:755
+#define UDP_LOCAL_PORT_RANGE_START  0xc000
+#define UDP_LOCAL_PORT_RANGE_END    0xffff
+#endif
+    port = UDP_LOCAL_PORT_RANGE_START;
+    ipcb = udp_pcbs;
+    while ((ipcb != NULL) && (port != UDP_LOCAL_PORT_RANGE_END)) {
+  50:	b123      	cbz	r3, 5c <udp_bind+0x5c>
+  52:	f64f 71ff 	movw	r1, #65535	; 0xffff
+  56:	428a      	cmp	r2, r1
+  58:	d1f2      	bne.n	40 <udp_bind+0x40>
+  5a:	e006      	b.n	6a <udp_bind+0x6a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:772
+      /* no more ports available in local range */
+      LWIP_DEBUGF(UDP_DEBUG, ("udp_bind: out of free UDP ports\n"));
+      return ERR_USE;
+    }
+  }
+  pcb->local_port = port;
+  5c:	8242      	strh	r2, [r0, #18]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:775
+  snmp_insert_udpidx_tree(pcb);
+  /* pcb not active yet? */
+  if (rebind == 0) {
+  5e:	b935      	cbnz	r5, 6e <udp_bind+0x6e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:777
+    /* place the PCB on the active list if not already there */
+    pcb->next = udp_pcbs;
+  60:	60c4      	str	r4, [r0, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:778
+    udp_pcbs = pcb;
+  62:	f8cc 0000 	str.w	r0, [ip]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:785
+  LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE,
+              ("udp_bind: bound to %"U16_F".%"U16_F".%"U16_F".%"U16_F", port %"U16_F"\n",
+               ip4_addr1_16(&pcb->local_ip), ip4_addr2_16(&pcb->local_ip),
+               ip4_addr3_16(&pcb->local_ip), ip4_addr4_16(&pcb->local_ip),
+               pcb->local_port));
+  return ERR_OK;
+  66:	4628      	mov	r0, r5
+  68:	e002      	b.n	70 <udp_bind+0x70>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:738
+           ip_addr_isany(ipaddr) ||
+           ip_addr_cmp(&(ipcb->local_ip), ipaddr))) {
+        /* other PCB already binds to this local IP and port */
+        LWIP_DEBUGF(UDP_DEBUG,
+                    ("udp_bind: local port %"U16_F" already bound by another pcb\n", port));
+        return ERR_USE;
+  6a:	20f8      	movs	r0, #248	; 0xf8
+  6c:	e000      	b.n	70 <udp_bind+0x70>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:785
+  LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE,
+              ("udp_bind: bound to %"U16_F".%"U16_F".%"U16_F".%"U16_F", port %"U16_F"\n",
+               ip4_addr1_16(&pcb->local_ip), ip4_addr2_16(&pcb->local_ip),
+               ip4_addr3_16(&pcb->local_ip), ip4_addr4_16(&pcb->local_ip),
+               pcb->local_port));
+  return ERR_OK;
+  6e:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:786
+}
+  70:	b240      	sxtb	r0, r0
+  72:	bdf0      	pop	{r4, r5, r6, r7, pc}
+  74:	00000000 	.word	0x00000000
+
+Disassembly of section .text.udp_sendto_if:
+
+00000000 <udp_sendto_if>:
+udp_sendto_if():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:478
+ * @see udp_disconnect() udp_send()
+ */
+err_t
+udp_sendto_if(struct udp_pcb *pcb, struct pbuf *p,
+  ip_addr_t *dst_ip, u16_t dst_port, struct netif *netif)
+{
+   0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+   4:	4617      	mov	r7, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:505
+    return ERR_VAL;
+  }
+#endif /* IP_SOF_BROADCAST */
+
+  /* if the PCB is not yet bound to a port, bind it here */
+  if (pcb->local_port == 0) {
+   6:	8a42      	ldrh	r2, [r0, #18]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:478
+ * @see udp_disconnect() udp_send()
+ */
+err_t
+udp_sendto_if(struct udp_pcb *pcb, struct pbuf *p,
+  ip_addr_t *dst_ip, u16_t dst_port, struct netif *netif)
+{
+   8:	b085      	sub	sp, #20
+   a:	4605      	mov	r5, r0
+   c:	460e      	mov	r6, r1
+   e:	4699      	mov	r9, r3
+  10:	f8dd 8038 	ldr.w	r8, [sp, #56]	; 0x38
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:505
+    return ERR_VAL;
+  }
+#endif /* IP_SOF_BROADCAST */
+
+  /* if the PCB is not yet bound to a port, bind it here */
+  if (pcb->local_port == 0) {
+  14:	b92a      	cbnz	r2, 22 <udp_sendto_if+0x22>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:507
+    LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE, ("udp_send: not yet bound to a port, binding now\n"));
+    err = udp_bind(pcb, &pcb->local_ip, pcb->local_port);
+  16:	4601      	mov	r1, r0
+  18:	f7ff fffe 	bl	0 <udp_sendto_if>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:508
+    if (err != ERR_OK) {
+  1c:	4682      	mov	sl, r0
+  1e:	2800      	cmp	r0, #0
+  20:	d15b      	bne.n	da <udp_sendto_if+0xda>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:515
+      return err;
+    }
+  }
+
+  /* not enough space to add an UDP header to first pbuf in given p chain? */
+  if (pbuf_header(p, UDP_HLEN)) {
+  22:	4630      	mov	r0, r6
+  24:	2108      	movs	r1, #8
+  26:	f7ff fffe 	bl	0 <pbuf_header>
+  2a:	b168      	cbz	r0, 48 <udp_sendto_if+0x48>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:517
+    /* allocate header in a separate new pbuf */
+    q = pbuf_alloc(PBUF_IP, UDP_HLEN, PBUF_RAM);
+  2c:	2001      	movs	r0, #1
+  2e:	2108      	movs	r1, #8
+  30:	2200      	movs	r2, #0
+  32:	f7ff fffe 	bl	0 <pbuf_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:519
+    /* new header pbuf could not be allocated? */
+    if (q == NULL) {
+  36:	4604      	mov	r4, r0
+  38:	2800      	cmp	r0, #0
+  3a:	d049      	beq.n	d0 <udp_sendto_if+0xd0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:523
+      LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_SERIOUS, ("udp_send: could not allocate header\n"));
+      return ERR_MEM;
+    }
+    if (p->tot_len != 0) {
+  3c:	8933      	ldrh	r3, [r6, #8]
+  3e:	b123      	cbz	r3, 4a <udp_sendto_if+0x4a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:525
+      /* chain header q in front of given pbuf p (only if p contains data) */
+      pbuf_chain(q, p);
+  40:	4631      	mov	r1, r6
+  42:	f7ff fffe 	bl	0 <pbuf_chain>
+  46:	e000      	b.n	4a <udp_sendto_if+0x4a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:515
+      return err;
+    }
+  }
+
+  /* not enough space to add an UDP header to first pbuf in given p chain? */
+  if (pbuf_header(p, UDP_HLEN)) {
+  48:	4634      	mov	r4, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:540
+  }
+  LWIP_ASSERT("check that first pbuf can hold struct udp_hdr",
+              (q->len >= sizeof(struct udp_hdr)));
+  /* q now represents the packet to be sent */
+  udphdr = (struct udp_hdr *)q->payload;
+  udphdr->src = htons(pcb->local_port);
+  4a:	8a68      	ldrh	r0, [r5, #18]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:539
+    LWIP_DEBUGF(UDP_DEBUG, ("udp_send: added header in given pbuf %p\n", (void *)p));
+  }
+  LWIP_ASSERT("check that first pbuf can hold struct udp_hdr",
+              (q->len >= sizeof(struct udp_hdr)));
+  /* q now represents the packet to be sent */
+  udphdr = (struct udp_hdr *)q->payload;
+  4c:	f8d4 a004 	ldr.w	sl, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:540
+  udphdr->src = htons(pcb->local_port);
+  50:	f7ff fffe 	bl	0 <lwip_htons>
+  54:	f88a 0000 	strb.w	r0, [sl]
+  58:	0a00      	lsrs	r0, r0, #8
+  5a:	f88a 0001 	strb.w	r0, [sl, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:541
+  udphdr->dest = htons(dst_port);
+  5e:	4648      	mov	r0, r9
+  60:	f7ff fffe 	bl	0 <lwip_htons>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:540
+  }
+  LWIP_ASSERT("check that first pbuf can hold struct udp_hdr",
+              (q->len >= sizeof(struct udp_hdr)));
+  /* q now represents the packet to be sent */
+  udphdr = (struct udp_hdr *)q->payload;
+  udphdr->src = htons(pcb->local_port);
+  64:	f04f 0b00 	mov.w	fp, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:541
+  udphdr->dest = htons(dst_port);
+  68:	f88a 0002 	strb.w	r0, [sl, #2]
+  6c:	0a00      	lsrs	r0, r0, #8
+  6e:	f88a 0003 	strb.w	r0, [sl, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:543
+  /* in UDP, 0 checksum means 'no checksum' */
+  udphdr->chksum = 0x0000; 
+  72:	f88a b006 	strb.w	fp, [sl, #6]
+  76:	f88a b007 	strb.w	fp, [sl, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:554
+  }
+#endif /* LWIP_IGMP */
+
+
+  /* PCB local address is IP_ANY_ADDR? */
+  if (ip_addr_isany(&pcb->local_ip)) {
+  7a:	682b      	ldr	r3, [r5, #0]
+  7c:	b913      	cbnz	r3, 84 <udp_sendto_if+0x84>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:556
+    /* use outgoing network interface IP address as source address */
+    src_ip = &(netif->ip_addr);
+  7e:	f108 0904 	add.w	r9, r8, #4
+  82:	e00a      	b.n	9a <udp_sendto_if+0x9a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:560
+  } else {
+    /* check if UDP PCB local IP address is correct
+     * this could be an old address if netif->ip_addr has changed */
+    if (!ip_addr_cmp(&(pcb->local_ip), &(netif->ip_addr))) {
+  84:	f8d8 2004 	ldr.w	r2, [r8, #4]
+  88:	4293      	cmp	r3, r2
+  8a:	d005      	beq.n	98 <udp_sendto_if+0x98>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:562
+      /* local_ip doesn't match, drop the packet */
+      if (q != p) {
+  8c:	42b4      	cmp	r4, r6
+  8e:	d022      	beq.n	d6 <udp_sendto_if+0xd6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:564
+        /* free the header pbuf */
+        pbuf_free(q);
+  90:	4620      	mov	r0, r4
+  92:	f7ff fffe 	bl	0 <pbuf_free>
+  96:	e01e      	b.n	d6 <udp_sendto_if+0xd6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:554
+  }
+#endif /* LWIP_IGMP */
+
+
+  /* PCB local address is IP_ANY_ADDR? */
+  if (ip_addr_isany(&pcb->local_ip)) {
+  98:	46a9      	mov	r9, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:630
+#endif /* LWIP_NETIF_HWADDRHINT*/
+  } else
+#endif /* LWIP_UDPLITE */
+  {      /* UDP */
+    LWIP_DEBUGF(UDP_DEBUG, ("udp_send: UDP packet length %"U16_F"\n", q->tot_len));
+    udphdr->len = htons(q->tot_len);
+  9a:	8920      	ldrh	r0, [r4, #8]
+  9c:	f7ff fffe 	bl	0 <lwip_htons>
+  a0:	f88a 0004 	strb.w	r0, [sl, #4]
+  a4:	0a00      	lsrs	r0, r0, #8
+  a6:	f88a 0005 	strb.w	r0, [sl, #5]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:661
+    LWIP_DEBUGF(UDP_DEBUG, ("udp_send: ip_output_if (,,,,IP_PROTO_UDP,)\n"));
+    /* output to IP */
+#if LWIP_NETIF_HWADDRHINT
+    netif->addr_hint = &(pcb->addr_hint);
+#endif /* LWIP_NETIF_HWADDRHINT*/
+    err = ip_output_if(q, src_ip, dst_ip, pcb->ttl, pcb->tos, IP_PROTO_UDP, netif);
+  aa:	7a6a      	ldrb	r2, [r5, #9]
+  ac:	7aab      	ldrb	r3, [r5, #10]
+  ae:	9200      	str	r2, [sp, #0]
+  b0:	2211      	movs	r2, #17
+  b2:	9201      	str	r2, [sp, #4]
+  b4:	4620      	mov	r0, r4
+  b6:	4649      	mov	r1, r9
+  b8:	463a      	mov	r2, r7
+  ba:	f8cd 8008 	str.w	r8, [sp, #8]
+  be:	f7ff fffe 	bl	0 <ip_output_if>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:669
+#endif /* LWIP_NETIF_HWADDRHINT*/
+  }
+  snmp_inc_udpoutdatagrams();
+
+  /* did we chain a separate header pbuf earlier? */
+  if (q != p) {
+  c2:	42b4      	cmp	r4, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:661
+    LWIP_DEBUGF(UDP_DEBUG, ("udp_send: ip_output_if (,,,,IP_PROTO_UDP,)\n"));
+    /* output to IP */
+#if LWIP_NETIF_HWADDRHINT
+    netif->addr_hint = &(pcb->addr_hint);
+#endif /* LWIP_NETIF_HWADDRHINT*/
+    err = ip_output_if(q, src_ip, dst_ip, pcb->ttl, pcb->tos, IP_PROTO_UDP, netif);
+  c4:	4682      	mov	sl, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:669
+#endif /* LWIP_NETIF_HWADDRHINT*/
+  }
+  snmp_inc_udpoutdatagrams();
+
+  /* did we chain a separate header pbuf earlier? */
+  if (q != p) {
+  c6:	d008      	beq.n	da <udp_sendto_if+0xda>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:671
+    /* free the header pbuf */
+    pbuf_free(q);
+  c8:	4620      	mov	r0, r4
+  ca:	f7ff fffe 	bl	0 <pbuf_free>
+  ce:	e004      	b.n	da <udp_sendto_if+0xda>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:521
+    /* allocate header in a separate new pbuf */
+    q = pbuf_alloc(PBUF_IP, UDP_HLEN, PBUF_RAM);
+    /* new header pbuf could not be allocated? */
+    if (q == NULL) {
+      LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_SERIOUS, ("udp_send: could not allocate header\n"));
+      return ERR_MEM;
+  d0:	f04f 0aff 	mov.w	sl, #255	; 0xff
+  d4:	e001      	b.n	da <udp_sendto_if+0xda>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:568
+        /* free the header pbuf */
+        pbuf_free(q);
+        q = NULL;
+        /* p is still referenced by the caller, and will live on */
+      }
+      return ERR_VAL;
+  d6:	f04f 0afa 	mov.w	sl, #250	; 0xfa
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:678
+    /* p is still referenced by the caller, and will live on */
+  }
+
+  UDP_STATS_INC(udp.xmit);
+  return err;
+}
+  da:	fa4f f08a 	sxtb.w	r0, sl
+  de:	b005      	add	sp, #20
+  e0:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+
+Disassembly of section .text.udp_sendto:
+
+00000000 <udp_sendto>:
+udp_sendto():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:420
+ * @see udp_disconnect() udp_send()
+ */
+err_t
+udp_sendto(struct udp_pcb *pcb, struct pbuf *p,
+  ip_addr_t *dst_ip, u16_t dst_port)
+{
+   0:	b5f7      	push	{r0, r1, r2, r4, r5, r6, r7, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:439
+
+  /* find the outgoing network interface for this packet */
+#if LWIP_IGMP
+  netif = ip_route((ip_addr_ismulticast(dst_ip))?(&(pcb->multicast_ip)):(dst_ip));
+#else
+  netif = ip_route(dst_ip);
+   4:	4610      	mov	r0, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:420
+ * @see udp_disconnect() udp_send()
+ */
+err_t
+udp_sendto(struct udp_pcb *pcb, struct pbuf *p,
+  ip_addr_t *dst_ip, u16_t dst_port)
+{
+   6:	460f      	mov	r7, r1
+   8:	4615      	mov	r5, r2
+   a:	461e      	mov	r6, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:439
+
+  /* find the outgoing network interface for this packet */
+#if LWIP_IGMP
+  netif = ip_route((ip_addr_ismulticast(dst_ip))?(&(pcb->multicast_ip)):(dst_ip));
+#else
+  netif = ip_route(dst_ip);
+   c:	f7ff fffe 	bl	0 <ip_route>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:443
+#endif /* LWIP_IGMP */
+
+  /* no outgoing network interface could be found? */
+  if (netif == NULL) {
+  10:	b138      	cbz	r0, 22 <udp_sendto+0x22>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:452
+    return ERR_RTE;
+  }
+#if LWIP_CHECKSUM_ON_COPY
+  return udp_sendto_if_chksum(pcb, p, dst_ip, dst_port, netif, have_chksum, chksum);
+#else /* LWIP_CHECKSUM_ON_COPY */
+  return udp_sendto_if(pcb, p, dst_ip, dst_port, netif);
+  12:	9000      	str	r0, [sp, #0]
+  14:	4639      	mov	r1, r7
+  16:	4620      	mov	r0, r4
+  18:	462a      	mov	r2, r5
+  1a:	4633      	mov	r3, r6
+  1c:	f7ff fffe 	bl	0 <udp_sendto>
+  20:	e000      	b.n	24 <udp_sendto+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:447
+  /* no outgoing network interface could be found? */
+  if (netif == NULL) {
+    LWIP_DEBUGF(UDP_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("udp_send: No route to %"U16_F".%"U16_F".%"U16_F".%"U16_F"\n",
+      ip4_addr1_16(dst_ip), ip4_addr2_16(dst_ip), ip4_addr3_16(dst_ip), ip4_addr4_16(dst_ip)));
+    UDP_STATS_INC(udp.rterr);
+    return ERR_RTE;
+  22:	20fc      	movs	r0, #252	; 0xfc
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:454
+#if LWIP_CHECKSUM_ON_COPY
+  return udp_sendto_if_chksum(pcb, p, dst_ip, dst_port, netif, have_chksum, chksum);
+#else /* LWIP_CHECKSUM_ON_COPY */
+  return udp_sendto_if(pcb, p, dst_ip, dst_port, netif);
+#endif /* LWIP_CHECKSUM_ON_COPY */
+}
+  24:	b240      	sxtb	r0, r0
+  26:	bdfe      	pop	{r1, r2, r3, r4, r5, r6, r7, pc}
+
+Disassembly of section .text.udp_send:
+
+00000000 <udp_send>:
+udp_send():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:384
+ */
+err_t
+udp_send(struct udp_pcb *pcb, struct pbuf *p)
+{
+  /* send to the packet using remote ip and port stored in the pcb */
+  return udp_sendto(pcb, p, &pcb->remote_ip, pcb->remote_port);
+   0:	8a83      	ldrh	r3, [r0, #20]
+   2:	1d02      	adds	r2, r0, #4
+   4:	f7ff bffe 	b.w	0 <udp_send>
+
+Disassembly of section .text.udp_connect:
+
+00000000 <udp_connect>:
+udp_connect():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:806
+ *
+ * @see udp_disconnect()
+ */
+err_t
+udp_connect(struct udp_pcb *pcb, ip_addr_t *ipaddr, u16_t port)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:809
+  struct udp_pcb *ipcb;
+
+  if (pcb->local_port == 0) {
+   4:	8a42      	ldrh	r2, [r0, #18]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:806
+ *
+ * @see udp_disconnect()
+ */
+err_t
+udp_connect(struct udp_pcb *pcb, ip_addr_t *ipaddr, u16_t port)
+{
+   6:	4604      	mov	r4, r0
+   8:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:809
+  struct udp_pcb *ipcb;
+
+  if (pcb->local_port == 0) {
+   a:	b91a      	cbnz	r2, 14 <udp_connect+0x14>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:810
+    err_t err = udp_bind(pcb, &pcb->local_ip, pcb->local_port);
+   c:	4601      	mov	r1, r0
+   e:	f7ff fffe 	bl	0 <udp_connect>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:811
+    if (err != ERR_OK) {
+  12:	b9a0      	cbnz	r0, 3e <udp_connect+0x3e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:816
+      return err;
+    }
+  }
+
+  ip_addr_set(&pcb->remote_ip, ipaddr);
+  14:	b105      	cbz	r5, 18 <udp_connect+0x18>
+  16:	682d      	ldr	r5, [r5, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:818
+  pcb->remote_port = port;
+  pcb->flags |= UDP_FLAGS_CONNECTED;
+  18:	7c23      	ldrb	r3, [r4, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:841
+               ip4_addr1_16(&pcb->local_ip), ip4_addr2_16(&pcb->local_ip),
+               ip4_addr3_16(&pcb->local_ip), ip4_addr4_16(&pcb->local_ip),
+               pcb->local_port));
+
+  /* Insert UDP PCB into the list of active UDP PCBs. */
+  for (ipcb = udp_pcbs; ipcb != NULL; ipcb = ipcb->next) {
+  1a:	4a0a      	ldr	r2, [pc, #40]	; (44 <udp_connect+0x44>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:818
+    }
+  }
+
+  ip_addr_set(&pcb->remote_ip, ipaddr);
+  pcb->remote_port = port;
+  pcb->flags |= UDP_FLAGS_CONNECTED;
+  1c:	f043 0304 	orr.w	r3, r3, #4
+  20:	7423      	strb	r3, [r4, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:841
+               ip4_addr1_16(&pcb->local_ip), ip4_addr2_16(&pcb->local_ip),
+               ip4_addr3_16(&pcb->local_ip), ip4_addr4_16(&pcb->local_ip),
+               pcb->local_port));
+
+  /* Insert UDP PCB into the list of active UDP PCBs. */
+  for (ipcb = udp_pcbs; ipcb != NULL; ipcb = ipcb->next) {
+  22:	6813      	ldr	r3, [r2, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:816
+    if (err != ERR_OK) {
+      return err;
+    }
+  }
+
+  ip_addr_set(&pcb->remote_ip, ipaddr);
+  24:	6065      	str	r5, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:817
+  pcb->remote_port = port;
+  26:	82a6      	strh	r6, [r4, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:841
+               ip4_addr1_16(&pcb->local_ip), ip4_addr2_16(&pcb->local_ip),
+               ip4_addr3_16(&pcb->local_ip), ip4_addr4_16(&pcb->local_ip),
+               pcb->local_port));
+
+  /* Insert UDP PCB into the list of active UDP PCBs. */
+  for (ipcb = udp_pcbs; ipcb != NULL; ipcb = ipcb->next) {
+  28:	4618      	mov	r0, r3
+  2a:	e002      	b.n	32 <udp_connect+0x32>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:842
+    if (pcb == ipcb) {
+  2c:	4284      	cmp	r4, r0
+  2e:	d005      	beq.n	3c <udp_connect+0x3c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:841
+               ip4_addr1_16(&pcb->local_ip), ip4_addr2_16(&pcb->local_ip),
+               ip4_addr3_16(&pcb->local_ip), ip4_addr4_16(&pcb->local_ip),
+               pcb->local_port));
+
+  /* Insert UDP PCB into the list of active UDP PCBs. */
+  for (ipcb = udp_pcbs; ipcb != NULL; ipcb = ipcb->next) {
+  30:	68c0      	ldr	r0, [r0, #12]
+  32:	2800      	cmp	r0, #0
+  34:	d1fa      	bne.n	2c <udp_connect+0x2c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:848
+      /* already on the list, just return */
+      return ERR_OK;
+    }
+  }
+  /* PCB not yet on the list, add PCB now */
+  pcb->next = udp_pcbs;
+  36:	60e3      	str	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:849
+  udp_pcbs = pcb;
+  38:	6014      	str	r4, [r2, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:850
+  return ERR_OK;
+  3a:	e000      	b.n	3e <udp_connect+0x3e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:844
+
+  /* Insert UDP PCB into the list of active UDP PCBs. */
+  for (ipcb = udp_pcbs; ipcb != NULL; ipcb = ipcb->next) {
+    if (pcb == ipcb) {
+      /* already on the list, just return */
+      return ERR_OK;
+  3c:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:851
+  }
+  /* PCB not yet on the list, add PCB now */
+  pcb->next = udp_pcbs;
+  udp_pcbs = pcb;
+  return ERR_OK;
+}
+  3e:	b240      	sxtb	r0, r0
+  40:	bd70      	pop	{r4, r5, r6, pc}
+  42:	bf00      	nop
+  44:	00000000 	.word	0x00000000
+
+Disassembly of section .text.udp_disconnect:
+
+00000000 <udp_disconnect>:
+udp_disconnect():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:862
+ */
+void
+udp_disconnect(struct udp_pcb *pcb)
+{
+  /* reset remote address association */
+  ip_addr_set_any(&pcb->remote_ip);
+   0:	2300      	movs	r3, #0
+   2:	6043      	str	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:863
+  pcb->remote_port = 0;
+   4:	8283      	strh	r3, [r0, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:865
+  /* mark PCB as unconnected */
+  pcb->flags &= ~UDP_FLAGS_CONNECTED;
+   6:	7c03      	ldrb	r3, [r0, #16]
+   8:	f023 0304 	bic.w	r3, r3, #4
+   c:	7403      	strb	r3, [r0, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:866
+}
+   e:	4770      	bx	lr
+
+Disassembly of section .text.udp_recv:
+
+00000000 <udp_recv>:
+udp_recv():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:881
+ */
+void
+udp_recv(struct udp_pcb *pcb, udp_recv_fn recv, void *recv_arg)
+{
+  /* remember recv() callback and user data */
+  pcb->recv = recv;
+   0:	6181      	str	r1, [r0, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:882
+  pcb->recv_arg = recv_arg;
+   2:	61c2      	str	r2, [r0, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:883
+}
+   4:	4770      	bx	lr
+
+Disassembly of section .text.udp_remove:
+
+00000000 <udp_remove>:
+udp_remove():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:900
+{
+  struct udp_pcb *pcb2;
+
+  snmp_delete_udpidx_tree(pcb);
+  /* pcb to be removed is first in list? */
+  if (udp_pcbs == pcb) {
+   0:	4a09      	ldr	r2, [pc, #36]	; (28 <udp_remove+0x28>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:895
+ *
+ * @see udp_new()
+ */
+void
+udp_remove(struct udp_pcb *pcb)
+{
+   2:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:900
+  struct udp_pcb *pcb2;
+
+  snmp_delete_udpidx_tree(pcb);
+  /* pcb to be removed is first in list? */
+  if (udp_pcbs == pcb) {
+   4:	6813      	ldr	r3, [r2, #0]
+   6:	4283      	cmp	r3, r0
+   8:	d109      	bne.n	1e <udp_remove+0x1e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:902
+    /* make list start at 2nd pcb */
+    udp_pcbs = udp_pcbs->next;
+   a:	68c3      	ldr	r3, [r0, #12]
+   c:	6013      	str	r3, [r2, #0]
+   e:	e008      	b.n	22 <udp_remove+0x22>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:907
+    /* pcb not 1st in list */
+  } else {
+    for (pcb2 = udp_pcbs; pcb2 != NULL; pcb2 = pcb2->next) {
+      /* find pcb in udp_pcbs list */
+      if (pcb2->next != NULL && pcb2->next == pcb) {
+  10:	68da      	ldr	r2, [r3, #12]
+  12:	b11a      	cbz	r2, 1c <udp_remove+0x1c>
+  14:	428a      	cmp	r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:909
+        /* remove pcb from list */
+        pcb2->next = pcb->next;
+  16:	bf04      	itt	eq
+  18:	68ca      	ldreq	r2, [r1, #12]
+  1a:	60da      	streq	r2, [r3, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:905
+  if (udp_pcbs == pcb) {
+    /* make list start at 2nd pcb */
+    udp_pcbs = udp_pcbs->next;
+    /* pcb not 1st in list */
+  } else {
+    for (pcb2 = udp_pcbs; pcb2 != NULL; pcb2 = pcb2->next) {
+  1c:	68db      	ldr	r3, [r3, #12]
+  1e:	2b00      	cmp	r3, #0
+  20:	d1f6      	bne.n	10 <udp_remove+0x10>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:913
+        /* remove pcb from list */
+        pcb2->next = pcb->next;
+      }
+    }
+  }
+  memp_free(MEMP_UDP_PCB, pcb);
+  22:	2001      	movs	r0, #1
+  24:	f7ff bffe 	b.w	0 <memp_free>
+  28:	00000000 	.word	0x00000000
+
+Disassembly of section .text.udp_new:
+
+00000000 <udp_new>:
+udp_new():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:926
+ *
+ * @see udp_remove()
+ */
+struct udp_pcb *
+udp_new(void)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:928
+  struct udp_pcb *pcb;
+  pcb = (struct udp_pcb *)memp_malloc(MEMP_UDP_PCB);
+   2:	2001      	movs	r0, #1
+   4:	f7ff fffe 	bl	0 <memp_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:930
+  /* could allocate UDP PCB? */
+  if (pcb != NULL) {
+   8:	4604      	mov	r4, r0
+   a:	b128      	cbz	r0, 18 <udp_new+0x18>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:935
+    /* UDP Lite: by initializing to all zeroes, chksum_len is set to 0
+     * which means checksum is generated over the whole datagram per default
+     * (recommended as default by RFC 3828). */
+    /* initialize PCB to all zeroes */
+    memset(pcb, 0, sizeof(struct udp_pcb));
+   c:	2100      	movs	r1, #0
+   e:	2220      	movs	r2, #32
+  10:	f7ff fffe 	bl	0 <memset>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:936
+    pcb->ttl = UDP_TTL;
+  14:	23ff      	movs	r3, #255	; 0xff
+  16:	72a3      	strb	r3, [r4, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/udp.c:939
+  }
+  return pcb;
+}
+  18:	4620      	mov	r0, r4
+  1a:	bd10      	pop	{r4, pc}

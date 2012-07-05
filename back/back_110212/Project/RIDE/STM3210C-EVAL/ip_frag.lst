@@ -1,0 +1,2159 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\ip_frag.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\ip_frag.o
+
+
+Disassembly of section .text.ip_frag_free_pbuf_custom_ref:
+
+00000000 <ip_frag_free_pbuf_custom_ref>:
+ip_frag_free_pbuf_custom_ref():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:632
+}
+
+/** Free a struct pbuf_custom_ref */
+static void
+ip_frag_free_pbuf_custom_ref(struct pbuf_custom_ref* p)
+{
+   0:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:634
+  LWIP_ASSERT("p != NULL", p != NULL);
+  memp_free(MEMP_FRAG_PBUF, p);
+   2:	2006      	movs	r0, #6
+   4:	f7ff bffe 	b.w	0 <memp_free>
+
+Disassembly of section .text.ipfrag_free_pbuf_custom:
+
+00000000 <ipfrag_free_pbuf_custom>:
+ipfrag_free_pbuf_custom():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:641
+
+/** Free-callback function to free a 'struct pbuf_custom_ref', called by
+ * pbuf_free. */
+static void
+ipfrag_free_pbuf_custom(struct pbuf *p)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:645
+  struct pbuf_custom_ref *pcr = (struct pbuf_custom_ref*)p;
+  LWIP_ASSERT("pcr != NULL", pcr != NULL);
+  LWIP_ASSERT("pcr == p", (void*)pcr == (void*)p);
+  if (pcr->original != NULL) {
+   4:	6940      	ldr	r0, [r0, #20]
+   6:	b108      	cbz	r0, c <ipfrag_free_pbuf_custom+0xc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:646
+    pbuf_free(pcr->original);
+   8:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:648
+  }
+  ip_frag_free_pbuf_custom_ref(pcr);
+   c:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:649
+}
+   e:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:648
+  LWIP_ASSERT("pcr != NULL", pcr != NULL);
+  LWIP_ASSERT("pcr == p", (void*)pcr == (void*)p);
+  if (pcr->original != NULL) {
+    pbuf_free(pcr->original);
+  }
+  ip_frag_free_pbuf_custom_ref(pcr);
+  12:	f7ff bffe 	b.w	0 <ipfrag_free_pbuf_custom>
+
+Disassembly of section .text.ip_reass_dequeue_datagram.clone.0:
+
+00000000 <ip_reass_dequeue_datagram.clone.0>:
+ip_reass_dequeue_datagram():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:308
+static void
+ip_reass_dequeue_datagram(struct ip_reassdata *ipr, struct ip_reassdata *prev)
+{
+  
+  /* dequeue the reass struct  */
+  if (reassdatagrams == ipr) {
+   0:	4a06      	ldr	r2, [pc, #24]	; (1c <ip_reass_dequeue_datagram.clone.0+0x1c>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:304
+/**
+ * Dequeues a datagram from the datagram queue. Doesn't deallocate the pbufs.
+ * @param ipr points to the queue entry to dequeue
+ */
+static void
+ip_reass_dequeue_datagram(struct ip_reassdata *ipr, struct ip_reassdata *prev)
+   2:	4603      	mov	r3, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:308
+{
+  
+  /* dequeue the reass struct  */
+  if (reassdatagrams == ipr) {
+   4:	6810      	ldr	r0, [r2, #0]
+   6:	4298      	cmp	r0, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:310
+    /* it was the first in the list */
+    reassdatagrams = ipr->next;
+   8:	bf0b      	itete	eq
+   a:	6819      	ldreq	r1, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:314
+  } else {
+    /* it wasn't the first, so it must have a valid 'prev' */
+    LWIP_ASSERT("sanity check linked list", prev != NULL);
+    prev->next = ipr->next;
+   c:	681a      	ldrne	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:310
+{
+  
+  /* dequeue the reass struct  */
+  if (reassdatagrams == ipr) {
+    /* it was the first in the list */
+    reassdatagrams = ipr->next;
+   e:	6011      	streq	r1, [r2, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:314
+  } else {
+    /* it wasn't the first, so it must have a valid 'prev' */
+    LWIP_ASSERT("sanity check linked list", prev != NULL);
+    prev->next = ipr->next;
+  10:	600a      	strne	r2, [r1, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:318
+  }
+
+  /* now we can free the ip_reass struct */
+  memp_free(MEMP_REASSDATA, ipr);
+  12:	2005      	movs	r0, #5
+  14:	4619      	mov	r1, r3
+  16:	f7ff bffe 	b.w	0 <memp_free>
+  1a:	bf00      	nop
+  1c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.ip_reass_free_complete_datagram:
+
+00000000 <ip_reass_free_complete_datagram>:
+ip_reass_free_complete_datagram():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:159
+ * @param prev the previous datagram in the linked list
+ * @return the number of pbufs freed
+ */
+static int
+ip_reass_free_complete_datagram(struct ip_reassdata *ipr, struct ip_reassdata *prev)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:172
+    LWIP_ASSERT("prev->next == ipr", prev->next == ipr);
+  }
+
+  snmp_inc_ipreasmfails();
+#if LWIP_ICMP
+  iprh = (struct ip_reass_helper *)ipr->p->payload;
+   4:	6845      	ldr	r5, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:159
+ * @param prev the previous datagram in the linked list
+ * @return the number of pbufs freed
+ */
+static int
+ip_reass_free_complete_datagram(struct ip_reassdata *ipr, struct ip_reassdata *prev)
+{
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:172
+    LWIP_ASSERT("prev->next == ipr", prev->next == ipr);
+  }
+
+  snmp_inc_ipreasmfails();
+#if LWIP_ICMP
+  iprh = (struct ip_reass_helper *)ipr->p->payload;
+   8:	6868      	ldr	r0, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:159
+ * @param prev the previous datagram in the linked list
+ * @return the number of pbufs freed
+ */
+static int
+ip_reass_free_complete_datagram(struct ip_reassdata *ipr, struct ip_reassdata *prev)
+{
+   a:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:173
+  }
+
+  snmp_inc_ipreasmfails();
+#if LWIP_ICMP
+  iprh = (struct ip_reass_helper *)ipr->p->payload;
+  if (iprh->start == 0) {
+   c:	7903      	ldrb	r3, [r0, #4]
+   e:	7942      	ldrb	r2, [r0, #5]
+  10:	ea53 2202 	orrs.w	r2, r3, r2, lsl #8
+  14:	d11b      	bne.n	4e <ip_reass_free_complete_datagram+0x4e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:177
+    /* The first fragment was received, send ICMP time exceeded. */
+    /* First, de-queue the first pbuf from r->p. */
+    p = ipr->p;
+    ipr->p = iprh->next_pbuf;
+  16:	7842      	ldrb	r2, [r0, #1]
+  18:	7803      	ldrb	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:179
+    /* Then, copy the original header into it. */
+    SMEMCPY(p->payload, &ipr->iphdr, IP_HLEN);
+  1a:	f104 0108 	add.w	r1, r4, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:177
+  iprh = (struct ip_reass_helper *)ipr->p->payload;
+  if (iprh->start == 0) {
+    /* The first fragment was received, send ICMP time exceeded. */
+    /* First, de-queue the first pbuf from r->p. */
+    p = ipr->p;
+    ipr->p = iprh->next_pbuf;
+  1e:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+  22:	7882      	ldrb	r2, [r0, #2]
+  24:	ea43 4302 	orr.w	r3, r3, r2, lsl #16
+  28:	78c2      	ldrb	r2, [r0, #3]
+  2a:	ea43 6302 	orr.w	r3, r3, r2, lsl #24
+  2e:	6063      	str	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:179
+    /* Then, copy the original header into it. */
+    SMEMCPY(p->payload, &ipr->iphdr, IP_HLEN);
+  30:	2214      	movs	r2, #20
+  32:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:180
+    icmp_time_exceeded(p, ICMP_TE_FRAG);
+  36:	4628      	mov	r0, r5
+  38:	2101      	movs	r1, #1
+  3a:	f7ff fffe 	bl	0 <icmp_time_exceeded>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:181
+    clen = pbuf_clen(p);
+  3e:	4628      	mov	r0, r5
+  40:	f7ff fffe 	bl	0 <pbuf_clen>
+  44:	4607      	mov	r7, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:184
+    LWIP_ASSERT("pbufs_freed + clen <= 0xffff", pbufs_freed + clen <= 0xffff);
+    pbufs_freed += clen;
+    pbuf_free(p);
+  46:	4628      	mov	r0, r5
+  48:	f7ff fffe 	bl	0 <pbuf_free>
+  4c:	e000      	b.n	50 <ip_reass_free_complete_datagram+0x50>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:160
+ * @return the number of pbufs freed
+ */
+static int
+ip_reass_free_complete_datagram(struct ip_reassdata *ipr, struct ip_reassdata *prev)
+{
+  u16_t pbufs_freed = 0;
+  4e:	2700      	movs	r7, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:190
+  }
+#endif /* LWIP_ICMP */
+
+  /* First, free all received pbufs.  The individual pbufs need to be released 
+     separately as they have not yet been chained */
+  p = ipr->p;
+  50:	6865      	ldr	r5, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:191
+  while (p != NULL) {
+  52:	e014      	b.n	7e <ip_reass_free_complete_datagram+0x7e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:193
+    struct pbuf *pcur;
+    iprh = (struct ip_reass_helper *)p->payload;
+  54:	686b      	ldr	r3, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:197
+    pcur = p;
+    /* get the next pointer before freeing */
+    p = iprh->next_pbuf;
+    clen = pbuf_clen(pcur);
+  56:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:196
+  while (p != NULL) {
+    struct pbuf *pcur;
+    iprh = (struct ip_reass_helper *)p->payload;
+    pcur = p;
+    /* get the next pointer before freeing */
+    p = iprh->next_pbuf;
+  58:	781a      	ldrb	r2, [r3, #0]
+  5a:	f893 8001 	ldrb.w	r8, [r3, #1]
+  5e:	ea42 2808 	orr.w	r8, r2, r8, lsl #8
+  62:	789a      	ldrb	r2, [r3, #2]
+  64:	78db      	ldrb	r3, [r3, #3]
+  66:	ea48 4802 	orr.w	r8, r8, r2, lsl #16
+  6a:	ea48 6803 	orr.w	r8, r8, r3, lsl #24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:197
+    clen = pbuf_clen(pcur);
+  6e:	f7ff fffe 	bl	0 <pbuf_clen>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:199
+    LWIP_ASSERT("pbufs_freed + clen <= 0xffff", pbufs_freed + clen <= 0xffff);
+    pbufs_freed += clen;
+  72:	19c7      	adds	r7, r0, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:200
+    pbuf_free(pcur);
+  74:	4628      	mov	r0, r5
+  76:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:199
+    pcur = p;
+    /* get the next pointer before freeing */
+    p = iprh->next_pbuf;
+    clen = pbuf_clen(pcur);
+    LWIP_ASSERT("pbufs_freed + clen <= 0xffff", pbufs_freed + clen <= 0xffff);
+    pbufs_freed += clen;
+  7a:	b2bf      	uxth	r7, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:196
+  while (p != NULL) {
+    struct pbuf *pcur;
+    iprh = (struct ip_reass_helper *)p->payload;
+    pcur = p;
+    /* get the next pointer before freeing */
+    p = iprh->next_pbuf;
+  7c:	4645      	mov	r5, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:191
+#endif /* LWIP_ICMP */
+
+  /* First, free all received pbufs.  The individual pbufs need to be released 
+     separately as they have not yet been chained */
+  p = ipr->p;
+  while (p != NULL) {
+  7e:	2d00      	cmp	r5, #0
+  80:	d1e8      	bne.n	54 <ip_reass_free_complete_datagram+0x54>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:203
+    LWIP_ASSERT("pbufs_freed + clen <= 0xffff", pbufs_freed + clen <= 0xffff);
+    pbufs_freed += clen;
+    pbuf_free(pcur);
+  }
+  /* Then, unchain the struct ip_reassdata from the list and free it. */
+  ip_reass_dequeue_datagram(ipr, prev);
+  82:	4620      	mov	r0, r4
+  84:	4631      	mov	r1, r6
+  86:	f7ff fffe 	bl	0 <ip_reass_free_complete_datagram>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:205
+  LWIP_ASSERT("ip_reass_pbufcount >= clen", ip_reass_pbufcount >= pbufs_freed);
+  ip_reass_pbufcount -= pbufs_freed;
+  8a:	4b03      	ldr	r3, [pc, #12]	; (98 <ip_reass_free_complete_datagram+0x98>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:208
+
+  return pbufs_freed;
+}
+  8c:	4638      	mov	r0, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:205
+    pbuf_free(pcur);
+  }
+  /* Then, unchain the struct ip_reassdata from the list and free it. */
+  ip_reass_dequeue_datagram(ipr, prev);
+  LWIP_ASSERT("ip_reass_pbufcount >= clen", ip_reass_pbufcount >= pbufs_freed);
+  ip_reass_pbufcount -= pbufs_freed;
+  8e:	889a      	ldrh	r2, [r3, #4]
+  90:	1bd2      	subs	r2, r2, r7
+  92:	809a      	strh	r2, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:208
+
+  return pbufs_freed;
+}
+  94:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+  98:	00000000 	.word	0x00000000
+
+Disassembly of section .text.ip_reass_remove_oldest_datagram:
+
+00000000 <ip_reass_remove_oldest_datagram>:
+ip_reass_remove_oldest_datagram():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:222
+ *        (used for freeing other datagrams if not enough space)
+ * @return the number of pbufs freed
+ */
+static int
+ip_reass_remove_oldest_datagram(struct ip_hdr *fraghdr, int pbufs_needed)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4604      	mov	r4, r0
+   6:	460f      	mov	r7, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:227
+  /* @todo Can't we simply remove the last datagram in the
+   *       linked list behind reassdatagrams?
+   */
+  struct ip_reassdata *r, *oldest, *prev;
+  int pbufs_freed = 0, pbufs_freed_current;
+   8:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:236
+   * but don't free the datagram that 'fraghdr' belongs to! */
+  do {
+    oldest = NULL;
+    prev = NULL;
+    other_datagrams = 0;
+    r = reassdatagrams;
+   a:	4b26      	ldr	r3, [pc, #152]	; (a4 <ip_reass_remove_oldest_datagram+0xa4>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:235
+  /* Free datagrams until being allowed to enqueue 'pbufs_needed' pbufs,
+   * but don't free the datagram that 'fraghdr' belongs to! */
+  do {
+    oldest = NULL;
+    prev = NULL;
+    other_datagrams = 0;
+   c:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:236
+    r = reassdatagrams;
+   e:	681b      	ldr	r3, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:234
+
+  /* Free datagrams until being allowed to enqueue 'pbufs_needed' pbufs,
+   * but don't free the datagram that 'fraghdr' belongs to! */
+  do {
+    oldest = NULL;
+    prev = NULL;
+  10:	4629      	mov	r1, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:233
+  int other_datagrams;
+
+  /* Free datagrams until being allowed to enqueue 'pbufs_needed' pbufs,
+   * but don't free the datagram that 'fraghdr' belongs to! */
+  do {
+    oldest = NULL;
+  12:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:237
+    prev = NULL;
+    other_datagrams = 0;
+    r = reassdatagrams;
+    while (r != NULL) {
+  14:	e039      	b.n	8a <ip_reass_remove_oldest_datagram+0x8a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:238
+      if (!IP_ADDRESSES_AND_ID_MATCH(&r->iphdr, fraghdr)) {
+  16:	f894 c00d 	ldrb.w	ip, [r4, #13]
+  1a:	7b22      	ldrb	r2, [r4, #12]
+  1c:	ea42 220c 	orr.w	r2, r2, ip, lsl #8
+  20:	f894 c00e 	ldrb.w	ip, [r4, #14]
+  24:	ea42 420c 	orr.w	r2, r2, ip, lsl #16
+  28:	f894 c00f 	ldrb.w	ip, [r4, #15]
+  2c:	ea42 620c 	orr.w	r2, r2, ip, lsl #24
+  30:	f8d3 c014 	ldr.w	ip, [r3, #20]
+  34:	4594      	cmp	ip, r2
+  36:	d119      	bne.n	6c <ip_reass_remove_oldest_datagram+0x6c>
+  38:	f894 c011 	ldrb.w	ip, [r4, #17]
+  3c:	7c22      	ldrb	r2, [r4, #16]
+  3e:	ea42 220c 	orr.w	r2, r2, ip, lsl #8
+  42:	f894 c012 	ldrb.w	ip, [r4, #18]
+  46:	ea42 420c 	orr.w	r2, r2, ip, lsl #16
+  4a:	f894 c013 	ldrb.w	ip, [r4, #19]
+  4e:	ea42 620c 	orr.w	r2, r2, ip, lsl #24
+  52:	f8d3 c018 	ldr.w	ip, [r3, #24]
+  56:	4594      	cmp	ip, r2
+  58:	d108      	bne.n	6c <ip_reass_remove_oldest_datagram+0x6c>
+  5a:	7922      	ldrb	r2, [r4, #4]
+  5c:	f894 8005 	ldrb.w	r8, [r4, #5]
+  60:	f8b3 c00c 	ldrh.w	ip, [r3, #12]
+  64:	ea42 2208 	orr.w	r2, r2, r8, lsl #8
+  68:	4594      	cmp	ip, r2
+  6a:	d009      	beq.n	80 <ip_reass_remove_oldest_datagram+0x80>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:240
+        /* Not the same datagram as fraghdr */
+        other_datagrams++;
+  6c:	3501      	adds	r5, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:241
+        if (oldest == NULL) {
+  6e:	b130      	cbz	r0, 7e <ip_reass_remove_oldest_datagram+0x7e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:243
+          oldest = r;
+        } else if (r->timer <= oldest->timer) {
+  70:	f893 c01f 	ldrb.w	ip, [r3, #31]
+  74:	7fc2      	ldrb	r2, [r0, #31]
+  76:	4594      	cmp	ip, r2
+  78:	bf98      	it	ls
+  7a:	4618      	movls	r0, r3
+  7c:	e000      	b.n	80 <ip_reass_remove_oldest_datagram+0x80>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:241
+    r = reassdatagrams;
+    while (r != NULL) {
+      if (!IP_ADDRESSES_AND_ID_MATCH(&r->iphdr, fraghdr)) {
+        /* Not the same datagram as fraghdr */
+        other_datagrams++;
+        if (oldest == NULL) {
+  7e:	4618      	mov	r0, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:248
+        } else if (r->timer <= oldest->timer) {
+          /* older than the previous oldest */
+          oldest = r;
+        }
+      }
+      if (r->next != NULL) {
+  80:	681a      	ldr	r2, [r3, #0]
+  82:	2a00      	cmp	r2, #0
+  84:	bf18      	it	ne
+  86:	4619      	movne	r1, r3
+  88:	4613      	mov	r3, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:237
+  do {
+    oldest = NULL;
+    prev = NULL;
+    other_datagrams = 0;
+    r = reassdatagrams;
+    while (r != NULL) {
+  8a:	2b00      	cmp	r3, #0
+  8c:	d1c3      	bne.n	16 <ip_reass_remove_oldest_datagram+0x16>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:253
+      if (r->next != NULL) {
+        prev = r;
+      }
+      r = r->next;
+    }
+    if (oldest != NULL) {
+  8e:	b110      	cbz	r0, 96 <ip_reass_remove_oldest_datagram+0x96>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:254
+      pbufs_freed_current = ip_reass_free_complete_datagram(oldest, prev);
+  90:	f7ff fffe 	bl	0 <ip_reass_remove_oldest_datagram>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:255
+      pbufs_freed += pbufs_freed_current;
+  94:	1836      	adds	r6, r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:257
+    }
+  } while ((pbufs_freed < pbufs_needed) && (other_datagrams > 1));
+  96:	42be      	cmp	r6, r7
+  98:	da01      	bge.n	9e <ip_reass_remove_oldest_datagram+0x9e>
+  9a:	2d01      	cmp	r5, #1
+  9c:	dcb5      	bgt.n	a <ip_reass_remove_oldest_datagram+0xa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:259
+  return pbufs_freed;
+}
+  9e:	4630      	mov	r0, r6
+  a0:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+  a4:	00000000 	.word	0x00000000
+
+Disassembly of section .text.ip_reass_tmr:
+
+00000000 <ip_reass_tmr>:
+ip_reass_tmr():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:123
+ *
+ * Should be called every 1000 msec (defined by IP_TMR_INTERVAL).
+ */
+void
+ip_reass_tmr(void)
+{
+   0:	4b09b538 	.word	0x4b09b538
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:124
+  struct ip_reassdata *r, *prev = NULL;
+   4:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:126
+
+  r = reassdatagrams;
+   6:	6818      	ldr	r0, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:127
+  while (r != NULL) {
+   8:	e00a      	b.n	20 <ip_reass_tmr+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:130
+    /* Decrement the timer. Once it reaches 0,
+     * clean up the incomplete fragment assembly */
+    if (r->timer > 0) {
+   a:	7fc3      	ldrb	r3, [r0, #31]
+   c:	6805      	ldr	r5, [r0, #0]
+   e:	b11b      	cbz	r3, 18 <ip_reass_tmr+0x18>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:131
+      r->timer--;
+  10:	3b01      	subs	r3, #1
+  12:	77c3      	strb	r3, [r0, #31]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:134
+      LWIP_DEBUGF(IP_REASS_DEBUG, ("ip_reass_tmr: timer dec %"U16_F"\n",(u16_t)r->timer));
+      prev = r;
+      r = r->next;
+  14:	4604      	mov	r4, r0
+  16:	e002      	b.n	1e <ip_reass_tmr+0x1e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:143
+      LWIP_DEBUGF(IP_REASS_DEBUG, ("ip_reass_tmr: timer timed out\n"));
+      tmp = r;
+      /* get the next pointer before freeing */
+      r = r->next;
+      /* free the helper struct and all enqueued pbufs */
+      ip_reass_free_complete_datagram(tmp, prev);
+  18:	4621      	mov	r1, r4
+  1a:	f7ff fffe 	bl	0 <ip_reass_tmr>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:141
+      /* reassembly timed out */
+      struct ip_reassdata *tmp;
+      LWIP_DEBUGF(IP_REASS_DEBUG, ("ip_reass_tmr: timer timed out\n"));
+      tmp = r;
+      /* get the next pointer before freeing */
+      r = r->next;
+  1e:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:127
+ip_reass_tmr(void)
+{
+  struct ip_reassdata *r, *prev = NULL;
+
+  r = reassdatagrams;
+  while (r != NULL) {
+  20:	2800      	cmp	r0, #0
+  22:	d1f2      	bne.n	a <ip_reass_tmr+0xa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:146
+      r = r->next;
+      /* free the helper struct and all enqueued pbufs */
+      ip_reass_free_complete_datagram(tmp, prev);
+     }
+   }
+}
+  24:	bd38      	pop	{r3, r4, r5, pc}
+  26:	bf00      	nop
+  28:	00000000 	.word	0x00000000
+
+Disassembly of section .text.ip_reass:
+
+00000000 <ip_reass>:
+ip_reass():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:477
+ * @param p points to a pbuf chain of the fragment
+ * @return NULL if reassembly is incomplete, ? otherwise
+ */
+struct pbuf *
+ip_reass(struct pbuf *p)
+{
+   0:	e92d 4ff7 	stmdb	sp!, {r0, r1, r2, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:489
+  struct ip_reassdata *ipr_prev = NULL;
+
+  IPFRAG_STATS_INC(ip_frag.recv);
+  snmp_inc_ipreasmreqds();
+
+  fraghdr = (struct ip_hdr*)p->payload;
+   4:	6845      	ldr	r5, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:477
+ * @param p points to a pbuf chain of the fragment
+ * @return NULL if reassembly is incomplete, ? otherwise
+ */
+struct pbuf *
+ip_reass(struct pbuf *p)
+{
+   6:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:491
+  IPFRAG_STATS_INC(ip_frag.recv);
+  snmp_inc_ipreasmreqds();
+
+  fraghdr = (struct ip_hdr*)p->payload;
+
+  if ((IPH_HL(fraghdr) * 4) != IP_HLEN) {
+   8:	782b      	ldrb	r3, [r5, #0]
+   a:	7868      	ldrb	r0, [r5, #1]
+   c:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  10:	f7ff fffe 	bl	0 <lwip_ntohs>
+  14:	0980      	lsrs	r0, r0, #6
+  16:	f000 003c 	and.w	r0, r0, #60	; 0x3c
+  1a:	2814      	cmp	r0, #20
+  1c:	f040 81af 	bne.w	37e <ip_reass+0x37e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:497
+    LWIP_DEBUGF(IP_REASS_DEBUG,("ip_reass: IP options currently not supported!\n"));
+    IPFRAG_STATS_INC(ip_frag.err);
+    goto nullreturn;
+  }
+
+  offset = (ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) * 8;
+  20:	79ab      	ldrb	r3, [r5, #6]
+  22:	79e8      	ldrb	r0, [r5, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:502
+  len = ntohs(IPH_LEN(fraghdr)) - IPH_HL(fraghdr) * 4;
+
+  /* Check if we are allowed to enqueue more datagrams. */
+  clen = pbuf_clen(p);
+  if ((ip_reass_pbufcount + clen) > IP_REASS_MAX_PBUFS) {
+  24:	4f9f      	ldr	r7, [pc, #636]	; (2a4 <ip_reass+0x2a4>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:497
+    LWIP_DEBUGF(IP_REASS_DEBUG,("ip_reass: IP options currently not supported!\n"));
+    IPFRAG_STATS_INC(ip_frag.err);
+    goto nullreturn;
+  }
+
+  offset = (ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) * 8;
+  26:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  2a:	f7ff fffe 	bl	0 <lwip_ntohs>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:498
+  len = ntohs(IPH_LEN(fraghdr)) - IPH_HL(fraghdr) * 4;
+  2e:	78ab      	ldrb	r3, [r5, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:497
+    LWIP_DEBUGF(IP_REASS_DEBUG,("ip_reass: IP options currently not supported!\n"));
+    IPFRAG_STATS_INC(ip_frag.err);
+    goto nullreturn;
+  }
+
+  offset = (ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) * 8;
+  30:	4683      	mov	fp, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:498
+  len = ntohs(IPH_LEN(fraghdr)) - IPH_HL(fraghdr) * 4;
+  32:	78e8      	ldrb	r0, [r5, #3]
+  34:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  38:	f7ff fffe 	bl	0 <lwip_ntohs>
+  3c:	782b      	ldrb	r3, [r5, #0]
+  3e:	4682      	mov	sl, r0
+  40:	7868      	ldrb	r0, [r5, #1]
+  42:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  46:	f7ff fffe 	bl	0 <lwip_ntohs>
+  4a:	4681      	mov	r9, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:501
+
+  /* Check if we are allowed to enqueue more datagrams. */
+  clen = pbuf_clen(p);
+  4c:	4630      	mov	r0, r6
+  4e:	f7ff fffe 	bl	0 <pbuf_clen>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:502
+  if ((ip_reass_pbufcount + clen) > IP_REASS_MAX_PBUFS) {
+  52:	88bb      	ldrh	r3, [r7, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:501
+
+  offset = (ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) * 8;
+  len = ntohs(IPH_LEN(fraghdr)) - IPH_HL(fraghdr) * 4;
+
+  /* Check if we are allowed to enqueue more datagrams. */
+  clen = pbuf_clen(p);
+  54:	4680      	mov	r8, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:502
+  if ((ip_reass_pbufcount + clen) > IP_REASS_MAX_PBUFS) {
+  56:	18c3      	adds	r3, r0, r3
+  58:	2b0a      	cmp	r3, #10
+  5a:	dd0b      	ble.n	74 <ip_reass+0x74>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:504
+#if IP_REASS_FREE_OLDEST
+    if (!ip_reass_remove_oldest_datagram(fraghdr, clen) ||
+  5c:	4628      	mov	r0, r5
+  5e:	4641      	mov	r1, r8
+  60:	f7ff fffe 	bl	0 <ip_reass>
+  64:	2800      	cmp	r0, #0
+  66:	f000 818a 	beq.w	37e <ip_reass+0x37e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:505
+        ((ip_reass_pbufcount + clen) > IP_REASS_MAX_PBUFS))
+  6a:	88bb      	ldrh	r3, [r7, #4]
+  6c:	4443      	add	r3, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:504
+
+  /* Check if we are allowed to enqueue more datagrams. */
+  clen = pbuf_clen(p);
+  if ((ip_reass_pbufcount + clen) > IP_REASS_MAX_PBUFS) {
+#if IP_REASS_FREE_OLDEST
+    if (!ip_reass_remove_oldest_datagram(fraghdr, clen) ||
+  6e:	2b0a      	cmp	r3, #10
+  70:	f300 8185 	bgt.w	37e <ip_reass+0x37e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:484
+  struct ip_hdr *fraghdr;
+  struct ip_reassdata *ipr;
+  struct ip_reass_helper *iprh;
+  u16_t offset, len;
+  u8_t clen;
+  struct ip_reassdata *ipr_prev = NULL;
+  74:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:520
+    }
+  }
+
+  /* Look for the datagram the fragment belongs to in the current datagram queue,
+   * remembering the previous in the queue for later dequeueing. */
+  for (ipr = reassdatagrams; ipr != NULL; ipr = ipr->next) {
+  76:	683c      	ldr	r4, [r7, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:484
+  struct ip_hdr *fraghdr;
+  struct ip_reassdata *ipr;
+  struct ip_reass_helper *iprh;
+  u16_t offset, len;
+  u8_t clen;
+  struct ip_reassdata *ipr_prev = NULL;
+  78:	9301      	str	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:520
+    }
+  }
+
+  /* Look for the datagram the fragment belongs to in the current datagram queue,
+   * remembering the previous in the queue for later dequeueing. */
+  for (ipr = reassdatagrams; ipr != NULL; ipr = ipr->next) {
+  7a:	e022      	b.n	c2 <ip_reass+0xc2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:524
+    /* Check if the incoming fragment matches the one currently present
+       in the reassembly buffer. If so, we proceed with copying the
+       fragment into the buffer. */
+    if (IP_ADDRESSES_AND_ID_MATCH(&ipr->iphdr, fraghdr)) {
+  7c:	7b6a      	ldrb	r2, [r5, #13]
+  7e:	7b2b      	ldrb	r3, [r5, #12]
+  80:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+  84:	7baa      	ldrb	r2, [r5, #14]
+  86:	ea43 4302 	orr.w	r3, r3, r2, lsl #16
+  8a:	7bea      	ldrb	r2, [r5, #15]
+  8c:	ea43 6302 	orr.w	r3, r3, r2, lsl #24
+  90:	6962      	ldr	r2, [r4, #20]
+  92:	429a      	cmp	r2, r3
+  94:	d113      	bne.n	be <ip_reass+0xbe>
+  96:	7c6a      	ldrb	r2, [r5, #17]
+  98:	7c2b      	ldrb	r3, [r5, #16]
+  9a:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+  9e:	7caa      	ldrb	r2, [r5, #18]
+  a0:	ea43 4302 	orr.w	r3, r3, r2, lsl #16
+  a4:	7cea      	ldrb	r2, [r5, #19]
+  a6:	ea43 6302 	orr.w	r3, r3, r2, lsl #24
+  aa:	69a2      	ldr	r2, [r4, #24]
+  ac:	429a      	cmp	r2, r3
+  ae:	d106      	bne.n	be <ip_reass+0xbe>
+  b0:	792b      	ldrb	r3, [r5, #4]
+  b2:	7969      	ldrb	r1, [r5, #5]
+  b4:	89a2      	ldrh	r2, [r4, #12]
+  b6:	ea43 2301 	orr.w	r3, r3, r1, lsl #8
+  ba:	429a      	cmp	r2, r3
+  bc:	d004      	beq.n	c8 <ip_reass+0xc8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:520
+    }
+  }
+
+  /* Look for the datagram the fragment belongs to in the current datagram queue,
+   * remembering the previous in the queue for later dequeueing. */
+  for (ipr = reassdatagrams; ipr != NULL; ipr = ipr->next) {
+  be:	9401      	str	r4, [sp, #4]
+  c0:	6824      	ldr	r4, [r4, #0]
+  c2:	2c00      	cmp	r4, #0
+  c4:	d1da      	bne.n	7c <ip_reass+0x7c>
+  c6:	e164      	b.n	392 <ip_reass+0x392>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:541
+    /* Bail if unable to enqueue */
+    if(ipr == NULL) {
+      goto nullreturn;
+    }
+  } else {
+    if (((ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) == 0) && 
+  c8:	79ab      	ldrb	r3, [r5, #6]
+  ca:	79e8      	ldrb	r0, [r5, #7]
+  cc:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  d0:	f7ff fffe 	bl	0 <lwip_ntohs>
+  d4:	04c0      	lsls	r0, r0, #19
+  d6:	0cc0      	lsrs	r0, r0, #19
+  d8:	bb28      	cbnz	r0, 126 <ip_reass+0x126>
+  da:	e018      	b.n	10e <ip_reass+0x10e>
+ip_reass_enqueue_new_datagram():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:276
+  struct ip_reassdata* ipr;
+  /* No matching previous fragment found, allocate a new reassdata struct */
+  ipr = (struct ip_reassdata *)memp_malloc(MEMP_REASSDATA);
+  if (ipr == NULL) {
+#if IP_REASS_FREE_OLDEST
+    if (ip_reass_remove_oldest_datagram(fraghdr, clen) >= clen) {
+  dc:	4628      	mov	r0, r5
+  de:	4641      	mov	r1, r8
+  e0:	f7ff fffe 	bl	0 <ip_reass>
+  e4:	4540      	cmp	r0, r8
+  e6:	f2c0 814a 	blt.w	37e <ip_reass+0x37e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:277
+      ipr = (struct ip_reassdata *)memp_malloc(MEMP_REASSDATA);
+  ea:	2005      	movs	r0, #5
+  ec:	f7ff fffe 	bl	0 <memp_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:279
+    }
+    if (ipr == NULL)
+  f0:	4604      	mov	r4, r0
+  f2:	2800      	cmp	r0, #0
+  f4:	f000 8143 	beq.w	37e <ip_reass+0x37e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:287
+      IPFRAG_STATS_INC(ip_frag.memerr);
+      LWIP_DEBUGF(IP_REASS_DEBUG,("Failed to alloc reassdata struct\n"));
+      return NULL;
+    }
+  }
+  memset(ipr, 0, sizeof(struct ip_reassdata));
+  f8:	4620      	mov	r0, r4
+  fa:	2100      	movs	r1, #0
+  fc:	2220      	movs	r2, #32
+  fe:	f7ff fffe 	bl	0 <memset>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:288
+  ipr->timer = IP_REASS_MAXAGE;
+ 102:	2303      	movs	r3, #3
+ 104:	77e3      	strb	r3, [r4, #31]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:291
+
+  /* enqueue the new structure to the front of the list */
+  ipr->next = reassdatagrams;
+ 106:	683b      	ldr	r3, [r7, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:292
+  reassdatagrams = ipr;
+ 108:	603c      	str	r4, [r7, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:291
+  }
+  memset(ipr, 0, sizeof(struct ip_reassdata));
+  ipr->timer = IP_REASS_MAXAGE;
+
+  /* enqueue the new structure to the front of the list */
+  ipr->next = reassdatagrams;
+ 10a:	6023      	str	r3, [r4, #0]
+ 10c:	e005      	b.n	11a <ip_reass+0x11a>
+ip_reass():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:542
+    if(ipr == NULL) {
+      goto nullreturn;
+    }
+  } else {
+    if (((ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) == 0) && 
+      ((ntohs(IPH_OFFSET(&ipr->iphdr)) & IP_OFFMASK) != 0)) {
+ 10e:	89e0      	ldrh	r0, [r4, #14]
+ 110:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 114:	04c0      	lsls	r0, r0, #19
+ 116:	0cc0      	lsrs	r0, r0, #19
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:541
+    /* Bail if unable to enqueue */
+    if(ipr == NULL) {
+      goto nullreturn;
+    }
+  } else {
+    if (((ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) == 0) && 
+ 118:	b128      	cbz	r0, 126 <ip_reass+0x126>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:547
+      ((ntohs(IPH_OFFSET(&ipr->iphdr)) & IP_OFFMASK) != 0)) {
+      /* ipr->iphdr is not the header from the first fragment, but fraghdr is
+       * -> copy fraghdr into ipr->iphdr since we want to have the header
+       * of the first fragment (for ICMP time exceeded and later, for copying
+       * all options, if supported)*/
+      SMEMCPY(&ipr->iphdr, fraghdr, IP_HLEN);
+ 11a:	f104 0008 	add.w	r0, r4, #8
+ 11e:	4629      	mov	r1, r5
+ 120:	2214      	movs	r2, #20
+ 122:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:552
+    }
+  }
+  /* Track the current number of pbufs current 'in-flight', in order to limit 
+  the number of fragments that may be enqueued at any one time */
+  ip_reass_pbufcount += clen;
+ 126:	88bb      	ldrh	r3, [r7, #4]
+ 128:	4498      	add	r8, r3
+ 12a:	f8a7 8004 	strh.w	r8, [r7, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:558
+
+  /* At this point, we have either created a new entry or pointing 
+   * to an existing one */
+
+  /* check for 'no more fragments', and update queue entry*/
+  if ((IPH_OFFSET(fraghdr) & PP_NTOHS(IP_MF)) == 0) {
+ 12e:	79ab      	ldrb	r3, [r5, #6]
+ 130:	f013 0f20 	tst.w	r3, #32
+ 134:	d113      	bne.n	15e <ip_reass+0x15e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:497
+    LWIP_DEBUGF(IP_REASS_DEBUG,("ip_reass: IP options currently not supported!\n"));
+    IPFRAG_STATS_INC(ip_frag.err);
+    goto nullreturn;
+  }
+
+  offset = (ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) * 8;
+ 136:	ea4f 4bcb 	mov.w	fp, fp, lsl #19
+ 13a:	ea4f 4bdb 	mov.w	fp, fp, lsr #19
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:498
+  len = ntohs(IPH_LEN(fraghdr)) - IPH_HL(fraghdr) * 4;
+ 13e:	ea4f 2919 	mov.w	r9, r9, lsr #8
+ 142:	eb0a 0acb 	add.w	sl, sl, fp, lsl #3
+ 146:	f009 090f 	and.w	r9, r9, #15
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:560
+   * to an existing one */
+
+  /* check for 'no more fragments', and update queue entry*/
+  if ((IPH_OFFSET(fraghdr) & PP_NTOHS(IP_MF)) == 0) {
+    ipr->flags |= IP_REASS_FLAG_LASTFRAG;
+    ipr->datagram_len = offset + len;
+ 14a:	f06f 0b03 	mvn.w	fp, #3
+ 14e:	fb0b ab09 	mla	fp, fp, r9, sl
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:559
+  /* At this point, we have either created a new entry or pointing 
+   * to an existing one */
+
+  /* check for 'no more fragments', and update queue entry*/
+  if ((IPH_OFFSET(fraghdr) & PP_NTOHS(IP_MF)) == 0) {
+    ipr->flags |= IP_REASS_FLAG_LASTFRAG;
+ 152:	7fa3      	ldrb	r3, [r4, #30]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:560
+    ipr->datagram_len = offset + len;
+ 154:	f8a4 b01c 	strh.w	fp, [r4, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:559
+  /* At this point, we have either created a new entry or pointing 
+   * to an existing one */
+
+  /* check for 'no more fragments', and update queue entry*/
+  if ((IPH_OFFSET(fraghdr) & PP_NTOHS(IP_MF)) == 0) {
+    ipr->flags |= IP_REASS_FLAG_LASTFRAG;
+ 158:	f043 0301 	orr.w	r3, r3, #1
+ 15c:	77a3      	strb	r3, [r4, #30]
+ip_reass_chain_frag_into_datagram_and_validate():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:340
+  u16_t offset,len;
+  struct ip_hdr *fraghdr;
+  int valid = 1;
+
+  /* Extract length and fragment offset from current fragment */
+  fraghdr = (struct ip_hdr*)new_p->payload; 
+ 15e:	6875      	ldr	r5, [r6, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:341
+  len = ntohs(IPH_LEN(fraghdr)) - IPH_HL(fraghdr) * 4;
+ 160:	78ab      	ldrb	r3, [r5, #2]
+ 162:	78e8      	ldrb	r0, [r5, #3]
+ 164:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+ 168:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 16c:	782b      	ldrb	r3, [r5, #0]
+ 16e:	4681      	mov	r9, r0
+ 170:	7868      	ldrb	r0, [r5, #1]
+ 172:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+ 176:	f7ff fffe 	bl	0 <lwip_ntohs>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:342
+  offset = (ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) * 8;
+ 17a:	79ab      	ldrb	r3, [r5, #6]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:341
+  struct ip_hdr *fraghdr;
+  int valid = 1;
+
+  /* Extract length and fragment offset from current fragment */
+  fraghdr = (struct ip_hdr*)new_p->payload; 
+  len = ntohs(IPH_LEN(fraghdr)) - IPH_HL(fraghdr) * 4;
+ 17c:	4680      	mov	r8, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:342
+  offset = (ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) * 8;
+ 17e:	79e8      	ldrb	r0, [r5, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:341
+  struct ip_hdr *fraghdr;
+  int valid = 1;
+
+  /* Extract length and fragment offset from current fragment */
+  fraghdr = (struct ip_hdr*)new_p->payload; 
+  len = ntohs(IPH_LEN(fraghdr)) - IPH_HL(fraghdr) * 4;
+ 180:	ea4f 2818 	mov.w	r8, r8, lsr #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:342
+  offset = (ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) * 8;
+ 184:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+ 188:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 18c:	04c0      	lsls	r0, r0, #19
+ 18e:	0cc0      	lsrs	r0, r0, #19
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:349
+  /* overwrite the fragment's ip header from the pbuf with our helper struct,
+   * and setup the embedded helper structure. */
+  /* make sure the struct ip_reass_helper fits into the IP header */
+  LWIP_ASSERT("sizeof(struct ip_reass_helper) <= IP_HLEN",
+              sizeof(struct ip_reass_helper) <= IP_HLEN);
+  iprh = (struct ip_reass_helper*)new_p->payload;
+ 190:	6873      	ldr	r3, [r6, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:342
+  int valid = 1;
+
+  /* Extract length and fragment offset from current fragment */
+  fraghdr = (struct ip_hdr*)new_p->payload; 
+  len = ntohs(IPH_LEN(fraghdr)) - IPH_HL(fraghdr) * 4;
+  offset = (ntohs(IPH_OFFSET(fraghdr)) & IP_OFFMASK) * 8;
+ 192:	00c5      	lsls	r5, r0, #3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:351
+  /* make sure the struct ip_reass_helper fits into the IP header */
+  LWIP_ASSERT("sizeof(struct ip_reass_helper) <= IP_HLEN",
+              sizeof(struct ip_reass_helper) <= IP_HLEN);
+  iprh = (struct ip_reass_helper*)new_p->payload;
+  iprh->next_pbuf = NULL;
+  iprh->start = offset;
+ 194:	0a29      	lsrs	r1, r5, #8
+ 196:	7159      	strb	r1, [r3, #5]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:341
+  struct ip_hdr *fraghdr;
+  int valid = 1;
+
+  /* Extract length and fragment offset from current fragment */
+  fraghdr = (struct ip_hdr*)new_p->payload; 
+  len = ntohs(IPH_LEN(fraghdr)) - IPH_HL(fraghdr) * 4;
+ 198:	f008 080f 	and.w	r8, r8, #15
+ 19c:	eb05 0109 	add.w	r1, r5, r9
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:352
+  LWIP_ASSERT("sizeof(struct ip_reass_helper) <= IP_HLEN",
+              sizeof(struct ip_reass_helper) <= IP_HLEN);
+  iprh = (struct ip_reass_helper*)new_p->payload;
+  iprh->next_pbuf = NULL;
+  iprh->start = offset;
+  iprh->end = offset + len;
+ 1a0:	f06f 0903 	mvn.w	r9, #3
+ 1a4:	fb09 1908 	mla	r9, r9, r8, r1
+ 1a8:	fa1f f989 	uxth.w	r9, r9
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:350
+   * and setup the embedded helper structure. */
+  /* make sure the struct ip_reass_helper fits into the IP header */
+  LWIP_ASSERT("sizeof(struct ip_reass_helper) <= IP_HLEN",
+              sizeof(struct ip_reass_helper) <= IP_HLEN);
+  iprh = (struct ip_reass_helper*)new_p->payload;
+  iprh->next_pbuf = NULL;
+ 1ac:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:352
+  iprh->start = offset;
+  iprh->end = offset + len;
+ 1ae:	ea4f 2119 	mov.w	r1, r9, lsr #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:350
+   * and setup the embedded helper structure. */
+  /* make sure the struct ip_reass_helper fits into the IP header */
+  LWIP_ASSERT("sizeof(struct ip_reass_helper) <= IP_HLEN",
+              sizeof(struct ip_reass_helper) <= IP_HLEN);
+  iprh = (struct ip_reass_helper*)new_p->payload;
+  iprh->next_pbuf = NULL;
+ 1b2:	701a      	strb	r2, [r3, #0]
+ 1b4:	705a      	strb	r2, [r3, #1]
+ 1b6:	709a      	strb	r2, [r3, #2]
+ 1b8:	70da      	strb	r2, [r3, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:351
+  iprh->start = offset;
+ 1ba:	711d      	strb	r5, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:352
+  iprh->end = offset + len;
+ 1bc:	f883 9006 	strb.w	r9, [r3, #6]
+ 1c0:	71d9      	strb	r1, [r3, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:356
+
+  /* Iterate through until we either get to the end of the list (append),
+   * or we find on with a larger offset (insert). */
+  for (q = ipr->p; q != NULL;) {
+ 1c2:	6860      	ldr	r0, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:337
+{
+  struct ip_reass_helper *iprh, *iprh_tmp, *iprh_prev=NULL;
+  struct pbuf *q;
+  u16_t offset,len;
+  struct ip_hdr *fraghdr;
+  int valid = 1;
+ 1c4:	f04f 0c01 	mov.w	ip, #1
+ 1c8:	e03d      	b.n	246 <ip_reass+0x246>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:357
+  iprh->end = offset + len;
+
+  /* Iterate through until we either get to the end of the list (append),
+   * or we find on with a larger offset (insert). */
+  for (q = ipr->p; q != NULL;) {
+    iprh_tmp = (struct ip_reass_helper*)q->payload;
+ 1ca:	6841      	ldr	r1, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:358
+    if (iprh->start < iprh_tmp->start) {
+ 1cc:	f891 8004 	ldrb.w	r8, [r1, #4]
+ 1d0:	f891 a005 	ldrb.w	sl, [r1, #5]
+ 1d4:	ea48 280a 	orr.w	r8, r8, sl, lsl #8
+ 1d8:	4545      	cmp	r5, r8
+ 1da:	d218      	bcs.n	20e <ip_reass+0x20e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:360
+      /* the new pbuf should be inserted before this */
+      iprh->next_pbuf = q;
+ 1dc:	0a01      	lsrs	r1, r0, #8
+ 1de:	7018      	strb	r0, [r3, #0]
+ 1e0:	7059      	strb	r1, [r3, #1]
+ 1e2:	0c01      	lsrs	r1, r0, #16
+ 1e4:	0e00      	lsrs	r0, r0, #24
+ 1e6:	7099      	strb	r1, [r3, #2]
+ 1e8:	70d8      	strb	r0, [r3, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:361
+      if (iprh_prev != NULL) {
+ 1ea:	2a00      	cmp	r2, #0
+ 1ec:	d03e      	beq.n	26c <ip_reass+0x26c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:364
+        /* not the fragment with the lowest offset */
+#if IP_REASS_CHECK_OVERLAP
+        if ((iprh->start < iprh_prev->end) || (iprh->end > iprh_tmp->start)) {
+ 1ee:	7991      	ldrb	r1, [r2, #6]
+ 1f0:	79d0      	ldrb	r0, [r2, #7]
+ 1f2:	ea41 2100 	orr.w	r1, r1, r0, lsl #8
+ 1f6:	428d      	cmp	r5, r1
+ 1f8:	d36f      	bcc.n	2da <ip_reass+0x2da>
+ 1fa:	45c1      	cmp	r9, r8
+ 1fc:	d86d      	bhi.n	2da <ip_reass+0x2da>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:369
+          /* fragment overlaps with previous or following, throw away */
+          goto freepbuf;
+        }
+#endif /* IP_REASS_CHECK_OVERLAP */
+        iprh_prev->next_pbuf = new_p;
+ 1fe:	0a31      	lsrs	r1, r6, #8
+ 200:	7016      	strb	r6, [r2, #0]
+ 202:	7051      	strb	r1, [r2, #1]
+ 204:	0c31      	lsrs	r1, r6, #16
+ 206:	0e36      	lsrs	r6, r6, #24
+ 208:	7091      	strb	r1, [r2, #2]
+ 20a:	70d6      	strb	r6, [r2, #3]
+ 20c:	e02f      	b.n	26e <ip_reass+0x26e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:375
+      } else {
+        /* fragment with the lowest offset */
+        ipr->p = new_p;
+      }
+      break;
+    } else if(iprh->start == iprh_tmp->start) {
+ 20e:	d064      	beq.n	2da <ip_reass+0x2da>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:379
+      /* received the same datagram twice: no need to keep the datagram */
+      goto freepbuf;
+#if IP_REASS_CHECK_OVERLAP
+    } else if(iprh->start < iprh_tmp->end) {
+ 210:	7988      	ldrb	r0, [r1, #6]
+ 212:	f891 a007 	ldrb.w	sl, [r1, #7]
+ 216:	ea40 200a 	orr.w	r0, r0, sl, lsl #8
+ 21a:	4285      	cmp	r5, r0
+ 21c:	d35d      	bcc.n	2da <ip_reass+0x2da>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:385
+      /* overlap: no need to keep the new datagram */
+      goto freepbuf;
+#endif /* IP_REASS_CHECK_OVERLAP */
+    } else {
+      /* Check if the fragments received so far have no wholes. */
+      if (iprh_prev != NULL) {
+ 21e:	b13a      	cbz	r2, 230 <ip_reass+0x230>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:386
+        if (iprh_prev->end != iprh_tmp->start) {
+ 220:	7990      	ldrb	r0, [r2, #6]
+ 222:	79d2      	ldrb	r2, [r2, #7]
+ 224:	ea40 2202 	orr.w	r2, r0, r2, lsl #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:389
+          /* There is a fragment missing between the current
+           * and the previous fragment */
+          valid = 0;
+ 228:	4542      	cmp	r2, r8
+ 22a:	bf18      	it	ne
+ 22c:	f04f 0c00 	movne.w	ip, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:393
+        }
+      }
+    }
+    q = iprh_tmp->next_pbuf;
+ 230:	780a      	ldrb	r2, [r1, #0]
+ 232:	7848      	ldrb	r0, [r1, #1]
+ 234:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 238:	788a      	ldrb	r2, [r1, #2]
+ 23a:	ea40 4002 	orr.w	r0, r0, r2, lsl #16
+ 23e:	78ca      	ldrb	r2, [r1, #3]
+ 240:	ea40 6002 	orr.w	r0, r0, r2, lsl #24
+ 244:	460a      	mov	r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:356
+  iprh->start = offset;
+  iprh->end = offset + len;
+
+  /* Iterate through until we either get to the end of the list (append),
+   * or we find on with a larger offset (insert). */
+  for (q = ipr->p; q != NULL;) {
+ 246:	2800      	cmp	r0, #0
+ 248:	d1bf      	bne.n	1ca <ip_reass+0x1ca>
+ 24a:	e0aa      	b.n	3a2 <ip_reass+0x3a2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:405
+      /* this is (for now), the fragment with the highest offset:
+       * chain it to the last fragment */
+#if IP_REASS_CHECK_OVERLAP
+      LWIP_ASSERT("check fragments don't overlap", iprh_prev->end <= iprh->start);
+#endif /* IP_REASS_CHECK_OVERLAP */
+      iprh_prev->next_pbuf = new_p;
+ 24c:	0a31      	lsrs	r1, r6, #8
+ 24e:	7016      	strb	r6, [r2, #0]
+ 250:	7051      	strb	r1, [r2, #1]
+ 252:	0c31      	lsrs	r1, r6, #16
+ 254:	0e36      	lsrs	r6, r6, #24
+ 256:	7091      	strb	r1, [r2, #2]
+ 258:	70d6      	strb	r6, [r2, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:406
+      if (iprh_prev->end != iprh->start) {
+ 25a:	7991      	ldrb	r1, [r2, #6]
+ 25c:	79d2      	ldrb	r2, [r2, #7]
+ 25e:	ea41 2202 	orr.w	r2, r1, r2, lsl #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:407
+        valid = 0;
+ 262:	42aa      	cmp	r2, r5
+ 264:	bf18      	it	ne
+ 266:	f04f 0c00 	movne.w	ip, #0
+ 26a:	e000      	b.n	26e <ip_reass+0x26e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:415
+#if IP_REASS_CHECK_OVERLAP
+      LWIP_ASSERT("no previous fragment, this must be the first fragment!",
+        ipr->p == NULL);
+#endif /* IP_REASS_CHECK_OVERLAP */
+      /* this is the first fragment we ever received for this ip datagram */
+      ipr->p = new_p;
+ 26c:	6066      	str	r6, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:421
+    }
+  }
+
+  /* At this point, the validation part begins: */
+  /* If we already received the last fragment */
+  if ((ipr->flags & IP_REASS_FLAG_LASTFRAG) != 0) {
+ 26e:	7fa5      	ldrb	r5, [r4, #30]
+ 270:	f015 0501 	ands.w	r5, r5, #1
+ 274:	f000 808a 	beq.w	38c <ip_reass+0x38c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:423
+    /* and had no wholes so far */
+    if (valid) {
+ 278:	f1bc 0f00 	cmp.w	ip, #0
+ 27c:	f000 8083 	beq.w	386 <ip_reass+0x386>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:426
+      /* then check if the rest of the fragments is here */
+      /* Check if the queue starts with the first datagram */
+      if (((struct ip_reass_helper*)ipr->p->payload)->start != 0) {
+ 280:	6862      	ldr	r2, [r4, #4]
+ 282:	6855      	ldr	r5, [r2, #4]
+ 284:	792a      	ldrb	r2, [r5, #4]
+ 286:	7969      	ldrb	r1, [r5, #5]
+ 288:	ea52 2101 	orrs.w	r1, r2, r1, lsl #8
+ 28c:	d17d      	bne.n	38a <ip_reass+0x38a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:431
+        valid = 0;
+      } else {
+        /* and check that there are no wholes after this datagram */
+        iprh_prev = iprh;
+        q = iprh->next_pbuf;
+ 28e:	781a      	ldrb	r2, [r3, #0]
+ 290:	785e      	ldrb	r6, [r3, #1]
+ 292:	ea42 2606 	orr.w	r6, r2, r6, lsl #8
+ 296:	789a      	ldrb	r2, [r3, #2]
+ 298:	ea46 4602 	orr.w	r6, r6, r2, lsl #16
+ 29c:	78da      	ldrb	r2, [r3, #3]
+ 29e:	ea46 6602 	orr.w	r6, r6, r2, lsl #24
+ 2a2:	e017      	b.n	32 <ip_reass+0x32>
+ 2a4:	00000000 	.word	0x00000000
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:433
+        while (q != NULL) {
+          iprh = (struct ip_reass_helper*)q->payload;
+ 2a8:	6872      	ldr	r2, [r6, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:434
+          if (iprh_prev->end != iprh->start) {
+ 2aa:	7999      	ldrb	r1, [r3, #6]
+ 2ac:	79de      	ldrb	r6, [r3, #7]
+ 2ae:	7950      	ldrb	r0, [r2, #5]
+ 2b0:	7913      	ldrb	r3, [r2, #4]
+ 2b2:	ea41 2106 	orr.w	r1, r1, r6, lsl #8
+ 2b6:	ea43 2300 	orr.w	r3, r3, r0, lsl #8
+ 2ba:	4299      	cmp	r1, r3
+ 2bc:	d165      	bne.n	38a <ip_reass+0x38a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:439
+            valid = 0;
+            break;
+          }
+          iprh_prev = iprh;
+          q = iprh->next_pbuf;
+ 2be:	7813      	ldrb	r3, [r2, #0]
+ 2c0:	7856      	ldrb	r6, [r2, #1]
+ 2c2:	ea43 2606 	orr.w	r6, r3, r6, lsl #8
+ 2c6:	7893      	ldrb	r3, [r2, #2]
+ 2c8:	ea46 4603 	orr.w	r6, r6, r3, lsl #16
+ 2cc:	78d3      	ldrb	r3, [r2, #3]
+ 2ce:	ea46 6603 	orr.w	r6, r6, r3, lsl #24
+ 2d2:	4613      	mov	r3, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:432
+        valid = 0;
+      } else {
+        /* and check that there are no wholes after this datagram */
+        iprh_prev = iprh;
+        q = iprh->next_pbuf;
+        while (q != NULL) {
+ 2d4:	2e00      	cmp	r6, #0
+ 2d6:	d1e7      	bne.n	2a8 <ip_reass+0x2a8>
+ 2d8:	e006      	b.n	2e8 <ip_reass+0x2e8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:463
+  }
+  /* If we come here, not all fragments were received, yet! */
+  return 0; /* not yet valid! */
+#if IP_REASS_CHECK_OVERLAP
+freepbuf:
+  ip_reass_pbufcount -= pbuf_clen(new_p);
+ 2da:	4630      	mov	r0, r6
+ 2dc:	88bc      	ldrh	r4, [r7, #4]
+ 2de:	f7ff fffe 	bl	0 <pbuf_clen>
+ 2e2:	1a20      	subs	r0, r4, r0
+ 2e4:	80b8      	strh	r0, [r7, #4]
+ 2e6:	e04a      	b.n	37e <ip_reass+0x37e>
+ip_reass():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:570
+  /* find the right place to insert this pbuf */
+  /* @todo: trim pbufs if fragments are overlapping */
+  if (ip_reass_chain_frag_into_datagram_and_validate(ipr, p)) {
+    /* the totally last fragment (flag more fragments = 0) was received at least
+     * once AND all fragments are received */
+    ipr->datagram_len += IP_HLEN;
+ 2e8:	8ba3      	ldrh	r3, [r4, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:577
+    /* save the second pbuf before copying the header over the pointer */
+    r = ((struct ip_reass_helper*)ipr->p->payload)->next_pbuf;
+
+    /* copy the original ip header back to the first pbuf */
+    fraghdr = (struct ip_hdr*)(ipr->p->payload);
+    SMEMCPY(fraghdr, &ipr->iphdr, IP_HLEN);
+ 2ea:	f104 0108 	add.w	r1, r4, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:570
+  /* find the right place to insert this pbuf */
+  /* @todo: trim pbufs if fragments are overlapping */
+  if (ip_reass_chain_frag_into_datagram_and_validate(ipr, p)) {
+    /* the totally last fragment (flag more fragments = 0) was received at least
+     * once AND all fragments are received */
+    ipr->datagram_len += IP_HLEN;
+ 2ee:	3314      	adds	r3, #20
+ 2f0:	83a3      	strh	r3, [r4, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:573
+
+    /* save the second pbuf before copying the header over the pointer */
+    r = ((struct ip_reass_helper*)ipr->p->payload)->next_pbuf;
+ 2f2:	782b      	ldrb	r3, [r5, #0]
+ 2f4:	f895 8001 	ldrb.w	r8, [r5, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:577
+
+    /* copy the original ip header back to the first pbuf */
+    fraghdr = (struct ip_hdr*)(ipr->p->payload);
+    SMEMCPY(fraghdr, &ipr->iphdr, IP_HLEN);
+ 2f8:	2214      	movs	r2, #20
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:573
+    /* the totally last fragment (flag more fragments = 0) was received at least
+     * once AND all fragments are received */
+    ipr->datagram_len += IP_HLEN;
+
+    /* save the second pbuf before copying the header over the pointer */
+    r = ((struct ip_reass_helper*)ipr->p->payload)->next_pbuf;
+ 2fa:	ea43 2808 	orr.w	r8, r3, r8, lsl #8
+ 2fe:	78ab      	ldrb	r3, [r5, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:577
+
+    /* copy the original ip header back to the first pbuf */
+    fraghdr = (struct ip_hdr*)(ipr->p->payload);
+    SMEMCPY(fraghdr, &ipr->iphdr, IP_HLEN);
+ 300:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:573
+    /* the totally last fragment (flag more fragments = 0) was received at least
+     * once AND all fragments are received */
+    ipr->datagram_len += IP_HLEN;
+
+    /* save the second pbuf before copying the header over the pointer */
+    r = ((struct ip_reass_helper*)ipr->p->payload)->next_pbuf;
+ 302:	ea48 4803 	orr.w	r8, r8, r3, lsl #16
+ 306:	78eb      	ldrb	r3, [r5, #3]
+ 308:	ea48 6803 	orr.w	r8, r8, r3, lsl #24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:577
+
+    /* copy the original ip header back to the first pbuf */
+    fraghdr = (struct ip_hdr*)(ipr->p->payload);
+    SMEMCPY(fraghdr, &ipr->iphdr, IP_HLEN);
+ 30c:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:578
+    IPH_LEN_SET(fraghdr, htons(ipr->datagram_len));
+ 310:	8ba0      	ldrh	r0, [r4, #28]
+ 312:	f7ff fffe 	bl	0 <lwip_htons>
+ 316:	70a8      	strb	r0, [r5, #2]
+ 318:	0a00      	lsrs	r0, r0, #8
+ 31a:	70e8      	strb	r0, [r5, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:579
+    IPH_OFFSET_SET(fraghdr, 0);
+ 31c:	71ae      	strb	r6, [r5, #6]
+ 31e:	71ee      	strb	r6, [r5, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:580
+    IPH_CHKSUM_SET(fraghdr, 0);
+ 320:	72ae      	strb	r6, [r5, #10]
+ 322:	72ee      	strb	r6, [r5, #11]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:582
+    /* @todo: do we need to set calculate the correct checksum? */
+    IPH_CHKSUM_SET(fraghdr, inet_chksum(fraghdr, IP_HLEN));
+ 324:	4628      	mov	r0, r5
+ 326:	2114      	movs	r1, #20
+ 328:	f7ff fffe 	bl	0 <inet_chksum>
+ 32c:	72a8      	strb	r0, [r5, #10]
+ 32e:	0a00      	lsrs	r0, r0, #8
+ 330:	72e8      	strb	r0, [r5, #11]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:584
+
+    p = ipr->p;
+ 332:	6865      	ldr	r5, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:587
+
+    /* chain together the pbufs contained within the reass_data list. */
+    while(r != NULL) {
+ 334:	e015      	b.n	362 <ip_reass+0x362>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:588
+      iprh = (struct ip_reass_helper*)r->payload;
+ 336:	f8d8 6004 	ldr.w	r6, [r8, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:591
+
+      /* hide the ip header for every succeding fragment */
+      pbuf_header(r, -IP_HLEN);
+ 33a:	4640      	mov	r0, r8
+ 33c:	f06f 0113 	mvn.w	r1, #19
+ 340:	f7ff fffe 	bl	0 <pbuf_header>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:592
+      pbuf_cat(p, r);
+ 344:	4641      	mov	r1, r8
+ 346:	4628      	mov	r0, r5
+ 348:	f7ff fffe 	bl	0 <pbuf_cat>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:593
+      r = iprh->next_pbuf;
+ 34c:	7833      	ldrb	r3, [r6, #0]
+ 34e:	f896 8001 	ldrb.w	r8, [r6, #1]
+ 352:	ea43 2808 	orr.w	r8, r3, r8, lsl #8
+ 356:	78b3      	ldrb	r3, [r6, #2]
+ 358:	ea48 4803 	orr.w	r8, r8, r3, lsl #16
+ 35c:	78f3      	ldrb	r3, [r6, #3]
+ 35e:	ea48 6803 	orr.w	r8, r8, r3, lsl #24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:587
+    IPH_CHKSUM_SET(fraghdr, inet_chksum(fraghdr, IP_HLEN));
+
+    p = ipr->p;
+
+    /* chain together the pbufs contained within the reass_data list. */
+    while(r != NULL) {
+ 362:	f1b8 0f00 	cmp.w	r8, #0
+ 366:	d1e6      	bne.n	336 <ip_reass+0x336>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:596
+      pbuf_header(r, -IP_HLEN);
+      pbuf_cat(p, r);
+      r = iprh->next_pbuf;
+    }
+    /* release the sources allocate for the fragment queue entry */
+    ip_reass_dequeue_datagram(ipr, ipr_prev);
+ 368:	4620      	mov	r0, r4
+ 36a:	9901      	ldr	r1, [sp, #4]
+ 36c:	f7ff fffe 	bl	0 <ip_reass>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:599
+
+    /* and adjust the number of pbufs currently queued for reassembly. */
+    ip_reass_pbufcount -= pbuf_clen(p);
+ 370:	4628      	mov	r0, r5
+ 372:	88bc      	ldrh	r4, [r7, #4]
+ 374:	f7ff fffe 	bl	0 <pbuf_clen>
+ 378:	1a20      	subs	r0, r4, r0
+ 37a:	80b8      	strh	r0, [r7, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:602
+
+    /* Return the pbuf chain */
+    return p;
+ 37c:	e006      	b.n	38c <ip_reass+0x38c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:611
+  return NULL;
+
+nullreturn:
+  LWIP_DEBUGF(IP_REASS_DEBUG,("ip_reass: nullreturn\n"));
+  IPFRAG_STATS_INC(ip_frag.drop);
+  pbuf_free(p);
+ 37e:	4630      	mov	r0, r6
+ 380:	f7ff fffe 	bl	0 <pbuf_free>
+ 384:	e001      	b.n	38a <ip_reass+0x38a>
+ip_reass_chain_frag_into_datagram_and_validate():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:606
+    /* Return the pbuf chain */
+    return p;
+  }
+  /* the datagram is not (yet?) reassembled completely */
+  LWIP_DEBUGF(IP_REASS_DEBUG,("ip_reass_pbufcount: %d out\n", ip_reass_pbufcount));
+  return NULL;
+ 386:	4665      	mov	r5, ip
+ 388:	e000      	b.n	38c <ip_reass+0x38c>
+ 38a:	2500      	movs	r5, #0
+ip_reass():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:613
+nullreturn:
+  LWIP_DEBUGF(IP_REASS_DEBUG,("ip_reass: nullreturn\n"));
+  IPFRAG_STATS_INC(ip_frag.drop);
+  pbuf_free(p);
+  return NULL;
+}
+ 38c:	4628      	mov	r0, r5
+ 38e:	e8bd 8ffe 	ldmia.w	sp!, {r1, r2, r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ip_reass_enqueue_new_datagram():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:273
+static struct ip_reassdata*
+ip_reass_enqueue_new_datagram(struct ip_hdr *fraghdr, int clen)
+{
+  struct ip_reassdata* ipr;
+  /* No matching previous fragment found, allocate a new reassdata struct */
+  ipr = (struct ip_reassdata *)memp_malloc(MEMP_REASSDATA);
+ 392:	2005      	movs	r0, #5
+ 394:	f7ff fffe 	bl	0 <memp_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:274
+  if (ipr == NULL) {
+ 398:	4604      	mov	r4, r0
+ 39a:	2800      	cmp	r0, #0
+ 39c:	f47f aeac 	bne.w	f8 <ip_reass+0xf8>
+ 3a0:	e69c      	b.n	dc <ip_reass+0xdc>
+ip_reass_chain_frag_into_datagram_and_validate():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:399
+    iprh_prev = iprh_tmp;
+  }
+
+  /* If q is NULL, then we made it to the end of the list. Determine what to do now */
+  if (q == NULL) {
+    if (iprh_prev != NULL) {
+ 3a2:	2a00      	cmp	r2, #0
+ 3a4:	f47f af52 	bne.w	24c <ip_reass+0x24c>
+ 3a8:	e760      	b.n	26c <ip_reass+0x26c>
+ip_reass():
+ 3aa:	bf00      	nop
+
+Disassembly of section .text.ip_frag:
+
+00000000 <ip_frag>:
+ip_frag():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:668
+ *
+ * @return ERR_OK if sent successfully, err_t otherwise
+ */
+err_t 
+ip_frag(struct pbuf *p, struct netif *netif, ip_addr_t *dest)
+{
+   0:	4ff0e92d 	.word	0x4ff0e92d
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:709
+
+  /* Copy the IP header in it */
+  iphdr = (struct ip_hdr *)rambuf->payload;
+  SMEMCPY(iphdr, p->payload, IP_HLEN);
+#else /* IP_FRAG_USES_STATIC_BUF */
+  original_iphdr = (struct ip_hdr *)p->payload;
+   4:	6843      	ldr	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:668
+ *
+ * @return ERR_OK if sent successfully, err_t otherwise
+ */
+err_t 
+ip_frag(struct pbuf *p, struct netif *netif, ip_addr_t *dest)
+{
+   6:	b08d      	sub	sp, #52	; 0x34
+   8:	920b      	str	r2, [sp, #44]	; 0x2c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:681
+  struct ip_hdr *original_iphdr;
+#endif
+  struct ip_hdr *iphdr;
+  u16_t nfb;
+  u16_t left, cop;
+  u16_t mtu = netif->mtu;
+   a:	8c0a      	ldrh	r2, [r1, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:709
+
+  /* Copy the IP header in it */
+  iphdr = (struct ip_hdr *)rambuf->payload;
+  SMEMCPY(iphdr, p->payload, IP_HLEN);
+#else /* IP_FRAG_USES_STATIC_BUF */
+  original_iphdr = (struct ip_hdr *)p->payload;
+   c:	9305      	str	r3, [sp, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:681
+  struct ip_hdr *original_iphdr;
+#endif
+  struct ip_hdr *iphdr;
+  u16_t nfb;
+  u16_t left, cop;
+  u16_t mtu = netif->mtu;
+   e:	9204      	str	r2, [sp, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:714
+  original_iphdr = (struct ip_hdr *)p->payload;
+  iphdr = original_iphdr;
+#endif /* IP_FRAG_USES_STATIC_BUF */
+
+  /* Save original offset */
+  tmp = ntohs(IPH_OFFSET(iphdr));
+  10:	9a05      	ldr	r2, [sp, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:668
+ *
+ * @return ERR_OK if sent successfully, err_t otherwise
+ */
+err_t 
+ip_frag(struct pbuf *p, struct netif *netif, ip_addr_t *dest)
+{
+  12:	9107      	str	r1, [sp, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:714
+  original_iphdr = (struct ip_hdr *)p->payload;
+  iphdr = original_iphdr;
+#endif /* IP_FRAG_USES_STATIC_BUF */
+
+  /* Save original offset */
+  tmp = ntohs(IPH_OFFSET(iphdr));
+  14:	799b      	ldrb	r3, [r3, #6]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:668
+ *
+ * @return ERR_OK if sent successfully, err_t otherwise
+ */
+err_t 
+ip_frag(struct pbuf *p, struct netif *netif, ip_addr_t *dest)
+{
+  16:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:714
+  original_iphdr = (struct ip_hdr *)p->payload;
+  iphdr = original_iphdr;
+#endif /* IP_FRAG_USES_STATIC_BUF */
+
+  /* Save original offset */
+  tmp = ntohs(IPH_OFFSET(iphdr));
+  18:	79d0      	ldrb	r0, [r2, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:684
+  u16_t nfb;
+  u16_t left, cop;
+  u16_t mtu = netif->mtu;
+  u16_t ofo, omf;
+  u16_t last;
+  u16_t poff = IP_HLEN;
+  1a:	f04f 0914 	mov.w	r9, #20
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:714
+  original_iphdr = (struct ip_hdr *)p->payload;
+  iphdr = original_iphdr;
+#endif /* IP_FRAG_USES_STATIC_BUF */
+
+  /* Save original offset */
+  tmp = ntohs(IPH_OFFSET(iphdr));
+  1e:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  22:	f7ff fffe 	bl	0 <lwip_ntohs>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:720
+  ofo = tmp & IP_OFFMASK;
+  omf = tmp & IP_MF;
+
+  left = p->tot_len - IP_HLEN;
+
+  nfb = (mtu - IP_HLEN) / 8;
+  26:	9b04      	ldr	r3, [sp, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:718
+  /* Save original offset */
+  tmp = ntohs(IPH_OFFSET(iphdr));
+  ofo = tmp & IP_OFFMASK;
+  omf = tmp & IP_MF;
+
+  left = p->tot_len - IP_HLEN;
+  28:	f8b4 8008 	ldrh.w	r8, [r4, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:720
+
+  nfb = (mtu - IP_HLEN) / 8;
+  2c:	3b14      	subs	r3, #20
+  2e:	bf48      	it	mi
+  30:	9a04      	ldrmi	r2, [sp, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:715
+  iphdr = original_iphdr;
+#endif /* IP_FRAG_USES_STATIC_BUF */
+
+  /* Save original offset */
+  tmp = ntohs(IPH_OFFSET(iphdr));
+  ofo = tmp & IP_OFFMASK;
+  32:	ea4f 4ac0 	mov.w	sl, r0, lsl #19
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:720
+  omf = tmp & IP_MF;
+
+  left = p->tot_len - IP_HLEN;
+
+  nfb = (mtu - IP_HLEN) / 8;
+  36:	bf48      	it	mi
+  38:	f1a2 030d 	submi.w	r3, r2, #13
+  3c:	10db      	asrs	r3, r3, #3
+  3e:	b29b      	uxth	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:716
+#endif /* IP_FRAG_USES_STATIC_BUF */
+
+  /* Save original offset */
+  tmp = ntohs(IPH_OFFSET(iphdr));
+  ofo = tmp & IP_OFFMASK;
+  omf = tmp & IP_MF;
+  40:	f400 5000 	and.w	r0, r0, #8192	; 0x2000
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:720
+
+  left = p->tot_len - IP_HLEN;
+
+  nfb = (mtu - IP_HLEN) / 8;
+  44:	9308      	str	r3, [sp, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:732
+    if (!last) {
+      tmp = tmp | IP_MF;
+    }
+
+    /* Fill this fragment */
+    cop = last ? left : nfb * 8;
+  46:	00db      	lsls	r3, r3, #3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:716
+#endif /* IP_FRAG_USES_STATIC_BUF */
+
+  /* Save original offset */
+  tmp = ntohs(IPH_OFFSET(iphdr));
+  ofo = tmp & IP_OFFMASK;
+  omf = tmp & IP_MF;
+  48:	b280      	uxth	r0, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:718
+
+  left = p->tot_len - IP_HLEN;
+  4a:	f1a8 0814 	sub.w	r8, r8, #20
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:732
+    if (!last) {
+      tmp = tmp | IP_MF;
+    }
+
+    /* Fill this fragment */
+    cop = last ? left : nfb * 8;
+  4e:	b29b      	uxth	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:715
+  iphdr = original_iphdr;
+#endif /* IP_FRAG_USES_STATIC_BUF */
+
+  /* Save original offset */
+  tmp = ntohs(IPH_OFFSET(iphdr));
+  ofo = tmp & IP_OFFMASK;
+  50:	ea4f 4ada 	mov.w	sl, sl, lsr #19
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:716
+  omf = tmp & IP_MF;
+  54:	9009      	str	r0, [sp, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:718
+
+  left = p->tot_len - IP_HLEN;
+  56:	fa1f f888 	uxth.w	r8, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:732
+    if (!last) {
+      tmp = tmp | IP_MF;
+    }
+
+    /* Fill this fragment */
+    cop = last ? left : nfb * 8;
+  5a:	930a      	str	r3, [sp, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:687
+  u16_t ofo, omf;
+  u16_t last;
+  u16_t poff = IP_HLEN;
+  u16_t tmp;
+#if !IP_FRAG_USES_STATIC_BUF && !LWIP_NETIF_TX_SINGLE_PBUF
+  u16_t newpbuflen = 0;
+  5c:	2700      	movs	r7, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:722
+
+  left = p->tot_len - IP_HLEN;
+
+  nfb = (mtu - IP_HLEN) / 8;
+
+  while (left) {
+  5e:	e093      	b.n	188 <ip_frag+0x188>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:726
+    last = (left <= mtu - IP_HLEN);
+
+    /* Set new offset and MF flag */
+    tmp = omf | (IP_OFFMASK & (ofo));
+  60:	9a09      	ldr	r2, [sp, #36]	; 0x24
+  62:	ea4f 43ca 	mov.w	r3, sl, lsl #19
+  66:	0cdb      	lsrs	r3, r3, #19
+  68:	ea42 0303 	orr.w	r3, r2, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:723
+  left = p->tot_len - IP_HLEN;
+
+  nfb = (mtu - IP_HLEN) / 8;
+
+  while (left) {
+    last = (left <= mtu - IP_HLEN);
+  6c:	9a04      	ldr	r2, [sp, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:726
+
+    /* Set new offset and MF flag */
+    tmp = omf | (IP_OFFMASK & (ofo));
+  6e:	9306      	str	r3, [sp, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:723
+  left = p->tot_len - IP_HLEN;
+
+  nfb = (mtu - IP_HLEN) / 8;
+
+  while (left) {
+    last = (left <= mtu - IP_HLEN);
+  70:	f1a2 0313 	sub.w	r3, r2, #19
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:727
+
+    /* Set new offset and MF flag */
+    tmp = omf | (IP_OFFMASK & (ofo));
+    if (!last) {
+  74:	4543      	cmp	r3, r8
+  76:	dc06      	bgt.n	86 <ip_frag+0x86>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:728
+      tmp = tmp | IP_MF;
+  78:	9b06      	ldr	r3, [sp, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:732
+    }
+
+    /* Fill this fragment */
+    cop = last ? left : nfb * 8;
+  7a:	9a0a      	ldr	r2, [sp, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:728
+    last = (left <= mtu - IP_HLEN);
+
+    /* Set new offset and MF flag */
+    tmp = omf | (IP_OFFMASK & (ofo));
+    if (!last) {
+      tmp = tmp | IP_MF;
+  7c:	f443 5300 	orr.w	r3, r3, #8192	; 0x2000
+  80:	9306      	str	r3, [sp, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:732
+    }
+
+    /* Fill this fragment */
+    cop = last ? left : nfb * 8;
+  82:	9203      	str	r2, [sp, #12]
+  84:	e001      	b.n	8a <ip_frag+0x8a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:727
+  while (left) {
+    last = (left <= mtu - IP_HLEN);
+
+    /* Set new offset and MF flag */
+    tmp = omf | (IP_OFFMASK & (ofo));
+    if (!last) {
+  86:	f8cd 800c 	str.w	r8, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:759
+    /* When not using a static buffer, create a chain of pbufs.
+     * The first will be a PBUF_RAM holding the link and IP header.
+     * The rest will be PBUF_REFs mirroring the pbuf chain to be fragged,
+     * but limited to the size of an mtu.
+     */
+    rambuf = pbuf_alloc(PBUF_LINK, IP_HLEN, PBUF_RAM);
+  8a:	2002      	movs	r0, #2
+  8c:	2114      	movs	r1, #20
+  8e:	2200      	movs	r2, #0
+  90:	f7ff fffe 	bl	0 <pbuf_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:760
+    if (rambuf == NULL) {
+  94:	4606      	mov	r6, r0
+  96:	2800      	cmp	r0, #0
+  98:	d07b      	beq.n	192 <ip_frag+0x192>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:765
+      return ERR_MEM;
+    }
+    LWIP_ASSERT("this needs a pbuf in one piece!",
+                (p->len >= (IP_HLEN)));
+    SMEMCPY(rambuf->payload, original_iphdr, IP_HLEN);
+  9a:	6840      	ldr	r0, [r0, #4]
+  9c:	9905      	ldr	r1, [sp, #20]
+  9e:	2214      	movs	r2, #20
+  a0:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:769
+    iphdr = (struct ip_hdr *)rambuf->payload;
+
+    /* Can just adjust p directly for needed offset. */
+    p->payload = (u8_t *)p->payload + poff;
+  a4:	6863      	ldr	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:766
+      return ERR_MEM;
+    }
+    LWIP_ASSERT("this needs a pbuf in one piece!",
+                (p->len >= (IP_HLEN)));
+    SMEMCPY(rambuf->payload, original_iphdr, IP_HLEN);
+    iphdr = (struct ip_hdr *)rambuf->payload;
+  a6:	6875      	ldr	r5, [r6, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:769
+
+    /* Can just adjust p directly for needed offset. */
+    p->payload = (u8_t *)p->payload + poff;
+  a8:	444b      	add	r3, r9
+  aa:	6063      	str	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:770
+    p->len -= poff;
+  ac:	8963      	ldrh	r3, [r4, #10]
+  ae:	46c3      	mov	fp, r8
+  b0:	ebc9 0903 	rsb	r9, r9, r3
+  b4:	f8a4 900a 	strh.w	r9, [r4, #10]
+  b8:	46a8      	mov	r8, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:772
+
+    left_to_copy = cop;
+  ba:	f8dd 900c 	ldr.w	r9, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:773
+    while (left_to_copy) {
+  be:	e030      	b.n	122 <ip_frag+0x122>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:775
+      struct pbuf_custom_ref *pcr;
+      newpbuflen = (left_to_copy < p->len) ? left_to_copy : p->len;
+  c0:	8967      	ldrh	r7, [r4, #10]
+  c2:	45b9      	cmp	r9, r7
+  c4:	bf38      	it	cc
+  c6:	464f      	movcc	r7, r9
+  c8:	b2bf      	uxth	r7, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:777
+      /* Is this pbuf already empty? */
+      if (!newpbuflen) {
+  ca:	b34f      	cbz	r7, 120 <ip_frag+0x120>
+ip_frag_alloc_pbuf_custom_ref():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:626
+#if !LWIP_NETIF_TX_SINGLE_PBUF
+/** Allocate a new struct pbuf_custom_ref */
+static struct pbuf_custom_ref*
+ip_frag_alloc_pbuf_custom_ref(void)
+{
+  return (struct pbuf_custom_ref*)memp_malloc(MEMP_FRAG_PBUF);
+  cc:	2006      	movs	r0, #6
+  ce:	f7ff fffe 	bl	0 <memp_malloc>
+ip_frag():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:782
+      if (!newpbuflen) {
+        p = p->next;
+        continue;
+      }
+      pcr = ip_frag_alloc_pbuf_custom_ref();
+      if (pcr == NULL) {
+  d2:	4605      	mov	r5, r0
+  d4:	b170      	cbz	r0, f4 <ip_frag+0xf4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:787
+        pbuf_free(rambuf);
+        return ERR_MEM;
+      }
+      /* Mirror this pbuf, although we might not need all of it. */
+      newpbuf = pbuf_alloced_custom(PBUF_RAW, newpbuflen, PBUF_REF, &pcr->pc, p->payload, newpbuflen);
+  d6:	6863      	ldr	r3, [r4, #4]
+  d8:	4639      	mov	r1, r7
+  da:	9300      	str	r3, [sp, #0]
+  dc:	2003      	movs	r0, #3
+  de:	2202      	movs	r2, #2
+  e0:	462b      	mov	r3, r5
+  e2:	9701      	str	r7, [sp, #4]
+  e4:	f7ff fffe 	bl	0 <pbuf_alloced_custom>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:788
+      if (newpbuf == NULL) {
+  e8:	4601      	mov	r1, r0
+  ea:	b938      	cbnz	r0, fc <ip_frag+0xfc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:789
+        ip_frag_free_pbuf_custom_ref(pcr);
+  ec:	4628      	mov	r0, r5
+  ee:	46ab      	mov	fp, r5
+  f0:	f7ff fffe 	bl	0 <ip_frag>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:790
+        pbuf_free(rambuf);
+  f4:	4630      	mov	r0, r6
+  f6:	f7ff fffe 	bl	0 <pbuf_free>
+  fa:	e04a      	b.n	192 <ip_frag+0x192>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:793
+        return ERR_MEM;
+      }
+      pbuf_ref(p);
+  fc:	4620      	mov	r0, r4
+  fe:	9102      	str	r1, [sp, #8]
+ 100:	f7ff fffe 	bl	0 <pbuf_ref>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:795
+      pcr->original = p;
+      pcr->pc.custom_free_function = ipfrag_free_pbuf_custom;
+ 104:	4b26      	ldr	r3, [pc, #152]	; (1a0 <ip_frag+0x1a0>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:801
+
+      /* Add it to end of rambuf's chain, but using pbuf_cat, not pbuf_chain
+       * so that it is removed when pbuf_dechain is later called on rambuf.
+       */
+      pbuf_cat(rambuf, newpbuf);
+      left_to_copy -= newpbuflen;
+ 106:	ebc7 0909 	rsb	r9, r7, r9
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:794
+        ip_frag_free_pbuf_custom_ref(pcr);
+        pbuf_free(rambuf);
+        return ERR_MEM;
+      }
+      pbuf_ref(p);
+      pcr->original = p;
+ 10a:	616c      	str	r4, [r5, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:795
+      pcr->pc.custom_free_function = ipfrag_free_pbuf_custom;
+ 10c:	612b      	str	r3, [r5, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:800
+
+      /* Add it to end of rambuf's chain, but using pbuf_cat, not pbuf_chain
+       * so that it is removed when pbuf_dechain is later called on rambuf.
+       */
+      pbuf_cat(rambuf, newpbuf);
+ 10e:	4630      	mov	r0, r6
+ 110:	9902      	ldr	r1, [sp, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:801
+      left_to_copy -= newpbuflen;
+ 112:	fa1f f989 	uxth.w	r9, r9
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:800
+      pcr->pc.custom_free_function = ipfrag_free_pbuf_custom;
+
+      /* Add it to end of rambuf's chain, but using pbuf_cat, not pbuf_chain
+       * so that it is removed when pbuf_dechain is later called on rambuf.
+       */
+      pbuf_cat(rambuf, newpbuf);
+ 116:	f7ff fffe 	bl	0 <pbuf_cat>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:802
+      left_to_copy -= newpbuflen;
+      if (left_to_copy) {
+ 11a:	f1b9 0f00 	cmp.w	r9, #0
+ 11e:	d003      	beq.n	128 <ip_frag+0x128>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:803
+        p = p->next;
+ 120:	6824      	ldr	r4, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:773
+    /* Can just adjust p directly for needed offset. */
+    p->payload = (u8_t *)p->payload + poff;
+    p->len -= poff;
+
+    left_to_copy = cop;
+    while (left_to_copy) {
+ 122:	f1b9 0f00 	cmp.w	r9, #0
+ 126:	d1cb      	bne.n	c0 <ip_frag+0xc0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:811
+    poff = newpbuflen;
+#endif /* LWIP_NETIF_TX_SINGLE_PBUF */
+#endif /* IP_FRAG_USES_STATIC_BUF */
+
+    /* Correct header */
+    IPH_OFFSET_SET(iphdr, htons(tmp));
+ 128:	9806      	ldr	r0, [sp, #24]
+ 12a:	f7ff fffe 	bl	0 <lwip_htons>
+ 12e:	4645      	mov	r5, r8
+ 130:	71a8      	strb	r0, [r5, #6]
+ 132:	0a00      	lsrs	r0, r0, #8
+ 134:	71e8      	strb	r0, [r5, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:812
+    IPH_LEN_SET(iphdr, htons(cop + IP_HLEN));
+ 136:	9b03      	ldr	r3, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:811
+    poff = newpbuflen;
+#endif /* LWIP_NETIF_TX_SINGLE_PBUF */
+#endif /* IP_FRAG_USES_STATIC_BUF */
+
+    /* Correct header */
+    IPH_OFFSET_SET(iphdr, htons(tmp));
+ 138:	f04f 0900 	mov.w	r9, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:812
+    IPH_LEN_SET(iphdr, htons(cop + IP_HLEN));
+ 13c:	f103 0014 	add.w	r0, r3, #20
+ 140:	b280      	uxth	r0, r0
+ 142:	f7ff fffe 	bl	0 <lwip_htons>
+ 146:	70a8      	strb	r0, [r5, #2]
+ 148:	0a00      	lsrs	r0, r0, #8
+ 14a:	70e8      	strb	r0, [r5, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:813
+    IPH_CHKSUM_SET(iphdr, 0);
+ 14c:	f885 900a 	strb.w	r9, [r5, #10]
+ 150:	f885 900b 	strb.w	r9, [r5, #11]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:814
+    IPH_CHKSUM_SET(iphdr, inet_chksum(iphdr, IP_HLEN));
+ 154:	2114      	movs	r1, #20
+ 156:	4628      	mov	r0, r5
+ 158:	f7ff fffe 	bl	0 <inet_chksum>
+ 15c:	72a8      	strb	r0, [r5, #10]
+ 15e:	0a00      	lsrs	r0, r0, #8
+ 160:	72e8      	strb	r0, [r5, #11]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:842
+    }
+#else /* IP_FRAG_USES_STATIC_BUF */
+    /* No need for separate header pbuf - we allowed room for it in rambuf
+     * when allocated.
+     */
+    netif->output(netif, rambuf, dest);
+ 162:	9a07      	ldr	r2, [sp, #28]
+ 164:	4631      	mov	r1, r6
+ 166:	6953      	ldr	r3, [r2, #20]
+ 168:	4610      	mov	r0, r2
+ 16a:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+ 16c:	4798      	blx	r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:852
+     * recreate it next time round the loop. If we're lucky the hardware
+     * will have already sent the packet, the free will really free, and
+     * there will be zero memory penalty.
+     */
+    
+    pbuf_free(rambuf);
+ 16e:	4630      	mov	r0, r6
+ 170:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:854
+#endif /* IP_FRAG_USES_STATIC_BUF */
+    left -= cop;
+ 174:	9b03      	ldr	r3, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:855
+    ofo += nfb;
+ 176:	9a08      	ldr	r2, [sp, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:854
+     * there will be zero memory penalty.
+     */
+    
+    pbuf_free(rambuf);
+#endif /* IP_FRAG_USES_STATIC_BUF */
+    left -= cop;
+ 178:	ebc3 080b 	rsb	r8, r3, fp
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:855
+    ofo += nfb;
+ 17c:	4492      	add	sl, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:854
+     * there will be zero memory penalty.
+     */
+    
+    pbuf_free(rambuf);
+#endif /* IP_FRAG_USES_STATIC_BUF */
+    left -= cop;
+ 17e:	fa1f f888 	uxth.w	r8, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:855
+    ofo += nfb;
+ 182:	fa1f fa8a 	uxth.w	sl, sl
+ 186:	46b9      	mov	r9, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:722
+
+  left = p->tot_len - IP_HLEN;
+
+  nfb = (mtu - IP_HLEN) / 8;
+
+  while (left) {
+ 188:	f1b8 0f00 	cmp.w	r8, #0
+ 18c:	f47f af68 	bne.w	60 <ip_frag+0x60>
+ 190:	e001      	b.n	196 <ip_frag+0x196>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:761
+     * The rest will be PBUF_REFs mirroring the pbuf chain to be fragged,
+     * but limited to the size of an mtu.
+     */
+    rambuf = pbuf_alloc(PBUF_LINK, IP_HLEN, PBUF_RAM);
+    if (rambuf == NULL) {
+      return ERR_MEM;
+ 192:	f04f 08ff 	mov.w	r8, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_frag.c:862
+#if IP_FRAG_USES_STATIC_BUF
+  pbuf_free(rambuf);
+#endif /* IP_FRAG_USES_STATIC_BUF */
+  snmp_inc_ipfragoks();
+  return ERR_OK;
+}
+ 196:	fa4f f088 	sxtb.w	r0, r8
+ 19a:	b00d      	add	sp, #52	; 0x34
+ 19c:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 1a0:	00000000 	.word	0x00000000

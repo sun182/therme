@@ -1,0 +1,827 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\mem.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\mem.o
+
+
+Disassembly of section .text.mem_init:
+
+00000000 <mem_init>:
+mem_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:279
+
+  LWIP_ASSERT("Sanity check alignment",
+    (SIZEOF_STRUCT_MEM & (MEM_ALIGNMENT-1)) == 0);
+
+  /* align the heap */
+  ram = (u8_t *)LWIP_MEM_ALIGN(LWIP_RAM_HEAP_POINTER);
+   0:	4b09      	ldr	r3, [pc, #36]	; (28 <mem_init+0x28>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:282
+  /* initialize the start of the heap */
+  mem = (struct mem *)(void *)ram;
+  mem->next = MEM_SIZE_ALIGNED;
+   2:	f44f 5020 	mov.w	r0, #10240	; 0x2800
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:279
+
+  LWIP_ASSERT("Sanity check alignment",
+    (SIZEOF_STRUCT_MEM & (MEM_ALIGNMENT-1)) == 0);
+
+  /* align the heap */
+  ram = (u8_t *)LWIP_MEM_ALIGN(LWIP_RAM_HEAP_POINTER);
+   6:	f023 0303 	bic.w	r3, r3, #3
+   a:	4908      	ldr	r1, [pc, #32]	; (2c <mem_init+0x2c>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:283
+  /* initialize the start of the heap */
+  mem = (struct mem *)(void *)ram;
+  mem->next = MEM_SIZE_ALIGNED;
+  mem->prev = 0;
+   c:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:272
+/**
+ * Zero the heap and initialize start, end and lowest-free
+ */
+void
+mem_init(void)
+{
+   e:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:283
+  /* align the heap */
+  ram = (u8_t *)LWIP_MEM_ALIGN(LWIP_RAM_HEAP_POINTER);
+  /* initialize the start of the heap */
+  mem = (struct mem *)(void *)ram;
+  mem->next = MEM_SIZE_ALIGNED;
+  mem->prev = 0;
+  10:	805a      	strh	r2, [r3, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:284
+  mem->used = 0;
+  12:	711a      	strb	r2, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:287
+  /* initialize the end of the heap */
+  ram_end = (struct mem *)(void *)&ram[MEM_SIZE_ALIGNED];
+  ram_end->used = 1;
+  14:	2401      	movs	r4, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:286
+  mem = (struct mem *)(void *)ram;
+  mem->next = MEM_SIZE_ALIGNED;
+  mem->prev = 0;
+  mem->used = 0;
+  /* initialize the end of the heap */
+  ram_end = (struct mem *)(void *)&ram[MEM_SIZE_ALIGNED];
+  16:	181a      	adds	r2, r3, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:282
+
+  /* align the heap */
+  ram = (u8_t *)LWIP_MEM_ALIGN(LWIP_RAM_HEAP_POINTER);
+  /* initialize the start of the heap */
+  mem = (struct mem *)(void *)ram;
+  mem->next = MEM_SIZE_ALIGNED;
+  18:	8018      	strh	r0, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:279
+
+  LWIP_ASSERT("Sanity check alignment",
+    (SIZEOF_STRUCT_MEM & (MEM_ALIGNMENT-1)) == 0);
+
+  /* align the heap */
+  ram = (u8_t *)LWIP_MEM_ALIGN(LWIP_RAM_HEAP_POINTER);
+  1a:	600b      	str	r3, [r1, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:286
+  mem = (struct mem *)(void *)ram;
+  mem->next = MEM_SIZE_ALIGNED;
+  mem->prev = 0;
+  mem->used = 0;
+  /* initialize the end of the heap */
+  ram_end = (struct mem *)(void *)&ram[MEM_SIZE_ALIGNED];
+  1c:	604a      	str	r2, [r1, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:287
+  ram_end->used = 1;
+  1e:	7114      	strb	r4, [r2, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:288
+  ram_end->next = MEM_SIZE_ALIGNED;
+  20:	8010      	strh	r0, [r2, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:289
+  ram_end->prev = MEM_SIZE_ALIGNED;
+  22:	8050      	strh	r0, [r2, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:292
+
+  /* initialize the lowest-free pointer to the start of the heap */
+  lfree = (struct mem *)(void *)ram;
+  24:	608b      	str	r3, [r1, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:299
+  MEM_STATS_AVAIL(avail, MEM_SIZE_ALIGNED);
+
+  if(sys_mutex_new(&mem_mutex) != ERR_OK) {
+    LWIP_ASSERT("failed to create mem_mutex", 0);
+  }
+}
+  26:	bd10      	pop	{r4, pc}
+  28:	00000003 	.word	0x00000003
+  2c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.mem_free:
+
+00000000 <mem_free>:
+mem_free():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:309
+ * @param rmem is the data portion of a struct mem as returned by a previous
+ *             call to mem_malloc()
+ */
+void
+mem_free(void *rmem)
+{
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:313
+  struct mem *mem;
+  LWIP_MEM_FREE_DECL_PROTECT();
+
+  if (rmem == NULL) {
+   2:	2800      	cmp	r0, #0
+   4:	d038      	beq.n	78 <mem_free+0x78>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:322
+  LWIP_ASSERT("mem_free: sanity check alignment", (((mem_ptr_t)rmem) & (MEM_ALIGNMENT-1)) == 0);
+
+  LWIP_ASSERT("mem_free: legal memory", (u8_t *)rmem >= (u8_t *)ram &&
+    (u8_t *)rmem < (u8_t *)ram_end);
+
+  if ((u8_t *)rmem < (u8_t *)ram || (u8_t *)rmem >= (u8_t *)ram_end) {
+   6:	491d      	ldr	r1, [pc, #116]	; (7c <mem_free+0x7c>)
+   8:	680a      	ldr	r2, [r1, #0]
+   a:	4290      	cmp	r0, r2
+   c:	d334      	bcc.n	78 <mem_free+0x78>
+   e:	684e      	ldr	r6, [r1, #4]
+  10:	42b0      	cmp	r0, r6
+  12:	d231      	bcs.n	78 <mem_free+0x78>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:334
+    return;
+  }
+  /* protect the heap from concurrent access */
+  LWIP_MEM_FREE_PROTECT();
+  /* Get the corresponding struct mem ... */
+  mem = (struct mem *)(void *)((u8_t *)rmem - SIZEOF_STRUCT_MEM);
+  14:	f1a0 0308 	sub.w	r3, r0, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:338
+  /* ... which has to be in a used state ... */
+  LWIP_ASSERT("mem_free: mem->used", mem->used);
+  /* ... and is now unused. */
+  mem->used = 0;
+  18:	2400      	movs	r4, #0
+  1a:	711c      	strb	r4, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:340
+
+  if (mem < lfree) {
+  1c:	688c      	ldr	r4, [r1, #8]
+plug_holes():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:245
+  LWIP_ASSERT("plug_holes: mem->used == 0", mem->used == 0);
+
+  /* plug hole forward */
+  LWIP_ASSERT("plug_holes: mem->next <= MEM_SIZE_ALIGNED", mem->next <= MEM_SIZE_ALIGNED);
+
+  nmem = (struct mem *)(void *)&ram[mem->next];
+  1e:	f830 5c08 	ldrh.w	r5, [r0, #-8]
+mem_free():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:340
+  /* ... which has to be in a used state ... */
+  LWIP_ASSERT("mem_free: mem->used", mem->used);
+  /* ... and is now unused. */
+  mem->used = 0;
+
+  if (mem < lfree) {
+  22:	42a3      	cmp	r3, r4
+plug_holes():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:245
+  LWIP_ASSERT("plug_holes: mem->used == 0", mem->used == 0);
+
+  /* plug hole forward */
+  LWIP_ASSERT("plug_holes: mem->next <= MEM_SIZE_ALIGNED", mem->next <= MEM_SIZE_ALIGNED);
+
+  nmem = (struct mem *)(void *)&ram[mem->next];
+  24:	eb02 0405 	add.w	r4, r2, r5
+mem_free():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:342
+  /* ... and is now unused. */
+  mem->used = 0;
+
+  if (mem < lfree) {
+    /* the newly freed struct is now the lowest */
+    lfree = mem;
+  28:	bf38      	it	cc
+  2a:	608b      	strcc	r3, [r1, #8]
+plug_holes():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:246
+
+  /* plug hole forward */
+  LWIP_ASSERT("plug_holes: mem->next <= MEM_SIZE_ALIGNED", mem->next <= MEM_SIZE_ALIGNED);
+
+  nmem = (struct mem *)(void *)&ram[mem->next];
+  if (mem != nmem && nmem->used == 0 && (u8_t *)nmem != (u8_t *)ram_end) {
+  2c:	42a3      	cmp	r3, r4
+  2e:	d00f      	beq.n	50 <mem_free+0x50>
+  30:	7927      	ldrb	r7, [r4, #4]
+  32:	b96f      	cbnz	r7, 50 <mem_free+0x50>
+  34:	42b4      	cmp	r4, r6
+  36:	d00b      	beq.n	50 <mem_free+0x50>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:248
+    /* if mem->next is unused and not end of ram, combine mem and mem->next */
+    if (lfree == nmem) {
+  38:	688e      	ldr	r6, [r1, #8]
+  3a:	42a6      	cmp	r6, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:249
+      lfree = mem;
+  3c:	bf04      	itt	eq
+  3e:	4c0f      	ldreq	r4, [pc, #60]	; (7c <mem_free+0x7c>)
+  40:	60a3      	streq	r3, [r4, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:251
+    }
+    mem->next = nmem->next;
+  42:	5b54      	ldrh	r4, [r2, r5]
+  44:	f820 4c08 	strh.w	r4, [r0, #-8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:252
+    ((struct mem *)(void *)&ram[nmem->next])->prev = (mem_size_t)((u8_t *)mem - ram);
+  48:	5b54      	ldrh	r4, [r2, r5]
+  4a:	1914      	adds	r4, r2, r4
+  4c:	1a9a      	subs	r2, r3, r2
+  4e:	8062      	strh	r2, [r4, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:256
+  }
+
+  /* plug hole backward */
+  pmem = (struct mem *)(void *)&ram[mem->prev];
+  50:	680a      	ldr	r2, [r1, #0]
+  52:	885c      	ldrh	r4, [r3, #2]
+  54:	4d09      	ldr	r5, [pc, #36]	; (7c <mem_free+0x7c>)
+  56:	1911      	adds	r1, r2, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:257
+  if (pmem != mem && pmem->used == 0) {
+  58:	4299      	cmp	r1, r3
+  5a:	d00d      	beq.n	78 <mem_free+0x78>
+  5c:	790e      	ldrb	r6, [r1, #4]
+  5e:	b95e      	cbnz	r6, 78 <mem_free+0x78>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:259
+    /* if mem->prev is unused, combine mem and mem->prev */
+    if (lfree == mem) {
+  60:	68ae      	ldr	r6, [r5, #8]
+  62:	429e      	cmp	r6, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:262
+      lfree = pmem;
+    }
+    pmem->next = mem->next;
+  64:	f830 3c08 	ldrh.w	r3, [r0, #-8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:260
+  /* plug hole backward */
+  pmem = (struct mem *)(void *)&ram[mem->prev];
+  if (pmem != mem && pmem->used == 0) {
+    /* if mem->prev is unused, combine mem and mem->prev */
+    if (lfree == mem) {
+      lfree = pmem;
+  68:	bf08      	it	eq
+  6a:	60a9      	streq	r1, [r5, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:262
+    }
+    pmem->next = mem->next;
+  6c:	5313      	strh	r3, [r2, r4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:263
+    ((struct mem *)(void *)&ram[mem->next])->prev = (mem_size_t)((u8_t *)pmem - ram);
+  6e:	f830 3c08 	ldrh.w	r3, [r0, #-8]
+  72:	18d3      	adds	r3, r2, r3
+  74:	1a8a      	subs	r2, r1, r2
+  76:	805a      	strh	r2, [r3, #2]
+  78:	bdf0      	pop	{r4, r5, r6, r7, pc}
+  7a:	bf00      	nop
+  7c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.mem_trim:
+
+00000000 <mem_trim>:
+mem_trim():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:376
+  /* use the FREE_PROTECT here: it protects with sem OR SYS_ARCH_PROTECT */
+  LWIP_MEM_FREE_DECL_PROTECT();
+
+  /* Expand the size of the allocated memory region so that we can
+     adjust for alignment. */
+  newsize = LWIP_MEM_ALIGN_SIZE(newsize);
+   0:	3103      	adds	r1, #3
+   2:	f64f 72fc 	movw	r2, #65532	; 0xfffc
+   6:	ea01 0202 	and.w	r2, r1, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:378
+
+  if(newsize < MIN_SIZE_ALIGNED) {
+   a:	2a0b      	cmp	r2, #11
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:367
+ *         or NULL if newsize is > old size, in which case rmem is NOT touched
+ *         or freed!
+ */
+void *
+mem_trim(void *rmem, mem_size_t newsize)
+{
+   c:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:378
+
+  /* Expand the size of the allocated memory region so that we can
+     adjust for alignment. */
+  newsize = LWIP_MEM_ALIGN_SIZE(newsize);
+
+  if(newsize < MIN_SIZE_ALIGNED) {
+  10:	d903      	bls.n	1a <mem_trim+0x1a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:383
+    /* every data block must be at least MIN_SIZE_ALIGNED long */
+    newsize = MIN_SIZE_ALIGNED;
+  }
+
+  if (newsize > MEM_SIZE_ALIGNED) {
+  12:	f5b2 5f20 	cmp.w	r2, #10240	; 0x2800
+  16:	d842      	bhi.n	9e <mem_trim+0x9e>
+  18:	e000      	b.n	1c <mem_trim+0x1c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:380
+     adjust for alignment. */
+  newsize = LWIP_MEM_ALIGN_SIZE(newsize);
+
+  if(newsize < MIN_SIZE_ALIGNED) {
+    /* every data block must be at least MIN_SIZE_ALIGNED long */
+    newsize = MIN_SIZE_ALIGNED;
+  1a:	220c      	movs	r2, #12
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:390
+  }
+
+  LWIP_ASSERT("mem_trim: legal memory", (u8_t *)rmem >= (u8_t *)ram &&
+   (u8_t *)rmem < (u8_t *)ram_end);
+
+  if ((u8_t *)rmem < (u8_t *)ram || (u8_t *)rmem >= (u8_t *)ram_end) {
+  1c:	4923      	ldr	r1, [pc, #140]	; (ac <mem_trim+0xac>)
+  1e:	680b      	ldr	r3, [r1, #0]
+  20:	4298      	cmp	r0, r3
+  22:	d340      	bcc.n	a6 <mem_trim+0xa6>
+  24:	684c      	ldr	r4, [r1, #4]
+  26:	42a0      	cmp	r0, r4
+  28:	d23d      	bcs.n	a6 <mem_trim+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:400
+    MEM_STATS_INC(illegal);
+    SYS_ARCH_UNPROTECT(lev);
+    return rmem;
+  }
+  /* Get the corresponding struct mem ... */
+  mem = (struct mem *)(void *)((u8_t *)rmem - SIZEOF_STRUCT_MEM);
+  2a:	f1a0 0708 	sub.w	r7, r0, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:404
+  /* ... and its offset pointer */
+  ptr = (mem_size_t)((u8_t *)mem - ram);
+
+  size = mem->next - ptr - SIZEOF_STRUCT_MEM;
+  2e:	f830 6c08 	ldrh.w	r6, [r0, #-8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:402
+    return rmem;
+  }
+  /* Get the corresponding struct mem ... */
+  mem = (struct mem *)(void *)((u8_t *)rmem - SIZEOF_STRUCT_MEM);
+  /* ... and its offset pointer */
+  ptr = (mem_size_t)((u8_t *)mem - ram);
+  32:	1afc      	subs	r4, r7, r3
+  34:	b2a4      	uxth	r4, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:404
+
+  size = mem->next - ptr - SIZEOF_STRUCT_MEM;
+  36:	f1a6 0508 	sub.w	r5, r6, #8
+  3a:	1b2d      	subs	r5, r5, r4
+  3c:	b2ad      	uxth	r5, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:406
+  LWIP_ASSERT("mem_trim can only shrink memory", newsize <= size);
+  if (newsize > size) {
+  3e:	42aa      	cmp	r2, r5
+  40:	d830      	bhi.n	a4 <mem_trim+0xa4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:410
+    /* not supported */
+    return NULL;
+  }
+  if (newsize == size) {
+  42:	d030      	beq.n	a6 <mem_trim+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:418
+  }
+
+  /* protect the heap from concurrent access */
+  LWIP_MEM_FREE_PROTECT();
+
+  mem2 = (struct mem *)(void *)&ram[mem->next];
+  44:	eb03 0c06 	add.w	ip, r3, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:419
+  if(mem2->used == 0) {
+  48:	f89c 8004 	ldrb.w	r8, [ip, #4]
+  4c:	f1b8 0f00 	cmp.w	r8, #0
+  50:	d10a      	bne.n	68 <mem_trim+0x68>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:425
+    /* The next struct is unused, we can simply move it at little */
+    mem_size_t next;
+    /* remember the old next pointer */
+    next = mem2->next;
+    /* create new struct mem which is moved directly after the shrinked mem */
+    ptr2 = ptr + SIZEOF_STRUCT_MEM + newsize;
+  52:	f104 0508 	add.w	r5, r4, #8
+  56:	1952      	adds	r2, r2, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:426
+    if (lfree == mem2) {
+  58:	688d      	ldr	r5, [r1, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:425
+    /* The next struct is unused, we can simply move it at little */
+    mem_size_t next;
+    /* remember the old next pointer */
+    next = mem2->next;
+    /* create new struct mem which is moved directly after the shrinked mem */
+    ptr2 = ptr + SIZEOF_STRUCT_MEM + newsize;
+  5a:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:426
+    if (lfree == mem2) {
+  5c:	4565      	cmp	r5, ip
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:423
+  mem2 = (struct mem *)(void *)&ram[mem->next];
+  if(mem2->used == 0) {
+    /* The next struct is unused, we can simply move it at little */
+    mem_size_t next;
+    /* remember the old next pointer */
+    next = mem2->next;
+  5e:	5b9e      	ldrh	r6, [r3, r6]
+  60:	eb03 0502 	add.w	r5, r3, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:426
+    /* create new struct mem which is moved directly after the shrinked mem */
+    ptr2 = ptr + SIZEOF_STRUCT_MEM + newsize;
+    if (lfree == mem2) {
+  64:	d10e      	bne.n	84 <mem_trim+0x84>
+  66:	e00c      	b.n	82 <mem_trim+0x82>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:445
+    if (mem2->next != MEM_SIZE_ALIGNED) {
+      ((struct mem *)(void *)&ram[mem2->next])->prev = ptr2;
+    }
+    MEM_STATS_DEC_USED(used, (size - newsize));
+    /* no need to plug holes, we've already done that */
+  } else if (newsize + SIZEOF_STRUCT_MEM + MIN_SIZE_ALIGNED <= size) {
+  68:	f102 0c14 	add.w	ip, r2, #20
+  6c:	45ac      	cmp	ip, r5
+  6e:	d81a      	bhi.n	a6 <mem_trim+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:453
+     * Old size ('size') must be big enough to contain at least 'newsize' plus a struct mem
+     * ('SIZEOF_STRUCT_MEM') with some data ('MIN_SIZE_ALIGNED').
+     * @todo we could leave out MIN_SIZE_ALIGNED. We would create an empty
+     *       region that couldn't hold data, but when mem->next gets freed,
+     *       the 2 regions would be combined, resulting in more free memory */
+    ptr2 = ptr + SIZEOF_STRUCT_MEM + newsize;
+  70:	f104 0508 	add.w	r5, r4, #8
+  74:	1952      	adds	r2, r2, r5
+  76:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:455
+    mem2 = (struct mem *)(void *)&ram[ptr2];
+    if (mem2 < lfree) {
+  78:	f8d1 c008 	ldr.w	ip, [r1, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:454
+     * ('SIZEOF_STRUCT_MEM') with some data ('MIN_SIZE_ALIGNED').
+     * @todo we could leave out MIN_SIZE_ALIGNED. We would create an empty
+     *       region that couldn't hold data, but when mem->next gets freed,
+     *       the 2 regions would be combined, resulting in more free memory */
+    ptr2 = ptr + SIZEOF_STRUCT_MEM + newsize;
+    mem2 = (struct mem *)(void *)&ram[ptr2];
+  7c:	189d      	adds	r5, r3, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:455
+    if (mem2 < lfree) {
+  7e:	4565      	cmp	r5, ip
+  80:	d200      	bcs.n	84 <mem_trim+0x84>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:456
+      lfree = mem2;
+  82:	608d      	str	r5, [r1, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:458
+    }
+    mem2->used = 0;
+  84:	2100      	movs	r1, #0
+  86:	7129      	strb	r1, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:459
+    mem2->next = mem->next;
+  88:	529e      	strh	r6, [r3, r2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:460
+    mem2->prev = ptr;
+  8a:	806c      	strh	r4, [r5, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:461
+    mem->next = ptr2;
+  8c:	803a      	strh	r2, [r7, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:462
+    if (mem2->next != MEM_SIZE_ALIGNED) {
+  8e:	5a99      	ldrh	r1, [r3, r2]
+  90:	f5b1 5f20 	cmp.w	r1, #10240	; 0x2800
+  94:	d007      	beq.n	a6 <mem_trim+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:463
+      ((struct mem *)(void *)&ram[mem2->next])->prev = ptr2;
+  96:	185b      	adds	r3, r3, r1
+  98:	805a      	strh	r2, [r3, #2]
+  9a:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:384
+    /* every data block must be at least MIN_SIZE_ALIGNED long */
+    newsize = MIN_SIZE_ALIGNED;
+  }
+
+  if (newsize > MEM_SIZE_ALIGNED) {
+    return NULL;
+  9e:	2000      	movs	r0, #0
+  a0:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:408
+
+  size = mem->next - ptr - SIZEOF_STRUCT_MEM;
+  LWIP_ASSERT("mem_trim can only shrink memory", newsize <= size);
+  if (newsize > size) {
+    /* not supported */
+    return NULL;
+  a4:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:479
+#if LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT
+  mem_free_count = 1;
+#endif /* LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT */
+  LWIP_MEM_FREE_UNPROTECT();
+  return rmem;
+}
+  a6:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+  aa:	bf00      	nop
+  ac:	00000000 	.word	0x00000000
+
+Disassembly of section .text.mem_malloc:
+
+00000000 <mem_malloc>:
+mem_malloc():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:492
+ *
+ * Note that the returned value will always be aligned (as defined by MEM_ALIGNMENT).
+ */
+void *
+mem_malloc(mem_size_t size)
+{
+   0:	2800b5f0 	.word	0x2800b5f0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:500
+#if LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT
+  u8_t local_mem_free_count = 0;
+#endif /* LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT */
+  LWIP_MEM_ALLOC_DECL_PROTECT();
+
+  if (size == 0) {
+   4:	d04b      	beq.n	9e <mem_malloc+0x9e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:506
+    return NULL;
+  }
+
+  /* Expand the size of the allocated memory region so that we can
+     adjust for alignment. */
+  size = LWIP_MEM_ALIGN_SIZE(size);
+   6:	3003      	adds	r0, #3
+   8:	f64f 73fc 	movw	r3, #65532	; 0xfffc
+   c:	ea00 0303 	and.w	r3, r0, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:508
+
+  if(size < MIN_SIZE_ALIGNED) {
+  10:	2b0b      	cmp	r3, #11
+  12:	d903      	bls.n	1c <mem_malloc+0x1c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:513
+    /* every data block must be at least MIN_SIZE_ALIGNED long */
+    size = MIN_SIZE_ALIGNED;
+  }
+
+  if (size > MEM_SIZE_ALIGNED) {
+  14:	f5b3 5f20 	cmp.w	r3, #10240	; 0x2800
+  18:	d840      	bhi.n	9c <mem_malloc+0x9c>
+  1a:	e000      	b.n	1e <mem_malloc+0x1e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:510
+     adjust for alignment. */
+  size = LWIP_MEM_ALIGN_SIZE(size);
+
+  if(size < MIN_SIZE_ALIGNED) {
+    /* every data block must be at least MIN_SIZE_ALIGNED long */
+    size = MIN_SIZE_ALIGNED;
+  1c:	230c      	movs	r3, #12
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:529
+#endif /* LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT */
+
+    /* Scan through the heap searching for a free block that is big enough,
+     * beginning with the lowest free block.
+     */
+    for (ptr = (mem_size_t)((u8_t *)lfree - ram); ptr < MEM_SIZE_ALIGNED - size;
+  1e:	4c20      	ldr	r4, [pc, #128]	; (a0 <mem_malloc+0xa0>)
+  20:	6822      	ldr	r2, [r4, #0]
+  22:	68a1      	ldr	r1, [r4, #8]
+  24:	1a89      	subs	r1, r1, r2
+  26:	b289      	uxth	r1, r1
+  28:	e032      	b.n	90 <mem_malloc+0x90>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:531
+         ptr = ((struct mem *)(void *)&ram[ptr])->next) {
+      mem = (struct mem *)(void *)&ram[ptr];
+  2a:	1850      	adds	r0, r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:543
+        local_mem_free_count = mem_free_count;
+      }
+      mem_free_count = 0;
+#endif /* LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT */
+
+      if ((!mem->used) &&
+  2c:	7907      	ldrb	r7, [r0, #4]
+  2e:	2f00      	cmp	r7, #0
+  30:	d12d      	bne.n	8e <mem_malloc+0x8e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:544
+          (mem->next - (ptr + SIZEOF_STRUCT_MEM)) >= size) {
+  32:	5a56      	ldrh	r6, [r2, r1]
+  34:	f1a6 0508 	sub.w	r5, r6, #8
+  38:	1a6d      	subs	r5, r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:543
+        local_mem_free_count = mem_free_count;
+      }
+      mem_free_count = 0;
+#endif /* LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT */
+
+      if ((!mem->used) &&
+  3a:	429d      	cmp	r5, r3
+  3c:	d327      	bcc.n	8e <mem_malloc+0x8e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:548
+          (mem->next - (ptr + SIZEOF_STRUCT_MEM)) >= size) {
+        /* mem is not used and at least perfect fit is possible:
+         * mem->next - (ptr + SIZEOF_STRUCT_MEM) gives us the 'user data size' of mem */
+
+        if (mem->next - (ptr + SIZEOF_STRUCT_MEM) >= (size + SIZEOF_STRUCT_MEM + MIN_SIZE_ALIGNED)) {
+  3e:	f103 0c14 	add.w	ip, r3, #20
+  42:	4565      	cmp	r5, ip
+  44:	d310      	bcc.n	68 <mem_malloc+0x68>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:559
+           * struct mem would fit in but no data between mem2 and mem2->next
+           * @todo we could leave out MIN_SIZE_ALIGNED. We would create an empty
+           *       region that couldn't hold data, but when mem->next gets freed,
+           *       the 2 regions would be combined, resulting in more free memory
+           */
+          ptr2 = ptr + SIZEOF_STRUCT_MEM + size;
+  46:	3308      	adds	r3, #8
+  48:	18cb      	adds	r3, r1, r3
+  4a:	b29b      	uxth	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:561
+          /* create mem2 struct */
+          mem2 = (struct mem *)(void *)&ram[ptr2];
+  4c:	18d5      	adds	r5, r2, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:563
+          mem2->used = 0;
+          mem2->next = mem->next;
+  4e:	52d6      	strh	r6, [r2, r3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:564
+          mem2->prev = ptr;
+  50:	8069      	strh	r1, [r5, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:566
+          /* and insert it between mem and mem->next */
+          mem->next = ptr2;
+  52:	8003      	strh	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:567
+          mem->used = 1;
+  54:	2101      	movs	r1, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:562
+           *       the 2 regions would be combined, resulting in more free memory
+           */
+          ptr2 = ptr + SIZEOF_STRUCT_MEM + size;
+          /* create mem2 struct */
+          mem2 = (struct mem *)(void *)&ram[ptr2];
+          mem2->used = 0;
+  56:	712f      	strb	r7, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:567
+          mem2->next = mem->next;
+          mem2->prev = ptr;
+          /* and insert it between mem and mem->next */
+          mem->next = ptr2;
+          mem->used = 1;
+  58:	7101      	strb	r1, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:569
+
+          if (mem2->next != MEM_SIZE_ALIGNED) {
+  5a:	5ad1      	ldrh	r1, [r2, r3]
+  5c:	f5b1 5f20 	cmp.w	r1, #10240	; 0x2800
+  60:	d004      	beq.n	6c <mem_malloc+0x6c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:570
+            ((struct mem *)(void *)&ram[mem2->next])->prev = ptr2;
+  62:	1852      	adds	r2, r2, r1
+  64:	8053      	strh	r3, [r2, #2]
+  66:	e001      	b.n	6c <mem_malloc+0x6c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:581
+           * take care of this).
+           * -> near fit or excact fit: do not split, no mem2 creation
+           * also can't move mem->next directly behind mem, since mem->next
+           * will always be used at this point!
+           */
+          mem->used = 1;
+  68:	2301      	movs	r3, #1
+  6a:	7103      	strb	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:585
+          MEM_STATS_INC_USED(used, mem->next - (mem_size_t)((u8_t *)mem - ram));
+        }
+
+        if (mem == lfree) {
+  6c:	68a2      	ldr	r2, [r4, #8]
+  6e:	4b0c      	ldr	r3, [pc, #48]	; (a0 <mem_malloc+0xa0>)
+  70:	4290      	cmp	r0, r2
+  72:	d10a      	bne.n	8a <mem_malloc+0x8a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:587
+          /* Find next free block after mem and update lowest free pointer */
+          while (lfree->used && lfree != ram_end) {
+  74:	6859      	ldr	r1, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:591
+            LWIP_MEM_ALLOC_UNPROTECT();
+            /* prevent high interrupt latency... */
+            LWIP_MEM_ALLOC_PROTECT();
+            lfree = (struct mem *)(void *)&ram[lfree->next];
+  76:	681a      	ldr	r2, [r3, #0]
+  78:	4603      	mov	r3, r0
+  7a:	e001      	b.n	80 <mem_malloc+0x80>
+  7c:	881b      	ldrh	r3, [r3, #0]
+  7e:	18d3      	adds	r3, r2, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:587
+          MEM_STATS_INC_USED(used, mem->next - (mem_size_t)((u8_t *)mem - ram));
+        }
+
+        if (mem == lfree) {
+          /* Find next free block after mem and update lowest free pointer */
+          while (lfree->used && lfree != ram_end) {
+  80:	791d      	ldrb	r5, [r3, #4]
+  82:	b10d      	cbz	r5, 88 <mem_malloc+0x88>
+  84:	428b      	cmp	r3, r1
+  86:	d1f9      	bne.n	7c <mem_malloc+0x7c>
+  88:	60a3      	str	r3, [r4, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:604
+        LWIP_ASSERT("mem_malloc: allocated memory properly aligned.",
+         ((mem_ptr_t)mem + SIZEOF_STRUCT_MEM) % MEM_ALIGNMENT == 0);
+        LWIP_ASSERT("mem_malloc: sanity check alignment",
+          (((mem_ptr_t)mem) & (MEM_ALIGNMENT-1)) == 0);
+
+        return (u8_t *)mem + SIZEOF_STRUCT_MEM;
+  8a:	3008      	adds	r0, #8
+  8c:	bdf0      	pop	{r4, r5, r6, r7, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:530
+
+    /* Scan through the heap searching for a free block that is big enough,
+     * beginning with the lowest free block.
+     */
+    for (ptr = (mem_size_t)((u8_t *)lfree - ram); ptr < MEM_SIZE_ALIGNED - size;
+         ptr = ((struct mem *)(void *)&ram[ptr])->next) {
+  8e:	8801      	ldrh	r1, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:529
+#endif /* LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT */
+
+    /* Scan through the heap searching for a free block that is big enough,
+     * beginning with the lowest free block.
+     */
+    for (ptr = (mem_size_t)((u8_t *)lfree - ram); ptr < MEM_SIZE_ALIGNED - size;
+  90:	f5c3 5020 	rsb	r0, r3, #10240	; 0x2800
+  94:	4281      	cmp	r1, r0
+  96:	dbc8      	blt.n	2a <mem_malloc+0x2a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:615
+#endif /* LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT */
+  LWIP_DEBUGF(MEM_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("mem_malloc: could not allocate %"S16_F" bytes\n", (s16_t)size));
+  MEM_STATS_INC(err);
+  LWIP_MEM_ALLOC_UNPROTECT();
+  sys_mutex_unlock(&mem_mutex);
+  return NULL;
+  98:	2000      	movs	r0, #0
+  9a:	bdf0      	pop	{r4, r5, r6, r7, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:514
+    /* every data block must be at least MIN_SIZE_ALIGNED long */
+    size = MIN_SIZE_ALIGNED;
+  }
+
+  if (size > MEM_SIZE_ALIGNED) {
+    return NULL;
+  9c:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:616
+  LWIP_DEBUGF(MEM_DEBUG | LWIP_DBG_LEVEL_SERIOUS, ("mem_malloc: could not allocate %"S16_F" bytes\n", (s16_t)size));
+  MEM_STATS_INC(err);
+  LWIP_MEM_ALLOC_UNPROTECT();
+  sys_mutex_unlock(&mem_mutex);
+  return NULL;
+}
+  9e:	bdf0      	pop	{r4, r5, r6, r7, pc}
+  a0:	00000000 	.word	0x00000000
+
+Disassembly of section .text.mem_calloc:
+
+00000000 <mem_calloc>:
+mem_calloc():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:630
+ * @param count number of objects to allocate
+ * @param size size of the objects to allocate
+ * @return pointer to allocated memory / NULL pointer if there is an error
+ */
+void *mem_calloc(mem_size_t count, mem_size_t size)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:634
+  void *p;
+
+  /* allocate 'count' objects of size 'size' */
+  p = mem_malloc(count * size);
+   2:	fb00 f501 	mul.w	r5, r0, r1
+   6:	b2a8      	uxth	r0, r5
+   8:	f7ff fffe 	bl	0 <mem_calloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:635
+  if (p) {
+   c:	4604      	mov	r4, r0
+   e:	b118      	cbz	r0, 18 <mem_calloc+0x18>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:637
+    /* zero the memory */
+    memset(p, 0, count * size);
+  10:	2100      	movs	r1, #0
+  12:	462a      	mov	r2, r5
+  14:	f7ff fffe 	bl	0 <memset>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/mem.c:640
+  }
+  return p;
+}
+  18:	4620      	mov	r0, r4
+  1a:	bd38      	pop	{r3, r4, r5, pc}

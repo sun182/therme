@@ -1,0 +1,457 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\helloworld.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\helloworld.o
+
+
+Disassembly of section .text.HelloWorld_accept:
+
+00000000 <HelloWorld_accept>:
+HelloWorld_accept():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:150
+  * @param  pcb	 the tcp_pcb which accepted the connection
+  * @param  err	 error value
+  * @retval ERR_OK
+  */
+static err_t HelloWorld_accept(void *arg, struct tcp_pcb *pcb, err_t err)
+{     
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:153
+  
+  /* Tell LwIP to associate this structure with this connection. */
+  tcp_arg(pcb, mem_calloc(sizeof(struct name), 1));	
+   2:	2024      	movs	r0, #36	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:150
+  * @param  pcb	 the tcp_pcb which accepted the connection
+  * @param  err	 error value
+  * @retval ERR_OK
+  */
+static err_t HelloWorld_accept(void *arg, struct tcp_pcb *pcb, err_t err)
+{     
+   4:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:153
+  
+  /* Tell LwIP to associate this structure with this connection. */
+  tcp_arg(pcb, mem_calloc(sizeof(struct name), 1));	
+   6:	2101      	movs	r1, #1
+   8:	f7ff fffe 	bl	0 <mem_calloc>
+   c:	4601      	mov	r1, r0
+   e:	4620      	mov	r0, r4
+  10:	f7ff fffe 	bl	0 <tcp_arg>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:156
+  
+  /* Configure LwIP to use our call back functions. */
+  tcp_err(pcb, HelloWorld_conn_err);
+  14:	4620      	mov	r0, r4
+  16:	4904      	ldr	r1, [pc, #16]	; (28 <HelloWorld_accept+0x28>)
+  18:	f7ff fffe 	bl	0 <tcp_err>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:157
+  tcp_recv(pcb, HelloWorld_recv);
+  1c:	4620      	mov	r0, r4
+  1e:	4903      	ldr	r1, [pc, #12]	; (2c <HelloWorld_accept+0x2c>)
+  20:	f7ff fffe 	bl	0 <tcp_recv>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:164
+  /* Send out the first message */  
+ // tcp_write(pcb, GREETING, strlen(GREETING), 1); 
+
+  
+  return ERR_OK;
+}
+  24:	2000      	movs	r0, #0
+  26:	bd10      	pop	{r4, pc}
+	...
+
+Disassembly of section .text.HelloWorld_conn_err:
+
+00000000 <HelloWorld_conn_err>:
+HelloWorld_conn_err():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:201
+  */
+static void HelloWorld_conn_err(void *arg, err_t err)
+{
+  struct name *name;
+  name = (struct name *)arg;
+	ssa = 0;
+   0:	4b02      	ldr	r3, [pc, #8]	; (c <HelloWorld_conn_err+0xc>)
+   2:	2200      	movs	r2, #0
+   4:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:202
+  mem_free(name);
+   6:	f7ff bffe 	b.w	0 <mem_free>
+   a:	bf00      	nop
+   c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.HelloWorld_recv:
+
+00000000 <HelloWorld_recv>:
+HelloWorld_recv():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:57
+  * @param  p	the packet buffer
+  * @param  err	the error value linked with the received data
+  * @retval error value
+  */
+static err_t HelloWorld_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4604      	mov	r4, r0
+   6:	460d      	mov	r5, r1
+   8:	461f      	mov	r7, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:66
+  char *c;
+  int i;
+ 
+
+  /* We perform here any necessary processing on the pbuf */
+  if (p != NULL)
+   a:	4616      	mov	r6, r2
+   c:	2a00      	cmp	r2, #0
+   e:	d079      	beq.n	104 <HelloWorld_recv+0x104>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:70
+  {        
+	/* We call this function to tell the LwIp that we have processed the data */
+	/* This lets the stack advertise a larger window, so more data can be received*/
+	tcp_recved(pcb, p->tot_len);
+  10:	4608      	mov	r0, r1
+  12:	8911      	ldrh	r1, [r2, #8]
+  14:	f7ff fffe 	bl	0 <tcp_recved>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:73
+
+    /* Check the name if NULL, no data passed, return withh illegal argument error */
+	if(!name) 
+  18:	b924      	cbnz	r4, 24 <HelloWorld_recv+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:75
+    {
+      pbuf_free(p);
+  1a:	4630      	mov	r0, r6
+  1c:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:76
+      return ERR_ARG;
+  20:	26f2      	movs	r6, #242	; 0xf2
+  22:	e079      	b.n	118 <HelloWorld_recv+0x118>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:73
+	/* We call this function to tell the LwIp that we have processed the data */
+	/* This lets the stack advertise a larger window, so more data can be received*/
+	tcp_recved(pcb, p->tot_len);
+
+    /* Check the name if NULL, no data passed, return withh illegal argument error */
+	if(!name) 
+  24:	4633      	mov	r3, r6
+  26:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:82
+    }
+
+    done = 0;
+    for(q=p; q != NULL; q = q->next) 
+    {
+      c = q->payload;
+  28:	f8d3 e004 	ldr.w	lr, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:83
+      for(i=0; i<q->len && !done; i++) 
+  2c:	2100      	movs	r1, #0
+  2e:	e015      	b.n	5c <HelloWorld_recv+0x5c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:85
+	  {
+        done = ((c[i] == '\r') || (c[i] == '\n'));
+  30:	f81e 7001 	ldrb.w	r7, [lr, r1]
+  34:	b27a      	sxtb	r2, r7
+  36:	2a0d      	cmp	r2, #13
+  38:	d005      	beq.n	46 <HelloWorld_recv+0x46>
+  3a:	f1a2 000a 	sub.w	r0, r2, #10
+  3e:	4242      	negs	r2, r0
+  40:	eb42 0200 	adc.w	r2, r2, r0
+  44:	e000      	b.n	48 <HelloWorld_recv+0x48>
+  46:	2201      	movs	r2, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:86
+        if(name->length < MAX_NAME_SIZE) 
+  48:	6820      	ldr	r0, [r4, #0]
+  4a:	281f      	cmp	r0, #31
+  4c:	dc05      	bgt.n	5a <HelloWorld_recv+0x5a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:88
+	    {
+          name->bytes[name->length++] = c[i];
+  4e:	eb04 0c00 	add.w	ip, r4, r0
+  52:	3001      	adds	r0, #1
+  54:	f88c 7004 	strb.w	r7, [ip, #4]
+  58:	6020      	str	r0, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:83
+
+    done = 0;
+    for(q=p; q != NULL; q = q->next) 
+    {
+      c = q->payload;
+      for(i=0; i<q->len && !done; i++) 
+  5a:	3101      	adds	r1, #1
+  5c:	8958      	ldrh	r0, [r3, #10]
+  5e:	4281      	cmp	r1, r0
+  60:	da01      	bge.n	66 <HelloWorld_recv+0x66>
+  62:	2a00      	cmp	r2, #0
+  64:	d0e4      	beq.n	30 <HelloWorld_recv+0x30>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:80
+      pbuf_free(p);
+      return ERR_ARG;
+    }
+
+    done = 0;
+    for(q=p; q != NULL; q = q->next) 
+  66:	681b      	ldr	r3, [r3, #0]
+  68:	2b00      	cmp	r3, #0
+  6a:	d1dd      	bne.n	28 <HelloWorld_recv+0x28>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:92
+	    {
+          name->bytes[name->length++] = c[i];
+        }
+      }
+    }
+    if(done) 
+  6c:	2a00      	cmp	r2, #0
+  6e:	d044      	beq.n	fa <HelloWorld_recv+0xfa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:94
+    {
+      if(name->bytes[name->length-2] != '\r' || name->bytes[name->length-1] != '\n') 
+  70:	6823      	ldr	r3, [r4, #0]
+  72:	18e2      	adds	r2, r4, r3
+  74:	f992 1002 	ldrsb.w	r1, [r2, #2]
+  78:	290d      	cmp	r1, #13
+  7a:	d103      	bne.n	84 <HelloWorld_recv+0x84>
+  7c:	f992 1003 	ldrsb.w	r1, [r2, #3]
+  80:	290a      	cmp	r1, #10
+  82:	d015      	beq.n	b0 <HelloWorld_recv+0xb0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:96
+	  {
+        if((name->bytes[name->length-1] == '\r' || name->bytes[name->length-1] == '\n') && (name->length+1 <= MAX_NAME_SIZE)) 
+  84:	f992 2003 	ldrsb.w	r2, [r2, #3]
+  88:	2a0d      	cmp	r2, #13
+  8a:	d001      	beq.n	90 <HelloWorld_recv+0x90>
+  8c:	2a0a      	cmp	r2, #10
+  8e:	d103      	bne.n	98 <HelloWorld_recv+0x98>
+  90:	2b1f      	cmp	r3, #31
+  92:	dc05      	bgt.n	a0 <HelloWorld_recv+0xa0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:98
+	    {
+	      name->length += 1;
+  94:	3301      	adds	r3, #1
+  96:	e004      	b.n	a2 <HelloWorld_recv+0xa2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:100
+        } 
+	    else if(name->length+2 <= MAX_NAME_SIZE) 
+  98:	2b1e      	cmp	r3, #30
+  9a:	dc01      	bgt.n	a0 <HelloWorld_recv+0xa0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:102
+	    {
+          name->length += 2;
+  9c:	3302      	adds	r3, #2
+  9e:	e000      	b.n	a2 <HelloWorld_recv+0xa2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:106
+        } 
+	    else 
+	    {
+          name->length = MAX_NAME_SIZE;
+  a0:	2320      	movs	r3, #32
+  a2:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:109
+        }
+
+        name->bytes[name->length-2] = '\r';
+  a4:	6823      	ldr	r3, [r4, #0]
+  a6:	220d      	movs	r2, #13
+  a8:	18e3      	adds	r3, r4, r3
+  aa:	709a      	strb	r2, [r3, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:110
+        name->bytes[name->length-1] = '\n';
+  ac:	3a03      	subs	r2, #3
+  ae:	70da      	strb	r2, [r3, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:113
+      }
+		struct ip_addr ipaddr;
+      tcp_write(pcb, HELLO, strlen(HELLO), 1);
+  b0:	491b      	ldr	r1, [pc, #108]	; (120 <HelloWorld_recv+0x120>)
+  b2:	2206      	movs	r2, #6
+  b4:	2301      	movs	r3, #1
+  b6:	4628      	mov	r0, r5
+  b8:	f7ff fffe 	bl	0 <tcp_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:114
+      tcp_write(pcb, name->bytes, name->length, TCP_WRITE_FLAG_COPY);
+  bc:	1d21      	adds	r1, r4, #4
+  be:	8822      	ldrh	r2, [r4, #0]
+  c0:	2301      	movs	r3, #1
+  c2:	4628      	mov	r0, r5
+  c4:	f7ff fffe 	bl	0 <tcp_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:115
+	   name->length = 0;
+  c8:	2300      	movs	r3, #0
+  ca:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:116
+	   tcp_write(pcb,ubuff,strlen(ubuff),1);
+  cc:	4815      	ldr	r0, [pc, #84]	; (124 <HelloWorld_recv+0x124>)
+  ce:	f7ff fffe 	bl	0 <strlen>
+  d2:	4914      	ldr	r1, [pc, #80]	; (124 <HelloWorld_recv+0x124>)
+  d4:	b282      	uxth	r2, r0
+  d6:	2301      	movs	r3, #1
+  d8:	4628      	mov	r0, r5
+  da:	f7ff fffe 	bl	0 <tcp_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:117
+	   tcp_write(pcb,ubuff1,strlen(ubuff1),1);
+  de:	4812      	ldr	r0, [pc, #72]	; (4c <strlen+0x4c>)
+  e0:	f7ff fffe 	bl	0 <strlen>
+  e4:	2301      	movs	r3, #1
+  e6:	b282      	uxth	r2, r0
+  e8:	490f      	ldr	r1, [pc, #60]	; (128 <HelloWorld_recv+0x128>)
+  ea:	4628      	mov	r0, r5
+  ec:	f7ff fffe 	bl	0 <tcp_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:119
+     
+  pub_pcb = pcb;
+  f0:	4b0e      	ldr	r3, [pc, #56]	; (12c <HelloWorld_recv+0x12c>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:120
+ssa = 1;
+  f2:	2201      	movs	r2, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:119
+      tcp_write(pcb, name->bytes, name->length, TCP_WRITE_FLAG_COPY);
+	   name->length = 0;
+	   tcp_write(pcb,ubuff,strlen(ubuff),1);
+	   tcp_write(pcb,ubuff1,strlen(ubuff1),1);
+     
+  pub_pcb = pcb;
+  f4:	601d      	str	r5, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:120
+ssa = 1;
+  f6:	4b0e      	ldr	r3, [pc, #56]	; (130 <HelloWorld_recv+0x130>)
+  f8:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:126
+  
+   
+    }
+	
+	/* End of processing, we free the pbuf */
+    pbuf_free(p);
+  fa:	4630      	mov	r0, r6
+  fc:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:137
+    mem_free(name);
+	ssa = 0;
+    return tcp_close(pcb);
+	
+  }
+  return ERR_OK;
+ 100:	2600      	movs	r6, #0
+ 102:	e009      	b.n	118 <HelloWorld_recv+0x118>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:128
+    }
+	
+	/* End of processing, we free the pbuf */
+    pbuf_free(p);
+  }
+  else if (err == ERR_OK) 
+ 104:	b943      	cbnz	r3, 118 <HelloWorld_recv+0x118>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:132
+  {
+    /* When the pbuf is NULL and the err is ERR_OK, the remote end is closing the connection. */
+    /* We free the allocated memory and we close the connection */
+    mem_free(name);
+ 106:	f7ff fffe 	bl	0 <mem_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:133
+	ssa = 0;
+ 10a:	4b09      	ldr	r3, [pc, #36]	; (130 <HelloWorld_recv+0x130>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:134
+    return tcp_close(pcb);
+ 10c:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:133
+  else if (err == ERR_OK) 
+  {
+    /* When the pbuf is NULL and the err is ERR_OK, the remote end is closing the connection. */
+    /* We free the allocated memory and we close the connection */
+    mem_free(name);
+	ssa = 0;
+ 10e:	701f      	strb	r7, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:140
+	
+  }
+  return ERR_OK;
+
+
+}
+ 110:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:134
+  {
+    /* When the pbuf is NULL and the err is ERR_OK, the remote end is closing the connection. */
+    /* We free the allocated memory and we close the connection */
+    mem_free(name);
+	ssa = 0;
+    return tcp_close(pcb);
+ 114:	f7ff bffe 	b.w	0 <tcp_close>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:140
+	
+  }
+  return ERR_OK;
+
+
+}
+ 118:	b270      	sxtb	r0, r6
+ 11a:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+ 11e:	bf00      	nop
+	...
+
+Disassembly of section .text.HelloWorld_init:
+
+00000000 <HelloWorld_init>:
+HelloWorld_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:172
+  * @brief  Initialize the hello application  
+  * @param  None 
+  * @retval None 
+  */
+void HelloWorld_init(void)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:176
+  struct tcp_pcb *pcb;	            		
+  
+  /* Create a new TCP control block  */
+  pcb = tcp_new();	                		 	
+   2:	f7ff fffe 	bl	0 <tcp_new>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:180
+
+  /* Assign to the new pcb a local IP address and a port number */
+  /* Using IP_ADDR_ANY allow the pcb to be used by any local interface */
+  tcp_bind(pcb, IP_ADDR_ANY, 50650);       
+   6:	f24c 52da 	movw	r2, #50650	; 0xc5da
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:176
+void HelloWorld_init(void)
+{
+  struct tcp_pcb *pcb;	            		
+  
+  /* Create a new TCP control block  */
+  pcb = tcp_new();	                		 	
+   a:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:180
+
+  /* Assign to the new pcb a local IP address and a port number */
+  /* Using IP_ADDR_ANY allow the pcb to be used by any local interface */
+  tcp_bind(pcb, IP_ADDR_ANY, 50650);       
+   c:	4905      	ldr	r1, [pc, #20]	; (24 <HelloWorld_init+0x24>)
+   e:	f7ff fffe 	bl	0 <tcp_bind>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:184
+
+
+  /* Set the connection to the LISTEN state */
+  pcb = tcp_listen(pcb);				
+  12:	21ff      	movs	r1, #255	; 0xff
+  14:	4620      	mov	r0, r4
+  16:	f7ff fffe 	bl	0 <tcp_listen_with_backlog>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:187
+
+  /* Specify the function to be called when a connection is established */	
+  tcp_accept(pcb, HelloWorld_accept);   
+  1a:	4903      	ldr	r1, [pc, #12]	; (28 <HelloWorld_init+0x28>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:189
+										
+}
+  1c:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/helloworld.c:187
+
+  /* Set the connection to the LISTEN state */
+  pcb = tcp_listen(pcb);				
+
+  /* Specify the function to be called when a connection is established */	
+  tcp_accept(pcb, HelloWorld_accept);   
+  20:	f7ff bffe 	b.w	0 <tcp_accept>
+	...

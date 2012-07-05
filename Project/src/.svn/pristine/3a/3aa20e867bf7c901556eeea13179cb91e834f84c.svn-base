@@ -1,0 +1,1079 @@
+#include <main.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+	           test  tes 
+	  
+
+unsigned int32 adc_v,adcv;
+unsigned int32 t0,t1,tb0;
+float temp_d,temp_dh ,hum_d;
+float temp_r;
+float temp_s;
+
+float temp1;
+
+unsigned int ct1;
+signed int timer_alarm;
+signed int timer_emo;
+
+unsigned int i_mo;
+unsigned char motor_m;
+// unsigned char temp_s;
+
+unsigned char d[8];
+unsigned char mode;
+unsigned char hsub_mode;
+unsigned char vsub_mode;
+
+unsigned char buf_v;
+unsigned char run;
+
+unsigned char delay_t1;
+int b1;
+unsigned int MCP_d1, MCP_d2;
+unsigned char alarm;
+
+unsigned char idis;
+
+// Define project I2C communication pins
+#define SCL_PIN PIN_C3
+#define SDA_PIN PIN_C4
+#use i2c(master, sda=SDA_pin, scl=SCL_pin)
+
+#define MCP23016_I2C_WRITE_h 0x40
+#define MCP23016_I2C_READ_h 0x41
+
+#define MCP23016_I2C_WRITE_t 0x42
+#define MCP23016_I2C_READ_t 0x43
+
+#define MCP23016_I2C_WRITE_t1 0x44
+#define MCP23016_I2C_READ_t1 0x45
+
+#define MCP23016_I2C_WRITE_st 0x46
+#define MCP23016_I2C_READ_st 0x47
+
+// COMMAND BYTE TO REGISTER RELATIONSHIP : Table: 1-3 of Microchip MCP23016 - DS20090A
+#define GP0 0x00
+#define GP1 0x01
+#define OLAT0 0x02
+#define OLAT1 0x03
+#define IPOL0 0x04 // INPUT POLARITY PORT REGISTER 0
+#define IPOL1 0x05 // INPUT POLARITY PORT REGISTER 1
+#define IODIR0 0x06 // I/O DIRECTION REGISTER 0
+#define IODIR1 0x07 // I/O DIRECTION REGISTER 1
+#define INTCAP0 0x08 // INTERRUPT CAPTURE REGISTER 0
+#define INTCAP1 0x09 // INTERRUPT CAPTURE REGISTER 1
+#define IOCON0 0x0A // I/O EXPANDER CONTROL REGISTER 0
+#define IOCON1 0x0B // I/O EXPANDER CONTROL REGISTER 1
+// BLOCK VARIABLE REGISTER
+unsigned char MCP23016_Device_Address; // MCP23016 Assigned Device Address.
+int GPIO_port; // MCP23016 Data Port Register.
+
+// MCP23016 - I2C constants for selecting type of data transfer.
+#define I2C_MCP23016_GP0_READ 0x41 // 1001 1111
+#define I2C_MCP23016_GP0_WRITE 0x40 // 1001 1110
+// ----------------------------------------------------------------------------
+#define kb_n            10
+#define kb_delay        5
+
+#define start_pin       PIN_D7
+#define up_pin          PIN_B0
+#define down_pin        PIN_B1
+#define ok_pin          PIN_B6
+#define can_pin         PIN_B7
+#define sno_pin         PIN_B5
+#define f1_pin          PIN_B2
+#define f2_pin          PIN_B3
+#define f3_pin          PIN_B4
+
+const unsigned char kb[kb_n] =
+      { start_pin, up_pin, down_pin, ok_pin, can_pin, sno_pin, f1_pin, f2_pin,
+            f3_pin };
+
+unsigned char k_d[kb_n];
+
+#define start_b         0
+#define up_b            1
+#define down_b          2
+#define ok_b            3
+#define can_b           4
+#define sno_b           5
+#define f1_b            6
+#define f2_b            7
+#define f3_b            8
+
+#define tst1   80
+#define tst2   70
+#define tst3   60
+#define tst4   50
+#define tst5   40
+#define tst6   30
+#define tst7   00
+#define tst8   00
+#define tst9   00
+
+#define h1   25
+#define h2   22
+#define h3   20
+#define h4   16
+#define h5   12
+#define h6   00
+#define h7   00
+#define h8   00
+#define h9   00
+
+#define LED0 PIN_D0
+#define LED1 PIN_D1
+#define LED2 PIN_D2
+#define LED3 PIN_D3
+#define LED4 PIN_D4
+
+#define buz PIN_D5
+#define ext_a PIN_D6
+
+#define m1 PIN_C1
+#define m2 PIN_C2
+
+#define read_bit_var(x)  bit_test(*(int8 *)(x >> 3), x & 7)
+/*
+ #define up_b read_bit_var(pin_b0)==0
+ #define down_b read_bit_var(pin_b1)==0
+ #define f1_b read_bit_var(pin_b4)==0
+
+ #define f2_b input(pin_b3)==1
+ #define f3_b input(pin_b4)==1
+ #define f4_b input(pin_b5)==1
+ #define ok_b input(pin_b6)==1
+ #define can_b input(pin_b7)==1
+ #define s_b input(pin_b8)==1
+ */
+
+unsigned char tst[] =
+{ tst1, tst2, tst3, tst4, tst5, tst6, tst7, tst8, tst9, };
+
+unsigned char h[] =
+{ h1, h2, h3, h4, h5, h6, h7, h8, h9 };
+
+signed char offset[3];
+
+unsigned char alarm_s[3];
+
+/*
+ unsigned char num_digi7[] =
+ { 0x3F, 0x06, 0x5B, 0x4F, 0x66, //0,1,2,3,4
+ 0x6D, 0x7D, 0x07, 0x7F, 0x6F, //5,6,7,8,9
+ 0x77, 0x7C, 0x39, 0x5E, 0x79, //A,b,C,d,E
+ 0x71, 0x80, 0x40, 0x54, 0x00, //F,.,-,n,
+ };
+ */
+unsigned char num_digi7[] =
+{ 0xC0, 0xF9, 0xA4, 0xB0, 0x99, //0,1,2,3,4
+      0x92, 0x82, 0xF8, 0x80, 0x90, //5,6,7,8,9
+      0x88, 0x83, 0xC6, 0xA1, 0x86, //A,b,C,d,E
+      0x8E, 0x7F, 0xDF, 0xBF, 0xff, //F,.,-,n,
+      };
+unsigned char num_u_digi7[] =
+{ 0x03, 0x9F, 0x25, 0x0D, 0x99, //0,1,2,3,4
+      0x49, 0x41, 0x1F, 0x01, 0x09, //5,6,7,8,9
+      0x11, 0xC1, 0xC6, 0x63, 0x61, //A,b,C,d,E
+      0x71, 0xEF, 0xFB, 0xFD, 0xff, //F,.,-,n,
+      };
+
+	
+	  
+
+/******************** prototype *********************/
+
+void write_to_MCP(unsigned char WriteAddress, unsigned char cmdByte,
+      unsigned char lsbData, unsigned char msbData); //, unsigned char msbData)
+
+Long int read_MCP(unsigned int WriteAddress, unsigned int cmdByte,
+      unsigned int ReadAddress);
+void m_l();
+void m_r();
+void m_s();
+void c_motor();
+void mcp_show_display();
+void display_of_m();
+void chk_value_mode(unsigned char buttonc);
+void display_m();
+void calc_val();
+void AD_isr();
+void chk_kb();
+void chk_mode();
+void pid_isr();
+void TIMER2_isr();
+void read_eep();
+void set_eep();
+void delay_m();
+
+/***************************************************/
+
+void write_to_MCP(unsigned char WriteAddress, unsigned char cmdByte,
+      unsigned char lsbData, unsigned char msbData) //, unsigned char msbData)
+{
+   short int status;
+
+   i2c_start(); // start condition
+   delay_us(20);
+   i2c_write(WriteAddress); // Send slave address and clear (R/W_)
+   delay_us(20);
+   i2c_write(cmdByte); // Command byte and register to be written.
+   delay_us(20);
+   i2c_write(lsbData); // First data byte pair as per command byte(cmd)
+   delay_us(20);
+   i2c_write(msbData); // Second data byte pair as per command byte(cmd)
+   delay_us(20);
+   i2c_stop(); // stop condition
+   delay_us(50); // delay to allow write (12us)min.
+
+}
+
+// ----------------------------------------------------------------------------
+
+Long int read_MCP(unsigned int WriteAddress, unsigned int cmdByte,
+      unsigned int ReadAddress)
+{
+   int Data, lsbData, msbData;
+   long int ldata;
+   short int status, count;
+
+   startRead: count = 0; // Initialize read attempts counter.
+
+   i2c_start(); // start condition
+   delay_us(20);
+   i2c_write(WriteAddress); // Send slave address and clear (R/W_)
+   delay_us(20);
+   i2c_write(cmdByte); // Command byte and register to be written.
+   delay_us(50);
+   i2c_start();
+   delay_us(20); // restart condition
+   i2c_write(ReadAddress); // Send slave address and clear (R_/W)
+   delay_us(20);
+   lsbData = i2c_read(1); // Data from LSB or MSB of register
+   delay_us(20);
+   msbData = i2c_read(0); // Data from LSB or MSB of register
+   delay_us(20);
+   i2c_stop(); // stop condition
+   delay_us(50); // delay to allow read (12us)min.
+   MCP_d1 = lsbdata;
+   MCP_d2 = msbdata;
+   ldata = (msbdata << 8);
+   ldata = ldata + lsbdata;
+   return (ldata);
+}
+
+void m_l()
+{
+   output_low(m1);
+   output_high(m2);
+}
+void m_r()
+{
+
+   output_high(m2);
+   output_high(m1);
+}
+void m_s()
+{
+   output_low(m2);
+   output_low(m1);
+}
+
+void c_motor()
+{
+   if (motor_m == 3)
+   {
+      m_s();
+      i_mo = 0;
+      motor_m = 0;
+   }
+
+   if (i_mo > 0)
+   {
+      i_mo--;
+
+      if (motor_m == 1)
+      {
+         m_l();
+      }
+      else if (motor_m == 2)
+      {
+         m_r();
+      }
+
+      else
+      {
+         m_s();
+         i_mo = 0;
+      }
+
+      if (i_mo == 0)
+      {
+         m_s();
+         motor_m = 0;
+      }
+   }
+}
+void mcp_show_display()
+{
+   write_to_MCP(MCP23016_I2C_WRITE_t, OLAT0, num_u_digi7[d[0]],
+         num_digi7[d[1]]); //t1 / 10
+
+   write_to_MCP(MCP23016_I2C_WRITE_h, OLAT0, num_u_digi7[d[2]],
+         num_digi7[d[3]]); //t1 / 10
+
+   write_to_MCP(MCP23016_I2C_WRITE_t1, OLAT0, num_u_digi7[d[4]],
+         num_digi7[d[5]]); //t1 / 10
+
+   write_to_MCP(MCP23016_I2C_WRITE_st, OLAT0, num_u_digi7[d[6]],
+         num_digi7[d[7]]); //t1 / 10
+}
+void display_of_m()
+{
+   unsigned char i, ia;
+   ia = 0;
+   if (mode != 0)
+   {
+      for (i = 0; i < 9; i++)
+      {
+         if (!input(kb[i]))
+         {
+            ia = 1;
+         }
+
+      }
+      if (ia == 0)
+      {
+
+         if (vsub_mode == 0)
+         {
+            d[0] = 19;
+            d[1] = 19;
+
+         }
+         if (vsub_mode == 1)
+         {
+            d[2] = 19;
+            d[3] = 19;
+
+         }
+         if (vsub_mode == 2)
+         {
+            d[4] = 19;
+            d[5] = 19;
+
+         }
+         if (vsub_mode == 3)
+         {
+            d[6] = 19;
+            d[7] = 19;
+
+         }
+
+         mcp_show_display();
+
+      }
+
+   }
+}
+void chk_value_mode(unsigned char buttonc)
+{
+   if (buttonc == up_b)
+   {
+      if (mode == 1)
+      {
+         if (vsub_mode == 0)
+         {
+            hsub_mode++;
+            if (hsub_mode > 8)
+               hsub_mode = 0;
+         }
+         else if (vsub_mode >= 1)
+         {
+            if (vsub_mode < 3)
+            {
+               h[hsub_mode + vsub_mode - 2]++;
+               if (h[hsub_mode + vsub_mode - 2] > 99)
+                  h[hsub_mode + vsub_mode - 2] = 0;
+            }
+            else
+            {
+               tst[hsub_mode]++;
+               if (tst[hsub_mode] > 99)
+                  tst[hsub_mode] = 0;
+            }
+         }
+      }
+      else if(mode == 2)
+      {
+         offset[vsub_mode]++;
+         if(offset[vsub_mode] > 9) offset[vsub_mode] = (char)9;
+      }
+      else if(mode == 3)
+      {
+         alarm_s[vsub_mode]++;
+         if(alarm_s[vsub_mode] > 99) alarm_s[vsub_mode] = 0;
+      }
+   }
+   if (buttonc == down_b)
+   {
+      if (mode == 1)
+      {
+         if (vsub_mode == 0)
+         {
+            hsub_mode--;
+            if (hsub_mode == 255)
+               hsub_mode = 8;
+         }
+         else if (vsub_mode >= 1)
+         {
+            if (vsub_mode < 3)
+            {
+               h[hsub_mode + vsub_mode - 2]--;
+               if (h[hsub_mode + vsub_mode - 2] == 255)
+                  h[hsub_mode + vsub_mode - 2] = 99;
+            }
+            else
+            {
+               tst[hsub_mode]--;
+               if (tst[hsub_mode] == 255)
+                  tst[hsub_mode] = 99;
+            }
+         }
+      }
+      else if(mode == 2)
+      {
+         offset[vsub_mode]--;
+         if((signed)offset[vsub_mode] < -9) offset[vsub_mode] = (signed)-9;
+      }
+      else if(mode == 3)
+      {
+         alarm_s[vsub_mode]--;
+         if(alarm_s[vsub_mode] == 255) alarm_s[vsub_mode] = 99;
+      }
+   }
+}
+
+
+void display_m()
+{
+
+   if (mode == 0 || mode == 2)
+   {
+      if (temp_d < 100 && temp_d>0)
+      {
+         d[0] = (char) temp_d % 10;
+         d[1] = ((char) temp_d / 10) % 10;
+      }
+      else
+      {
+         d[0] = 19;//18
+         d[1] = 19;//14
+      }
+
+      if (hum_d < 30 && hum_d >9)
+      {
+         d[2] = (char) hum_d % 10;
+         d[3] = ((char) hum_d / 10) % 10;
+      }
+	  else if(hum_d < 9)
+	  {
+		   d[2] = 0;
+           d[3] = 0;
+	  }		  
+      else
+      {
+         d[2] = 19;//18
+         d[3] = 19;//14
+      }
+      d[4] = (char) temp_r % 10;
+      d[5] = ((char) temp_r / 10) % 10;
+
+      if (mode == 0)
+      {
+         d[6] = (char) temp_s % 10;
+         d[7] = ((char) temp_s / 10) % 10;
+      }
+      else
+      {
+
+         if ((signed)offset[vsub_mode] < 0)
+         {
+            d[6] = ((signed)offset[vsub_mode]*-1)% 10;
+            d[7] = 18;
+         }
+         else
+         {
+            d[6] = ((char)offset[vsub_mode])% 10;
+            d[7] = 19;
+         }
+      }
+   }
+   else if (mode == 1)
+   {
+      d[0] = (char) hsub_mode % 10;
+      d[1] = (char) hsub_mode / 10;
+
+      if (hsub_mode > 0)
+      {
+         d[2] = (char) h[hsub_mode - 1] % 10;
+         d[3] = (char) h[hsub_mode - 1] / 10;
+
+         if(d[3]>0)
+         {
+            if(d[2]>0) d[2]--;
+            else
+            {
+               d[3]--;
+               d[2] = 9;
+            }
+         }
+         else if(d[2]>0) d[2]--;
+
+
+      }
+      else if(hsub_mode == 0)
+      {
+         d[2] = 9;
+         d[3] = 9;
+      }
+      d[4] = (char) h[hsub_mode] % 10;
+      d[5] = (char) h[hsub_mode] / 10;
+
+      d[6] = (char) tst[hsub_mode] % 10;
+      d[7] = (char) tst[hsub_mode] / 10;
+   }
+
+   else if (mode == 3)
+   {
+      d[0] = (char) alarm_s[0] % 10;
+      d[1] = (char) alarm_s[0] / 10;
+
+      d[2] = (char) alarm_s[1] % 10;
+      d[3] = (char) alarm_s[1] / 10;
+
+      d[4] = (char) alarm_s[2] % 10;
+      d[5] = (char) alarm_s[2] / 10;
+
+      d[6] = 19;
+      d[7] = 19;
+   }
+
+   mcp_show_display();
+   /*
+    write_to_MCP(MCP23016_I2C_WRITE_h, OLAT0, num_u_digi7[(int) hum_d % 10],
+    num_digi7[((int) hum_d / 10) % 10]);
+
+    write_to_MCP(MCP23016_I2C_WRITE_t1, OLAT0, num_u_digi7[(int) temp_r % 10],
+    num_digi7[(int) temp_r / 10]);
+
+    write_to_MCP(MCP23016_I2C_WRITE_st, OLAT0, num_u_digi7[temp_s % 10],
+    num_digi7[temp_s / 10]);
+    */
+}
+
+void calc_val()
+{
+
+   hum_d = 39.78433 - (0.00217 * hum_d);
+   //t0 = hum_d;
+   temp_d = 337.994 - (1.53 * temp_dh);
+   temp_d += 6;
+   
+   //t1 = temp_d;
+
+}
+void chk_kb()
+{
+   unsigned char i;
+   for (i = 0; i < 9; i++)
+   {
+      if (!input(kb[i]))
+      {
+         k_d[i]++;
+      }
+      else
+         k_d[i] = 0;
+   }
+}
+void chk_mode()
+{
+   unsigned char i;
+   unsigned char ki;
+   for (i = 0; i < 9; i++)
+      if (k_d[i] > kb_delay)
+      {
+         ki = 0;
+         if (i == up_b)
+         {
+            chk_value_mode(up_b);
+            display_m();
+            while (k_d[i] != 0)
+            {
+               ki++;
+               delay_ms(1);
+               if (ki > 50)
+               {
+                  k_d[i] = 20;
+                  chk_value_mode(up_b);
+                  display_m();
+                  ki = 0;
+               }
+            }
+
+         }
+         else if (i == down_b)
+         {
+
+            chk_value_mode(down_b);
+            display_m();
+
+            while (k_d[i] != 0)
+            {
+               ki++;
+               delay_ms(1);
+               if (ki > 50)
+               {
+                  k_d[i] = 20;
+                  chk_value_mode(down_b);
+                  display_m();
+
+                  ki = 0;
+               }
+            }
+         }
+         else if (i == f1_b)
+         {
+            if (mode == 0)
+            {
+               mode = 1;
+               hsub_mode = 0;
+               vsub_mode = 0;
+               output_low(LED0);
+               while (k_d[i] != 0);
+            }
+         }
+         else if (i == f2_b)
+         {
+            if (mode == 0)
+            {
+               mode = 2;
+               hsub_mode = 0;
+               vsub_mode = 0;
+               output_low(LED1);
+               while (k_d[i] != 0);
+            }
+         }
+         else if (i == f3_b)
+         {
+            if (mode == 0)
+            {
+               mode = 3;
+               hsub_mode = 0;
+               vsub_mode = 0;
+               output_low(LED2);
+               while (k_d[i] != 0);
+            }
+         }
+         else if (i == ok_b)
+         {
+            if (mode == 1)
+            {
+               if (vsub_mode == 0)
+                  vsub_mode = 1;
+
+               if (vsub_mode == 2 && buf_v != h[hsub_mode])
+               {
+                  write_eeprom(hsub_mode, h[hsub_mode]);
+               }
+               if (vsub_mode == 3 && buf_v != tst[hsub_mode])
+               {
+                  write_eeprom(hsub_mode + 10, tst[hsub_mode]);
+               }
+
+               vsub_mode++;
+               if (vsub_mode == 4)
+                  vsub_mode = 0;
+               while (k_d[i] != 0);
+
+               if (vsub_mode == 2)
+                  buf_v = (char) h[hsub_mode];
+               else if (vsub_mode == 3)
+                  buf_v = (char) tst[hsub_mode];
+            }
+            else if (mode == 2)
+            {
+
+               if (buf_v != offset[vsub_mode])
+               {
+                  write_eeprom(vsub_mode+20, offset[vsub_mode]);
+               }
+
+               vsub_mode++;
+               if (vsub_mode == 3)
+                  vsub_mode = 0;
+
+               while (k_d[i] != 0);
+
+               buf_v = (char)offset[vsub_mode];
+            }
+            else if (mode == 3)
+            {
+
+               if (buf_v != alarm_s[vsub_mode])
+               {
+                  write_eeprom(vsub_mode+30, alarm_s[vsub_mode]);
+               }
+
+               vsub_mode++;
+               if (vsub_mode == 3)
+                  vsub_mode = 0;
+
+               while (k_d[i] != 0);
+
+               buf_v = (char)alarm_s[vsub_mode];
+            }
+         }
+         else if (i == can_b)
+         {
+            mode = 0;
+            output_high(LED0);
+            output_high(LED1);
+            output_high(LED2);
+
+         }
+         else if (i == sno_b)
+         {
+            if(alarm == 1)
+            {
+               alarm = 2;
+               timer_alarm = 60 * (char) alarm_s[1];
+               output_low(buz);
+
+               while (k_d[i] != 0);
+            }
+         }
+         else if (i == start_b)
+         {
+            while (k_d[i] != 0);
+
+            if (mode == 0)
+            {
+               if (run == 0)
+               {
+                  alarm = 0;
+                  run = 1;
+                  output_high(LED3);
+                  output_low(LED4);
+                  output_low(buz);
+
+               }
+               else
+               {
+                  alarm = 0;
+                  run = 0;
+                  output_high(LED3);
+                  output_high(LED4);
+                  output_low(buz);
+               }
+            }
+
+         }
+
+
+
+      }
+
+}
+void pid_isr()
+{
+   if ((temp_r) >= (temp_s + 2))
+   {
+      motor_m = 1;
+
+      i_mo = (int) ((temp_r - temp_s) * 10);
+   }
+
+   else if ((temp_r) <= (temp_s - 2))
+   {
+      motor_m = 2;
+      i_mo = (int) ((temp_s - temp_r) * 10);
+   }
+   else
+   {
+      motor_m = 3;
+   }
+
+}
+void read_eep()
+{
+   unsigned char i;
+   for (i = 0; i < 9; i++)
+      h[i] = read_eeprom(i);
+
+   for (i = 0; i < 9; i++)
+      tst[i] = read_eeprom(i + 10);
+
+   for (i = 0; i < 3; i++)
+      offset[i] = read_eeprom(i + 20);
+
+   for (i = 0; i < 3; i++)
+      alarm_s[i] = read_eeprom(i + 30);
+
+}
+
+void set_eep()
+{
+   unsigned char i;
+
+   for (i = 0; i < 9; i++)
+      write_eeprom(i, h[i]);
+
+   for (i = 0; i < 9; i++)
+      write_eeprom(i + 10, tst[i]);
+
+}
+
+int main()
+{
+   run = 3;
+   output_low(m1);
+   output_low(m2);
+
+   SET_TRIS_B(0b11111111);
+   SET_TRIS_A(0b10010001);
+   SET_TRIS_D(0b10000000);
+   SET_TRIS_C(0b00000001);
+
+   output_low(buz);
+
+   output_high(LED0);
+   output_high(LED1);
+   output_high(LED2);
+   output_high(LED3);
+   output_high(LED4);
+   output_low(m1);
+   output_low(m2);
+
+   delay_ms(1000);
+   alarm = 0;
+   //set_eep();
+   read_eep();
+   run = 3;
+
+   mode = 0;
+   ct1 = 0;
+   t1 = 0;
+   t0 = 0;
+   ct1 = 0;
+   adcv = 0;
+   adc_v = 0;
+   temp_d = 0.0;
+   hum_d = 0.0;
+   temp_r = 0.0;
+   temp_s = 0.0;
+   delay_t1 = 0;
+	
+	
+   write_to_MCP(MCP23016_I2C_WRITE_t, IODIR0, 0x00, 0x00); // GP0= outputs GP1=outputs
+   write_to_MCP(MCP23016_I2C_WRITE_h, IODIR0, 0x00, 0x00); // GP0= outputs GP1=outputs
+   write_to_MCP(MCP23016_I2C_WRITE_t1, IODIR0, 0x00, 0x00); // GP0= outputs GP1=outputs
+   write_to_MCP(MCP23016_I2C_WRITE_st, IODIR0, 0x00, 0x00); // GP0= outputs GP1=outputs
+
+   display_m();
+	tb0 = 2000;
+   // TIMER1 16 bits as counter /UP- ext input  T1CKI RC0
+   setup_timer_1(T1_EXTERNAL | T1_DIV_BY_1);
+   ext_int_edge(H_TO_L);
+   set_timer1(0);
+
+   // TIMER0 16 bits as counter /UP- ext input  T0CKI RC0
+   SETUP_TIMER_0(RTCC_EXT_H_TO_L | RTCC_DIV_1);
+   SET_TIMER0(0);
+
+   //TIMER2 int
+   setup_timer_2(T2_DIV_BY_16, 195, 16); //630 us overflow, 10.0 ms interrupt
+   set_timer2(0);
+   enable_interrupts(int_timer2);
+   ENABLE_INTERRUPTS(GLOBAL);
+
+   setup_adc_ports(sAN0); //16f887 - sAN0 : 16f877 - AN0
+   setup_adc(ADC_CLOCK_DIV_32);
+   //Select channel 0 corresponding to A0
+   enable_interrupts(INT_AD); //enable AD conversion interrupts
+   set_adc_channel(0);
+   read_adc(ADC_START_ONLY);
+   ENABLE_INTERRUPTS(GLOBAL);
+   //set_eep();
+
+   idis = 0;
+   chk_mode();
+   run = 0;
+   while (TRUE)
+   {
+
+      delay_ms(1);
+      chk_mode();
+
+      if (idis == 50)
+      {
+         display_m();
+      }
+
+      if (idis == 80)
+      {
+         display_of_m();
+      }
+      if (idis >= 100)
+      {
+         display_m();
+         idis = 0;
+      }
+
+      idis++;
+
+   }
+   return (0);
+}
+
+#int_AD
+void AD_isr(void)
+{
+   adcv += 1;
+   adc_v += read_adc(ADC_READ_ONLY);
+   set_adc_channel(0);
+   read_adc(ADC_START_ONLY);
+   //0 - 65472
+}
+
+#int_TIMER2
+void TIMER2_isr(void)
+{
+   unsigned char i;
+   if(temp_s == 0.0)
+   {
+      motor_m = 1;
+      i_mo = 100;
+   }
+   c_motor();
+   chk_kb();
+
+   ct1++;
+
+   if (b1 > 0)
+      b1--;
+
+   if (ct1 == 70)
+   {
+      output_high(LED3);
+      output_low(buz);
+   }
+   else if (ct1 > 100)
+   {
+
+      t0 = GET_TIMER0(); //get counter Humid
+      SET_TIMER0(0);
+      t1 = GET_TIMER1(); //get counter Temp.
+      SET_TIMER1(0);
+      tb0 += t0;
+      hum_d = (float) t1;
+      if(delay_t1 == 0)
+      {
+      temp_dh = ((float) tb0)/10.0;
+      tb0 = 0;
+      }
+      if(delay_t1++ >= 9) delay_t1=0;
+
+      calc_val();
+      temp_d += offset[0];
+      hum_d += offset[1];
+      if (hum_d <= 0.0)
+         hum_d = 0.0;
+
+      temp_d += 25.0;
+	  
+	  if(temp_d>95) temp_d=0;
+
+      if (alarm == 1)
+      {
+         output_low(LED3);
+         output_high(buz);
+         output_high(ext_a);
+      }
+      else if(alarm == 2)
+      {
+         output_low(LED3);
+         output_high(ext_a);
+
+         if(timer_alarm-- <= 0)
+         {
+            alarm = 1;
+         }
+      }
+      else
+      {
+         output_high(LED3);
+         output_low(buz);
+         output_low(ext_a);
+      }
+
+      ct1 = 0;
+
+      temp1 = ((float) adc_v / (float) adcv);
+      //temp1 = adc_v;
+      //temp_r = ((0.69623 - (((float)temp1 * 5)/1024.0) )/0.00186);
+      //v_in = (((float)temp1 * 5)/1024.0);
+      temp_r = ((0.69623 - ((temp1 * 5) / 1024.0)) / 0.00186) + 134.0;
+      temp_r += offset[2];
+      if (hum_d < 30)
+      {
+         for (i = 0; i < 9; i++)
+         {
+            if (hum_d >= h[i])
+            {
+               temp_s = (float) tst[i];
+               break;
+            }
+            else
+               temp_s = (float) tst[5];
+         }
+      }
+      else
+         temp_s = 0.0;
+
+      if (temp_d >= alarm_s[0])
+      {
+         if (run == 1)
+         {
+            if (alarm == 0)
+            {
+               alarm = 1;
+               timer_emo = alarm_s[2] * 60;
+            }
+
+            if (timer_emo-- <= 0)
+            {
+               temp_s = 0.0;
+               timer_emo = -1;
+            }
+         }
+      }
+      else
+         alarm = 0;
+
+      if (run == 0) temp_s = 0.0;
+
+      pid_isr();
+      printf(" %f,%f ,", (float) t0, (float) t1);
+      printf(", %f,%f , %f, %f,%f\r\n", temp_d, hum_d, temp_r,(float) tb0,temp_dh);
+
+      adcv = 0;
+      adc_v = 0;
+      t1 = 0;
+     t0 = 0;
+
+   }
+}

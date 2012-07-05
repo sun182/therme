@@ -1,0 +1,1876 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\etharp.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\etharp.o
+
+
+Disassembly of section .text.free_entry:
+
+00000000 <free_entry>:
+free_entry():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:170
+#endif /* ARP_QUEUEING */
+
+/** Clean up ARP table entries */
+static void
+free_entry(int i)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:174
+  /* remove from SNMP ARP index tree */
+  snmp_delete_arpidx_tree(arp_table[i].netif, &arp_table[i].ipaddr);
+  /* and empty packet queue */
+  if (arp_table[i].q != NULL) {
+   2:	4c07      	ldr	r4, [pc, #28]	; (20 <free_entry+0x20>)
+   4:	0106      	lsls	r6, r0, #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:170
+#endif /* ARP_QUEUEING */
+
+/** Clean up ARP table entries */
+static void
+free_entry(int i)
+{
+   6:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:174
+  /* remove from SNMP ARP index tree */
+  snmp_delete_arpidx_tree(arp_table[i].netif, &arp_table[i].ipaddr);
+  /* and empty packet queue */
+  if (arp_table[i].q != NULL) {
+   8:	59a0      	ldr	r0, [r4, r6]
+   a:	b118      	cbz	r0, 14 <free_entry+0x14>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:177
+    /* remove all queued packets */
+    LWIP_DEBUGF(ETHARP_DEBUG, ("etharp_timer: freeing entry %"U16_F", packet queue %p.\n", (u16_t)i, (void *)(arp_table[i].q)));
+    free_etharp_q(arp_table[i].q);
+   c:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:178
+    arp_table[i].q = NULL;
+  10:	2300      	movs	r3, #0
+  12:	51a3      	str	r3, [r4, r6]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:181
+  }
+  /* recycle entry for re-use */      
+  arp_table[i].state = ETHARP_STATE_EMPTY;
+  14:	eb04 1405 	add.w	r4, r4, r5, lsl #4
+  18:	2300      	movs	r3, #0
+  1a:	73a3      	strb	r3, [r4, #14]
+  1c:	3408      	adds	r4, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:194
+  arp_table[i].netif = NULL;
+#endif /* LWIP_SNMP */
+  ip_addr_set_zero(&arp_table[i].ipaddr);
+  arp_table[i].ethaddr = ethzero;
+#endif /* LWIP_DEBUG */
+}
+  1e:	bd70      	pop	{r4, r5, r6, pc}
+  20:	00000000 	.word	0x00000000
+
+Disassembly of section .text.find_entry:
+
+00000000 <find_entry>:
+find_entry():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:259
+ * @return The ARP entry index that matched or is created, ERR_MEM if no
+ * entry is found or could be recycled.
+ */
+static s8_t
+find_entry(ip_addr_t *ipaddr, u8_t flags)
+{
+   0:	e92d 4ff7 	stmdb	sp!, {r0, r1, r2, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:264
+  s8_t old_pending = ARP_TABLE_SIZE, old_stable = ARP_TABLE_SIZE;
+  s8_t empty = ARP_TABLE_SIZE;
+  u8_t i = 0, age_pending = 0, age_stable = 0;
+  /* oldest entry with packets on queue */
+  s8_t old_queue = ARP_TABLE_SIZE;
+   4:	250a      	movs	r5, #10
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:266
+  /* its age */
+  u8_t age_queue = 0;
+   6:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:338
+  /* don't create new entry, only search? */
+  if (((flags & ETHARP_FLAG_FIND_ONLY) != 0) ||
+      /* or no empty entry found and not allowed to recycle? */
+      ((empty == ARP_TABLE_SIZE) && ((flags & ETHARP_FLAG_TRY_HARD) == 0))) {
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("find_entry: no empty entry found and not allowed to recycle\n"));
+    return (s8_t)ERR_MEM;
+   8:	4a32      	ldr	r2, [pc, #200]	; (d4 <find_entry+0xd4>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:259
+ * @return The ARP entry index that matched or is created, ERR_MEM if no
+ * entry is found or could be recycled.
+ */
+static s8_t
+find_entry(ip_addr_t *ipaddr, u8_t flags)
+{
+   a:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:262
+  s8_t old_pending = ARP_TABLE_SIZE, old_stable = ARP_TABLE_SIZE;
+  s8_t empty = ARP_TABLE_SIZE;
+  u8_t i = 0, age_pending = 0, age_stable = 0;
+   c:	46b1      	mov	r9, r6
+   e:	46b3      	mov	fp, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:283
+   * 4) remember the oldest pending entry with queued packets (if any)
+   * 5) search for a matching IP entry, either pending or stable
+   *    until 5 matches, or all entries are searched for.
+   */
+
+  for (i = 0; i < ARP_TABLE_SIZE; ++i) {
+  10:	4633      	mov	r3, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:261
+ */
+static s8_t
+find_entry(ip_addr_t *ipaddr, u8_t flags)
+{
+  s8_t old_pending = ARP_TABLE_SIZE, old_stable = ARP_TABLE_SIZE;
+  s8_t empty = ARP_TABLE_SIZE;
+  12:	462f      	mov	r7, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:260
+ * entry is found or could be recycled.
+ */
+static s8_t
+find_entry(ip_addr_t *ipaddr, u8_t flags)
+{
+  s8_t old_pending = ARP_TABLE_SIZE, old_stable = ARP_TABLE_SIZE;
+  14:	46a8      	mov	r8, r5
+  16:	46ac      	mov	ip, r5
+  18:	9501      	str	r5, [sp, #4]
+  1a:	468a      	mov	sl, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:286
+   */
+
+  for (i = 0; i < ARP_TABLE_SIZE; ++i) {
+    u8_t state = arp_table[i].state;
+    /* no empty entry found yet and now we do find one? */
+    if ((empty == ARP_TABLE_SIZE) && (state == ETHARP_STATE_EMPTY)) {
+  1c:	2f0a      	cmp	r7, #10
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:284
+   * 5) search for a matching IP entry, either pending or stable
+   *    until 5 matches, or all entries are searched for.
+   */
+
+  for (i = 0; i < ARP_TABLE_SIZE; ++i) {
+    u8_t state = arp_table[i].state;
+  1e:	7b91      	ldrb	r1, [r2, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:286
+    /* no empty entry found yet and now we do find one? */
+    if ((empty == ARP_TABLE_SIZE) && (state == ETHARP_STATE_EMPTY)) {
+  20:	d102      	bne.n	28 <find_entry+0x28>
+  22:	b911      	cbnz	r1, 2a <find_entry+0x2a>
+  24:	b2df      	uxtb	r7, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:289
+      LWIP_DEBUGF(ETHARP_DEBUG, ("find_entry: found empty entry %"U16_F"\n", (u16_t)i));
+      /* remember first empty entry */
+      empty = i;
+  26:	e020      	b.n	6a <find_entry+0x6a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:290
+    } else if (state != ETHARP_STATE_EMPTY) {
+  28:	b1f9      	cbz	r1, 6a <find_entry+0x6a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:294
+      LWIP_ASSERT("state == ETHARP_STATE_PENDING || state == ETHARP_STATE_STABLE",
+        state == ETHARP_STATE_PENDING || state == ETHARP_STATE_STABLE);
+      /* if given, does IP address match IP address in ARP entry? */
+      if (ipaddr && ip_addr_cmp(ipaddr, &arp_table[i].ipaddr)) {
+  2a:	b12c      	cbz	r4, 38 <find_entry+0x38>
+  2c:	6820      	ldr	r0, [r4, #0]
+  2e:	6855      	ldr	r5, [r2, #4]
+  30:	42a8      	cmp	r0, r5
+  32:	d101      	bne.n	38 <find_entry+0x38>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:297
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("find_entry: found matching entry %"U16_F"\n", (u16_t)i));
+        /* found exact IP address match, simply bail out */
+        return i;
+  34:	b2dd      	uxtb	r5, r3
+  36:	e049      	b.n	cc <find_entry+0xcc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:300
+      }
+      /* pending entry? */
+      if (state == ETHARP_STATE_PENDING) {
+  38:	2901      	cmp	r1, #1
+  3a:	d10e      	bne.n	5a <find_entry+0x5a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:302
+        /* pending with queued packets? */
+        if (arp_table[i].q != NULL) {
+  3c:	6810      	ldr	r0, [r2, #0]
+  3e:	7bd1      	ldrb	r1, [r2, #15]
+  40:	b128      	cbz	r0, 4e <find_entry+0x4e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:303
+          if (arp_table[i].ctime >= age_queue) {
+  42:	42b1      	cmp	r1, r6
+  44:	d311      	bcc.n	6a <find_entry+0x6a>
+  46:	b2d8      	uxtb	r0, r3
+  48:	9001      	str	r0, [sp, #4]
+  4a:	460e      	mov	r6, r1
+  4c:	e00d      	b.n	6a <find_entry+0x6a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:310
+            age_queue = arp_table[i].ctime;
+          }
+        } else
+        /* pending without queued packets? */
+        {
+          if (arp_table[i].ctime >= age_pending) {
+  4e:	4559      	cmp	r1, fp
+  50:	d30b      	bcc.n	6a <find_entry+0x6a>
+  52:	fa5f fc83 	uxtb.w	ip, r3
+  56:	468b      	mov	fp, r1
+  58:	e007      	b.n	6a <find_entry+0x6a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:316
+            old_pending = i;
+            age_pending = arp_table[i].ctime;
+          }
+        }
+      /* stable entry? */
+      } else if (state == ETHARP_STATE_STABLE) {
+  5a:	2902      	cmp	r1, #2
+  5c:	d105      	bne.n	6a <find_entry+0x6a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:323
+        /* don't record old_stable for static entries since they never expire */
+        if (arp_table[i].static_entry == 0)
+#endif /* ETHARP_SUPPORT_STATIC_ENTRIES */
+        {
+          /* remember entry with oldest stable entry in oldest, its age in maxtime */
+          if (arp_table[i].ctime >= age_stable) {
+  5e:	7bd1      	ldrb	r1, [r2, #15]
+  60:	4549      	cmp	r1, r9
+  62:	bf24      	itt	cs
+  64:	fa5f f883 	uxtbcs.w	r8, r3
+  68:	4689      	movcs	r9, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:283
+   * 4) remember the oldest pending entry with queued packets (if any)
+   * 5) search for a matching IP entry, either pending or stable
+   *    until 5 matches, or all entries are searched for.
+   */
+
+  for (i = 0; i < ARP_TABLE_SIZE; ++i) {
+  6a:	3301      	adds	r3, #1
+  6c:	b2db      	uxtb	r3, r3
+  6e:	3210      	adds	r2, #16
+  70:	2b0a      	cmp	r3, #10
+  72:	d1d3      	bne.n	1c <find_entry+0x1c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:334
+    }
+  }
+  /* { we have no match } => try to create a new entry */
+   
+  /* don't create new entry, only search? */
+  if (((flags & ETHARP_FLAG_FIND_ONLY) != 0) ||
+  74:	f01a 0f02 	tst.w	sl, #2
+  78:	9d01      	ldr	r5, [sp, #4]
+  7a:	d126      	bne.n	ca <find_entry+0xca>
+  7c:	2f0a      	cmp	r7, #10
+  7e:	d103      	bne.n	88 <find_entry+0x88>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:336
+      /* or no empty entry found and not allowed to recycle? */
+      ((empty == ARP_TABLE_SIZE) && ((flags & ETHARP_FLAG_TRY_HARD) == 0))) {
+  80:	f01a 0f01 	tst.w	sl, #1
+  84:	d102      	bne.n	8c <find_entry+0x8c>
+  86:	e020      	b.n	ca <find_entry+0xca>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:352
+   * { ETHARP_FLAG_TRY_HARD is set at this point }
+   */ 
+
+  /* 1) empty entry available? */
+  if (empty < ARP_TABLE_SIZE) {
+    i = empty;
+  88:	b2fd      	uxtb	r5, r7
+  8a:	e011      	b.n	b0 <find_entry+0xb0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:356
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("find_entry: selecting empty entry %"U16_F"\n", (u16_t)i));
+  } else {
+    /* 2) found recyclable stable entry? */
+    if (old_stable < ARP_TABLE_SIZE) {
+  8c:	f1b8 0f0a 	cmp.w	r8, #10
+  90:	d002      	beq.n	98 <find_entry+0x98>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:358
+      /* recycle oldest stable*/
+      i = old_stable;
+  92:	fa5f f588 	uxtb.w	r5, r8
+  96:	e008      	b.n	aa <find_entry+0xaa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:363
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("find_entry: selecting oldest stable entry %"U16_F"\n", (u16_t)i));
+      /* no queued packets should exist on stable entries */
+      LWIP_ASSERT("arp_table[i].q == NULL", arp_table[i].q == NULL);
+    /* 3) found recyclable pending entry without queued packets? */
+    } else if (old_pending < ARP_TABLE_SIZE) {
+  98:	f1bc 0f0a 	cmp.w	ip, #10
+  9c:	d002      	beq.n	a4 <find_entry+0xa4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:365
+      /* recycle oldest pending */
+      i = old_pending;
+  9e:	fa5f f58c 	uxtb.w	r5, ip
+  a2:	e002      	b.n	aa <find_entry+0xaa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:368
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("find_entry: selecting oldest pending entry %"U16_F" (without queue)\n", (u16_t)i));
+    /* 4) found recyclable pending entry with queued packets? */
+    } else if (old_queue < ARP_TABLE_SIZE) {
+  a4:	2d0a      	cmp	r5, #10
+  a6:	d010      	beq.n	ca <find_entry+0xca>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:370
+      /* recycle oldest pending (queued packets are free in free_entry) */
+      i = old_queue;
+  a8:	b2ed      	uxtb	r5, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:380
+      return (s8_t)ERR_MEM;
+    }
+
+    /* { empty or recyclable entry found } */
+    LWIP_ASSERT("i < ARP_TABLE_SIZE", i < ARP_TABLE_SIZE);
+    free_entry(i);
+  aa:	4628      	mov	r0, r5
+  ac:	f7ff fffe 	bl	0 <find_entry>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:388
+  LWIP_ASSERT("i < ARP_TABLE_SIZE", i < ARP_TABLE_SIZE);
+  LWIP_ASSERT("arp_table[i].state == ETHARP_STATE_EMPTY",
+    arp_table[i].state == ETHARP_STATE_EMPTY);
+
+  /* IP address given? */
+  if (ipaddr != NULL) {
+  b0:	b124      	cbz	r4, bc <find_entry+0xbc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:390
+    /* set IP address */
+    ip_addr_copy(arp_table[i].ipaddr, *ipaddr);
+  b2:	4a08      	ldr	r2, [pc, #32]	; (d4 <find_entry+0xd4>)
+  b4:	eb02 1305 	add.w	r3, r2, r5, lsl #4
+  b8:	6822      	ldr	r2, [r4, #0]
+  ba:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:392
+  }
+  arp_table[i].ctime = 0;
+  bc:	4805      	ldr	r0, [pc, #20]	; (d4 <find_entry+0xd4>)
+  be:	2200      	movs	r2, #0
+  c0:	eb00 1305 	add.w	r3, r0, r5, lsl #4
+  c4:	73da      	strb	r2, [r3, #15]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:396
+#if ETHARP_SUPPORT_STATIC_ENTRIES
+  arp_table[i].static_entry = 0;
+#endif /* ETHARP_SUPPORT_STATIC_ENTRIES */
+  return (err_t)i;
+  c6:	b2ed      	uxtb	r5, r5
+  c8:	e000      	b.n	cc <find_entry+0xcc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:375
+      i = old_queue;
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("find_entry: selecting oldest pending entry %"U16_F", freeing packet queue %p\n", (u16_t)i, (void *)(arp_table[i].q)));
+      /* no empty or recyclable entries found */
+    } else {
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("find_entry: no empty or recyclable entries found\n"));
+      return (s8_t)ERR_MEM;
+  ca:	25ff      	movs	r5, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:397
+  arp_table[i].ctime = 0;
+#if ETHARP_SUPPORT_STATIC_ENTRIES
+  arp_table[i].static_entry = 0;
+#endif /* ETHARP_SUPPORT_STATIC_ENTRIES */
+  return (err_t)i;
+}
+  cc:	b268      	sxtb	r0, r5
+  ce:	e8bd 8ffe 	ldmia.w	sp!, {r1, r2, r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+  d2:	bf00      	nop
+  d4:	00000000 	.word	0x00000000
+
+Disassembly of section .text.etharp_send_ip:
+
+00000000 <etharp_send_ip>:
+etharp_send_ip():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:411
+ * @params dst the destination MAC address to be copied into the ethernet header
+ * @return ERR_OK if the packet was sent, any other err_t on failure
+ */
+static err_t
+etharp_send_ip(struct netif *netif, struct pbuf *p, struct eth_addr *src, struct eth_addr *dst)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:412
+  struct eth_hdr *ethhdr = (struct eth_hdr *)p->payload;
+   4:	684c      	ldr	r4, [r1, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:416
+
+  LWIP_ASSERT("netif->hwaddr_len must be the same as ETHARP_HWADDR_LEN for etharp!",
+              (netif->hwaddr_len == ETHARP_HWADDR_LEN));
+  ETHADDR32_COPY(&ethhdr->dest, dst);
+   6:	2706      	movs	r7, #6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:411
+ * @params dst the destination MAC address to be copied into the ethernet header
+ * @return ERR_OK if the packet was sent, any other err_t on failure
+ */
+static err_t
+etharp_send_ip(struct netif *netif, struct pbuf *p, struct eth_addr *src, struct eth_addr *dst)
+{
+   8:	4606      	mov	r6, r0
+   a:	460d      	mov	r5, r1
+   c:	4690      	mov	r8, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:416
+  struct eth_hdr *ethhdr = (struct eth_hdr *)p->payload;
+
+  LWIP_ASSERT("netif->hwaddr_len must be the same as ETHARP_HWADDR_LEN for etharp!",
+              (netif->hwaddr_len == ETHARP_HWADDR_LEN));
+  ETHADDR32_COPY(&ethhdr->dest, dst);
+   e:	4619      	mov	r1, r3
+  10:	463a      	mov	r2, r7
+  12:	4620      	mov	r0, r4
+  14:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:417
+  ETHADDR16_COPY(&ethhdr->src, src);
+  18:	4641      	mov	r1, r8
+  1a:	19e0      	adds	r0, r4, r7
+  1c:	463a      	mov	r2, r7
+  1e:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:418
+  ethhdr->type = PP_HTONS(ETHTYPE_IP);
+  22:	2308      	movs	r3, #8
+  24:	7323      	strb	r3, [r4, #12]
+  26:	3b08      	subs	r3, #8
+  28:	7363      	strb	r3, [r4, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:421
+  LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_send_ip: sending packet %p\n", (void *)p));
+  /* send the packet */
+  return netif->linkoutput(netif, p);
+  2a:	69b3      	ldr	r3, [r6, #24]
+  2c:	4630      	mov	r0, r6
+  2e:	4629      	mov	r1, r5
+  30:	4798      	blx	r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:422
+}
+  32:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.etharp_tmr:
+
+00000000 <etharp_tmr>:
+etharp_tmr():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:204
+ * This function should be called every ETHARP_TMR_INTERVAL milliseconds (5 seconds),
+ * in order to expire entries in the ARP table.
+ */
+void
+etharp_tmr(void)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4c0b      	ldr	r4, [pc, #44]	; (30 <etharp_tmr+0x30>)
+   4:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:211
+
+  LWIP_DEBUGF(ETHARP_DEBUG, ("etharp_timer\n"));
+  /* remove expired entries from the ARP table */
+  for (i = 0; i < ARP_TABLE_SIZE; ++i) {
+    u8_t state = arp_table[i].state;
+    if (state != ETHARP_STATE_EMPTY
+   6:	7ba2      	ldrb	r2, [r4, #14]
+   8:	b162      	cbz	r2, 24 <etharp_tmr+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:216
+#if ETHARP_SUPPORT_STATIC_ENTRIES
+      && (arp_table[i].static_entry == 0)
+#endif /* ETHARP_SUPPORT_STATIC_ENTRIES */
+      ) {
+      arp_table[i].ctime++;
+   a:	7be3      	ldrb	r3, [r4, #15]
+   c:	3301      	adds	r3, #1
+   e:	b2db      	uxtb	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:217
+      if ((arp_table[i].ctime >= ARP_MAXAGE) ||
+  10:	2bef      	cmp	r3, #239	; 0xef
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:216
+    if (state != ETHARP_STATE_EMPTY
+#if ETHARP_SUPPORT_STATIC_ENTRIES
+      && (arp_table[i].static_entry == 0)
+#endif /* ETHARP_SUPPORT_STATIC_ENTRIES */
+      ) {
+      arp_table[i].ctime++;
+  12:	73e3      	strb	r3, [r4, #15]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:217
+      if ((arp_table[i].ctime >= ARP_MAXAGE) ||
+  14:	d803      	bhi.n	1e <etharp_tmr+0x1e>
+  16:	2a01      	cmp	r2, #1
+  18:	d104      	bne.n	24 <etharp_tmr+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:218
+          ((arp_table[i].state == ETHARP_STATE_PENDING)  &&
+  1a:	2b01      	cmp	r3, #1
+  1c:	d902      	bls.n	24 <etharp_tmr+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:224
+           (arp_table[i].ctime >= ARP_MAXPENDING))) {
+        /* pending or stable entry has become old! */
+        LWIP_DEBUGF(ETHARP_DEBUG, ("etharp_timer: expired %s entry %"U16_F".\n",
+             arp_table[i].state == ETHARP_STATE_STABLE ? "stable" : "pending", (u16_t)i));
+        /* clean up entries that have just been expired */
+        free_entry(i);
+  1e:	4628      	mov	r0, r5
+  20:	f7ff fffe 	bl	0 <etharp_tmr>
+  24:	3501      	adds	r5, #1
+  26:	3410      	adds	r4, #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:209
+{
+  u8_t i;
+
+  LWIP_DEBUGF(ETHARP_DEBUG, ("etharp_timer\n"));
+  /* remove expired entries from the ARP table */
+  for (i = 0; i < ARP_TABLE_SIZE; ++i) {
+  28:	2d0a      	cmp	r5, #10
+  2a:	d1ec      	bne.n	6 <etharp_tmr+0x6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:234
+        /* resend an ARP query here? */
+      }
+#endif /* ARP_QUEUEING */
+    }
+  }
+}
+  2c:	bd38      	pop	{r3, r4, r5, pc}
+  2e:	bf00      	nop
+  30:	00000000 	.word	0x00000000
+
+Disassembly of section .text.etharp_find_addr:
+
+00000000 <etharp_find_addr>:
+etharp_find_addr():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:585
+ * @return table index if found, -1 otherwise
+ */
+s8_t
+etharp_find_addr(struct netif *netif, ip_addr_t *ipaddr,
+         struct eth_addr **eth_ret, ip_addr_t **ip_ret)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:593
+  LWIP_ASSERT("eth_ret != NULL && ip_ret != NULL",
+    eth_ret != NULL && ip_ret != NULL);
+
+  LWIP_UNUSED_ARG(netif);
+
+  i = find_entry(ipaddr, ETHARP_FLAG_FIND_ONLY);
+   2:	4608      	mov	r0, r1
+   4:	2102      	movs	r1, #2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:585
+ * @return table index if found, -1 otherwise
+ */
+s8_t
+etharp_find_addr(struct netif *netif, ip_addr_t *ipaddr,
+         struct eth_addr **eth_ret, ip_addr_t **ip_ret)
+{
+   6:	4614      	mov	r4, r2
+   8:	461d      	mov	r5, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:593
+  LWIP_ASSERT("eth_ret != NULL && ip_ret != NULL",
+    eth_ret != NULL && ip_ret != NULL);
+
+  LWIP_UNUSED_ARG(netif);
+
+  i = find_entry(ipaddr, ETHARP_FLAG_FIND_ONLY);
+   a:	f7ff fffe 	bl	0 <etharp_find_addr>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:594
+  if((i >= 0) && arp_table[i].state == ETHARP_STATE_STABLE) {
+   e:	2800      	cmp	r0, #0
+  10:	db0b      	blt.n	2a <etharp_find_addr+0x2a>
+  12:	4a07      	ldr	r2, [pc, #28]	; (30 <etharp_find_addr+0x30>)
+  14:	0101      	lsls	r1, r0, #4
+  16:	1853      	adds	r3, r2, r1
+  18:	7b9e      	ldrb	r6, [r3, #14]
+  1a:	2e02      	cmp	r6, #2
+  1c:	d105      	bne.n	2a <etharp_find_addr+0x2a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:595
+      *eth_ret = &arp_table[i].ethaddr;
+  1e:	3108      	adds	r1, #8
+  20:	1852      	adds	r2, r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:596
+      *ip_ret = &arp_table[i].ipaddr;
+  22:	3304      	adds	r3, #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:595
+
+  LWIP_UNUSED_ARG(netif);
+
+  i = find_entry(ipaddr, ETHARP_FLAG_FIND_ONLY);
+  if((i >= 0) && arp_table[i].state == ETHARP_STATE_STABLE) {
+      *eth_ret = &arp_table[i].ethaddr;
+  24:	6022      	str	r2, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:596
+      *ip_ret = &arp_table[i].ipaddr;
+  26:	602b      	str	r3, [r5, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:597
+      return i;
+  28:	e000      	b.n	2c <etharp_find_addr+0x2c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:599
+  }
+  return -1;
+  2a:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:600
+}
+  2c:	b240      	sxtb	r0, r0
+  2e:	bd70      	pop	{r4, r5, r6, pc}
+  30:	00000000 	.word	0x00000000
+
+Disassembly of section .text.etharp_request:
+
+00000000 <etharp_request>:
+etharp_request():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1199
+ *         ERR_MEM if the ARP packet couldn't be allocated
+ *         any other err_t on failure
+ */
+err_t
+etharp_request(struct netif *netif, ip_addr_t *ipaddr)
+{
+   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+etharp_raw():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1131
+#if LWIP_AUTOIP
+  const u8_t * ethdst_hwaddr;
+#endif /* LWIP_AUTOIP */
+
+  /* allocate a pbuf for the outgoing ARP request packet */
+  p = pbuf_alloc(PBUF_RAW, SIZEOF_ETHARP_PACKET, PBUF_RAM);
+   4:	2200      	movs	r2, #0
+etharp_request():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1199
+ *         ERR_MEM if the ARP packet couldn't be allocated
+ *         any other err_t on failure
+ */
+err_t
+etharp_request(struct netif *netif, ip_addr_t *ipaddr)
+{
+   6:	4680      	mov	r8, r0
+   8:	468b      	mov	fp, r1
+etharp_raw():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1131
+#if LWIP_AUTOIP
+  const u8_t * ethdst_hwaddr;
+#endif /* LWIP_AUTOIP */
+
+  /* allocate a pbuf for the outgoing ARP request packet */
+  p = pbuf_alloc(PBUF_RAW, SIZEOF_ETHARP_PACKET, PBUF_RAM);
+   a:	2003      	movs	r0, #3
+   c:	212a      	movs	r1, #42	; 0x2a
+   e:	f7ff fffe 	bl	0 <pbuf_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1133
+  /* could allocate a pbuf for an ARP request? */
+  if (p == NULL) {
+  12:	4607      	mov	r7, r0
+  14:	2800      	cmp	r0, #0
+  16:	d049      	beq.n	ac <etharp_request+0xac>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1142
+    return ERR_MEM;
+  }
+  LWIP_ASSERT("check that first pbuf can hold struct etharp_hdr",
+              (p->len >= SIZEOF_ETHARP_PACKET));
+
+  ethhdr = (struct eth_hdr *)p->payload;
+  18:	6844      	ldr	r4, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1145
+  hdr = (struct etharp_hdr *)((u8_t*)ethhdr + SIZEOF_ETH_HDR);
+  LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_raw: sending raw ARP packet.\n"));
+  hdr->opcode = htons(opcode);
+  1a:	2001      	movs	r0, #1
+  1c:	f7ff fffe 	bl	0 <lwip_htons>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1156
+   * 'sender IP address' MUST be sent using link-layer broadcast instead of
+   * link-layer unicast. (See RFC3927 Section 2.5, last paragraph) */
+  ethdst_hwaddr = ip_addr_islinklocal(ipsrc_addr) ? (u8_t*)(ethbroadcast.addr) : ethdst_addr->addr;
+#endif /* LWIP_AUTOIP */
+  /* Write the ARP MAC-Addresses */
+  ETHADDR16_COPY(&hdr->shwaddr, hwsrc_addr);
+  20:	2606      	movs	r6, #6
+etharp_request():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1202
+err_t
+etharp_request(struct netif *netif, ip_addr_t *ipaddr)
+{
+  LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_request: sending ARP request.\n"));
+  return etharp_raw(netif, (struct eth_addr *)netif->hwaddr, &ethbroadcast,
+                    (struct eth_addr *)netif->hwaddr, &netif->ip_addr, &ethzero,
+  22:	f108 0a23 	add.w	sl, r8, #35	; 0x23
+etharp_raw():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1145
+              (p->len >= SIZEOF_ETHARP_PACKET));
+
+  ethhdr = (struct eth_hdr *)p->payload;
+  hdr = (struct etharp_hdr *)((u8_t*)ethhdr + SIZEOF_ETH_HDR);
+  LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_raw: sending raw ARP packet.\n"));
+  hdr->opcode = htons(opcode);
+  26:	7520      	strb	r0, [r4, #20]
+  28:	0a00      	lsrs	r0, r0, #8
+  2a:	f04f 0900 	mov.w	r9, #0
+  2e:	7560      	strb	r0, [r4, #21]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1156
+   * 'sender IP address' MUST be sent using link-layer broadcast instead of
+   * link-layer unicast. (See RFC3927 Section 2.5, last paragraph) */
+  ethdst_hwaddr = ip_addr_islinklocal(ipsrc_addr) ? (u8_t*)(ethbroadcast.addr) : ethdst_addr->addr;
+#endif /* LWIP_AUTOIP */
+  /* Write the ARP MAC-Addresses */
+  ETHADDR16_COPY(&hdr->shwaddr, hwsrc_addr);
+  30:	4651      	mov	r1, sl
+  32:	4632      	mov	r2, r6
+  34:	f104 0016 	add.w	r0, r4, #22
+  38:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1157
+  ETHADDR16_COPY(&hdr->dhwaddr, hwdst_addr);
+  3c:	4649      	mov	r1, r9
+  3e:	4632      	mov	r2, r6
+  40:	f104 0020 	add.w	r0, r4, #32
+  44:	f7ff fffe 	bl	0 <memset>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1162
+  /* Write the Ethernet MAC-Addresses */
+#if LWIP_AUTOIP
+  ETHADDR16_COPY(&ethhdr->dest, ethdst_hwaddr);
+#else  /* LWIP_AUTOIP */
+  ETHADDR16_COPY(&ethhdr->dest, ethdst_addr);
+  48:	4632      	mov	r2, r6
+  4a:	4620      	mov	r0, r4
+  4c:	4919      	ldr	r1, [pc, #100]	; (b4 <etharp_request+0xb4>)
+  4e:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1164
+#endif /* LWIP_AUTOIP */
+  ETHADDR16_COPY(&ethhdr->src, ethsrc_addr);
+  52:	19a0      	adds	r0, r4, r6
+  54:	4651      	mov	r1, sl
+  56:	4632      	mov	r2, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1167
+  /* Copy struct ip_addr2 to aligned ip_addr, to support compilers without
+   * structure packing. */ 
+  IPADDR2_COPY(&hdr->sipaddr, ipsrc_addr);
+  58:	f04f 0a04 	mov.w	sl, #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1164
+#if LWIP_AUTOIP
+  ETHADDR16_COPY(&ethhdr->dest, ethdst_hwaddr);
+#else  /* LWIP_AUTOIP */
+  ETHADDR16_COPY(&ethhdr->dest, ethdst_addr);
+#endif /* LWIP_AUTOIP */
+  ETHADDR16_COPY(&ethhdr->src, ethsrc_addr);
+  5c:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1167
+  /* Copy struct ip_addr2 to aligned ip_addr, to support compilers without
+   * structure packing. */ 
+  IPADDR2_COPY(&hdr->sipaddr, ipsrc_addr);
+  60:	eb08 010a 	add.w	r1, r8, sl
+  64:	4652      	mov	r2, sl
+  66:	f104 001c 	add.w	r0, r4, #28
+  6a:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1168
+  IPADDR2_COPY(&hdr->dipaddr, ipdst_addr);
+  6e:	4659      	mov	r1, fp
+  70:	4652      	mov	r2, sl
+  72:	f104 0026 	add.w	r0, r4, #38	; 0x26
+  76:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1170
+
+  hdr->hwtype = PP_HTONS(HWTYPE_ETHERNET);
+  7a:	2301      	movs	r3, #1
+  7c:	73e3      	strb	r3, [r4, #15]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1171
+  hdr->proto = PP_HTONS(ETHTYPE_IP);
+  7e:	3307      	adds	r3, #7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1170
+  /* Copy struct ip_addr2 to aligned ip_addr, to support compilers without
+   * structure packing. */ 
+  IPADDR2_COPY(&hdr->sipaddr, ipsrc_addr);
+  IPADDR2_COPY(&hdr->dipaddr, ipdst_addr);
+
+  hdr->hwtype = PP_HTONS(HWTYPE_ETHERNET);
+  80:	f884 900e 	strb.w	r9, [r4, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1171
+  hdr->proto = PP_HTONS(ETHTYPE_IP);
+  84:	f884 9011 	strb.w	r9, [r4, #17]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1173
+  /* set hwlen and protolen */
+  hdr->hwlen = ETHARP_HWADDR_LEN;
+  88:	74a6      	strb	r6, [r4, #18]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1174
+  hdr->protolen = sizeof(ip_addr_t);
+  8a:	f884 a013 	strb.w	sl, [r4, #19]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1176
+
+  ethhdr->type = PP_HTONS(ETHTYPE_ARP);
+  8e:	7366      	strb	r6, [r4, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1171
+   * structure packing. */ 
+  IPADDR2_COPY(&hdr->sipaddr, ipsrc_addr);
+  IPADDR2_COPY(&hdr->dipaddr, ipdst_addr);
+
+  hdr->hwtype = PP_HTONS(HWTYPE_ETHERNET);
+  hdr->proto = PP_HTONS(ETHTYPE_IP);
+  90:	7423      	strb	r3, [r4, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1176
+  /* set hwlen and protolen */
+  hdr->hwlen = ETHARP_HWADDR_LEN;
+  hdr->protolen = sizeof(ip_addr_t);
+
+  ethhdr->type = PP_HTONS(ETHTYPE_ARP);
+  92:	7323      	strb	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1178
+  /* send ARP query */
+  result = netif->linkoutput(netif, p);
+  94:	f8d8 3018 	ldr.w	r3, [r8, #24]
+  98:	4640      	mov	r0, r8
+  9a:	4639      	mov	r1, r7
+  9c:	4798      	blx	r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1143
+  }
+  LWIP_ASSERT("check that first pbuf can hold struct etharp_hdr",
+              (p->len >= SIZEOF_ETHARP_PACKET));
+
+  ethhdr = (struct eth_hdr *)p->payload;
+  hdr = (struct etharp_hdr *)((u8_t*)ethhdr + SIZEOF_ETH_HDR);
+  9e:	f104 050e 	add.w	r5, r4, #14
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1178
+  hdr->hwlen = ETHARP_HWADDR_LEN;
+  hdr->protolen = sizeof(ip_addr_t);
+
+  ethhdr->type = PP_HTONS(ETHTYPE_ARP);
+  /* send ARP query */
+  result = netif->linkoutput(netif, p);
+  a2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1181
+  ETHARP_STATS_INC(etharp.xmit);
+  /* free ARP query packet */
+  pbuf_free(p);
+  a4:	4638      	mov	r0, r7
+  a6:	f7ff fffe 	bl	0 <pbuf_free>
+  aa:	e000      	b.n	ae <etharp_request+0xae>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1137
+  /* could allocate a pbuf for an ARP request? */
+  if (p == NULL) {
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_SERIOUS,
+      ("etharp_raw: could not allocate pbuf for ARP request.\n"));
+    ETHARP_STATS_INC(etharp.memerr);
+    return ERR_MEM;
+  ac:	24ff      	movs	r4, #255	; 0xff
+etharp_request():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1204
+{
+  LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_request: sending ARP request.\n"));
+  return etharp_raw(netif, (struct eth_addr *)netif->hwaddr, &ethbroadcast,
+                    (struct eth_addr *)netif->hwaddr, &netif->ip_addr, &ethzero,
+                    ipaddr, ARP_REQUEST);
+}
+  ae:	b260      	sxtb	r0, r4
+  b0:	e8bd 8ff8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+  b4:	00000000 	.word	0x00000000
+
+Disassembly of section .text.etharp_query:
+
+00000000 <etharp_query>:
+etharp_query():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:958
+ * - ERR_ARG Non-unicast address given, those will not appear in ARP cache.
+ *
+ */
+err_t
+etharp_query(struct netif *netif, ip_addr_t *ipaddr, struct pbuf *q)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4680      	mov	r8, r0
+   6:	460f      	mov	r7, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:964
+  struct eth_addr * srcaddr = (struct eth_addr *)netif->hwaddr;
+  err_t result = ERR_MEM;
+  s8_t i; /* ARP entry index */
+
+  /* non-unicast address? */
+  if (ip_addr_isbroadcast(ipaddr, netif) ||
+   8:	6808      	ldr	r0, [r1, #0]
+   a:	4641      	mov	r1, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:958
+ * - ERR_ARG Non-unicast address given, those will not appear in ARP cache.
+ *
+ */
+err_t
+etharp_query(struct netif *netif, ip_addr_t *ipaddr, struct pbuf *q)
+{
+   c:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:964
+  struct eth_addr * srcaddr = (struct eth_addr *)netif->hwaddr;
+  err_t result = ERR_MEM;
+  s8_t i; /* ARP entry index */
+
+  /* non-unicast address? */
+  if (ip_addr_isbroadcast(ipaddr, netif) ||
+   e:	f7ff fffe 	bl	0 <ip4_addr_isbroadcast>
+  12:	2800      	cmp	r0, #0
+  14:	d156      	bne.n	c4 <etharp_query+0xc4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:965
+      ip_addr_ismulticast(ipaddr) ||
+  16:	683b      	ldr	r3, [r7, #0]
+  18:	f003 02f0 	and.w	r2, r3, #240	; 0xf0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:964
+  struct eth_addr * srcaddr = (struct eth_addr *)netif->hwaddr;
+  err_t result = ERR_MEM;
+  s8_t i; /* ARP entry index */
+
+  /* non-unicast address? */
+  if (ip_addr_isbroadcast(ipaddr, netif) ||
+  1c:	2ae0      	cmp	r2, #224	; 0xe0
+  1e:	d051      	beq.n	c4 <etharp_query+0xc4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:966
+      ip_addr_ismulticast(ipaddr) ||
+      ip_addr_isany(ipaddr)) {
+  20:	2b00      	cmp	r3, #0
+  22:	d04f      	beq.n	c4 <etharp_query+0xc4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:972
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: will not add non-unicast IP address to ARP cache\n"));
+    return ERR_ARG;
+  }
+
+  /* find entry in ARP cache, ask to create entry if queueing packet */
+  i = find_entry(ipaddr, ETHARP_FLAG_TRY_HARD);
+  24:	2101      	movs	r1, #1
+  26:	4638      	mov	r0, r7
+  28:	f7ff fffe 	bl	0 <etharp_query>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:975
+
+  /* could not find or create entry? */
+  if (i < 0) {
+  2c:	1e04      	subs	r4, r0, #0
+  2e:	db50      	blt.n	d2 <etharp_query+0xd2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:985
+    }
+    return (err_t)i;
+  }
+
+  /* mark a fresh entry as pending (we just sent a request) */
+  if (arp_table[i].state == ETHARP_STATE_EMPTY) {
+  30:	4e2c      	ldr	r6, [pc, #176]	; (e4 <etharp_query+0xe4>)
+  32:	0123      	lsls	r3, r4, #4
+  34:	18f2      	adds	r2, r6, r3
+  36:	7b91      	ldrb	r1, [r2, #14]
+  38:	3208      	adds	r2, #8
+  3a:	b909      	cbnz	r1, 40 <etharp_query+0x40>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:986
+    arp_table[i].state = ETHARP_STATE_PENDING;
+  3c:	3101      	adds	r1, #1
+  3e:	7191      	strb	r1, [r2, #6]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:995
+  LWIP_ASSERT("arp_table[i].state == PENDING or STABLE",
+  ((arp_table[i].state == ETHARP_STATE_PENDING) ||
+   (arp_table[i].state == ETHARP_STATE_STABLE)));
+
+  /* do we have a pending entry? or an implicit query request? */
+  if ((arp_table[i].state == ETHARP_STATE_PENDING) || (q == NULL)) {
+  40:	18f3      	adds	r3, r6, r3
+  42:	7b9b      	ldrb	r3, [r3, #14]
+  44:	2b01      	cmp	r3, #1
+  46:	d000      	beq.n	4a <etharp_query+0x4a>
+  48:	b935      	cbnz	r5, 58 <etharp_query+0x58>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:997
+    /* try to resolve it; send out ARP request */
+    result = etharp_request(netif, ipaddr);
+  4a:	4640      	mov	r0, r8
+  4c:	4639      	mov	r1, r7
+  4e:	f7ff fffe 	bl	0 <etharp_query>
+  52:	4602      	mov	r2, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1004
+      /* ARP request couldn't be sent */
+      /* We don't re-send arp request in etharp_tmr, but we still queue packets,
+         since this failure could be temporary, and the next packet calling
+         etharp_query again could lead to sending the queued packets. */
+    }
+    if (q == NULL) {
+  54:	b90d      	cbnz	r5, 5a <etharp_query+0x5a>
+  56:	e037      	b.n	c8 <etharp_query+0xc8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:960
+ */
+err_t
+etharp_query(struct netif *netif, ip_addr_t *ipaddr, struct pbuf *q)
+{
+  struct eth_addr * srcaddr = (struct eth_addr *)netif->hwaddr;
+  err_t result = ERR_MEM;
+  58:	22ff      	movs	r2, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1012
+  }
+
+  /* packet given? */
+  LWIP_ASSERT("q != NULL", q != NULL);
+  /* stable entry? */
+  if (arp_table[i].state == ETHARP_STATE_STABLE) {
+  5a:	0123      	lsls	r3, r4, #4
+  5c:	18f1      	adds	r1, r6, r3
+  5e:	7b89      	ldrb	r1, [r1, #14]
+  60:	4f20      	ldr	r7, [pc, #128]	; (e4 <etharp_query+0xe4>)
+  62:	2902      	cmp	r1, #2
+  64:	d10b      	bne.n	7e <etharp_query+0x7e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1016
+    /* we have a valid IP->Ethernet address mapping */
+    ETHARP_SET_HINT(netif, i);
+    /* send the packet */
+    result = etharp_send_ip(netif, q, srcaddr, &(arp_table[i].ethaddr));
+  66:	3308      	adds	r3, #8
+  68:	4640      	mov	r0, r8
+  6a:	4629      	mov	r1, r5
+  6c:	f108 0223 	add.w	r2, r8, #35	; 0x23
+  70:	18fb      	adds	r3, r7, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1014
+  /* packet given? */
+  LWIP_ASSERT("q != NULL", q != NULL);
+  /* stable entry? */
+  if (arp_table[i].state == ETHARP_STATE_STABLE) {
+    /* we have a valid IP->Ethernet address mapping */
+    ETHARP_SET_HINT(netif, i);
+  72:	f887 40a0 	strb.w	r4, [r7, #160]	; 0xa0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1095
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: could not queue a copy of PBUF_REF packet %p (out of memory)\n", (void *)q));
+      result = ERR_MEM;
+    }
+  }
+  return result;
+}
+  76:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1016
+  /* stable entry? */
+  if (arp_table[i].state == ETHARP_STATE_STABLE) {
+    /* we have a valid IP->Ethernet address mapping */
+    ETHARP_SET_HINT(netif, i);
+    /* send the packet */
+    result = etharp_send_ip(netif, q, srcaddr, &(arp_table[i].ethaddr));
+  7a:	f7ff bffe 	b.w	0 <etharp_query>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1018
+  /* pending entry? (either just created or already pending */
+  } else if (arp_table[i].state == ETHARP_STATE_PENDING) {
+  7e:	2901      	cmp	r1, #1
+  80:	d124      	bne.n	cc <etharp_query+0xcc>
+  82:	462b      	mov	r3, r5
+  84:	e003      	b.n	8e <etharp_query+0x8e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1028
+     * to copy the whole queue into a new PBUF_RAM (see bug #11400) 
+     * PBUF_ROMs can be left as they are, since ROM must not get changed. */
+    p = q;
+    while (p) {
+      LWIP_ASSERT("no packet queues allowed!", (p->len != p->tot_len) || (p->next == 0));
+      if(p->type != PBUF_ROM) {
+  86:	7b1a      	ldrb	r2, [r3, #12]
+  88:	2a01      	cmp	r2, #1
+  8a:	d103      	bne.n	94 <etharp_query+0x94>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1032
+        copy_needed = 1;
+        break;
+      }
+      p = p->next;
+  8c:	681b      	ldr	r3, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1026
+    int copy_needed = 0;
+    /* IF q includes a PBUF_REF, PBUF_POOL or PBUF_RAM, we have no choice but
+     * to copy the whole queue into a new PBUF_RAM (see bug #11400) 
+     * PBUF_ROMs can be left as they are, since ROM must not get changed. */
+    p = q;
+    while (p) {
+  8e:	2b00      	cmp	r3, #0
+  90:	d1f9      	bne.n	86 <etharp_query+0x86>
+  92:	e021      	b.n	d8 <etharp_query+0xd8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1036
+      }
+      p = p->next;
+    }
+    if(copy_needed) {
+      /* copy the whole packet into new pbufs */
+      p = pbuf_alloc(PBUF_RAW, p->tot_len, PBUF_RAM);
+  94:	2003      	movs	r0, #3
+  96:	8919      	ldrh	r1, [r3, #8]
+  98:	2200      	movs	r2, #0
+  9a:	f7ff fffe 	bl	0 <pbuf_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1037
+      if(p != NULL) {
+  9e:	4607      	mov	r7, r0
+  a0:	b1b0      	cbz	r0, d0 <etharp_query+0xd0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1038
+        if (pbuf_copy(p, q) != ERR_OK) {
+  a2:	4629      	mov	r1, r5
+  a4:	f7ff fffe 	bl	0 <pbuf_copy>
+  a8:	b120      	cbz	r0, b4 <etharp_query+0xb4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1039
+          pbuf_free(p);
+  aa:	4638      	mov	r0, r7
+  ac:	f7ff fffe 	bl	0 <pbuf_free>
+  b0:	e00e      	b.n	d0 <etharp_query+0xd0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1049
+      /* referencing the old pbuf is enough */
+      p = q;
+      pbuf_ref(p);
+    }
+    /* packet could be taken over? */
+    if (p != NULL) {
+  b2:	462f      	mov	r7, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1080
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: could not queue a copy of PBUF_REF packet %p (out of memory)\n", (void *)q));
+        result = ERR_MEM;
+      }
+#else /* ARP_QUEUEING */
+      /* always queue one packet per ARP request only, freeing a previously queued packet */
+      if (arp_table[i].q != NULL) {
+  b4:	0124      	lsls	r4, r4, #4
+  b6:	5930      	ldr	r0, [r6, r4]
+  b8:	b108      	cbz	r0, be <etharp_query+0xbe>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1082
+        LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: dropped previously queued packet %p for ARP entry %"S16_F"\n", (void *)q, (s16_t)i));
+        pbuf_free(arp_table[i].q);
+  ba:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1084
+      }
+      arp_table[i].q = p;
+  be:	5137      	str	r7, [r6, r4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1085
+      result = ERR_OK;
+  c0:	2400      	movs	r4, #0
+  c2:	e006      	b.n	d2 <etharp_query+0xd2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:968
+  /* non-unicast address? */
+  if (ip_addr_isbroadcast(ipaddr, netif) ||
+      ip_addr_ismulticast(ipaddr) ||
+      ip_addr_isany(ipaddr)) {
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: will not add non-unicast IP address to ARP cache\n"));
+    return ERR_ARG;
+  c4:	24f2      	movs	r4, #242	; 0xf2
+  c6:	e004      	b.n	d2 <etharp_query+0xd2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1005
+      /* We don't re-send arp request in etharp_tmr, but we still queue packets,
+         since this failure could be temporary, and the next packet calling
+         etharp_query again could lead to sending the queued packets. */
+    }
+    if (q == NULL) {
+      return result;
+  c8:	4604      	mov	r4, r0
+  ca:	e002      	b.n	d2 <etharp_query+0xd2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1018
+    /* we have a valid IP->Ethernet address mapping */
+    ETHARP_SET_HINT(netif, i);
+    /* send the packet */
+    result = etharp_send_ip(netif, q, srcaddr, &(arp_table[i].ethaddr));
+  /* pending entry? (either just created or already pending */
+  } else if (arp_table[i].state == ETHARP_STATE_PENDING) {
+  cc:	4614      	mov	r4, r2
+  ce:	e000      	b.n	d2 <etharp_query+0xd2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1091
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: queued packet %p on ARP entry %"S16_F"\n", (void *)q, (s16_t)i));
+#endif /* ARP_QUEUEING */
+    } else {
+      ETHARP_STATS_INC(etharp.memerr);
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_query: could not queue a copy of PBUF_REF packet %p (out of memory)\n", (void *)q));
+      result = ERR_MEM;
+  d0:	24ff      	movs	r4, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1095
+    }
+  }
+  return result;
+}
+  d2:	b260      	sxtb	r0, r4
+  d4:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1046
+        }
+      }
+    } else {
+      /* referencing the old pbuf is enough */
+      p = q;
+      pbuf_ref(p);
+  d8:	4628      	mov	r0, r5
+  da:	f7ff fffe 	bl	0 <pbuf_ref>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1049
+    }
+    /* packet could be taken over? */
+    if (p != NULL) {
+  de:	2d00      	cmp	r5, #0
+  e0:	d1e7      	bne.n	b2 <etharp_query+0xb2>
+  e2:	e7f5      	b.n	d0 <etharp_query+0xd0>
+  e4:	00000000 	.word	0x00000000
+
+Disassembly of section .text.etharp_output:
+
+00000000 <etharp_output>:
+etharp_output():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:838
+ * - ERR_RTE No route to destination (no gateway to external networks),
+ * or the return type of either etharp_query() or etharp_send_ip().
+ */
+err_t
+etharp_output(struct netif *netif, struct pbuf *q, ip_addr_t *ipaddr)
+{
+   0:	4604b5f7 	.word	0x4604b5f7
+   4:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:842
+  struct eth_addr *dest, mcastaddr;
+
+  /* make room for Ethernet header - should not fail */
+  if (pbuf_header(q, sizeof(struct eth_hdr)) != 0) {
+   6:	4608      	mov	r0, r1
+   8:	210e      	movs	r1, #14
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:838
+ * - ERR_RTE No route to destination (no gateway to external networks),
+ * or the return type of either etharp_query() or etharp_send_ip().
+ */
+err_t
+etharp_output(struct netif *netif, struct pbuf *q, ip_addr_t *ipaddr)
+{
+   a:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:842
+  struct eth_addr *dest, mcastaddr;
+
+  /* make room for Ethernet header - should not fail */
+  if (pbuf_header(q, sizeof(struct eth_hdr)) != 0) {
+   c:	f7ff fffe 	bl	0 <pbuf_header>
+  10:	2800      	cmp	r0, #0
+  12:	d14f      	bne.n	b4 <etharp_output+0xb4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:856
+  dest = NULL;
+  /* Determine on destination hardware address. Broadcasts and multicasts
+   * are special, other IP addresses are looked up in the ARP table. */
+
+  /* broadcast destination IP address? */
+  if (ip_addr_isbroadcast(ipaddr, netif)) {
+  14:	6830      	ldr	r0, [r6, #0]
+  16:	4621      	mov	r1, r4
+  18:	f7ff fffe 	bl	0 <ip4_addr_isbroadcast>
+  1c:	2800      	cmp	r0, #0
+  1e:	d141      	bne.n	a4 <etharp_output+0xa4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:860
+    /* broadcast on Ethernet also */
+    dest = (struct eth_addr *)&ethbroadcast;
+  /* multicast destination IP address? */
+  } else if (ip_addr_ismulticast(ipaddr)) {
+  20:	6833      	ldr	r3, [r6, #0]
+  22:	f003 02f0 	and.w	r2, r3, #240	; 0xf0
+  26:	2ae0      	cmp	r2, #224	; 0xe0
+  28:	d114      	bne.n	54 <etharp_output+0x54>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:862
+    /* Hash IP multicast address to MAC address.*/
+    mcastaddr.addr[0] = 0x01;
+  2a:	2301      	movs	r3, #1
+  2c:	f88d 3000 	strb.w	r3, [sp]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:864
+    mcastaddr.addr[1] = 0x00;
+    mcastaddr.addr[2] = 0x5e;
+  30:	335d      	adds	r3, #93	; 0x5d
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:863
+    dest = (struct eth_addr *)&ethbroadcast;
+  /* multicast destination IP address? */
+  } else if (ip_addr_ismulticast(ipaddr)) {
+    /* Hash IP multicast address to MAC address.*/
+    mcastaddr.addr[0] = 0x01;
+    mcastaddr.addr[1] = 0x00;
+  32:	f88d 0001 	strb.w	r0, [sp, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:864
+    mcastaddr.addr[2] = 0x5e;
+  36:	f88d 3002 	strb.w	r3, [sp, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:865
+    mcastaddr.addr[3] = ip4_addr2(ipaddr) & 0x7f;
+  3a:	7873      	ldrb	r3, [r6, #1]
+  3c:	f003 037f 	and.w	r3, r3, #127	; 0x7f
+  40:	f88d 3003 	strb.w	r3, [sp, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:866
+    mcastaddr.addr[4] = ip4_addr3(ipaddr);
+  44:	78b3      	ldrb	r3, [r6, #2]
+  46:	f88d 3004 	strb.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:867
+    mcastaddr.addr[5] = ip4_addr4(ipaddr);
+  4a:	78f3      	ldrb	r3, [r6, #3]
+  4c:	f88d 3005 	strb.w	r3, [sp, #5]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:869
+    /* destination Ethernet address is multicast */
+    dest = &mcastaddr;
+  50:	466b      	mov	r3, sp
+  52:	e028      	b.n	a6 <etharp_output+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:873
+  /* unicast destination IP address? */
+  } else {
+    /* outside local network? */
+    if (!ip_addr_netcmp(ipaddr, &(netif->ip_addr), &(netif->netmask)) &&
+  54:	6861      	ldr	r1, [r4, #4]
+  56:	68a2      	ldr	r2, [r4, #8]
+  58:	ea83 0101 	eor.w	r1, r3, r1
+  5c:	4211      	tst	r1, r2
+  5e:	d008      	beq.n	72 <etharp_output+0x72>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:874
+        !ip_addr_islinklocal(ipaddr)) {
+  60:	b29b      	uxth	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:873
+    /* destination Ethernet address is multicast */
+    dest = &mcastaddr;
+  /* unicast destination IP address? */
+  } else {
+    /* outside local network? */
+    if (!ip_addr_netcmp(ipaddr, &(netif->ip_addr), &(netif->netmask)) &&
+  62:	f64f 62a9 	movw	r2, #65193	; 0xfea9
+  66:	4293      	cmp	r3, r2
+  68:	d003      	beq.n	72 <etharp_output+0x72>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:886
+         router for forwarding". */
+      if (!ip_addr_islinklocal(&iphdr->src))
+#endif /* LWIP_AUTOIP */
+      {
+        /* interface has default gateway? */
+        if (!ip_addr_isany(&netif->gw)) {
+  6a:	68e3      	ldr	r3, [r4, #12]
+  6c:	b323      	cbz	r3, b8 <etharp_output+0xb8>
+  6e:	f104 060c 	add.w	r6, r4, #12
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:902
+    if (netif->addr_hint != NULL) {
+      /* per-pcb cached entry was given */
+      u8_t etharp_cached_entry = *(netif->addr_hint);
+      if (etharp_cached_entry < ARP_TABLE_SIZE) {
+#endif /* LWIP_NETIF_HWADDRHINT */
+        if ((arp_table[etharp_cached_entry].state == ETHARP_STATE_STABLE) &&
+  72:	4f13      	ldr	r7, [pc, #76]	; (c0 <etharp_output+0xc0>)
+  74:	f897 30a0 	ldrb.w	r3, [r7, #160]	; 0xa0
+  78:	011b      	lsls	r3, r3, #4
+  7a:	18fa      	adds	r2, r7, r3
+  7c:	7b91      	ldrb	r1, [r2, #14]
+  7e:	2902      	cmp	r1, #2
+  80:	d10a      	bne.n	98 <etharp_output+0x98>
+  82:	6831      	ldr	r1, [r6, #0]
+  84:	6852      	ldr	r2, [r2, #4]
+  86:	4291      	cmp	r1, r2
+  88:	d106      	bne.n	98 <etharp_output+0x98>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:906
+            (ip_addr_cmp(ipaddr, &arp_table[etharp_cached_entry].ipaddr))) {
+          /* the per-pcb-cached entry is stable and the right one! */
+          ETHARP_STATS_INC(etharp.cachehit);
+          return etharp_send_ip(netif, q, (struct eth_addr*)(netif->hwaddr),
+  8a:	3308      	adds	r3, #8
+  8c:	4620      	mov	r0, r4
+  8e:	4629      	mov	r1, r5
+  90:	f104 0223 	add.w	r2, r4, #35	; 0x23
+  94:	18fb      	adds	r3, r7, r3
+  96:	e00a      	b.n	ae <etharp_output+0xae>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:914
+#if LWIP_NETIF_HWADDRHINT
+      }
+    }
+#endif /* LWIP_NETIF_HWADDRHINT */
+    /* queue on destination Ethernet address belonging to ipaddr */
+    return etharp_query(netif, ipaddr, q);
+  98:	4620      	mov	r0, r4
+  9a:	4631      	mov	r1, r6
+  9c:	462a      	mov	r2, r5
+  9e:	f7ff fffe 	bl	0 <etharp_output>
+  a2:	e00a      	b.n	ba <etharp_output+0xba>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:858
+   * are special, other IP addresses are looked up in the ARP table. */
+
+  /* broadcast destination IP address? */
+  if (ip_addr_isbroadcast(ipaddr, netif)) {
+    /* broadcast on Ethernet also */
+    dest = (struct eth_addr *)&ethbroadcast;
+  a4:	4b07      	ldr	r3, [pc, #28]	; (c4 <etharp_output+0xc4>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:920
+  }
+
+  /* continuation for multicast/broadcast destinations */
+  /* obtain source Ethernet address of the given interface */
+  /* send packet directly on the link */
+  return etharp_send_ip(netif, q, (struct eth_addr*)(netif->hwaddr), dest);
+  a6:	4620      	mov	r0, r4
+  a8:	4629      	mov	r1, r5
+  aa:	f104 0223 	add.w	r2, r4, #35	; 0x23
+  ae:	f7ff fffe 	bl	0 <etharp_output>
+  b2:	e002      	b.n	ba <etharp_output+0xba>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:847
+  if (pbuf_header(q, sizeof(struct eth_hdr)) != 0) {
+    /* bail out */
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_SERIOUS,
+      ("etharp_output: could not allocate room for header.\n"));
+    LINK_STATS_INC(link.lenerr);
+    return ERR_BUF;
+  b4:	20fe      	movs	r0, #254	; 0xfe
+  b6:	e000      	b.n	ba <etharp_output+0xba>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:892
+          /* send to hardware address of default gateway IP address */
+          ipaddr = &(netif->gw);
+        /* no default gateway available */
+        } else {
+          /* no route to destination error (default gateway missing) */
+          return ERR_RTE;
+  b8:	20fc      	movs	r0, #252	; 0xfc
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:921
+
+  /* continuation for multicast/broadcast destinations */
+  /* obtain source Ethernet address of the given interface */
+  /* send packet directly on the link */
+  return etharp_send_ip(netif, q, (struct eth_addr*)(netif->hwaddr), dest);
+}
+  ba:	b240      	sxtb	r0, r0
+  bc:	bdfe      	pop	{r1, r2, r3, r4, r5, r6, r7, pc}
+  be:	bf00      	nop
+	...
+
+Disassembly of section .text.ethernet_input:
+
+00000000 <ethernet_input>:
+ethernet_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1217
+ * @param p the recevied packet, p->payload pointing to the ethernet header
+ * @param netif the network interface on which the packet was received
+ */
+err_t
+ethernet_input(struct pbuf *p, struct netif *netif)
+{
+   0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1222
+  struct eth_hdr* ethhdr;
+  u16_t type;
+  s16_t ip_hdr_offset = SIZEOF_ETH_HDR;
+
+  if (p->len <= SIZEOF_ETH_HDR) {
+   4:	8943      	ldrh	r3, [r0, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1217
+ * @param p the recevied packet, p->payload pointing to the ethernet header
+ * @param netif the network interface on which the packet was received
+ */
+err_t
+ethernet_input(struct pbuf *p, struct netif *netif)
+{
+   6:	b089      	sub	sp, #36	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1222
+  struct eth_hdr* ethhdr;
+  u16_t type;
+  s16_t ip_hdr_offset = SIZEOF_ETH_HDR;
+
+  if (p->len <= SIZEOF_ETH_HDR) {
+   8:	2b0e      	cmp	r3, #14
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1217
+ * @param p the recevied packet, p->payload pointing to the ethernet header
+ * @param netif the network interface on which the packet was received
+ */
+err_t
+ethernet_input(struct pbuf *p, struct netif *netif)
+{
+   a:	4680      	mov	r8, r0
+   c:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1222
+  struct eth_hdr* ethhdr;
+  u16_t type;
+  s16_t ip_hdr_offset = SIZEOF_ETH_HDR;
+
+  if (p->len <= SIZEOF_ETH_HDR) {
+   e:	f240 80c9 	bls.w	1a4 <ethernet_input+0x1a4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1230
+    ETHARP_STATS_INC(etharp.drop);
+    goto free_and_return;
+  }
+
+  /* points to packet payload, which starts with an Ethernet header */
+  ethhdr = (struct eth_hdr *)p->payload;
+  12:	6846      	ldr	r6, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1239
+     (unsigned)ethhdr->dest.addr[3], (unsigned)ethhdr->dest.addr[4], (unsigned)ethhdr->dest.addr[5],
+     (unsigned)ethhdr->src.addr[0], (unsigned)ethhdr->src.addr[1], (unsigned)ethhdr->src.addr[2],
+     (unsigned)ethhdr->src.addr[3], (unsigned)ethhdr->src.addr[4], (unsigned)ethhdr->src.addr[5],
+     (unsigned)htons(ethhdr->type)));
+
+  type = ethhdr->type;
+  14:	7b32      	ldrb	r2, [r6, #12]
+  16:	7b71      	ldrb	r1, [r6, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1265
+
+#if LWIP_ARP_FILTER_NETIF
+  netif = LWIP_ARP_FILTER_NETIF_FN(p, netif, htons(type));
+#endif /* LWIP_ARP_FILTER_NETIF*/
+
+  switch (type) {
+  18:	ea42 2201 	orr.w	r2, r2, r1, lsl #8
+  1c:	2a08      	cmp	r2, #8
+  1e:	d004      	beq.n	2a <ethernet_input+0x2a>
+  20:	f5b2 6fc1 	cmp.w	r2, #1544	; 0x608
+  24:	f040 80be 	bne.w	1a4 <ethernet_input+0x1a4>
+  28:	e011      	b.n	4e <ethernet_input+0x4e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1269
+#if LWIP_ARP
+    /* IP packet? */
+    case PP_HTONS(ETHTYPE_IP):
+      if (!(netif->flags & NETIF_FLAG_ETHARP)) {
+  2a:	f895 3029 	ldrb.w	r3, [r5, #41]	; 0x29
+  2e:	f013 0f20 	tst.w	r3, #32
+  32:	f000 80b7 	beq.w	1a4 <ethernet_input+0x1a4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1277
+#if ETHARP_TRUST_IP_MAC
+      /* update ARP table */
+      etharp_ip_input(netif, p);
+#endif /* ETHARP_TRUST_IP_MAC */
+      /* skip Ethernet header */
+      if(pbuf_header(p, -ip_hdr_offset)) {
+  36:	f06f 010d 	mvn.w	r1, #13
+  3a:	f7ff fffe 	bl	0 <pbuf_header>
+  3e:	2800      	cmp	r0, #0
+  40:	f040 80b0 	bne.w	1a4 <ethernet_input+0x1a4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1282
+        LWIP_ASSERT("Can't move over header in packet", 0);
+        goto free_and_return;
+      } else {
+        /* pass to IP layer */
+        ip_input(p, netif);
+  44:	4640      	mov	r0, r8
+  46:	4629      	mov	r1, r5
+  48:	f7ff fffe 	bl	0 <ip_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1284
+      }
+      break;
+  4c:	e0ad      	b.n	1aa <ethernet_input+0x1aa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1287
+      
+    case PP_HTONS(ETHTYPE_ARP):
+      if (!(netif->flags & NETIF_FLAG_ETHARP)) {
+  4e:	f895 2029 	ldrb.w	r2, [r5, #41]	; 0x29
+  52:	f012 0f20 	tst.w	r2, #32
+  56:	f000 80a5 	beq.w	1a4 <ethernet_input+0x1a4>
+etharp_arp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:683
+
+  LWIP_ERROR("netif != NULL", (netif != NULL), return;);
+
+  /* drop short ARP packets: we have to check for p->len instead of p->tot_len here
+     since a struct etharp_hdr is pointed to p->payload, so it musn't be chained! */
+  if (p->len < SIZEOF_ETHARP_PACKET) {
+  5a:	2b29      	cmp	r3, #41	; 0x29
+  5c:	f240 80a3 	bls.w	1a6 <ethernet_input+0x1a6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:694
+    pbuf_free(p);
+    return;
+  }
+
+  ethhdr = (struct eth_hdr *)p->payload;
+  hdr = (struct etharp_hdr *)((u8_t*)ethhdr + SIZEOF_ETH_HDR);
+  60:	f106 040e 	add.w	r4, r6, #14
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:702
+    hdr = (struct etharp_hdr *)(((u8_t*)ethhdr) + SIZEOF_ETH_HDR + SIZEOF_VLAN_HDR);
+  }
+#endif /* ETHARP_SUPPORT_VLAN */
+
+  /* RFC 826 "Packet Reception": */
+  if ((hdr->hwtype != PP_HTONS(HWTYPE_ETHERNET)) ||
+  64:	7bb3      	ldrb	r3, [r6, #14]
+  66:	7862      	ldrb	r2, [r4, #1]
+  68:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+  6c:	f5b3 7f80 	cmp.w	r3, #256	; 0x100
+  70:	f040 8098 	bne.w	1a4 <ethernet_input+0x1a4>
+  74:	7923      	ldrb	r3, [r4, #4]
+  76:	2b06      	cmp	r3, #6
+  78:	f040 8094 	bne.w	1a4 <ethernet_input+0x1a4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:703
+      (hdr->hwlen != ETHARP_HWADDR_LEN) ||
+  7c:	7967      	ldrb	r7, [r4, #5]
+  7e:	2f04      	cmp	r7, #4
+  80:	f040 8090 	bne.w	1a4 <ethernet_input+0x1a4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:705
+      (hdr->protolen != sizeof(ip_addr_t)) ||
+      (hdr->proto != PP_HTONS(ETHTYPE_IP)))  {
+  84:	78a3      	ldrb	r3, [r4, #2]
+  86:	78e2      	ldrb	r2, [r4, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:704
+#endif /* ETHARP_SUPPORT_VLAN */
+
+  /* RFC 826 "Packet Reception": */
+  if ((hdr->hwtype != PP_HTONS(HWTYPE_ETHERNET)) ||
+      (hdr->hwlen != ETHARP_HWADDR_LEN) ||
+      (hdr->protolen != sizeof(ip_addr_t)) ||
+  88:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+  8c:	2b08      	cmp	r3, #8
+  8e:	f040 8089 	bne.w	1a4 <ethernet_input+0x1a4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:725
+  autoip_arp_reply(netif, hdr);
+#endif /* LWIP_AUTOIP */
+
+  /* Copy struct ip_addr2 to aligned ip_addr, to support compilers without
+   * structure packing (not using structure copy which breaks strict-aliasing rules). */
+  IPADDR2_COPY(&sipaddr, &hdr->sipaddr);
+  92:	f106 031c 	add.w	r3, r6, #28
+  96:	4619      	mov	r1, r3
+  98:	463a      	mov	r2, r7
+  9a:	a807      	add	r0, sp, #28
+  9c:	9303      	str	r3, [sp, #12]
+  9e:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:726
+  IPADDR2_COPY(&dipaddr, &hdr->dipaddr);
+  a2:	f106 0326 	add.w	r3, r6, #38	; 0x26
+  a6:	4619      	mov	r1, r3
+  a8:	a806      	add	r0, sp, #24
+  aa:	463a      	mov	r2, r7
+  ac:	9305      	str	r3, [sp, #20]
+  ae:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:729
+
+  /* this interface is not configured? */
+  if (ip_addr_isany(&netif->ip_addr)) {
+  b2:	686b      	ldr	r3, [r5, #4]
+  b4:	b133      	cbz	r3, c4 <ethernet_input+0xc4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:733
+    for_us = 0;
+  } else {
+    /* ARP packet directed to us? */
+    for_us = (u8_t)ip_addr_cmp(&dipaddr, &(netif->ip_addr));
+  b6:	9a06      	ldr	r2, [sp, #24]
+  b8:	1ad3      	subs	r3, r2, r3
+  ba:	425a      	negs	r2, r3
+  bc:	eb42 0203 	adc.w	r2, r2, r3
+  c0:	9204      	str	r2, [sp, #16]
+  c2:	e001      	b.n	c8 <ethernet_input+0xc8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:730
+  IPADDR2_COPY(&sipaddr, &hdr->sipaddr);
+  IPADDR2_COPY(&dipaddr, &hdr->dipaddr);
+
+  /* this interface is not configured? */
+  if (ip_addr_isany(&netif->ip_addr)) {
+    for_us = 0;
+  c4:	2300      	movs	r3, #0
+  c6:	9304      	str	r3, [sp, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:741
+  /* ARP message directed to us?
+      -> add IP address in ARP cache; assume requester wants to talk to us,
+         can result in directly sending the queued packets for this host.
+     ARP message not directed to us?
+      ->  update the source IP address in the cache, if present */
+  update_arp_entry(netif, &sipaddr, &(hdr->shwaddr),
+  c8:	9b04      	ldr	r3, [sp, #16]
+update_arp_entry():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:452
+  LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("update_arp_entry: %"U16_F".%"U16_F".%"U16_F".%"U16_F" - %02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F"\n",
+    ip4_addr1_16(ipaddr), ip4_addr2_16(ipaddr), ip4_addr3_16(ipaddr), ip4_addr4_16(ipaddr),
+    ethaddr->addr[0], ethaddr->addr[1], ethaddr->addr[2],
+    ethaddr->addr[3], ethaddr->addr[4], ethaddr->addr[5]));
+  /* non-unicast address? */
+  if (ip_addr_isany(ipaddr) ||
+  ca:	9807      	ldr	r0, [sp, #28]
+etharp_arp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:741
+  /* ARP message directed to us?
+      -> add IP address in ARP cache; assume requester wants to talk to us,
+         can result in directly sending the queued packets for this host.
+     ARP message not directed to us?
+      ->  update the source IP address in the cache, if present */
+  update_arp_entry(netif, &sipaddr, &(hdr->shwaddr),
+  cc:	2b00      	cmp	r3, #0
+  ce:	bf0c      	ite	eq
+  d0:	2702      	moveq	r7, #2
+  d2:	2701      	movne	r7, #1
+ethernet_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1291
+    case PP_HTONS(ETHTYPE_ARP):
+      if (!(netif->flags & NETIF_FLAG_ETHARP)) {
+        goto free_and_return;
+      }
+      /* pass p to ARP module */
+      etharp_arp_input(netif, (struct eth_addr*)(netif->hwaddr), p);
+  d4:	f105 0323 	add.w	r3, r5, #35	; 0x23
+etharp_arp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:741
+  /* ARP message directed to us?
+      -> add IP address in ARP cache; assume requester wants to talk to us,
+         can result in directly sending the queued packets for this host.
+     ARP message not directed to us?
+      ->  update the source IP address in the cache, if present */
+  update_arp_entry(netif, &sipaddr, &(hdr->shwaddr),
+  d8:	f104 0908 	add.w	r9, r4, #8
+ethernet_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1291
+    case PP_HTONS(ETHTYPE_ARP):
+      if (!(netif->flags & NETIF_FLAG_ETHARP)) {
+        goto free_and_return;
+      }
+      /* pass p to ARP module */
+      etharp_arp_input(netif, (struct eth_addr*)(netif->hwaddr), p);
+  dc:	9302      	str	r3, [sp, #8]
+update_arp_entry():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:452
+  LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("update_arp_entry: %"U16_F".%"U16_F".%"U16_F".%"U16_F" - %02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F"\n",
+    ip4_addr1_16(ipaddr), ip4_addr2_16(ipaddr), ip4_addr3_16(ipaddr), ip4_addr4_16(ipaddr),
+    ethaddr->addr[0], ethaddr->addr[1], ethaddr->addr[2],
+    ethaddr->addr[3], ethaddr->addr[4], ethaddr->addr[5]));
+  /* non-unicast address? */
+  if (ip_addr_isany(ipaddr) ||
+  de:	2800      	cmp	r0, #0
+  e0:	d02e      	beq.n	140 <ethernet_input+0x140>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:453
+      ip_addr_isbroadcast(ipaddr, netif) ||
+  e2:	4629      	mov	r1, r5
+  e4:	f7ff fffe 	bl	0 <ip4_addr_isbroadcast>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:452
+  LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("update_arp_entry: %"U16_F".%"U16_F".%"U16_F".%"U16_F" - %02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F":%02"X16_F"\n",
+    ip4_addr1_16(ipaddr), ip4_addr2_16(ipaddr), ip4_addr3_16(ipaddr), ip4_addr4_16(ipaddr),
+    ethaddr->addr[0], ethaddr->addr[1], ethaddr->addr[2],
+    ethaddr->addr[3], ethaddr->addr[4], ethaddr->addr[5]));
+  /* non-unicast address? */
+  if (ip_addr_isany(ipaddr) ||
+  e8:	4682      	mov	sl, r0
+  ea:	bb48      	cbnz	r0, 140 <ethernet_input+0x140>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:454
+      ip_addr_isbroadcast(ipaddr, netif) ||
+      ip_addr_ismulticast(ipaddr)) {
+  ec:	9b07      	ldr	r3, [sp, #28]
+  ee:	f003 03f0 	and.w	r3, r3, #240	; 0xf0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:453
+    ip4_addr1_16(ipaddr), ip4_addr2_16(ipaddr), ip4_addr3_16(ipaddr), ip4_addr4_16(ipaddr),
+    ethaddr->addr[0], ethaddr->addr[1], ethaddr->addr[2],
+    ethaddr->addr[3], ethaddr->addr[4], ethaddr->addr[5]));
+  /* non-unicast address? */
+  if (ip_addr_isany(ipaddr) ||
+      ip_addr_isbroadcast(ipaddr, netif) ||
+  f2:	2be0      	cmp	r3, #224	; 0xe0
+  f4:	d024      	beq.n	140 <ethernet_input+0x140>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:459
+      ip_addr_ismulticast(ipaddr)) {
+    LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("update_arp_entry: will not add non-unicast IP address to ARP cache\n"));
+    return ERR_ARG;
+  }
+  /* find or create ARP entry */
+  i = find_entry(ipaddr, flags);
+  f6:	a807      	add	r0, sp, #28
+  f8:	4639      	mov	r1, r7
+  fa:	f7ff fffe 	bl	0 <ethernet_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:461
+  /* bail out if no entry could be found */
+  if (i < 0) {
+  fe:	1e03      	subs	r3, r0, #0
+ 100:	db1e      	blt.n	140 <ethernet_input+0x140>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:473
+    arp_table[i].static_entry = 1;
+  }
+#endif /* ETHARP_SUPPORT_STATIC_ENTRIES */
+
+  /* mark it stable */
+  arp_table[i].state = ETHARP_STATE_STABLE;
+ 102:	f8df b0b0 	ldr.w	fp, [pc, #176]	; 1b4 <ethernet_input+0x1b4>
+ 106:	011b      	lsls	r3, r3, #4
+ 108:	eb0b 0703 	add.w	r7, fp, r3
+ 10c:	2202      	movs	r2, #2
+ 10e:	73ba      	strb	r2, [r7, #14]
+ 110:	3708      	adds	r7, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:484
+  /* insert in SNMP ARP index tree */
+  snmp_insert_arpidx_tree(netif, &arp_table[i].ipaddr);
+
+  LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("update_arp_entry: updating stable entry %"S16_F"\n", (s16_t)i));
+  /* update address */
+  ETHADDR32_COPY(&arp_table[i].ethaddr, ethaddr);
+ 112:	4638      	mov	r0, r7
+ 114:	4649      	mov	r1, r9
+ 116:	3204      	adds	r2, #4
+ 118:	9301      	str	r3, [sp, #4]
+ 11a:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:486
+  /* reset time stamp */
+  arp_table[i].ctime = 0;
+ 11e:	f887 a007 	strb.w	sl, [r7, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:500
+    /* get the packet pointer */
+    p = q->p;
+    /* now queue entry can be freed */
+    memp_free(MEMP_ARP_QUEUE, q);
+#else /* ARP_QUEUEING */
+  if (arp_table[i].q != NULL) {
+ 122:	9b01      	ldr	r3, [sp, #4]
+ 124:	f85b 7003 	ldr.w	r7, [fp, r3]
+ 128:	b157      	cbz	r7, 140 <ethernet_input+0x140>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:502
+    struct pbuf *p = arp_table[i].q;
+    arp_table[i].q = NULL;
+ 12a:	f84b a003 	str.w	sl, [fp, r3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:505
+#endif /* ARP_QUEUEING */
+    /* send the queued IP packet */
+    etharp_send_ip(netif, p, (struct eth_addr*)(netif->hwaddr), ethaddr);
+ 12e:	4628      	mov	r0, r5
+ 130:	4639      	mov	r1, r7
+ 132:	9a02      	ldr	r2, [sp, #8]
+ 134:	464b      	mov	r3, r9
+ 136:	f7ff fffe 	bl	0 <ethernet_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:507
+    /* free the queued IP packet */
+    pbuf_free(p);
+ 13a:	4638      	mov	r0, r7
+ 13c:	f7ff fffe 	bl	0 <pbuf_free>
+etharp_arp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:745
+      ->  update the source IP address in the cache, if present */
+  update_arp_entry(netif, &sipaddr, &(hdr->shwaddr),
+                   for_us ? ETHARP_FLAG_TRY_HARD : ETHARP_FLAG_FIND_ONLY);
+
+  /* now act on the message itself */
+  switch (hdr->opcode) {
+ 140:	79a3      	ldrb	r3, [r4, #6]
+ 142:	79e2      	ldrb	r2, [r4, #7]
+ 144:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+ 148:	f5b3 7f80 	cmp.w	r3, #256	; 0x100
+ 14c:	d12a      	bne.n	1a4 <ethernet_input+0x1a4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:754
+     * reply. In any case, we time-stamp any existing ARP entry,
+     * and possiby send out an IP packet that was queued on it. */
+
+    LWIP_DEBUGF (ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_arp_input: incoming ARP request\n"));
+    /* ARP request for our address? */
+    if (for_us) {
+ 14e:	9b04      	ldr	r3, [sp, #16]
+ 150:	b343      	cbz	r3, 1a4 <ethernet_input+0x1a4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:760
+
+      LWIP_DEBUGF(ETHARP_DEBUG | LWIP_DBG_TRACE, ("etharp_arp_input: replying to ARP request for our IP address\n"));
+      /* Re-use pbuf to send ARP reply.
+         Since we are re-using an existing pbuf, we can't call etharp_raw since
+         that would allocate a new pbuf. */
+      hdr->opcode = htons(ARP_REPLY);
+ 152:	2002      	movs	r0, #2
+ 154:	f7ff fffe 	bl	0 <lwip_htons>
+ 158:	71a0      	strb	r0, [r4, #6]
+ 15a:	0a00      	lsrs	r0, r0, #8
+ 15c:	71e0      	strb	r0, [r4, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:762
+
+      IPADDR2_COPY(&hdr->dipaddr, &hdr->sipaddr);
+ 15e:	9903      	ldr	r1, [sp, #12]
+ 160:	2204      	movs	r2, #4
+ 162:	9805      	ldr	r0, [sp, #20]
+ 164:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:763
+      IPADDR2_COPY(&hdr->sipaddr, &netif->ip_addr);
+ 168:	1d29      	adds	r1, r5, #4
+ 16a:	2204      	movs	r2, #4
+ 16c:	9803      	ldr	r0, [sp, #12]
+ 16e:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:774
+       * 'sender IP address' MUST be sent using link-layer broadcast instead of
+       * link-layer unicast. (See RFC3927 Section 2.5, last paragraph) */
+      ethdst_hwaddr = ip_addr_islinklocal(&netif->ip_addr) ? (u8_t*)(ethbroadcast.addr) : hdr->shwaddr.addr;
+#endif /* LWIP_AUTOIP */
+
+      ETHADDR16_COPY(&hdr->dhwaddr, &hdr->shwaddr);
+ 172:	4649      	mov	r1, r9
+ 174:	2206      	movs	r2, #6
+ 176:	f104 0012 	add.w	r0, r4, #18
+ 17a:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:778
+#if LWIP_AUTOIP
+      ETHADDR16_COPY(&ethhdr->dest, ethdst_hwaddr);
+#else  /* LWIP_AUTOIP */
+      ETHADDR16_COPY(&ethhdr->dest, &hdr->shwaddr);
+ 17e:	4649      	mov	r1, r9
+ 180:	2206      	movs	r2, #6
+ 182:	4630      	mov	r0, r6
+ 184:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:780
+#endif /* LWIP_AUTOIP */
+      ETHADDR16_COPY(&hdr->shwaddr, ethaddr);
+ 188:	9902      	ldr	r1, [sp, #8]
+ 18a:	2206      	movs	r2, #6
+ 18c:	4648      	mov	r0, r9
+ 18e:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:781
+      ETHADDR16_COPY(&ethhdr->src, ethaddr);
+ 192:	9902      	ldr	r1, [sp, #8]
+ 194:	1db0      	adds	r0, r6, #6
+ 196:	2206      	movs	r2, #6
+ 198:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:787
+
+      /* hwtype, hwaddr_len, proto, protolen and the type in the ethernet header
+         are already correct, we tested that before */
+
+      /* return ARP reply */
+      netif->linkoutput(netif, p);
+ 19c:	69ab      	ldr	r3, [r5, #24]
+ 19e:	4628      	mov	r0, r5
+ 1a0:	4641      	mov	r1, r8
+ 1a2:	4798      	blx	r3
+ethernet_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1315
+  /* This means the pbuf is freed or consumed,
+     so the caller doesn't have to free it again */
+  return ERR_OK;
+
+free_and_return:
+  pbuf_free(p);
+ 1a4:	4640      	mov	r0, r8
+ 1a6:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\netif/etharp.c:1317
+  return ERR_OK;
+}
+ 1aa:	2000      	movs	r0, #0
+ 1ac:	b009      	add	sp, #36	; 0x24
+ 1ae:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 1b2:	bf00      	nop
+ 1b4:	00000000 	.word	0x00000000

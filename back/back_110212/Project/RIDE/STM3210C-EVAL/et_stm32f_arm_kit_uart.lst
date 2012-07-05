@@ -1,0 +1,624 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\et_stm32f_arm_kit_uart.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\et_stm32f_arm_kit_uart.o
+
+
+Disassembly of section .text.ET_STM32_USART_Init:
+
+00000000 <ET_STM32_USART_Init>:
+ET_STM32_USART_Init():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:27
+/* Includes ------------------------------------------------------------------*/
+#include "stm32_eval.h"
+#include "et_stm32f_arm_kit_uart.h"
+
+void ET_STM32_USART_Init(void)
+{
+   0:	b51f      	push	{r0, r1, r2, r3, r4, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:38
+        - One Stop Bit
+        - No parity
+        - Hardware flow control disabled (RTS and CTS signals)
+        - Receive and transmit enabled
+  */
+  USART_InitStructure.USART_BaudRate = 115200;
+   2:	f44f 33e1 	mov.w	r3, #115200	; 0x1c200
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:39
+  USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+   6:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:38
+        - One Stop Bit
+        - No parity
+        - Hardware flow control disabled (RTS and CTS signals)
+        - Receive and transmit enabled
+  */
+  USART_InitStructure.USART_BaudRate = 115200;
+   8:	9300      	str	r3, [sp, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:46
+  USART_InitStructure.USART_Parity = USART_Parity_No;
+  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+
+  //Initial USART1
+  ET_STM32_COM_Init(COM1, &USART_InitStructure);
+   a:	4669      	mov	r1, sp
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:43
+  USART_InitStructure.USART_BaudRate = 115200;
+  USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+  USART_InitStructure.USART_StopBits = USART_StopBits_1;
+  USART_InitStructure.USART_Parity = USART_Parity_No;
+  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+   c:	230c      	movs	r3, #12
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:39
+        - No parity
+        - Hardware flow control disabled (RTS and CTS signals)
+        - Receive and transmit enabled
+  */
+  USART_InitStructure.USART_BaudRate = 115200;
+  USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+   e:	f8ad 0004 	strh.w	r0, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:40
+  USART_InitStructure.USART_StopBits = USART_StopBits_1;
+  12:	f8ad 0006 	strh.w	r0, [sp, #6]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:41
+  USART_InitStructure.USART_Parity = USART_Parity_No;
+  16:	f8ad 0008 	strh.w	r0, [sp, #8]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:42
+  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+  1a:	f8ad 000c 	strh.w	r0, [sp, #12]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:43
+  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+  1e:	f8ad 300a 	strh.w	r3, [sp, #10]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:46
+
+  //Initial USART1
+  ET_STM32_COM_Init(COM1, &USART_InitStructure);
+  22:	f7ff fffe 	bl	0 <ET_STM32_COM_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:49
+  
+  //Initial USART2
+  ET_STM32_COM_Init(COM2, &USART_InitStructure);
+  26:	2001      	movs	r0, #1
+  28:	4669      	mov	r1, sp
+  2a:	f7ff fffe 	bl	0 <ET_STM32_COM_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:50
+}
+  2e:	b005      	add	sp, #20
+  30:	bd00      	pop	{pc}
+
+Disassembly of section .text.SER_getChar:
+
+00000000 <SER_getChar>:
+SER_getChar():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:57
+/*----------------------------------------------------------------------------
+  Read character from Serial Port   (blocking read)
+ *----------------------------------------------------------------------------*/
+int SER_getChar (int uart) 
+{
+  if (uart == 1)
+   0:	2801      	cmp	r0, #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:56
+
+/*----------------------------------------------------------------------------
+  Read character from Serial Port   (blocking read)
+ *----------------------------------------------------------------------------*/
+int SER_getChar (int uart) 
+{
+   2:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:57
+  if (uart == 1)
+   4:	d109      	bne.n	1a <SER_getChar+0x1a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:60
+  {
+    /* Loop until the USARTz Receive Data Register is not empty */
+    while(USART_GetFlagStatus(EVAL_COM1, USART_FLAG_RXNE) == RESET)
+   6:	480a      	ldr	r0, [pc, #40]	; (30 <SER_getChar+0x30>)
+   8:	2120      	movs	r1, #32
+   a:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+   e:	2800      	cmp	r0, #0
+  10:	d0f9      	beq.n	6 <SER_getChar+0x6>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:64
+    {
+    }
+
+    return (USART_ReceiveData(EVAL_COM1));
+  12:	4807      	ldr	r0, [pc, #28]	; (30 <SER_getChar+0x30>)
+  14:	f7ff fffe 	bl	0 <USART_ReceiveData>
+  18:	bd08      	pop	{r3, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:69
+  }
+  else
+  {
+    /* Loop until the USARTz Receive Data Register is not empty */
+    while(USART_GetFlagStatus(EVAL_COM2, USART_FLAG_RXNE) == RESET)
+  1a:	4806      	ldr	r0, [pc, #24]	; (34 <SER_getChar+0x34>)
+  1c:	2120      	movs	r1, #32
+  1e:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+  22:	2800      	cmp	r0, #0
+  24:	d0f9      	beq.n	1a <SER_getChar+0x1a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:73
+    {
+    }
+
+    return (USART_ReceiveData(EVAL_COM2));
+  26:	4803      	ldr	r0, [pc, #12]	; (34 <SER_getChar+0x34>)
+  28:	f7ff fffe 	bl	0 <USART_ReceiveData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:75
+  }
+}
+  2c:	bd08      	pop	{r3, pc}
+  2e:	bf00      	nop
+  30:	40013800 	.word	0x40013800
+  34:	40004400 	.word	0x40004400
+
+Disassembly of section .text.SER_getChar_nb:
+
+00000000 <SER_getChar_nb>:
+SER_getChar_nb():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:82
+/*----------------------------------------------------------------------------
+  Read character from Serial Port   (non blocking read)
+ *----------------------------------------------------------------------------*/
+int SER_getChar_nb (int uart) 
+{
+  if (uart == 1)
+   0:	b5082801 	.word	0xb5082801
+   4:	d108      	bne.n	18 <SER_getChar_nb+0x18>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:85
+  {
+    /* Verify the USART Receive Data */
+    if (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_RXNE) != RESET)
+   6:	4809      	ldr	r0, [pc, #36]	; (2c <SER_getChar_nb+0x2c>)
+   8:	2120      	movs	r1, #32
+   a:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+   e:	b158      	cbz	r0, 28 <SER_getChar_nb+0x28>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:87
+    {
+      return (USART_ReceiveData(EVAL_COM1));
+  10:	4806      	ldr	r0, [pc, #24]	; (2c <SER_getChar_nb+0x2c>)
+  12:	f7ff fffe 	bl	0 <USART_ReceiveData>
+  16:	bd08      	pop	{r3, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:97
+    }
+  }
+  else
+  {
+    /* Verify the USART Receive Data */
+    if (USART_GetFlagStatus(EVAL_COM2, USART_FLAG_RXNE) != RESET)
+  18:	4805      	ldr	r0, [pc, #20]	; (30 <SER_getChar_nb+0x30>)
+  1a:	2120      	movs	r1, #32
+  1c:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+  20:	b110      	cbz	r0, 28 <SER_getChar_nb+0x28>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:99
+    {
+      return (USART_ReceiveData(EVAL_COM2));
+  22:	4803      	ldr	r0, [pc, #12]	; (30 <SER_getChar_nb+0x30>)
+  24:	f7ff fffe 	bl	0 <USART_ReceiveData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:106
+    else
+    {
+      return 0;
+    }
+  }
+}
+  28:	bd08      	pop	{r3, pc}
+  2a:	bf00      	nop
+  2c:	40013800 	.word	0x40013800
+  30:	40004400 	.word	0x40004400
+
+Disassembly of section .text.SER_putChar:
+
+00000000 <SER_putChar>:
+SER_putChar():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:113
+/*----------------------------------------------------------------------------
+  Write character to Serial Port
+ *----------------------------------------------------------------------------*/
+int SER_putChar (int uart, int c) 
+{
+  if (uart == 1)
+   0:	2801      	cmp	r0, #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:112
+
+/*----------------------------------------------------------------------------
+  Write character to Serial Port
+ *----------------------------------------------------------------------------*/
+int SER_putChar (int uart, int c) 
+{
+   2:	b510      	push	{r4, lr}
+   4:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:113
+  if (uart == 1)
+   6:	d107      	bne.n	18 <SER_putChar+0x18>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:116
+  {
+    /* Loop until the end of transmission */
+    while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET)
+   8:	4809      	ldr	r0, [pc, #36]	; (30 <SER_putChar+0x30>)
+   a:	2140      	movs	r1, #64	; 0x40
+   c:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+  10:	2800      	cmp	r0, #0
+  12:	d0f9      	beq.n	8 <SER_putChar+0x8>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:121
+    {}
+
+    /* Place your implementation of fputc here */
+    /* e.g. write a character to the USART */
+    USART_SendData(EVAL_COM1,c);
+  14:	4806      	ldr	r0, [pc, #24]	; (30 <SER_putChar+0x30>)
+  16:	e006      	b.n	26 <SER_putChar+0x26>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:126
+  }
+  else
+  {
+    /* Loop until the end of transmission */
+    while (USART_GetFlagStatus(EVAL_COM2, USART_FLAG_TC) == RESET)
+  18:	4806      	ldr	r0, [pc, #24]	; (34 <SER_putChar+0x34>)
+  1a:	2140      	movs	r1, #64	; 0x40
+  1c:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+  20:	2800      	cmp	r0, #0
+  22:	d0f9      	beq.n	18 <SER_putChar+0x18>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:131
+    {}
+
+    /* Place your implementation of fputc here */
+    /* e.g. write a character to the USART */
+    USART_SendData(EVAL_COM2,c);
+  24:	4803      	ldr	r0, [pc, #12]	; (34 <SER_putChar+0x34>)
+  26:	b2a1      	uxth	r1, r4
+  28:	f7ff fffe 	bl	0 <USART_SendData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:137
+
+    return c;
+  }
+
+  return c;
+}
+  2c:	4620      	mov	r0, r4
+  2e:	bd10      	pop	{r4, pc}
+  30:	40013800 	.word	0x40013800
+  34:	40004400 	.word	0x40004400
+
+Disassembly of section .text.SER_getChar1:
+
+00000000 <SER_getChar1>:
+SER_getChar1():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:143
+
+/*----------------------------------------------------------------------------
+  Read character from Serial Port   (blocking read)
+ *----------------------------------------------------------------------------*/
+int  SER_getChar1(void)
+{
+   0:	4805b508 	.word	0x4805b508
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:145
+  /* Loop until the USARTz Receive Data Register is not empty */
+  while(USART_GetFlagStatus(EVAL_COM1, USART_FLAG_RXNE) == RESET)
+   4:	2120      	movs	r1, #32
+   6:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+   a:	2800      	cmp	r0, #0
+   c:	d0f9      	beq.n	2 <SER_getChar1+0x2>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:149
+  {
+  }
+
+  return (USART_ReceiveData(EVAL_COM1));
+   e:	4802      	ldr	r0, [pc, #8]	; (18 <SER_getChar1+0x18>)
+  10:	f7ff fffe 	bl	0 <USART_ReceiveData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:150
+}
+  14:	bd08      	pop	{r3, pc}
+  16:	bf00      	nop
+  18:	40013800 	.word	0x40013800
+
+Disassembly of section .text.SER_getChar2:
+
+00000000 <SER_getChar2>:
+SER_getChar2():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:156
+
+/*----------------------------------------------------------------------------
+  Read character from Serial Port   (blocking read)
+ *----------------------------------------------------------------------------*/
+int  SER_getChar2(void)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:158
+  /* Loop until the USARTz Receive Data Register is not empty */
+  while(USART_GetFlagStatus(EVAL_COM2, USART_FLAG_RXNE) == RESET)
+   2:	4805      	ldr	r0, [pc, #20]	; (18 <SER_getChar2+0x18>)
+   4:	2120      	movs	r1, #32
+   6:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+   a:	2800      	cmp	r0, #0
+   c:	d0f9      	beq.n	2 <SER_getChar2+0x2>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:162
+  {
+  }
+
+  return (USART_ReceiveData(EVAL_COM2));
+   e:	4802      	ldr	r0, [pc, #8]	; (18 <SER_getChar2+0x18>)
+  10:	f7ff fffe 	bl	0 <USART_ReceiveData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:163
+}
+  14:	bd08      	pop	{r3, pc}
+  16:	bf00      	nop
+  18:	40004400 	.word	0x40004400
+
+Disassembly of section .text.SER_getChar1_nb:
+
+00000000 <SER_getChar1_nb>:
+SER_getChar1_nb():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:169
+
+/*----------------------------------------------------------------------------
+  Read character from Serial Port   (non blocking read)
+ *----------------------------------------------------------------------------*/
+int  SER_getChar1_nb(void)
+{
+   0:	4804b508 	.word	0x4804b508
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:171
+  /* Verify the USART Receive Data */
+  if (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_RXNE) != RESET)
+   4:	2120      	movs	r1, #32
+   6:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+   a:	b110      	cbz	r0, 12 <SER_getChar1_nb+0x12>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:173
+  {
+    return (USART_ReceiveData(EVAL_COM1));
+   c:	4801      	ldr	r0, [pc, #4]	; (14 <SER_getChar1_nb+0x14>)
+   e:	f7ff fffe 	bl	0 <USART_ReceiveData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:179
+  }
+  else
+  {
+    return 0;
+  }
+}
+  12:	bd08      	pop	{r3, pc}
+  14:	40013800 	.word	0x40013800
+
+Disassembly of section .text.SER_getChar2_nb:
+
+00000000 <SER_getChar2_nb>:
+SER_getChar2_nb():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:185
+
+/*----------------------------------------------------------------------------
+  Read character from Serial Port   (non blocking read)
+ *----------------------------------------------------------------------------*/
+int  SER_getChar2_nb(void)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:187
+  /* Verify the USART Receive Data */
+  if (USART_GetFlagStatus(EVAL_COM2, USART_FLAG_RXNE) != RESET)
+   2:	4804      	ldr	r0, [pc, #16]	; (14 <SER_getChar2_nb+0x14>)
+   4:	2120      	movs	r1, #32
+   6:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+   a:	b110      	cbz	r0, 12 <SER_getChar2_nb+0x12>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:189
+  {
+    return (USART_ReceiveData(EVAL_COM2));
+   c:	4801      	ldr	r0, [pc, #4]	; (14 <SER_getChar2_nb+0x14>)
+   e:	f7ff fffe 	bl	0 <USART_ReceiveData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:195
+  }
+  else
+  {
+    return 0;
+  }
+}
+  12:	bd08      	pop	{r3, pc}
+  14:	40004400 	.word	0x40004400
+
+Disassembly of section .text.SER_putChar1:
+
+00000000 <SER_putChar1>:
+SER_putChar1():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:201
+
+/*----------------------------------------------------------------------------
+  Write character to Serial Port
+ *----------------------------------------------------------------------------*/
+int SER_putChar1 (int c) 
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:203
+  /* Loop until the end of transmission */
+  while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET)
+   4:	4805      	ldr	r0, [pc, #20]	; (1c <SER_putChar1+0x1c>)
+   6:	2140      	movs	r1, #64	; 0x40
+   8:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+   c:	2800      	cmp	r0, #0
+   e:	d0f9      	beq.n	4 <SER_putChar1+0x4>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:208
+  {}
+
+  /* Place your implementation of fputc here */
+  /* e.g. write a character to the USART */
+  USART_SendData(EVAL_COM1,c);
+  10:	4802      	ldr	r0, [pc, #8]	; (1c <SER_putChar1+0x1c>)
+  12:	b2a1      	uxth	r1, r4
+  14:	f7ff fffe 	bl	0 <USART_SendData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:211
+ 
+  return c;
+}
+  18:	4620      	mov	r0, r4
+  1a:	bd10      	pop	{r4, pc}
+  1c:	40013800 	.word	0x40013800
+
+Disassembly of section .text.SER_putChar2:
+
+00000000 <SER_putChar2>:
+SER_putChar2():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:217
+
+/*----------------------------------------------------------------------------
+  Write character to Serial Port
+ *----------------------------------------------------------------------------*/
+int SER_putChar2 (int c) 
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:219
+  /* Loop until the end of transmission */
+  while (USART_GetFlagStatus(EVAL_COM2, USART_FLAG_TC) == RESET)
+   4:	4805      	ldr	r0, [pc, #20]	; (1c <SER_putChar2+0x1c>)
+   6:	2140      	movs	r1, #64	; 0x40
+   8:	f7ff fffe 	bl	0 <USART_GetFlagStatus>
+   c:	2800      	cmp	r0, #0
+   e:	d0f9      	beq.n	4 <SER_putChar2+0x4>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:224
+  {}
+
+  /* Place your implementation of fputc here */
+  /* e.g. write a character to the USART */
+  USART_SendData(EVAL_COM2,c);
+  10:	4802      	ldr	r0, [pc, #8]	; (1c <SER_putChar2+0x1c>)
+  12:	b2a1      	uxth	r1, r4
+  14:	f7ff fffe 	bl	0 <USART_SendData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:227
+
+  return c;
+}
+  18:	4620      	mov	r0, r4
+  1a:	bd10      	pop	{r4, pc}
+  1c:	40004400 	.word	0x40004400
+
+Disassembly of section .text.printUART1:
+
+00000000 <printUART1>:
+printUART1():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:238
+* Parameters        : unsigned int * address of the string buffer to be 
+*                     transmitted 
+* Return Value      : None
+*********************************************************************/
+void printUART1(unsigned int *buffer)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:242
+  char * temp_ptr = (char *) buffer;
+  int c;
+
+  while(*temp_ptr != '\0')	 	// End of String
+   4:	e009      	b.n	1a <printUART1+0x1a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:244
+  {
+    c = *temp_ptr++;
+   6:	b240      	sxtb	r0, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:246
+
+	if (c == '\n')  			// \n = CR = Enter
+   8:	280a      	cmp	r0, #10
+   a:	d101      	bne.n	10 <printUART1+0x10>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:248
+    {
+	  SER_putChar1 (0x0D);  	// Enter
+   c:	3003      	adds	r0, #3
+   e:	e002      	b.n	16 <printUART1+0x16>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:250
+    }
+	else if(c=='\r')			// \r = LF = Line Feed
+  10:	280d      	cmp	r0, #13
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:252
+	{
+	  SER_putChar1 (0x0A); 		// Line Feed
+  12:	bf08      	it	eq
+  14:	3803      	subeq	r0, #3
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:256
+	}
+	else
+	{	
+      SER_putChar1 (c); 		// Character
+  16:	f7ff fffe 	bl	0 <printUART1>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:242
+void printUART1(unsigned int *buffer)
+{
+  char * temp_ptr = (char *) buffer;
+  int c;
+
+  while(*temp_ptr != '\0')	 	// End of String
+  1a:	f814 0b01 	ldrb.w	r0, [r4], #1
+  1e:	2800      	cmp	r0, #0
+  20:	d1f1      	bne.n	6 <printUART1+0x6>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:259
+	else
+	{	
+      SER_putChar1 (c); 		// Character
+	}
+  }
+}
+  22:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.printUART2:
+
+00000000 <printUART2>:
+printUART2():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:270
+* Parameters        : unsigned int * address of the string buffer to be 
+*                     transmitted 
+* Return Value      : None
+*********************************************************************/
+void printUART2(unsigned int *buffer)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:274
+  char * temp_ptr = (char *) buffer;
+  int c;
+
+  while(*temp_ptr != '\0')		// End of String
+   4:	e009      	b.n	1a <printUART2+0x1a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:276
+  {
+    c = *temp_ptr++;
+   6:	b240      	sxtb	r0, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:278
+
+	if (c == '\n')  			// \n = CR = Enter
+   8:	280a      	cmp	r0, #10
+   a:	d101      	bne.n	10 <printUART2+0x10>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:280
+    {
+	  SER_putChar2 (0x0D);  	// Enter
+   c:	3003      	adds	r0, #3
+   e:	e002      	b.n	16 <printUART2+0x16>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:282
+    }
+	else if(c=='\r')		   	// \r = LF = Line Feed
+  10:	280d      	cmp	r0, #13
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:284
+	{
+	  SER_putChar2 (0x0A); 		// Line Feed
+  12:	bf08      	it	eq
+  14:	3803      	subeq	r0, #3
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:288
+	}	
+	else
+	{
+      SER_putChar2 (c); 		// Character
+  16:	f7ff fffe 	bl	0 <printUART2>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:274
+void printUART2(unsigned int *buffer)
+{
+  char * temp_ptr = (char *) buffer;
+  int c;
+
+  while(*temp_ptr != '\0')		// End of String
+  1a:	f814 0b01 	ldrb.w	r0, [r4], #1
+  1e:	2800      	cmp	r0, #0
+  20:	d1f1      	bne.n	6 <printUART2+0x6>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/et_stm32f_arm_kit_uart.c:291
+	else
+	{
+      SER_putChar2 (c); 		// Character
+	}
+  }
+}
+  22:	bd10      	pop	{r4, pc}

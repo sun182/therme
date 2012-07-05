@@ -1,0 +1,1888 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\fat.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\fat.o
+
+
+Disassembly of section .text.fat_getSectorAddressFatEntry:
+
+00000000 <fat_getSectorAddressFatEntry>:
+fat_getSectorAddressFatEntry():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:48
+*/
+euint32 fat_getSectorAddressFatEntry(FileSystem *fs,euint32 cluster_addr)
+{ 
+	euint32 base = fs->volumeId.ReservedSectorCount,res;
+	
+	switch(fs->type){
+   0:	f890 203c 	ldrb.w	r2, [r0, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:46
+ * This works for all FAT types.
+ * Return value: Sectornumber, or 0. Warning, no boundary check.
+*/
+euint32 fat_getSectorAddressFatEntry(FileSystem *fs,euint32 cluster_addr)
+{ 
+	euint32 base = fs->volumeId.ReservedSectorCount,res;
+   4:	8903      	ldrh	r3, [r0, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:48
+	
+	switch(fs->type){
+   6:	2a02      	cmp	r2, #2
+   8:	d007      	beq.n	1a <fat_getSectorAddressFatEntry+0x1a>
+   a:	2a03      	cmp	r2, #3
+   c:	d00a      	beq.n	24 <fat_getSectorAddressFatEntry+0x24>
+   e:	2a01      	cmp	r2, #1
+  10:	d10e      	bne.n	30 <fat_getSectorAddressFatEntry+0x30>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:50
+		case FAT12:
+			res=(cluster_addr*3/1024);
+  12:	eb01 0141 	add.w	r1, r1, r1, lsl #1
+  16:	0a89      	lsrs	r1, r1, #10
+  18:	e000      	b.n	1c <fat_getSectorAddressFatEntry+0x1c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:58
+			}else{
+				return(base+res);
+			}
+			//break;
+		case FAT16:
+			res=cluster_addr/256;
+  1a:	0a09      	lsrs	r1, r1, #8
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:59
+			if(res>=fs->FatSectorCount){
+  1c:	6a42      	ldr	r2, [r0, #36]	; 0x24
+  1e:	4291      	cmp	r1, r2
+  20:	d206      	bcs.n	30 <fat_getSectorAddressFatEntry+0x30>
+  22:	e003      	b.n	2c <fat_getSectorAddressFatEntry+0x2c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:67
+				return(base+res);
+			}
+			//break;
+		case FAT32:
+			res=cluster_addr/128;
+			if(res>=fs->FatSectorCount){
+  24:	6a42      	ldr	r2, [r0, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:66
+			}else{
+				return(base+res);
+			}
+			//break;
+		case FAT32:
+			res=cluster_addr/128;
+  26:	09c9      	lsrs	r1, r1, #7
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:67
+			if(res>=fs->FatSectorCount){
+  28:	4291      	cmp	r1, r2
+  2a:	d203      	bcs.n	34 <fat_getSectorAddressFatEntry+0x34>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:70
+				return(0);
+			}else{
+				return(base+res);
+  2c:	18c8      	adds	r0, r1, r3
+  2e:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:60
+			}
+			//break;
+		case FAT16:
+			res=cluster_addr/256;
+			if(res>=fs->FatSectorCount){
+				return(0);
+  30:	2000      	movs	r0, #0
+  32:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:68
+			}
+			//break;
+		case FAT32:
+			res=cluster_addr/128;
+			if(res>=fs->FatSectorCount){
+				return(0);
+  34:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:75
+				return(base+res);
+			}
+			//break; 
+	}
+	return(0);
+}
+  36:	4770      	bx	lr
+
+Disassembly of section .text.fat_getNextClusterAddress:
+
+00000000 <fat_getNextClusterAddress>:
+fat_getNextClusterAddress():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:87
+ * for cluster_addr. It then fetches and (if required) calculates it's value.
+ * This value is the EoC marker -or- the number of the next cluster in the chain.
+ * Return value: Clusternumber or EoC
+*/
+euint32 fat_getNextClusterAddress(FileSystem *fs,euint32 cluster_addr,euint16 *linear)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4604      	mov	r4, r0
+   6:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:94
+	euint8 hb,lb;
+	euint16 offset;
+	euint32 sector;
+	euint32 nextcluster=0;
+	
+	sector=fat_getSectorAddressFatEntry(fs,cluster_addr);
+   8:	f7ff fffe 	bl	0 <fat_getNextClusterAddress>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:95
+	if( (fs->FatSectorCount <= (sector-fs->volumeId.ReservedSectorCount)) || sector==0 )
+   c:	8923      	ldrh	r3, [r4, #8]
+   e:	6a62      	ldr	r2, [r4, #36]	; 0x24
+  10:	1ac3      	subs	r3, r0, r3
+  12:	429a      	cmp	r2, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:94
+	euint8 hb,lb;
+	euint16 offset;
+	euint32 sector;
+	euint32 nextcluster=0;
+	
+	sector=fat_getSectorAddressFatEntry(fs,cluster_addr);
+  14:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:95
+	if( (fs->FatSectorCount <= (sector-fs->volumeId.ReservedSectorCount)) || sector==0 )
+  16:	d945      	bls.n	a4 <fat_getNextClusterAddress+0xa4>
+  18:	2800      	cmp	r0, #0
+  1a:	d044      	beq.n	a6 <fat_getNextClusterAddress+0xa6>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:100
+	{
+		return(0);
+	}
+	
+	buf=part_getSect(fs->part,sector,IOM_MODE_READONLY);
+  1c:	4629      	mov	r1, r5
+  1e:	2201      	movs	r2, #1
+  20:	6820      	ldr	r0, [r4, #0]
+  22:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:102
+		
+	switch(fs->type)
+  26:	f894 803c 	ldrb.w	r8, [r4, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:100
+	if( (fs->FatSectorCount <= (sector-fs->volumeId.ReservedSectorCount)) || sector==0 )
+	{
+		return(0);
+	}
+	
+	buf=part_getSect(fs->part,sector,IOM_MODE_READONLY);
+  2a:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:102
+		
+	switch(fs->type)
+  2c:	f1b8 0f02 	cmp.w	r8, #2
+  30:	d02a      	beq.n	88 <fat_getNextClusterAddress+0x88>
+  32:	f1b8 0f03 	cmp.w	r8, #3
+  36:	d02b      	beq.n	90 <fat_getNextClusterAddress+0x90>
+  38:	f1b8 0f01 	cmp.w	r8, #1
+  3c:	d12d      	bne.n	9a <fat_getNextClusterAddress+0x9a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:105
+	{
+		case FAT12:
+			offset = ((cluster_addr%1024)*3/2)%512;
+  3e:	05b3      	lsls	r3, r6, #22
+  40:	0d9b      	lsrs	r3, r3, #22
+  42:	eb03 0343 	add.w	r3, r3, r3, lsl #1
+  46:	085b      	lsrs	r3, r3, #1
+  48:	05db      	lsls	r3, r3, #23
+  4a:	0ddb      	lsrs	r3, r3, #23
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:107
+			hb = buf[offset];
+			if(offset == 511){
+  4c:	f240 12ff 	movw	r2, #511	; 0x1ff
+  50:	4293      	cmp	r3, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:106
+		
+	switch(fs->type)
+	{
+		case FAT12:
+			offset = ((cluster_addr%1024)*3/2)%512;
+			hb = buf[offset];
+  52:	5cc7      	ldrb	r7, [r0, r3]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:107
+			if(offset == 511){
+  54:	d10a      	bne.n	6c <fat_getNextClusterAddress+0x6c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:108
+				part_relSect(fs->part,buf);
+  56:	6820      	ldr	r0, [r4, #0]
+  58:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:109
+				buf=part_getSect(fs->part,sector+1,IOM_MODE_READONLY);
+  5c:	1c69      	adds	r1, r5, #1
+  5e:	6820      	ldr	r0, [r4, #0]
+  60:	4642      	mov	r2, r8
+  62:	f7ff fffe 	bl	0 <part_getSect>
+  66:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:110
+				lb = buf[0];
+  68:	7805      	ldrb	r5, [r0, #0]
+  6a:	e001      	b.n	70 <fat_getNextClusterAddress+0x70>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:112
+			}else{
+				lb = buf[offset + 1];
+  6c:	18c3      	adds	r3, r0, r3
+  6e:	785d      	ldrb	r5, [r3, #1]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:114
+			}
+			if(cluster_addr%2==0){
+  70:	f016 0f01 	tst.w	r6, #1
+  74:	d104      	bne.n	80 <fat_getNextClusterAddress+0x80>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:115
+				nextcluster = ( ((lb&0x0F)<<8) + (hb) );
+  76:	f005 050f 	and.w	r5, r5, #15
+  7a:	022d      	lsls	r5, r5, #8
+  7c:	19ed      	adds	r5, r5, r7
+  7e:	e00d      	b.n	9c <fat_getNextClusterAddress+0x9c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:117
+			}else{
+				nextcluster = ( (lb<<4) + (hb>>4) );
+  80:	093f      	lsrs	r7, r7, #4
+  82:	eb07 1505 	add.w	r5, r7, r5, lsl #4
+  86:	e009      	b.n	9c <fat_getNextClusterAddress+0x9c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:122
+			}
+			break;
+		case FAT16:
+			offset=cluster_addr%256;
+			nextcluster = *((euint16 *)buf + offset);
+  88:	b2f6      	uxtb	r6, r6
+  8a:	f830 5016 	ldrh.w	r5, [r0, r6, lsl #1]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:123
+			break;
+  8e:	e005      	b.n	9c <fat_getNextClusterAddress+0x9c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:126
+		case FAT32:
+			offset=cluster_addr%128;
+			nextcluster = *((euint32 *)buf + offset);
+  90:	f006 067f 	and.w	r6, r6, #127	; 0x7f
+  94:	f850 5026 	ldr.w	r5, [r0, r6, lsl #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:127
+			break;
+  98:	e000      	b.n	9c <fat_getNextClusterAddress+0x9c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:92
+{
+	euint8 *buf; 
+	euint8 hb,lb;
+	euint16 offset;
+	euint32 sector;
+	euint32 nextcluster=0;
+  9a:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:130
+			offset=cluster_addr%128;
+			nextcluster = *((euint32 *)buf + offset);
+			break;
+	}
+	
+	part_relSect(fs->part,buf);
+  9c:	6820      	ldr	r0, [r4, #0]
+  9e:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:132
+	
+	return(nextcluster);
+  a2:	e000      	b.n	a6 <fat_getNextClusterAddress+0xa6>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:97
+	euint32 nextcluster=0;
+	
+	sector=fat_getSectorAddressFatEntry(fs,cluster_addr);
+	if( (fs->FatSectorCount <= (sector-fs->volumeId.ReservedSectorCount)) || sector==0 )
+	{
+		return(0);
+  a4:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:133
+	}
+	
+	part_relSect(fs->part,buf);
+	
+	return(nextcluster);
+}
+  a6:	4628      	mov	r0, r5
+  a8:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.fat_setNextClusterAddress:
+
+00000000 <fat_setNextClusterAddress>:
+fat_setNextClusterAddress():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:143
+ * void fat_setNextClusterAddress(FileSystem *fs,unsigned long cluster_addr,unsigned long next_cluster_addr)
+ * Description: This function makes an entry in the fattable for cluster_addr. The value it puts there
+ * is next_cluster_addr. 
+*/
+void fat_setNextClusterAddress(FileSystem *fs,euint32 cluster_addr,euint32 next_cluster_addr)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4605      	mov	r5, r0
+   6:	460f      	mov	r7, r1
+   8:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:148
+	euint8 *buf,*buf2; 
+	euint16 offset;
+	euint32 sector;
+	
+	sector=fat_getSectorAddressFatEntry(fs,cluster_addr);
+   a:	f7ff fffe 	bl	0 <fat_setNextClusterAddress>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:150
+	
+	if(( fs->FatSectorCount <= (sector - fs->volumeId.ReservedSectorCount )||(sector==0))){
+   e:	892b      	ldrh	r3, [r5, #8]
+  10:	6a6a      	ldr	r2, [r5, #36]	; 0x24
+  12:	1ac3      	subs	r3, r0, r3
+  14:	429a      	cmp	r2, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:148
+{
+	euint8 *buf,*buf2; 
+	euint16 offset;
+	euint32 sector;
+	
+	sector=fat_getSectorAddressFatEntry(fs,cluster_addr);
+  16:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:150
+	
+	if(( fs->FatSectorCount <= (sector - fs->volumeId.ReservedSectorCount )||(sector==0))){
+  18:	d96a      	bls.n	f0 <fat_setNextClusterAddress+0xf0>
+  1a:	2800      	cmp	r0, #0
+  1c:	d068      	beq.n	f0 <fat_setNextClusterAddress+0xf0>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:155
+	    //DBG((TXT("HARDERROR:::fat_getNextClusterAddress READ PAST FAT BOUNDARY\n")));
+	    return;
+	}
+	
+	buf=part_getSect(fs->part,sector,IOM_MODE_READWRITE);
+  1e:	2202      	movs	r2, #2
+  20:	6828      	ldr	r0, [r5, #0]
+  22:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:157
+		
+	switch(fs->type){
+  26:	f895 303c 	ldrb.w	r3, [r5, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:155
+	if(( fs->FatSectorCount <= (sector - fs->volumeId.ReservedSectorCount )||(sector==0))){
+	    //DBG((TXT("HARDERROR:::fat_getNextClusterAddress READ PAST FAT BOUNDARY\n")));
+	    return;
+	}
+	
+	buf=part_getSect(fs->part,sector,IOM_MODE_READWRITE);
+  2a:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:157
+		
+	switch(fs->type){
+  2c:	2b02      	cmp	r3, #2
+  2e:	d051      	beq.n	d4 <fat_setNextClusterAddress+0xd4>
+  30:	2b03      	cmp	r3, #3
+  32:	d053      	beq.n	dc <fat_setNextClusterAddress+0xdc>
+  34:	2b01      	cmp	r3, #1
+  36:	d15b      	bne.n	f0 <fat_setNextClusterAddress+0xf0>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:159
+		case FAT12:
+			offset = ((cluster_addr%1024)*3/2)%512;
+  38:	05bb      	lsls	r3, r7, #22
+  3a:	0d9b      	lsrs	r3, r3, #22
+  3c:	eb03 0343 	add.w	r3, r3, r3, lsl #1
+  40:	085b      	lsrs	r3, r3, #1
+  42:	05db      	lsls	r3, r3, #23
+  44:	0ddb      	lsrs	r3, r3, #23
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:160
+			if(offset == 511){
+  46:	f240 12ff 	movw	r2, #511	; 0x1ff
+  4a:	4293      	cmp	r3, r2
+  4c:	f007 0801 	and.w	r8, r7, #1
+  50:	d128      	bne.n	a4 <fat_setNextClusterAddress+0xa4>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:161
+				if(cluster_addr%2==0){
+  52:	f1b8 0f00 	cmp.w	r8, #0
+  56:	d102      	bne.n	5e <fat_setNextClusterAddress+0x5e>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:162
+					buf[offset]=next_cluster_addr&0xFF;
+  58:	f880 61ff 	strb.w	r6, [r0, #511]	; 0x1ff
+  5c:	e007      	b.n	6e <fat_setNextClusterAddress+0x6e>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:164
+				}else{
+					buf[offset]=(buf[offset]&0xF)+((next_cluster_addr<<4)&0xF0);
+  5e:	f890 31ff 	ldrb.w	r3, [r0, #511]	; 0x1ff
+  62:	f003 030f 	and.w	r3, r3, #15
+  66:	eb03 1306 	add.w	r3, r3, r6, lsl #4
+  6a:	f880 31ff 	strb.w	r3, [r0, #511]	; 0x1ff
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:166
+				}
+				buf2=part_getSect(fs->part,fat_getSectorAddressFatEntry(fs,cluster_addr)+1,IOM_MODE_READWRITE);
+  6e:	4639      	mov	r1, r7
+  70:	4628      	mov	r0, r5
+  72:	f7ff fffe 	bl	0 <fat_setNextClusterAddress>
+  76:	2202      	movs	r2, #2
+  78:	1c41      	adds	r1, r0, #1
+  7a:	6828      	ldr	r0, [r5, #0]
+  7c:	f7ff fffe 	bl	0 <part_getSect>
+  80:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:167
+				if(cluster_addr%2==0){
+  82:	f1b8 0f00 	cmp.w	r8, #0
+  86:	d107      	bne.n	98 <fat_setNextClusterAddress+0x98>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:168
+					buf2[0]=(buf2[0]&0xF0)+((next_cluster_addr>>8)&0xF);
+  88:	7803      	ldrb	r3, [r0, #0]
+  8a:	0a36      	lsrs	r6, r6, #8
+  8c:	f023 030f 	bic.w	r3, r3, #15
+  90:	f006 060f 	and.w	r6, r6, #15
+  94:	199e      	adds	r6, r3, r6
+  96:	e000      	b.n	9a <fat_setNextClusterAddress+0x9a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:170
+				}else{
+					buf2[0]=(next_cluster_addr>>4)&0xFF;
+  98:	0936      	lsrs	r6, r6, #4
+  9a:	700e      	strb	r6, [r1, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:172
+				}
+				part_relSect(fs->part,buf2);
+  9c:	6828      	ldr	r0, [r5, #0]
+  9e:	f7ff fffe 	bl	0 <part_relSect>
+  a2:	e01f      	b.n	e4 <fat_setNextClusterAddress+0xe4>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:174
+			}else{
+				if(cluster_addr%2==0){
+  a4:	f1b8 0f00 	cmp.w	r8, #0
+  a8:	d10a      	bne.n	c0 <fat_setNextClusterAddress+0xc0>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:175
+					buf[offset]=next_cluster_addr&0xFF;
+  aa:	54c6      	strb	r6, [r0, r3]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:176
+					buf[offset+1]=(buf[offset+1]&0xF0)+((next_cluster_addr>>8)&0xF);
+  ac:	3301      	adds	r3, #1
+  ae:	5cc2      	ldrb	r2, [r0, r3]
+  b0:	0a36      	lsrs	r6, r6, #8
+  b2:	f022 020f 	bic.w	r2, r2, #15
+  b6:	f006 060f 	and.w	r6, r6, #15
+  ba:	1996      	adds	r6, r2, r6
+  bc:	54c6      	strb	r6, [r0, r3]
+  be:	e011      	b.n	e4 <fat_setNextClusterAddress+0xe4>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:178
+				}else{
+					buf[offset]=(buf[offset]&0xF)+((next_cluster_addr<<4)&0xF0);
+  c0:	5cc1      	ldrb	r1, [r0, r3]
+  c2:	18c2      	adds	r2, r0, r3
+  c4:	f001 010f 	and.w	r1, r1, #15
+  c8:	eb01 1106 	add.w	r1, r1, r6, lsl #4
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:179
+					buf[offset+1]=(next_cluster_addr>>4)&0xFF;
+  cc:	0936      	lsrs	r6, r6, #4
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:178
+			}else{
+				if(cluster_addr%2==0){
+					buf[offset]=next_cluster_addr&0xFF;
+					buf[offset+1]=(buf[offset+1]&0xF0)+((next_cluster_addr>>8)&0xF);
+				}else{
+					buf[offset]=(buf[offset]&0xF)+((next_cluster_addr<<4)&0xF0);
+  ce:	54c1      	strb	r1, [r0, r3]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:179
+					buf[offset+1]=(next_cluster_addr>>4)&0xFF;
+  d0:	7056      	strb	r6, [r2, #1]
+  d2:	e007      	b.n	e4 <fat_setNextClusterAddress+0xe4>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:186
+			}
+			part_relSect(fs->part,buf);
+			break;
+		case FAT16:
+			offset=cluster_addr%256;
+			*((euint16*)buf+offset)=next_cluster_addr;
+  d4:	b2ff      	uxtb	r7, r7
+  d6:	f820 6017 	strh.w	r6, [r0, r7, lsl #1]
+  da:	e003      	b.n	e4 <fat_setNextClusterAddress+0xe4>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:191
+			part_relSect(fs->part,buf);
+			break;
+		case FAT32:
+			offset=cluster_addr%128;
+			*((euint32*)buf+offset)=next_cluster_addr;
+  dc:	f007 077f 	and.w	r7, r7, #127	; 0x7f
+  e0:	f840 6027 	str.w	r6, [r0, r7, lsl #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:192
+			part_relSect(fs->part,buf);
+  e4:	6828      	ldr	r0, [r5, #0]
+  e6:	4621      	mov	r1, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:196
+			break;
+	}
+	
+}
+  e8:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:192
+			part_relSect(fs->part,buf);
+			break;
+		case FAT32:
+			offset=cluster_addr%128;
+			*((euint32*)buf+offset)=next_cluster_addr;
+			part_relSect(fs->part,buf);
+  ec:	f7ff bffe 	b.w	0 <part_relSect>
+  f0:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.fat_isEocMarker:
+
+00000000 <fat_isEocMarker>:
+fat_isEocMarker():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:208
+ * noted in fs->type.
+ * Return value: Returns 0 when it is the EoC marker, and 1 otherwise.
+*/
+eint16 fat_isEocMarker(FileSystem *fs,euint32 fat_entry)
+{
+	switch(fs->type){
+   0:	f890 303c 	ldrb.w	r3, [r0, #60]	; 0x3c
+   4:	2b02      	cmp	r3, #2
+   6:	d006      	beq.n	16 <fat_isEocMarker+0x16>
+   8:	2b03      	cmp	r3, #3
+   a:	d008      	beq.n	1e <fat_isEocMarker+0x1e>
+   c:	2b01      	cmp	r3, #1
+   e:	d10e      	bne.n	2e <fat_isEocMarker+0x2e>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:211
+		case FAT12:
+			if(fat_entry<0xFF8){
+				return(0);
+  10:	f640 70f7 	movw	r0, #4087	; 0xff7
+  14:	e001      	b.n	1a <fat_isEocMarker+0x1a>
+  16:	f64f 70f7 	movw	r0, #65527	; 0xfff7
+  1a:	4281      	cmp	r1, r0
+  1c:	e003      	b.n	26 <fat_isEocMarker+0x26>
+  1e:	4b05      	ldr	r3, [pc, #20]	; (34 <fat_isEocMarker+0x34>)
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:220
+			if(fat_entry<0xFFF8){
+				return(0);
+			}
+			break;
+		case FAT32:
+			if((fat_entry&0x0FFFFFFF)<0xFFFFFF8){
+  20:	f021 4170 	bic.w	r1, r1, #4026531840	; 0xf0000000
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:211
+eint16 fat_isEocMarker(FileSystem *fs,euint32 fat_entry)
+{
+	switch(fs->type){
+		case FAT12:
+			if(fat_entry<0xFF8){
+				return(0);
+  24:	4299      	cmp	r1, r3
+  26:	bf94      	ite	ls
+  28:	2000      	movls	r0, #0
+  2a:	2001      	movhi	r0, #1
+  2c:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:225
+			if((fat_entry&0x0FFFFFFF)<0xFFFFFF8){
+				return(0);
+			}
+			break;
+	}
+	return(1);
+  2e:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:226
+}
+  30:	4770      	bx	lr
+  32:	bf00      	nop
+  34:	0ffffff7 	.word	0x0ffffff7
+
+Disassembly of section .text.fat_giveEocMarker:
+
+00000000 <fat_giveEocMarker>:
+fat_giveEocMarker():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:240
+ * touched according to MicroSoft specifications. I didn't care.
+ * Return value: The EoC marker cast to an ulong.
+*/
+euint32 fat_giveEocMarker(FileSystem *fs)
+{
+	switch(fs->type)
+   0:	303cf890 	.word	0x303cf890
+   4:	3b01      	subs	r3, #1
+   6:	b2db      	uxtb	r3, r3
+   8:	2b02      	cmp	r3, #2
+   a:	bf9a      	itte	ls
+   c:	4a02      	ldrls	r2, [pc, #8]	; (18 <fat_giveEocMarker+0x18>)
+   e:	f852 0023 	ldrls.w	r0, [r2, r3, lsl #2]
+  12:	2000      	movhi	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:253
+		case FAT32:
+			return(0x0FFFFFFF);
+			//break;
+	}
+	return(0);
+}
+  14:	4770      	bx	lr
+  16:	bf00      	nop
+  18:	00000000 	.word	0x00000000
+
+Disassembly of section .text.fat_getNextClusterAddressWBuf:
+
+00000000 <fat_getNextClusterAddressWBuf>:
+fat_getNextClusterAddressWBuf():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:264
+ * it's own buffer, it is given as a parameter. (ioman makes this function rather obsolete)
+ * Only in the case of a FAT12 crosssector data entry a sector is retrieved here.
+ * Return value: The value of the clusterfield is returned.
+*/
+euint32 fat_getNextClusterAddressWBuf(FileSystem *fs,euint32 cluster_addr, euint8* buf)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:270
+	euint8  *buf2; /* For FAT12 fallover only */
+	euint8 hb,lb;
+	euint16 offset;
+	euint32 nextcluster=0;
+	
+	switch(fs->type)
+   2:	f890 703c 	ldrb.w	r7, [r0, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:264
+ * it's own buffer, it is given as a parameter. (ioman makes this function rather obsolete)
+ * Only in the case of a FAT12 crosssector data entry a sector is retrieved here.
+ * Return value: The value of the clusterfield is returned.
+*/
+euint32 fat_getNextClusterAddressWBuf(FileSystem *fs,euint32 cluster_addr, euint8* buf)
+{
+   6:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:270
+	euint8  *buf2; /* For FAT12 fallover only */
+	euint8 hb,lb;
+	euint16 offset;
+	euint32 nextcluster=0;
+	
+	switch(fs->type)
+   8:	2f02      	cmp	r7, #2
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:264
+ * it's own buffer, it is given as a parameter. (ioman makes this function rather obsolete)
+ * Only in the case of a FAT12 crosssector data entry a sector is retrieved here.
+ * Return value: The value of the clusterfield is returned.
+*/
+euint32 fat_getNextClusterAddressWBuf(FileSystem *fs,euint32 cluster_addr, euint8* buf)
+{
+   a:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:270
+	euint8  *buf2; /* For FAT12 fallover only */
+	euint8 hb,lb;
+	euint16 offset;
+	euint32 nextcluster=0;
+	
+	switch(fs->type)
+   c:	d02a      	beq.n	64 <fat_getNextClusterAddressWBuf+0x64>
+   e:	2f03      	cmp	r7, #3
+  10:	d02c      	beq.n	6c <fat_getNextClusterAddressWBuf+0x6c>
+  12:	2f01      	cmp	r7, #1
+  14:	d12f      	bne.n	76 <fat_getNextClusterAddressWBuf+0x76>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:273
+	{
+		case FAT12:
+			offset = ((cluster_addr%1024)*3/2)%512;
+  16:	058b      	lsls	r3, r1, #22
+  18:	0d9b      	lsrs	r3, r3, #22
+  1a:	eb03 0343 	add.w	r3, r3, r3, lsl #1
+  1e:	085b      	lsrs	r3, r3, #1
+  20:	05db      	lsls	r3, r3, #23
+  22:	0ddb      	lsrs	r3, r3, #23
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:275
+			hb = buf[offset];
+			if(offset == 511){
+  24:	f240 1cff 	movw	ip, #511	; 0x1ff
+  28:	4563      	cmp	r3, ip
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:274
+	
+	switch(fs->type)
+	{
+		case FAT12:
+			offset = ((cluster_addr%1024)*3/2)%512;
+			hb = buf[offset];
+  2a:	5cd6      	ldrb	r6, [r2, r3]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:275
+			if(offset == 511){
+  2c:	d10c      	bne.n	48 <fat_getNextClusterAddressWBuf+0x48>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:276
+				buf2=part_getSect(fs->part,fat_getSectorAddressFatEntry(fs,cluster_addr)+1,IOM_MODE_READONLY);
+  2e:	f7ff fffe 	bl	0 <fat_getNextClusterAddressWBuf>
+  32:	463a      	mov	r2, r7
+  34:	1c41      	adds	r1, r0, #1
+  36:	6828      	ldr	r0, [r5, #0]
+  38:	f7ff fffe 	bl	0 <part_getSect>
+  3c:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:277
+				lb = buf2[0];
+  3e:	7807      	ldrb	r7, [r0, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:278
+				part_relSect(fs->part,buf2);
+  40:	6828      	ldr	r0, [r5, #0]
+  42:	f7ff fffe 	bl	0 <part_relSect>
+  46:	e001      	b.n	4c <fat_getNextClusterAddressWBuf+0x4c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:280
+			}else{
+				lb = buf[offset + 1];
+  48:	18d3      	adds	r3, r2, r3
+  4a:	785f      	ldrb	r7, [r3, #1]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:282
+			}
+			if(cluster_addr%2==0){
+  4c:	f014 0f01 	tst.w	r4, #1
+  50:	d104      	bne.n	5c <fat_getNextClusterAddressWBuf+0x5c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:283
+				nextcluster = ( ((lb&0x0F)<<8) + (hb) );
+  52:	f007 000f 	and.w	r0, r7, #15
+  56:	0200      	lsls	r0, r0, #8
+  58:	1980      	adds	r0, r0, r6
+  5a:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:285
+			}else{
+				nextcluster = ( (lb<<4) + (hb>>4) );
+  5c:	0936      	lsrs	r6, r6, #4
+  5e:	eb06 1007 	add.w	r0, r6, r7, lsl #4
+  62:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:290
+			}
+			break;
+		case FAT16:
+			offset=cluster_addr%256;
+			nextcluster = *((euint16*)buf + offset);
+  64:	b2cc      	uxtb	r4, r1
+  66:	f832 0014 	ldrh.w	r0, [r2, r4, lsl #1]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:291
+			break;
+  6a:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:294
+		case FAT32:
+			offset=cluster_addr%128;
+			nextcluster = *((euint32*)buf + offset);
+  6c:	f001 047f 	and.w	r4, r1, #127	; 0x7f
+  70:	f852 0024 	ldr.w	r0, [r2, r4, lsl #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:295
+			break;
+  74:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:268
+euint32 fat_getNextClusterAddressWBuf(FileSystem *fs,euint32 cluster_addr, euint8* buf)
+{
+	euint8  *buf2; /* For FAT12 fallover only */
+	euint8 hb,lb;
+	euint16 offset;
+	euint32 nextcluster=0;
+  76:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:298
+			offset=cluster_addr%128;
+			nextcluster = *((euint32*)buf + offset);
+			break;
+	}
+	return(nextcluster);
+}
+  78:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+
+Disassembly of section .text.fat_setNextClusterAddressWBuf:
+
+00000000 <fat_setNextClusterAddressWBuf>:
+fat_setNextClusterAddressWBuf():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:310
+ * not write the data itself, except in the case of FAT 12 cross sector data, where
+ * the second sector is handled by this function.
+ * Return value:
+*/
+void fat_setNextClusterAddressWBuf(FileSystem *fs,euint32 cluster_addr,euint32 next_cluster_addr,euint8* buf)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4614      	mov	r4, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:314
+	euint16 offset;
+	euint8 *buf2;
+		
+	switch(fs->type)
+   4:	f890 203c 	ldrb.w	r2, [r0, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:310
+ * not write the data itself, except in the case of FAT 12 cross sector data, where
+ * the second sector is handled by this function.
+ * Return value:
+*/
+void fat_setNextClusterAddressWBuf(FileSystem *fs,euint32 cluster_addr,euint32 next_cluster_addr,euint8* buf)
+{
+   8:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:314
+	euint16 offset;
+	euint8 *buf2;
+		
+	switch(fs->type)
+   a:	2a02      	cmp	r2, #2
+   c:	d04b      	beq.n	a6 <fat_setNextClusterAddressWBuf+0xa6>
+   e:	2a03      	cmp	r2, #3
+  10:	d04d      	beq.n	ae <fat_setNextClusterAddressWBuf+0xae>
+  12:	2a01      	cmp	r2, #1
+  14:	d14f      	bne.n	b6 <fat_setNextClusterAddressWBuf+0xb6>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:317
+	{
+		case FAT12:
+			offset = ((cluster_addr%1024)*3/2)%512;
+  16:	058a      	lsls	r2, r1, #22
+  18:	0d92      	lsrs	r2, r2, #22
+  1a:	eb02 0242 	add.w	r2, r2, r2, lsl #1
+  1e:	0852      	lsrs	r2, r2, #1
+  20:	05d2      	lsls	r2, r2, #23
+  22:	0dd2      	lsrs	r2, r2, #23
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:318
+			if(offset == 511){
+  24:	f240 10ff 	movw	r0, #511	; 0x1ff
+  28:	4282      	cmp	r2, r0
+  2a:	f001 0601 	and.w	r6, r1, #1
+  2e:	d124      	bne.n	7a <fat_setNextClusterAddressWBuf+0x7a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:319
+				if(cluster_addr%2==0){
+  30:	b916      	cbnz	r6, 38 <fat_setNextClusterAddressWBuf+0x38>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:320
+					buf[offset]=next_cluster_addr&0xFF;
+  32:	f883 41ff 	strb.w	r4, [r3, #511]	; 0x1ff
+  36:	e007      	b.n	48 <fat_setNextClusterAddressWBuf+0x48>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:322
+				}else{
+					buf[offset]=(buf[offset]&0xF)+((next_cluster_addr<<4)&0xF0);
+  38:	f893 21ff 	ldrb.w	r2, [r3, #511]	; 0x1ff
+  3c:	f002 020f 	and.w	r2, r2, #15
+  40:	eb02 1204 	add.w	r2, r2, r4, lsl #4
+  44:	f883 21ff 	strb.w	r2, [r3, #511]	; 0x1ff
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:324
+				}
+				buf2=part_getSect(fs->part,fat_getSectorAddressFatEntry(fs,cluster_addr)+1,IOM_MODE_READWRITE);
+  48:	4628      	mov	r0, r5
+  4a:	f7ff fffe 	bl	0 <fat_setNextClusterAddressWBuf>
+  4e:	2202      	movs	r2, #2
+  50:	1c41      	adds	r1, r0, #1
+  52:	6828      	ldr	r0, [r5, #0]
+  54:	f7ff fffe 	bl	0 <part_getSect>
+  58:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:325
+				if(cluster_addr%2==0){
+  5a:	b93e      	cbnz	r6, 6c <fat_setNextClusterAddressWBuf+0x6c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:326
+					buf2[0]=(buf2[0]&0xF0)+((next_cluster_addr>>8)&0xF);
+  5c:	7803      	ldrb	r3, [r0, #0]
+  5e:	0a24      	lsrs	r4, r4, #8
+  60:	f023 030f 	bic.w	r3, r3, #15
+  64:	f004 040f 	and.w	r4, r4, #15
+  68:	191c      	adds	r4, r3, r4
+  6a:	e000      	b.n	6e <fat_setNextClusterAddressWBuf+0x6e>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:328
+				}else{
+					buf2[0]=(next_cluster_addr>>4)&0xFF;
+  6c:	0924      	lsrs	r4, r4, #4
+  6e:	700c      	strb	r4, [r1, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:330
+				}
+				part_relSect(fs->part,buf2);
+  70:	6828      	ldr	r0, [r5, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:350
+		case FAT32:
+			offset=cluster_addr%128;
+			*((euint32*)buf+offset)=next_cluster_addr;
+			break;
+	}
+}
+  72:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:330
+				if(cluster_addr%2==0){
+					buf2[0]=(buf2[0]&0xF0)+((next_cluster_addr>>8)&0xF);
+				}else{
+					buf2[0]=(next_cluster_addr>>4)&0xFF;
+				}
+				part_relSect(fs->part,buf2);
+  76:	f7ff bffe 	b.w	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:332
+			}else{
+				if(cluster_addr%2==0){
+  7a:	b956      	cbnz	r6, 92 <fat_setNextClusterAddressWBuf+0x92>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:333
+					buf[offset]=next_cluster_addr&0xFF;
+  7c:	549c      	strb	r4, [r3, r2]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:334
+					buf[offset+1]=(buf[offset+1]&0xF0)+((next_cluster_addr>>8)&0xF);
+  7e:	3201      	adds	r2, #1
+  80:	5c99      	ldrb	r1, [r3, r2]
+  82:	0a24      	lsrs	r4, r4, #8
+  84:	f021 010f 	bic.w	r1, r1, #15
+  88:	f004 040f 	and.w	r4, r4, #15
+  8c:	190c      	adds	r4, r1, r4
+  8e:	549c      	strb	r4, [r3, r2]
+  90:	bd70      	pop	{r4, r5, r6, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:336
+				}else{
+					buf[offset]=(buf[offset]&0xF)+((next_cluster_addr<<4)&0xF0);
+  92:	5c98      	ldrb	r0, [r3, r2]
+  94:	1899      	adds	r1, r3, r2
+  96:	f000 000f 	and.w	r0, r0, #15
+  9a:	eb00 1004 	add.w	r0, r0, r4, lsl #4
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:337
+					buf[offset+1]=(next_cluster_addr>>4)&0xFF;
+  9e:	0924      	lsrs	r4, r4, #4
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:336
+			}else{
+				if(cluster_addr%2==0){
+					buf[offset]=next_cluster_addr&0xFF;
+					buf[offset+1]=(buf[offset+1]&0xF0)+((next_cluster_addr>>8)&0xF);
+				}else{
+					buf[offset]=(buf[offset]&0xF)+((next_cluster_addr<<4)&0xF0);
+  a0:	5498      	strb	r0, [r3, r2]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:337
+					buf[offset+1]=(next_cluster_addr>>4)&0xFF;
+  a2:	704c      	strb	r4, [r1, #1]
+  a4:	bd70      	pop	{r4, r5, r6, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:343
+				}
+			}
+			break;
+		case FAT16:
+			offset=cluster_addr%256;
+			*((euint16*)buf+offset)=next_cluster_addr;
+  a6:	b2c9      	uxtb	r1, r1
+  a8:	f823 4011 	strh.w	r4, [r3, r1, lsl #1]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:344
+			break;
+  ac:	bd70      	pop	{r4, r5, r6, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:347
+		case FAT32:
+			offset=cluster_addr%128;
+			*((euint32*)buf+offset)=next_cluster_addr;
+  ae:	f001 017f 	and.w	r1, r1, #127	; 0x7f
+  b2:	f843 4021 	str.w	r4, [r3, r1, lsl #2]
+  b6:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.fat_getNextClusterChain:
+
+00000000 <fat_getNextClusterChain>:
+fat_getNextClusterChain():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:368
+ * With lineair is meant that logical cluster n+1 should be 1 more than logical cluster n
+ * at the disc level.
+ * Return value: 0 on success, or -1 when EoC.
+*/
+esint16 fat_getNextClusterChain(FileSystem *fs, ClusterChain *Cache)
+{
+   0:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+   4:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:373
+	euint32 sect,lr,nlr,dc;
+	esint16 lin=0;
+	euint8 *buf;
+
+	if(Cache->DiscCluster==0)
+   6:	6889      	ldr	r1, [r1, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:368
+ * With lineair is meant that logical cluster n+1 should be 1 more than logical cluster n
+ * at the disc level.
+ * Return value: 0 on success, or -1 when EoC.
+*/
+esint16 fat_getNextClusterChain(FileSystem *fs, ClusterChain *Cache)
+{
+   8:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:373
+	euint32 sect,lr,nlr,dc;
+	esint16 lin=0;
+	euint8 *buf;
+
+	if(Cache->DiscCluster==0)
+   a:	2900      	cmp	r1, #0
+   c:	d03d      	beq.n	8a <fat_getNextClusterChain+0x8a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:378
+	{
+		return(-1);
+	}
+
+	sect=fat_getSectorAddressFatEntry(fs,Cache->DiscCluster);
+   e:	f7ff fffe 	bl	0 <fat_getNextClusterChain>
+  12:	4681      	mov	r9, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:379
+	buf=part_getSect(fs->part,sect,IOM_MODE_READONLY);
+  14:	4649      	mov	r1, r9
+  16:	2201      	movs	r2, #1
+  18:	6828      	ldr	r0, [r5, #0]
+  1a:	f7ff fffe 	bl	0 <part_getSect>
+  1e:	4680      	mov	r8, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:380
+	dc=fat_getNextClusterAddressWBuf(fs,Cache->DiscCluster,buf);
+  20:	68a1      	ldr	r1, [r4, #8]
+  22:	4628      	mov	r0, r5
+  24:	4642      	mov	r2, r8
+  26:	f7ff fffe 	bl	0 <fat_getNextClusterChain>
+  2a:	4607      	mov	r7, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:381
+	if(fat_isEocMarker(fs,dc))
+  2c:	4639      	mov	r1, r7
+  2e:	4628      	mov	r0, r5
+  30:	f7ff fffe 	bl	0 <fat_getNextClusterChain>
+  34:	b130      	cbz	r0, 44 <fat_getNextClusterChain+0x44>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:383
+	{
+		Cache->LastCluster=Cache->DiscCluster;
+  36:	68a3      	ldr	r3, [r4, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:384
+		part_relSect(fs->part,buf);
+  38:	6828      	ldr	r0, [r5, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:383
+	sect=fat_getSectorAddressFatEntry(fs,Cache->DiscCluster);
+	buf=part_getSect(fs->part,sect,IOM_MODE_READONLY);
+	dc=fat_getNextClusterAddressWBuf(fs,Cache->DiscCluster,buf);
+	if(fat_isEocMarker(fs,dc))
+	{
+		Cache->LastCluster=Cache->DiscCluster;
+  3a:	6123      	str	r3, [r4, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:384
+		part_relSect(fs->part,buf);
+  3c:	4641      	mov	r1, r8
+  3e:	f7ff fffe 	bl	0 <part_relSect>
+  42:	e022      	b.n	8a <fat_getNextClusterChain+0x8a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:389
+		return(-1);
+	}
+	
+	Cache->DiscCluster=dc;
+	Cache->LogicCluster++;
+  44:	6863      	ldr	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:388
+		Cache->LastCluster=Cache->DiscCluster;
+		part_relSect(fs->part,buf);
+		return(-1);
+	}
+	
+	Cache->DiscCluster=dc;
+  46:	60a7      	str	r7, [r4, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:389
+	Cache->LogicCluster++;
+  48:	3301      	adds	r3, #1
+  4a:	6063      	str	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:370
+ * Return value: 0 on success, or -1 when EoC.
+*/
+esint16 fat_getNextClusterChain(FileSystem *fs, ClusterChain *Cache)
+{
+	euint32 sect,lr,nlr,dc;
+	esint16 lin=0;
+  4c:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:391
+	}
+	
+	Cache->DiscCluster=dc;
+	Cache->LogicCluster++;
+		
+	lr=Cache->DiscCluster-1;
+  4e:	1e7b      	subs	r3, r7, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:394
+	nlr=lr+1;
+	
+	while(nlr-1==lr && fat_getSectorAddressFatEntry(fs,nlr)==sect)
+  50:	e008      	b.n	64 <fat_getNextClusterChain+0x64>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:397
+	{
+		lr=nlr;
+		nlr=fat_getNextClusterAddressWBuf(fs,lr,buf);
+  52:	4639      	mov	r1, r7
+  54:	4628      	mov	r0, r5
+  56:	4642      	mov	r2, r8
+  58:	f7ff fffe 	bl	0 <fat_getNextClusterChain>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:398
+		lin++;	
+  5c:	3601      	adds	r6, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:396
+	lr=Cache->DiscCluster-1;
+	nlr=lr+1;
+	
+	while(nlr-1==lr && fat_getSectorAddressFatEntry(fs,nlr)==sect)
+	{
+		lr=nlr;
+  5e:	463b      	mov	r3, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:398
+		nlr=fat_getNextClusterAddressWBuf(fs,lr,buf);
+		lin++;	
+  60:	b2b6      	uxth	r6, r6
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:397
+	nlr=lr+1;
+	
+	while(nlr-1==lr && fat_getSectorAddressFatEntry(fs,nlr)==sect)
+	{
+		lr=nlr;
+		nlr=fat_getNextClusterAddressWBuf(fs,lr,buf);
+  62:	4607      	mov	r7, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:394
+	Cache->LogicCluster++;
+		
+	lr=Cache->DiscCluster-1;
+	nlr=lr+1;
+	
+	while(nlr-1==lr && fat_getSectorAddressFatEntry(fs,nlr)==sect)
+  64:	1e7a      	subs	r2, r7, #1
+  66:	429a      	cmp	r2, r3
+  68:	d105      	bne.n	76 <fat_getNextClusterChain+0x76>
+  6a:	4628      	mov	r0, r5
+  6c:	4639      	mov	r1, r7
+  6e:	f7ff fffe 	bl	0 <fat_getNextClusterChain>
+  72:	4548      	cmp	r0, r9
+  74:	d0ed      	beq.n	52 <fat_getNextClusterChain+0x52>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:401
+		lr=nlr;
+		nlr=fat_getNextClusterAddressWBuf(fs,lr,buf);
+		lin++;	
+	}
+	
+	Cache->Linear=lin-1<0?0:lin-1;
+  76:	b10e      	cbz	r6, 7c <fat_getNextClusterChain+0x7c>
+  78:	3e01      	subs	r6, #1
+  7a:	b2f6      	uxtb	r6, r6
+  7c:	7026      	strb	r6, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:403
+	
+	part_relSect(fs->part,buf);
+  7e:	6828      	ldr	r0, [r5, #0]
+  80:	4641      	mov	r1, r8
+  82:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:404
+	return(0);
+  86:	2000      	movs	r0, #0
+  88:	e001      	b.n	8e <fat_getNextClusterChain+0x8e>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:375
+	esint16 lin=0;
+	euint8 *buf;
+
+	if(Cache->DiscCluster==0)
+	{
+		return(-1);
+  8a:	f64f 70ff 	movw	r0, #65535	; 0xffff
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:405
+	
+	Cache->Linear=lin-1<0?0:lin-1;
+	
+	part_relSect(fs->part,buf);
+	return(0);
+}
+  8e:	b200      	sxth	r0, r0
+  90:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+
+Disassembly of section .text.fat_LogicToDiscCluster:
+
+00000000 <fat_LogicToDiscCluster>:
+fat_LogicToDiscCluster():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:420
+ * scanning the entire chain every time.
+ * Return value: 0 on success and -1 on failure (meaning out of bounds).
+*/
+esint16 fat_LogicToDiscCluster(FileSystem *fs, ClusterChain *Cache,euint32 logiccluster)
+{
+	if(logiccluster<Cache->LogicCluster || Cache->DiscCluster==0){
+   0:	684b      	ldr	r3, [r1, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:419
+ * It is NOT recommended to go backwards in clusterchains, since this will require
+ * scanning the entire chain every time.
+ * Return value: 0 on success and -1 on failure (meaning out of bounds).
+*/
+esint16 fat_LogicToDiscCluster(FileSystem *fs, ClusterChain *Cache,euint32 logiccluster)
+{
+   2:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:420
+	if(logiccluster<Cache->LogicCluster || Cache->DiscCluster==0){
+   4:	429a      	cmp	r2, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:419
+ * It is NOT recommended to go backwards in clusterchains, since this will require
+ * scanning the entire chain every time.
+ * Return value: 0 on success and -1 on failure (meaning out of bounds).
+*/
+esint16 fat_LogicToDiscCluster(FileSystem *fs, ClusterChain *Cache,euint32 logiccluster)
+{
+   6:	4605      	mov	r5, r0
+   8:	460c      	mov	r4, r1
+   a:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:420
+	if(logiccluster<Cache->LogicCluster || Cache->DiscCluster==0){
+   c:	d301      	bcc.n	12 <fat_LogicToDiscCluster+0x12>
+   e:	688b      	ldr	r3, [r1, #8]
+  10:	b923      	cbnz	r3, 1c <fat_LogicToDiscCluster+0x1c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:422
+		Cache->LogicCluster=0;
+		Cache->DiscCluster=Cache->FirstCluster;
+  12:	68e2      	ldr	r2, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:421
+ * Return value: 0 on success and -1 on failure (meaning out of bounds).
+*/
+esint16 fat_LogicToDiscCluster(FileSystem *fs, ClusterChain *Cache,euint32 logiccluster)
+{
+	if(logiccluster<Cache->LogicCluster || Cache->DiscCluster==0){
+		Cache->LogicCluster=0;
+  14:	2300      	movs	r3, #0
+  16:	6063      	str	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:422
+		Cache->DiscCluster=Cache->FirstCluster;
+  18:	60a2      	str	r2, [r4, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:423
+		Cache->Linear=0;
+  1a:	7023      	strb	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:426
+	}
+	
+	if(Cache->LogicCluster==logiccluster){
+  1c:	6863      	ldr	r3, [r4, #4]
+  1e:	42b3      	cmp	r3, r6
+  20:	d10f      	bne.n	42 <fat_LogicToDiscCluster+0x42>
+  22:	e011      	b.n	48 <fat_LogicToDiscCluster+0x48>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:432
+		return(0);
+	}
+	
+	while(Cache->LogicCluster!=logiccluster)
+	{
+		if(Cache->Linear!=0)
+  24:	7822      	ldrb	r2, [r4, #0]
+  26:	b13a      	cbz	r2, 38 <fat_LogicToDiscCluster+0x38>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:435
+		{
+			Cache->Linear--;
+			Cache->LogicCluster++;
+  28:	3301      	adds	r3, #1
+  2a:	6063      	str	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:436
+			Cache->DiscCluster++;
+  2c:	68a3      	ldr	r3, [r4, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:434
+	
+	while(Cache->LogicCluster!=logiccluster)
+	{
+		if(Cache->Linear!=0)
+		{
+			Cache->Linear--;
+  2e:	3a01      	subs	r2, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:436
+			Cache->LogicCluster++;
+			Cache->DiscCluster++;
+  30:	3301      	adds	r3, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:434
+	
+	while(Cache->LogicCluster!=logiccluster)
+	{
+		if(Cache->Linear!=0)
+		{
+			Cache->Linear--;
+  32:	7022      	strb	r2, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:436
+			Cache->LogicCluster++;
+			Cache->DiscCluster++;
+  34:	60a3      	str	r3, [r4, #8]
+  36:	e004      	b.n	42 <fat_LogicToDiscCluster+0x42>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:440
+		}
+		else
+		{
+			if((fat_getNextClusterChain(fs,Cache))!=0){
+  38:	4628      	mov	r0, r5
+  3a:	4621      	mov	r1, r4
+  3c:	f7ff fffe 	bl	0 <fat_LogicToDiscCluster>
+  40:	b920      	cbnz	r0, 4c <fat_LogicToDiscCluster+0x4c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:430
+	
+	if(Cache->LogicCluster==logiccluster){
+		return(0);
+	}
+	
+	while(Cache->LogicCluster!=logiccluster)
+  42:	6863      	ldr	r3, [r4, #4]
+  44:	42b3      	cmp	r3, r6
+  46:	d1ed      	bne.n	24 <fat_LogicToDiscCluster+0x24>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:427
+		Cache->DiscCluster=Cache->FirstCluster;
+		Cache->Linear=0;
+	}
+	
+	if(Cache->LogicCluster==logiccluster){
+		return(0);
+  48:	2000      	movs	r0, #0
+  4a:	e001      	b.n	50 <fat_LogicToDiscCluster+0x50>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:441
+			Cache->DiscCluster++;
+		}
+		else
+		{
+			if((fat_getNextClusterChain(fs,Cache))!=0){
+				return(-1);
+  4c:	f64f 70ff 	movw	r0, #65535	; 0xffff
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:446
+			}
+		}
+	}
+	return(0);
+}
+  50:	b200      	sxth	r0, r0
+  52:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.fat_allocClusterChain:
+
+00000000 <fat_allocClusterChain>:
+fat_allocClusterChain():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:462
+{
+	euint32 cc,ncl=num_clusters,lc;
+	euint8 *bufa=0,*bufb=0;
+	euint8  overflow=0;
+
+	if(Cache->FirstCluster<=1)return(num_clusters);
+   0:	68cb      	ldr	r3, [r1, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:457
+ * number of clusters it *failed* to allocate. 
+ * Return value: 0 on success, all other values are the number of clusters it could
+ * not allocate.
+*/
+eint16 fat_allocClusterChain(FileSystem *fs,ClusterChain *Cache,euint32 num_clusters)
+{
+   2:	e92d 4ff7 	stmdb	sp!, {r0, r1, r2, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:462
+	euint32 cc,ncl=num_clusters,lc;
+	euint8 *bufa=0,*bufb=0;
+	euint8  overflow=0;
+
+	if(Cache->FirstCluster<=1)return(num_clusters);
+   6:	2b01      	cmp	r3, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:457
+ * number of clusters it *failed* to allocate. 
+ * Return value: 0 on success, all other values are the number of clusters it could
+ * not allocate.
+*/
+eint16 fat_allocClusterChain(FileSystem *fs,ClusterChain *Cache,euint32 num_clusters)
+{
+   8:	4604      	mov	r4, r0
+   a:	4688      	mov	r8, r1
+   c:	4617      	mov	r7, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:462
+	euint32 cc,ncl=num_clusters,lc;
+	euint8 *bufa=0,*bufb=0;
+	euint8  overflow=0;
+
+	if(Cache->FirstCluster<=1)return(num_clusters);
+   e:	d92e      	bls.n	6e <fat_allocClusterChain+0x6e>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:464
+	
+	lc=fs_getLastCluster(fs,Cache);
+  10:	f7ff fffe 	bl	0 <fs_getLastCluster>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:460
+*/
+eint16 fat_allocClusterChain(FileSystem *fs,ClusterChain *Cache,euint32 num_clusters)
+{
+	euint32 cc,ncl=num_clusters,lc;
+	euint8 *bufa=0,*bufb=0;
+	euint8  overflow=0;
+  14:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:464
+
+	if(Cache->FirstCluster<=1)return(num_clusters);
+	
+	lc=fs_getLastCluster(fs,Cache);
+  16:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:458
+ * Return value: 0 on success, all other values are the number of clusters it could
+ * not allocate.
+*/
+eint16 fat_allocClusterChain(FileSystem *fs,ClusterChain *Cache,euint32 num_clusters)
+{
+	euint32 cc,ncl=num_clusters,lc;
+  18:	46b9      	mov	r9, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:465
+	euint8  overflow=0;
+
+	if(Cache->FirstCluster<=1)return(num_clusters);
+	
+	lc=fs_getLastCluster(fs,Cache);
+	cc=lc;
+  1a:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:460
+*/
+eint16 fat_allocClusterChain(FileSystem *fs,ClusterChain *Cache,euint32 num_clusters)
+{
+	euint32 cc,ncl=num_clusters,lc;
+	euint8 *bufa=0,*bufb=0;
+	euint8  overflow=0;
+  1c:	9301      	str	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:467
+	if(Cache->FirstCluster<=1)return(num_clusters);
+	
+	lc=fs_getLastCluster(fs,Cache);
+	cc=lc;
+	
+	while(ncl > 0){
+  1e:	2f00      	cmp	r7, #0
+  20:	d071      	beq.n	106 <fat_allocClusterChain+0x106>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:469
+		cc++;
+		if(cc>=fs->DataClusterCount+1){
+  22:	6a23      	ldr	r3, [r4, #32]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:468
+	
+	lc=fs_getLastCluster(fs,Cache);
+	cc=lc;
+	
+	while(ncl > 0){
+		cc++;
+  24:	3601      	adds	r6, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:469
+		if(cc>=fs->DataClusterCount+1){
+  26:	3301      	adds	r3, #1
+  28:	429e      	cmp	r6, r3
+  2a:	d325      	bcc.n	78 <fat_allocClusterChain+0x78>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:470
+			if(overflow){
+  2c:	9b01      	ldr	r3, [sp, #4]
+  2e:	b303      	cbz	r3, 72 <fat_allocClusterChain+0x72>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:471
+				bufa=part_getSect(fs->part,fat_getSectorAddressFatEntry(fs,lc),IOM_MODE_READWRITE);
+  30:	4629      	mov	r1, r5
+  32:	4620      	mov	r0, r4
+  34:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+  38:	2202      	movs	r2, #2
+  3a:	4601      	mov	r1, r0
+  3c:	6820      	ldr	r0, [r4, #0]
+  3e:	f7ff fffe 	bl	0 <part_getSect>
+  42:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:472
+				fat_setNextClusterAddressWBuf(fs,lc,fat_giveEocMarker(fs),bufa);
+  44:	4620      	mov	r0, r4
+  46:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+  4a:	4633      	mov	r3, r6
+  4c:	4602      	mov	r2, r0
+  4e:	4629      	mov	r1, r5
+  50:	4620      	mov	r0, r4
+  52:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:473
+				Cache->LastCluster=lc;
+  56:	f8c8 5010 	str.w	r5, [r8, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:474
+				part_relSect(fs->part,bufa);
+  5a:	6820      	ldr	r0, [r4, #0]
+  5c:	4631      	mov	r1, r6
+  5e:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:475
+				fs->FreeClusterCount-=num_clusters-ncl;
+  62:	6b63      	ldr	r3, [r4, #52]	; 0x34
+  64:	1bdb      	subs	r3, r3, r7
+  66:	444b      	add	r3, r9
+  68:	6363      	str	r3, [r4, #52]	; 0x34
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:476
+				return(num_clusters-ncl);
+  6a:	ebc9 0707 	rsb	r7, r9, r7
+  6e:	b2bf      	uxth	r7, r7
+  70:	e052      	b.n	118 <fat_allocClusterChain+0x118>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:479
+			}
+			cc=2;
+			overflow++;
+  72:	2301      	movs	r3, #1
+  74:	9301      	str	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:478
+				Cache->LastCluster=lc;
+				part_relSect(fs->part,bufa);
+				fs->FreeClusterCount-=num_clusters-ncl;
+				return(num_clusters-ncl);
+			}
+			cc=2;
+  76:	2602      	movs	r6, #2
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:481
+			overflow++;
+		}
+		bufa=part_getSect(fs->part,fat_getSectorAddressFatEntry(fs,cc),IOM_MODE_READONLY);
+  78:	4631      	mov	r1, r6
+  7a:	4620      	mov	r0, r4
+  7c:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+  80:	2201      	movs	r2, #1
+  82:	4601      	mov	r1, r0
+  84:	6820      	ldr	r0, [r4, #0]
+  86:	f7ff fffe 	bl	0 <part_getSect>
+  8a:	4683      	mov	fp, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:482
+		if(fat_getNextClusterAddressWBuf(fs,cc,bufa)==0){
+  8c:	4631      	mov	r1, r6
+  8e:	4620      	mov	r0, r4
+  90:	465a      	mov	r2, fp
+  92:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+  96:	b9b0      	cbnz	r0, c6 <fat_allocClusterChain+0xc6>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:483
+			bufb=part_getSect(fs->part,fat_getSectorAddressFatEntry(fs,lc),IOM_MODE_READWRITE);
+  98:	4629      	mov	r1, r5
+  9a:	4620      	mov	r0, r4
+  9c:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+  a0:	2202      	movs	r2, #2
+  a2:	4601      	mov	r1, r0
+  a4:	6820      	ldr	r0, [r4, #0]
+  a6:	f7ff fffe 	bl	0 <part_getSect>
+  aa:	4682      	mov	sl, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:484
+			fat_setNextClusterAddressWBuf(fs,lc,cc,bufb);
+  ac:	4629      	mov	r1, r5
+  ae:	4620      	mov	r0, r4
+  b0:	4632      	mov	r2, r6
+  b2:	4653      	mov	r3, sl
+  b4:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:485
+			part_relSect(fs->part,bufb);
+  b8:	6820      	ldr	r0, [r4, #0]
+  ba:	4651      	mov	r1, sl
+  bc:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:486
+			ncl--;
+  c0:	f109 39ff 	add.w	r9, r9, #4294967295
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:487
+			lc=cc;
+  c4:	4635      	mov	r5, r6
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:489
+		}
+		part_relSect(fs->part,bufa);
+  c6:	6820      	ldr	r0, [r4, #0]
+  c8:	4659      	mov	r1, fp
+  ca:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:490
+		if(ncl==0){
+  ce:	f1b9 0f00 	cmp.w	r9, #0
+  d2:	d1a6      	bne.n	22 <fat_allocClusterChain+0x22>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:491
+			bufa=part_getSect(fs->part,fat_getSectorAddressFatEntry(fs,lc),IOM_MODE_READWRITE);
+  d4:	4629      	mov	r1, r5
+  d6:	4620      	mov	r0, r4
+  d8:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+  dc:	2202      	movs	r2, #2
+  de:	4601      	mov	r1, r0
+  e0:	6820      	ldr	r0, [r4, #0]
+  e2:	f7ff fffe 	bl	0 <part_getSect>
+  e6:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:492
+			fat_setNextClusterAddressWBuf(fs,lc,fat_giveEocMarker(fs),bufa);
+  e8:	4620      	mov	r0, r4
+  ea:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+  ee:	4629      	mov	r1, r5
+  f0:	4602      	mov	r2, r0
+  f2:	4633      	mov	r3, r6
+  f4:	4620      	mov	r0, r4
+  f6:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:493
+			Cache->LastCluster=lc;
+  fa:	f8c8 5010 	str.w	r5, [r8, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:494
+			part_relSect(fs->part,bufa);
+  fe:	6820      	ldr	r0, [r4, #0]
+ 100:	4631      	mov	r1, r6
+ 102:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:497
+		}
+	}
+	if(Cache->ClusterCount)Cache->ClusterCount+=num_clusters;
+ 106:	f8d8 3014 	ldr.w	r3, [r8, #20]
+ 10a:	b123      	cbz	r3, 116 <fat_allocClusterChain+0x116>
+ 10c:	18ff      	adds	r7, r7, r3
+ 10e:	f8c8 7014 	str.w	r7, [r8, #20]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:498
+	return(0);
+ 112:	2700      	movs	r7, #0
+ 114:	e000      	b.n	118 <fat_allocClusterChain+0x118>
+ 116:	461f      	mov	r7, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:499
+}
+ 118:	b238      	sxth	r0, r7
+ 11a:	e8bd 8ffe 	ldmia.w	sp!, {r1, r2, r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+
+Disassembly of section .text.fat_unlinkClusterChain:
+
+00000000 <fat_unlinkClusterChain>:
+fat_unlinkClusterChain():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:508
+ * Description: This function removes a clusterchain. Starting at FirstCluster
+ * it follows the chain until the end, resetting all values to 0.
+ * Return value: 0 on success.
+*/
+eint16 fat_unlinkClusterChain(FileSystem *fs,ClusterChain *Cache)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:512
+	euint32 c,tbd=0;
+	
+	Cache->LogicCluster=0;
+	Cache->DiscCluster=Cache->FirstCluster;
+   2:	68cb      	ldr	r3, [r1, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:511
+*/
+eint16 fat_unlinkClusterChain(FileSystem *fs,ClusterChain *Cache)
+{
+	euint32 c,tbd=0;
+	
+	Cache->LogicCluster=0;
+   4:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:508
+ * Description: This function removes a clusterchain. Starting at FirstCluster
+ * it follows the chain until the end, resetting all values to 0.
+ * Return value: 0 on success.
+*/
+eint16 fat_unlinkClusterChain(FileSystem *fs,ClusterChain *Cache)
+{
+   6:	4605      	mov	r5, r0
+   8:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:511
+	euint32 c,tbd=0;
+	
+	Cache->LogicCluster=0;
+   a:	604e      	str	r6, [r1, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:512
+	Cache->DiscCluster=Cache->FirstCluster;
+   c:	608b      	str	r3, [r1, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:514
+	
+	c=0;
+   e:	4632      	mov	r2, r6
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:516
+	
+	while(!fat_LogicToDiscCluster(fs,Cache,c++)){
+  10:	e006      	b.n	20 <fat_unlinkClusterChain+0x20>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:517
+		if(tbd!=0){
+  12:	b11e      	cbz	r6, 1c <fat_unlinkClusterChain+0x1c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:518
+			fat_setNextClusterAddress(fs,tbd,0);
+  14:	4628      	mov	r0, r5
+  16:	4631      	mov	r1, r6
+  18:	f7ff fffe 	bl	0 <fat_unlinkClusterChain>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:520
+		}
+		tbd=Cache->DiscCluster;
+  1c:	68a6      	ldr	r6, [r4, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:516
+	Cache->LogicCluster=0;
+	Cache->DiscCluster=Cache->FirstCluster;
+	
+	c=0;
+	
+	while(!fat_LogicToDiscCluster(fs,Cache,c++)){
+  1e:	463a      	mov	r2, r7
+  20:	4628      	mov	r0, r5
+  22:	4621      	mov	r1, r4
+  24:	1c57      	adds	r7, r2, #1
+  26:	f7ff fffe 	bl	0 <fat_unlinkClusterChain>
+  2a:	4602      	mov	r2, r0
+  2c:	2800      	cmp	r0, #0
+  2e:	d0f0      	beq.n	12 <fat_unlinkClusterChain+0x12>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:522
+		if(tbd!=0){
+			fat_setNextClusterAddress(fs,tbd,0);
+		}
+		tbd=Cache->DiscCluster;
+	}
+	fat_setNextClusterAddress(fs,Cache->DiscCluster,0);
+  30:	4628      	mov	r0, r5
+  32:	68a1      	ldr	r1, [r4, #8]
+  34:	2200      	movs	r2, #0
+  36:	f7ff fffe 	bl	0 <fat_unlinkClusterChain>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:523
+	fs->FreeClusterCount+=c;	
+  3a:	6b6b      	ldr	r3, [r5, #52]	; 0x34
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:525
+ 	return(0);
+}
+  3c:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:523
+			fat_setNextClusterAddress(fs,tbd,0);
+		}
+		tbd=Cache->DiscCluster;
+	}
+	fat_setNextClusterAddress(fs,Cache->DiscCluster,0);
+	fs->FreeClusterCount+=c;	
+  3e:	19df      	adds	r7, r3, r7
+  40:	636f      	str	r7, [r5, #52]	; 0x34
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:525
+ 	return(0);
+}
+  42:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+
+Disassembly of section .text.fat_countClustersInChain:
+
+00000000 <fat_countClustersInChain>:
+fat_countClustersInChain():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:528
+
+euint32 fat_countClustersInChain(FileSystem *fs,euint32 firstcluster)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:532
+	ClusterChain cache;
+	euint32 c=0;
+	
+	if(firstcluster<=1)return(0);
+   2:	2901      	cmp	r1, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:528
+	fs->FreeClusterCount+=c;	
+ 	return(0);
+}
+
+euint32 fat_countClustersInChain(FileSystem *fs,euint32 firstcluster)
+{
+   4:	b086      	sub	sp, #24
+   6:	4605      	mov	r5, r0
+   8:	f04f 0400 	mov.w	r4, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:532
+	ClusterChain cache;
+	euint32 c=0;
+	
+	if(firstcluster<=1)return(0);
+   c:	d90f      	bls.n	2e <fat_countClustersInChain+0x2e>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:534
+	
+	cache.DiscCluster = cache.LogicCluster = cache.LastCluster = cache.Linear = 0;
+   e:	f88d 4000 	strb.w	r4, [sp]
+  12:	9404      	str	r4, [sp, #16]
+  14:	9401      	str	r4, [sp, #4]
+  16:	9402      	str	r4, [sp, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:535
+	cache.FirstCluster = firstcluster;
+  18:	9103      	str	r1, [sp, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:537
+	
+	while(!(fat_LogicToDiscCluster(fs,&cache,c++)));
+  1a:	e000      	b.n	1e <fat_countClustersInChain+0x1e>
+  1c:	4634      	mov	r4, r6
+  1e:	4628      	mov	r0, r5
+  20:	4669      	mov	r1, sp
+  22:	4622      	mov	r2, r4
+  24:	1c66      	adds	r6, r4, #1
+  26:	f7ff fffe 	bl	0 <fat_countClustersInChain>
+  2a:	2800      	cmp	r0, #0
+  2c:	d0f6      	beq.n	1c <fat_countClustersInChain+0x1c>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:540
+	
+	return(c-1);
+}
+  2e:	4620      	mov	r0, r4
+  30:	b006      	add	sp, #24
+  32:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.fat_DiscToLogicCluster:
+
+00000000 <fat_DiscToLogicCluster>:
+fat_DiscToLogicCluster():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:543
+
+euint32 fat_DiscToLogicCluster(FileSystem *fs,euint32 firstcluster,euint32 disccluster)
+{
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:547
+	ClusterChain cache;
+	euint32 c=0,r=0;
+	
+	cache.DiscCluster = cache.LogicCluster = cache.LastCluster = cache.Linear = 0;
+   2:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:543
+	
+	return(c-1);
+}
+
+euint32 fat_DiscToLogicCluster(FileSystem *fs,euint32 firstcluster,euint32 disccluster)
+{
+   4:	b087      	sub	sp, #28
+   6:	4615      	mov	r5, r2
+   8:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:547
+	ClusterChain cache;
+	euint32 c=0,r=0;
+	
+	cache.DiscCluster = cache.LogicCluster = cache.LastCluster = cache.Linear = 0;
+   a:	f88d 4000 	strb.w	r4, [sp]
+   e:	9404      	str	r4, [sp, #16]
+  10:	9401      	str	r4, [sp, #4]
+  12:	9402      	str	r4, [sp, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:548
+	cache.FirstCluster = firstcluster;
+  14:	9103      	str	r1, [sp, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:545
+}
+
+euint32 fat_DiscToLogicCluster(FileSystem *fs,euint32 firstcluster,euint32 disccluster)
+{
+	ClusterChain cache;
+	euint32 c=0,r=0;
+  16:	4622      	mov	r2, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:550
+	
+	cache.DiscCluster = cache.LogicCluster = cache.LastCluster = cache.Linear = 0;
+	cache.FirstCluster = firstcluster;
+	
+	while(!(fat_LogicToDiscCluster(fs,&cache,c++)) && !r){
+  18:	e004      	b.n	24 <fat_DiscToLogicCluster+0x24>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:551
+		if(cache.DiscCluster == disccluster){
+  1a:	9b02      	ldr	r3, [sp, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:543
+	
+	return(c-1);
+}
+
+euint32 fat_DiscToLogicCluster(FileSystem *fs,euint32 firstcluster,euint32 disccluster)
+{
+  1c:	463a      	mov	r2, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:551
+	
+	cache.DiscCluster = cache.LogicCluster = cache.LastCluster = cache.Linear = 0;
+	cache.FirstCluster = firstcluster;
+	
+	while(!(fat_LogicToDiscCluster(fs,&cache,c++)) && !r){
+		if(cache.DiscCluster == disccluster){
+  1e:	42ab      	cmp	r3, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:552
+			r = cache.LogicCluster;
+  20:	bf08      	it	eq
+  22:	9c01      	ldreq	r4, [sp, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:550
+	euint32 c=0,r=0;
+	
+	cache.DiscCluster = cache.LogicCluster = cache.LastCluster = cache.Linear = 0;
+	cache.FirstCluster = firstcluster;
+	
+	while(!(fat_LogicToDiscCluster(fs,&cache,c++)) && !r){
+  24:	4630      	mov	r0, r6
+  26:	4669      	mov	r1, sp
+  28:	1c57      	adds	r7, r2, #1
+  2a:	f7ff fffe 	bl	0 <fat_DiscToLogicCluster>
+  2e:	b908      	cbnz	r0, 34 <fat_DiscToLogicCluster+0x34>
+  30:	2c00      	cmp	r4, #0
+  32:	d0f2      	beq.n	1a <fat_DiscToLogicCluster+0x1a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:556
+		if(cache.DiscCluster == disccluster){
+			r = cache.LogicCluster;
+		}
+	}
+	return(r);
+}
+  34:	4620      	mov	r0, r4
+  36:	b007      	add	sp, #28
+  38:	bdf0      	pop	{r4, r5, r6, r7, pc}
+
+Disassembly of section .text.fat_countFreeClusters:
+
+00000000 <fat_countFreeClusters>:
+fat_countFreeClusters():
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:559
+
+euint32 fat_countFreeClusters(FileSystem *fs)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:560
+	euint32 c=2,fc=0;
+   4:	2500      	movs	r5, #0
+   6:	2402      	movs	r4, #2
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:562
+	
+	while(c<=fs->DataClusterCount+1){
+   8:	e007      	b.n	1a <fat_countFreeClusters+0x1a>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:563
+		if(fat_getNextClusterAddress(fs,c,0)==0)fc++;
+   a:	4630      	mov	r0, r6
+   c:	4621      	mov	r1, r4
+   e:	2200      	movs	r2, #0
+  10:	f7ff fffe 	bl	0 <fat_countFreeClusters>
+  14:	b900      	cbnz	r0, 18 <fat_countFreeClusters+0x18>
+  16:	3501      	adds	r5, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:564
+		c++;
+  18:	3401      	adds	r4, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:562
+
+euint32 fat_countFreeClusters(FileSystem *fs)
+{
+	euint32 c=2,fc=0;
+	
+	while(c<=fs->DataClusterCount+1){
+  1a:	6a33      	ldr	r3, [r6, #32]
+  1c:	3301      	adds	r3, #1
+  1e:	429c      	cmp	r4, r3
+  20:	d9f3      	bls.n	a <fat_countFreeClusters+0xa>
+D:\sunny\stm32\therme\Utilities\efsl\source/fat.c:567
+		if(fat_getNextClusterAddress(fs,c,0)==0)fc++;
+		c++;
+	}
+	return(fc);
+}
+  22:	4628      	mov	r0, r5
+  24:	bd70      	pop	{r4, r5, r6, pc}

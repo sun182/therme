@@ -1,0 +1,537 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\ls.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\ls.o
+
+
+Disassembly of section .text.ls_openDir:
+
+00000000 <ls_openDir>:
+ls_openDir():
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:38
+/*****************************************************************************/
+#include "ls.h"
+/*****************************************************************************/
+
+esint8 ls_openDir(DirList *dlist,FileSystem *fs,eint8* dirname)
+{
+   0:	b530      	push	{r4, r5, lr}
+   2:	b085      	sub	sp, #20
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:42
+	FileLocation loc;
+	euint32 fc;
+	
+	dlist->fs=fs;
+   4:	6001      	str	r1, [r0, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:38
+/*****************************************************************************/
+#include "ls.h"
+/*****************************************************************************/
+
+esint8 ls_openDir(DirList *dlist,FileSystem *fs,eint8* dirname)
+{
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:44
+	FileLocation loc;
+	euint32 fc;
+	
+	dlist->fs=fs;
+	
+	if(fs_findFile(dlist->fs,dirname,&loc,&fc)!=2)
+   8:	ab03      	add	r3, sp, #12
+   a:	4608      	mov	r0, r1
+   c:	4611      	mov	r1, r2
+   e:	aa01      	add	r2, sp, #4
+  10:	f7ff fffe 	bl	0 <fs_findFile>
+  14:	2802      	cmp	r0, #2
+  16:	d112      	bne.n	3e <ls_openDir+0x3e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:49
+	{
+		return(-1);
+	}
+	
+	fs_initClusterChain(dlist->fs,&(dlist->Cache),fc);
+  18:	4625      	mov	r5, r4
+  1a:	f855 0b08 	ldr.w	r0, [r5], #8
+  1e:	f104 011c 	add.w	r1, r4, #28
+  22:	9a03      	ldr	r2, [sp, #12]
+  24:	f7ff fffe 	bl	0 <fs_initClusterChain>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:50
+	memClr(&(dlist->currentEntry),sizeof(dlist->currentEntry));
+  28:	4628      	mov	r0, r5
+  2a:	2114      	movs	r1, #20
+  2c:	f7ff fffe 	bl	0 <memClr>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:51
+	dlist->rEntry=0;
+  30:	2300      	movs	r3, #0
+  32:	80e3      	strh	r3, [r4, #6]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:52
+	dlist->cEntry=0xFFFF;
+  34:	f04f 33ff 	mov.w	r3, #4294967295
+  38:	80a3      	strh	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:54
+	
+	return(0);
+  3a:	2000      	movs	r0, #0
+  3c:	e000      	b.n	40 <ls_openDir+0x40>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:46
+	
+	dlist->fs=fs;
+	
+	if(fs_findFile(dlist->fs,dirname,&loc,&fc)!=2)
+	{
+		return(-1);
+  3e:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:55
+	memClr(&(dlist->currentEntry),sizeof(dlist->currentEntry));
+	dlist->rEntry=0;
+	dlist->cEntry=0xFFFF;
+	
+	return(0);
+}
+  40:	b240      	sxtb	r0, r0
+  42:	b005      	add	sp, #20
+  44:	bd30      	pop	{r4, r5, pc}
+
+Disassembly of section .text.ls_isValidFileEntry:
+
+00000000 <ls_isValidFileEntry>:
+ls_isValidFileEntry():
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:124
+}
+/*****************************************************************************/
+
+esint8 ls_isValidFileEntry(ListDirEntry *entry)
+{
+	if(entry->FileName[0] == 0 || entry->FileName[0] == 0xE5 || entry->FileName[0] == '.')return(0);
+   0:	7803      	ldrb	r3, [r0, #0]
+   2:	b153      	cbz	r3, 1a <ls_isValidFileEntry+0x1a>
+   4:	2be5      	cmp	r3, #229	; 0xe5
+   6:	d00a      	beq.n	1e <ls_isValidFileEntry+0x1e>
+   8:	2b2e      	cmp	r3, #46	; 0x2e
+   a:	d008      	beq.n	1e <ls_isValidFileEntry+0x1e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:125
+	if((entry->Attribute&0x0F)==0x0F)return(0);
+   c:	7c00      	ldrb	r0, [r0, #16]
+   e:	f000 000f 	and.w	r0, r0, #15
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:124
+}
+/*****************************************************************************/
+
+esint8 ls_isValidFileEntry(ListDirEntry *entry)
+{
+	if(entry->FileName[0] == 0 || entry->FileName[0] == 0xE5 || entry->FileName[0] == '.')return(0);
+  12:	380f      	subs	r0, #15
+  14:	bf18      	it	ne
+  16:	2001      	movne	r0, #1
+  18:	e002      	b.n	20 <ls_isValidFileEntry+0x20>
+  1a:	4618      	mov	r0, r3
+  1c:	e000      	b.n	20 <ls_isValidFileEntry+0x20>
+  1e:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:127
+	if((entry->Attribute&0x0F)==0x0F)return(0);
+ 	return(1);
+}
+  20:	b240      	sxtb	r0, r0
+  22:	4770      	bx	lr
+
+Disassembly of section .text.ls_fileEntryToDirListEntry:
+
+00000000 <ls_fileEntryToDirListEntry>:
+ls_fileEntryToDirListEntry():
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:132
+/*****************************************************************************/
+
+void ls_fileEntryToDirListEntry(DirList *dlist, euint8* buf, euint16 offset)
+{
+	if(offset>480 || offset%32)return;
+   0:	f5b2 7ff0 	cmp.w	r2, #480	; 0x1e0
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:131
+ 	return(1);
+}
+/*****************************************************************************/
+
+void ls_fileEntryToDirListEntry(DirList *dlist, euint8* buf, euint16 offset)
+{
+   4:	b538      	push	{r3, r4, r5, lr}
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:132
+	if(offset>480 || offset%32)return;
+   8:	d810      	bhi.n	2c <ls_fileEntryToDirListEntry+0x2c>
+   a:	f012 0f1f 	tst.w	r2, #31
+   e:	d10d      	bne.n	2c <ls_fileEntryToDirListEntry+0x2c>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:134
+	
+	buf+=offset;
+  10:	188d      	adds	r5, r1, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:135
+	memCpy(buf+OFFSET_DE_FILENAME,dlist->currentEntry.FileName,LIST_MAXLENFILENAME);
+  12:	4628      	mov	r0, r5
+  14:	f104 0108 	add.w	r1, r4, #8
+  18:	220c      	movs	r2, #12
+  1a:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:136
+	dlist->currentEntry.Attribute = *(buf+OFFSET_DE_ATTRIBUTE);
+  1e:	7aeb      	ldrb	r3, [r5, #11]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:137
+	dlist->currentEntry.FileSize = ex_getb32(buf,OFFSET_DE_FILESIZE);
+  20:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:136
+{
+	if(offset>480 || offset%32)return;
+	
+	buf+=offset;
+	memCpy(buf+OFFSET_DE_FILENAME,dlist->currentEntry.FileName,LIST_MAXLENFILENAME);
+	dlist->currentEntry.Attribute = *(buf+OFFSET_DE_ATTRIBUTE);
+  22:	7623      	strb	r3, [r4, #24]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:137
+	dlist->currentEntry.FileSize = ex_getb32(buf,OFFSET_DE_FILESIZE);
+  24:	211c      	movs	r1, #28
+  26:	f7ff fffe 	bl	0 <ex_getb32>
+  2a:	6160      	str	r0, [r4, #20]
+  2c:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.ls_getRootAreaEntry:
+
+00000000 <ls_getRootAreaEntry>:
+ls_getRootAreaEntry():
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:106
+	return(0);
+}
+/*****************************************************************************/
+
+esint8 ls_getRootAreaEntry(DirList *dlist)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:109
+	euint8 *buf=0;
+	
+	if((dlist->fs->type != FAT12) && (dlist->fs->type != FAT16))return(-1);
+   2:	6802      	ldr	r2, [r0, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:106
+	return(0);
+}
+/*****************************************************************************/
+
+esint8 ls_getRootAreaEntry(DirList *dlist)
+{
+   4:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:109
+	euint8 *buf=0;
+	
+	if((dlist->fs->type != FAT12) && (dlist->fs->type != FAT16))return(-1);
+   6:	f892 303c 	ldrb.w	r3, [r2, #60]	; 0x3c
+   a:	3b01      	subs	r3, #1
+   c:	b2db      	uxtb	r3, r3
+   e:	2b01      	cmp	r3, #1
+  10:	d81a      	bhi.n	48 <ls_getRootAreaEntry+0x48>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:110
+	if(dlist->rEntry>=dlist->fs->volumeId.RootEntryCount)return(-1);
+  12:	88c3      	ldrh	r3, [r0, #6]
+  14:	8991      	ldrh	r1, [r2, #12]
+  16:	4299      	cmp	r1, r3
+  18:	d916      	bls.n	48 <ls_getRootAreaEntry+0x48>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:112
+	
+	buf = part_getSect(dlist->fs->part,
+  1a:	6ad1      	ldr	r1, [r2, #44]	; 0x2c
+  1c:	6810      	ldr	r0, [r2, #0]
+  1e:	eb01 1113 	add.w	r1, r1, r3, lsr #4
+  22:	2201      	movs	r2, #1
+  24:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:116
+					   dlist->fs->FirstSectorRootDir+dlist->rEntry/16,
+					   IOM_MODE_READONLY);
+	/*memCpy(buf+32*(dlist->rEntry%16),&(dlist->currentEntry),32);*/
+	ls_fileEntryToDirListEntry(dlist,buf,32*(dlist->rEntry%16));
+  28:	88e2      	ldrh	r2, [r4, #6]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:112
+	euint8 *buf=0;
+	
+	if((dlist->fs->type != FAT12) && (dlist->fs->type != FAT16))return(-1);
+	if(dlist->rEntry>=dlist->fs->volumeId.RootEntryCount)return(-1);
+	
+	buf = part_getSect(dlist->fs->part,
+  2a:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:116
+					   dlist->fs->FirstSectorRootDir+dlist->rEntry/16,
+					   IOM_MODE_READONLY);
+	/*memCpy(buf+32*(dlist->rEntry%16),&(dlist->currentEntry),32);*/
+	ls_fileEntryToDirListEntry(dlist,buf,32*(dlist->rEntry%16));
+  2c:	f002 020f 	and.w	r2, r2, #15
+  30:	4620      	mov	r0, r4
+  32:	4629      	mov	r1, r5
+  34:	0152      	lsls	r2, r2, #5
+  36:	f7ff fffe 	bl	0 <ls_getRootAreaEntry>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:117
+	part_relSect(dlist->fs->part,buf);
+  3a:	6823      	ldr	r3, [r4, #0]
+  3c:	4629      	mov	r1, r5
+  3e:	6818      	ldr	r0, [r3, #0]
+  40:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:118
+	return(0);
+  44:	2000      	movs	r0, #0
+  46:	e000      	b.n	4a <ls_getRootAreaEntry+0x4a>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:110
+esint8 ls_getRootAreaEntry(DirList *dlist)
+{
+	euint8 *buf=0;
+	
+	if((dlist->fs->type != FAT12) && (dlist->fs->type != FAT16))return(-1);
+	if(dlist->rEntry>=dlist->fs->volumeId.RootEntryCount)return(-1);
+  48:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:119
+					   IOM_MODE_READONLY);
+	/*memCpy(buf+32*(dlist->rEntry%16),&(dlist->currentEntry),32);*/
+	ls_fileEntryToDirListEntry(dlist,buf,32*(dlist->rEntry%16));
+	part_relSect(dlist->fs->part,buf);
+	return(0);
+}
+  4a:	b240      	sxtb	r0, r0
+  4c:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.ls_getRealDirEntry:
+
+00000000 <ls_getRealDirEntry>:
+ls_getRealDirEntry():
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:84
+
+esint8 ls_getRealDirEntry(DirList *dlist)
+{
+	euint8* buf;
+	
+	if(dlist->Cache.FirstCluster<=1)return(-1);
+   0:	6a83      	ldr	r3, [r0, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:81
+	return(0);
+}
+/*****************************************************************************/
+
+esint8 ls_getRealDirEntry(DirList *dlist)
+{
+   2:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:84
+	euint8* buf;
+	
+	if(dlist->Cache.FirstCluster<=1)return(-1);
+   4:	2b01      	cmp	r3, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:81
+	return(0);
+}
+/*****************************************************************************/
+
+esint8 ls_getRealDirEntry(DirList *dlist)
+{
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:84
+	euint8* buf;
+	
+	if(dlist->Cache.FirstCluster<=1)return(-1);
+   8:	d92c      	bls.n	64 <ls_getRealDirEntry+0x64>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:88
+	
+	if(fat_LogicToDiscCluster(dlist->fs,
+						   &(dlist->Cache),
+						   (dlist->rEntry)/(16 * dlist->fs->volumeId.SectorsPerCluster))){
+   a:	4601      	mov	r1, r0
+   c:	f851 0b1c 	ldr.w	r0, [r1], #28
+  10:	88e2      	ldrh	r2, [r4, #6]
+  12:	7983      	ldrb	r3, [r0, #6]
+  14:	011b      	lsls	r3, r3, #4
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:86
+{
+	euint8* buf;
+	
+	if(dlist->Cache.FirstCluster<=1)return(-1);
+	
+	if(fat_LogicToDiscCluster(dlist->fs,
+  16:	fb92 f2f3 	sdiv	r2, r2, r3
+  1a:	f7ff fffe 	bl	0 <fat_LogicToDiscCluster>
+  1e:	4605      	mov	r5, r0
+  20:	bb00      	cbnz	r0, 64 <ls_getRealDirEntry+0x64>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:92
+						   &(dlist->Cache),
+						   (dlist->rEntry)/(16 * dlist->fs->volumeId.SectorsPerCluster))){
+		return(-1);
+	}
+	
+	buf = part_getSect(dlist->fs->part,
+  22:	6820      	ldr	r0, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:93
+					   fs_clusterToSector(dlist->fs,dlist->Cache.DiscCluster) + (dlist->rEntry/16)%dlist->fs->volumeId.SectorsPerCluster,
+  24:	6a61      	ldr	r1, [r4, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:92
+						   &(dlist->Cache),
+						   (dlist->rEntry)/(16 * dlist->fs->volumeId.SectorsPerCluster))){
+		return(-1);
+	}
+	
+	buf = part_getSect(dlist->fs->part,
+  26:	6806      	ldr	r6, [r0, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:93
+					   fs_clusterToSector(dlist->fs,dlist->Cache.DiscCluster) + (dlist->rEntry/16)%dlist->fs->volumeId.SectorsPerCluster,
+  28:	f7ff fffe 	bl	0 <fs_clusterToSector>
+  2c:	6823      	ldr	r3, [r4, #0]
+  2e:	88e2      	ldrh	r2, [r4, #6]
+  30:	799b      	ldrb	r3, [r3, #6]
+  32:	0912      	lsrs	r2, r2, #4
+  34:	fb92 f1f3 	sdiv	r1, r2, r3
+  38:	fb03 2311 	mls	r3, r3, r1, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:92
+						   &(dlist->Cache),
+						   (dlist->rEntry)/(16 * dlist->fs->volumeId.SectorsPerCluster))){
+		return(-1);
+	}
+	
+	buf = part_getSect(dlist->fs->part,
+  3c:	2201      	movs	r2, #1
+  3e:	18c1      	adds	r1, r0, r3
+  40:	4630      	mov	r0, r6
+  42:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:97
+					   fs_clusterToSector(dlist->fs,dlist->Cache.DiscCluster) + (dlist->rEntry/16)%dlist->fs->volumeId.SectorsPerCluster,
+				       IOM_MODE_READONLY);
+	
+	/*memCpy(buf+(dlist->rEntry%16)*32,&(dlist->currentEntry),32);*/
+	ls_fileEntryToDirListEntry(dlist,buf,32*(dlist->rEntry%16));
+  46:	88e2      	ldrh	r2, [r4, #6]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:92
+						   &(dlist->Cache),
+						   (dlist->rEntry)/(16 * dlist->fs->volumeId.SectorsPerCluster))){
+		return(-1);
+	}
+	
+	buf = part_getSect(dlist->fs->part,
+  48:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:97
+					   fs_clusterToSector(dlist->fs,dlist->Cache.DiscCluster) + (dlist->rEntry/16)%dlist->fs->volumeId.SectorsPerCluster,
+				       IOM_MODE_READONLY);
+	
+	/*memCpy(buf+(dlist->rEntry%16)*32,&(dlist->currentEntry),32);*/
+	ls_fileEntryToDirListEntry(dlist,buf,32*(dlist->rEntry%16));
+  4a:	f002 020f 	and.w	r2, r2, #15
+  4e:	4620      	mov	r0, r4
+  50:	4631      	mov	r1, r6
+  52:	0152      	lsls	r2, r2, #5
+  54:	f7ff fffe 	bl	0 <ls_getRealDirEntry>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:99
+	
+	part_relSect(dlist->fs->part,buf);
+  58:	6823      	ldr	r3, [r4, #0]
+  5a:	4631      	mov	r1, r6
+  5c:	6818      	ldr	r0, [r3, #0]
+  5e:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:101
+	
+	return(0);
+  62:	e000      	b.n	66 <ls_getRealDirEntry+0x66>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:89
+	if(dlist->Cache.FirstCluster<=1)return(-1);
+	
+	if(fat_LogicToDiscCluster(dlist->fs,
+						   &(dlist->Cache),
+						   (dlist->rEntry)/(16 * dlist->fs->volumeId.SectorsPerCluster))){
+		return(-1);
+  64:	25ff      	movs	r5, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:102
+	ls_fileEntryToDirListEntry(dlist,buf,32*(dlist->rEntry%16));
+	
+	part_relSect(dlist->fs->part,buf);
+	
+	return(0);
+}
+  66:	b268      	sxtb	r0, r5
+  68:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.ls_getDirEntry:
+
+00000000 <ls_getDirEntry>:
+ls_getDirEntry():
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:60
+}
+/*****************************************************************************/
+
+esint8 ls_getDirEntry(DirList *dlist)
+{
+	if(dlist->Cache.FirstCluster == 1){
+   0:	6a83      	ldr	r3, [r0, #40]	; 0x28
+   2:	2b01      	cmp	r3, #1
+   4:	d101      	bne.n	a <ls_getDirEntry+0xa>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:61
+		return(ls_getRootAreaEntry(dlist));
+   6:	f7ff bffe 	b.w	0 <ls_getDirEntry>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:62
+	}else if(dlist->Cache.FirstCluster){
+   a:	b10b      	cbz	r3, 6 <ls_getDirEntry+0x6>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:63
+		return(ls_getRealDirEntry(dlist));
+   c:	f7ff bffe 	b.w	0 <ls_getDirEntry>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:66
+	}
+	return(-1);
+}
+  10:	f04f 30ff 	mov.w	r0, #4294967295
+  14:	4770      	bx	lr
+
+Disassembly of section .text.ls_getNext:
+
+00000000 <ls_getNext>:
+ls_getNext():
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:70
+/*****************************************************************************/
+
+esint8 ls_getNext(DirList *dlist)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:72
+	do{
+		if(ls_getDirEntry(dlist))return(-1);
+   4:	4620      	mov	r0, r4
+   6:	f7ff fffe 	bl	0 <ls_getNext>
+   a:	4605      	mov	r5, r0
+   c:	b960      	cbnz	r0, 28 <ls_getNext+0x28>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:73
+		dlist->rEntry++;
+   e:	88e3      	ldrh	r3, [r4, #6]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:74
+	}while(!ls_isValidFileEntry(&(dlist->currentEntry)));
+  10:	f104 0008 	add.w	r0, r4, #8
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:73
+
+esint8 ls_getNext(DirList *dlist)
+{
+	do{
+		if(ls_getDirEntry(dlist))return(-1);
+		dlist->rEntry++;
+  14:	3301      	adds	r3, #1
+  16:	80e3      	strh	r3, [r4, #6]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:74
+	}while(!ls_isValidFileEntry(&(dlist->currentEntry)));
+  18:	f7ff fffe 	bl	0 <ls_getNext>
+  1c:	2800      	cmp	r0, #0
+  1e:	d0f1      	beq.n	4 <ls_getNext+0x4>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:75
+	dlist->cEntry++;
+  20:	88a3      	ldrh	r3, [r4, #4]
+  22:	3301      	adds	r3, #1
+  24:	80a3      	strh	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:76
+	return(0);
+  26:	e000      	b.n	2a <ls_getNext+0x2a>
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:72
+/*****************************************************************************/
+
+esint8 ls_getNext(DirList *dlist)
+{
+	do{
+		if(ls_getDirEntry(dlist))return(-1);
+  28:	25ff      	movs	r5, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ls.c:77
+		dlist->rEntry++;
+	}while(!ls_isValidFileEntry(&(dlist->currentEntry)));
+	dlist->cEntry++;
+	return(0);
+}
+  2a:	b268      	sxtb	r0, r5
+  2c:	bd38      	pop	{r3, r4, r5, pc}

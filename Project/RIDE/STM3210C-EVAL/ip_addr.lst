@@ -1,0 +1,759 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\ip_addr.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\ip_addr.o
+
+
+Disassembly of section .text.ip4_addr_isbroadcast:
+
+00000000 <ip4_addr_isbroadcast>:
+ip4_addr_isbroadcast():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:61
+{
+  ip_addr_t ipaddr;
+  ip4_addr_set_u32(&ipaddr, addr);
+
+  /* all ones (broadcast) or all zeroes (old skool broadcast) */
+  if ((~addr == IPADDR_ANY) ||
+   0:	1e43      	subs	r3, r0, #1
+   2:	f113 0f03 	cmn.w	r3, #3
+   6:	d813      	bhi.n	30 <ip4_addr_isbroadcast+0x30>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:65
+      (addr == IPADDR_ANY)) {
+    return 1;
+  /* no broadcast support on this network interface? */
+  } else if ((netif->flags & NETIF_FLAG_BROADCAST) == 0) {
+   8:	f891 3029 	ldrb.w	r3, [r1, #41]	; 0x29
+   c:	f013 0302 	ands.w	r3, r3, #2
+  10:	d010      	beq.n	34 <ip4_addr_isbroadcast+0x34>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:70
+    /* the given address cannot be a broadcast address
+     * nor can we check against any broadcast addresses */
+    return 0;
+  /* address matches network interface address exactly? => no broadcast */
+  } else if (addr == ip4_addr_get_u32(&netif->ip_addr)) {
+  12:	684a      	ldr	r2, [r1, #4]
+  14:	4290      	cmp	r0, r2
+  16:	d00f      	beq.n	38 <ip4_addr_isbroadcast+0x38>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:73
+    return 0;
+  /*  on the same (sub) network... */
+  } else if (ip_addr_netcmp(&ipaddr, &(netif->ip_addr), &(netif->netmask))
+  18:	688b      	ldr	r3, [r1, #8]
+  1a:	ea80 0202 	eor.w	r2, r0, r2
+  1e:	421a      	tst	r2, r3
+  20:	d10c      	bne.n	3c <ip4_addr_isbroadcast+0x3c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:75
+         /* ...and host identifier bits are all ones? =>... */
+          && ((addr & ~ip4_addr_get_u32(&netif->netmask)) ==
+  22:	43db      	mvns	r3, r3
+  24:	4018      	ands	r0, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:63
+  ip4_addr_set_u32(&ipaddr, addr);
+
+  /* all ones (broadcast) or all zeroes (old skool broadcast) */
+  if ((~addr == IPADDR_ANY) ||
+      (addr == IPADDR_ANY)) {
+    return 1;
+  26:	1ac3      	subs	r3, r0, r3
+  28:	4258      	negs	r0, r3
+  2a:	eb40 0003 	adc.w	r0, r0, r3
+  2e:	4770      	bx	lr
+  30:	2001      	movs	r0, #1
+  32:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:68
+  /* no broadcast support on this network interface? */
+  } else if ((netif->flags & NETIF_FLAG_BROADCAST) == 0) {
+    /* the given address cannot be a broadcast address
+     * nor can we check against any broadcast addresses */
+    return 0;
+  34:	4618      	mov	r0, r3
+  36:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:71
+  /* address matches network interface address exactly? => no broadcast */
+  } else if (addr == ip4_addr_get_u32(&netif->ip_addr)) {
+    return 0;
+  38:	2000      	movs	r0, #0
+  3a:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:80
+          && ((addr & ~ip4_addr_get_u32(&netif->netmask)) ==
+           (IPADDR_BROADCAST & ~ip4_addr_get_u32(&netif->netmask)))) {
+    /* => network broadcast address */
+    return 1;
+  } else {
+    return 0;
+  3c:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:82
+  }
+}
+  3e:	4770      	bx	lr
+
+Disassembly of section .text.ip4_addr_netmask_valid:
+
+00000000 <ip4_addr_netmask_valid>:
+ip4_addr_netmask_valid():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:91
+ * @param netmask the IPv4 netmask to check (in network byte order!)
+ * @return 1 if the netmask is valid, 0 if it is not
+ */
+u8_t
+ip4_addr_netmask_valid(u32_t netmask)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:93
+  u32_t mask;
+  u32_t nm_hostorder = lwip_htonl(netmask);
+   2:	f7ff fffe 	bl	0 <lwip_htonl>
+   6:	2220      	movs	r2, #32
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:96
+
+  /* first, check for the first zero */
+  for (mask = 1UL << 31 ; mask != 0; mask >>= 1) {
+   8:	f04f 4300 	mov.w	r3, #2147483648	; 0x80000000
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:97
+    if ((nm_hostorder & mask) == 0) {
+   c:	4203      	tst	r3, r0
+   e:	d007      	beq.n	20 <ip4_addr_netmask_valid+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:96
+{
+  u32_t mask;
+  u32_t nm_hostorder = lwip_htonl(netmask);
+
+  /* first, check for the first zero */
+  for (mask = 1UL << 31 ; mask != 0; mask >>= 1) {
+  10:	085b      	lsrs	r3, r3, #1
+  12:	3a01      	subs	r2, #1
+  14:	d1fa      	bne.n	c <ip4_addr_netmask_valid+0xc>
+  16:	4613      	mov	r3, r2
+  18:	e002      	b.n	20 <ip4_addr_netmask_valid+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:103
+      break;
+    }
+  }
+  /* then check that there is no one */
+  for (; mask != 0; mask >>= 1) {
+    if ((nm_hostorder & mask) != 0) {
+  1a:	4203      	tst	r3, r0
+  1c:	d104      	bne.n	28 <ip4_addr_netmask_valid+0x28>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:102
+    if ((nm_hostorder & mask) == 0) {
+      break;
+    }
+  }
+  /* then check that there is no one */
+  for (; mask != 0; mask >>= 1) {
+  1e:	085b      	lsrs	r3, r3, #1
+  20:	2b00      	cmp	r3, #0
+  22:	d1fa      	bne.n	1a <ip4_addr_netmask_valid+0x1a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:109
+      /* there is a one after the first zero -> invalid */
+      return 0;
+    }
+  }
+  /* no one after the first zero -> valid */
+  return 1;
+  24:	2001      	movs	r0, #1
+  26:	bd08      	pop	{r3, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:105
+  }
+  /* then check that there is no one */
+  for (; mask != 0; mask >>= 1) {
+    if ((nm_hostorder & mask) != 0) {
+      /* there is a one after the first zero -> invalid */
+      return 0;
+  28:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:110
+    }
+  }
+  /* no one after the first zero -> valid */
+  return 1;
+}
+  2a:	bd08      	pop	{r3, pc}
+
+Disassembly of section .text.ipaddr_aton:
+
+00000000 <ipaddr_aton>:
+ipaddr_aton():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:153
+ * @param addr pointer to which to save the ip address in network order
+ * @return 1 if cp could be converted to addr, 0 on failure
+ */
+int
+ipaddr_aton(const char *cp, ip_addr_t *addr)
+{
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+   2:	b085      	sub	sp, #20
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:160
+  u8_t base;
+  char c;
+  u32_t parts[4];
+  u32_t *pp = parts;
+
+  c = *cp;
+   4:	7803      	ldrb	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:153
+ * @param addr pointer to which to save the ip address in network order
+ * @return 1 if cp could be converted to addr, 0 on failure
+ */
+int
+ipaddr_aton(const char *cp, ip_addr_t *addr)
+{
+   6:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:152
+ * @param cp IP address in ascii represenation (e.g. "127.0.0.1")
+ * @param addr pointer to which to save the ip address in network order
+ * @return 1 if cp could be converted to addr, 0 on failure
+ */
+int
+ipaddr_aton(const char *cp, ip_addr_t *addr)
+   8:	f10d 0c0c 	add.w	ip, sp, #12
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:158
+{
+  u32_t val;
+  u8_t base;
+  char c;
+  u32_t parts[4];
+  u32_t *pp = parts;
+   c:	466d      	mov	r5, sp
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:167
+    /*
+     * Collect number up to ``.''.
+     * Values are specified as for C:
+     * 0x=hex, 0=octal, 1-9=decimal.
+     */
+    if (!isdigit(c))
+   e:	f1a3 0230 	sub.w	r2, r3, #48	; 0x30
+  12:	b2d2      	uxtb	r2, r2
+  14:	2a09      	cmp	r2, #9
+  16:	d876      	bhi.n	106 <ipaddr_aton+0x106>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:171
+      return (0);
+    val = 0;
+    base = 10;
+    if (c == '0') {
+  18:	2b30      	cmp	r3, #48	; 0x30
+  1a:	d10a      	bne.n	32 <ipaddr_aton+0x32>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:172
+      c = *++cp;
+  1c:	f810 3f01 	ldrb.w	r3, [r0, #1]!
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:173
+      if (c == 'x' || c == 'X') {
+  20:	b25a      	sxtb	r2, r3
+  22:	2a78      	cmp	r2, #120	; 0x78
+  24:	d001      	beq.n	2a <ipaddr_aton+0x2a>
+  26:	2a58      	cmp	r2, #88	; 0x58
+  28:	d105      	bne.n	36 <ipaddr_aton+0x36>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:175
+        base = 16;
+        c = *++cp;
+  2a:	f810 3f01 	ldrb.w	r3, [r0, #1]!
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:174
+    val = 0;
+    base = 10;
+    if (c == '0') {
+      c = *++cp;
+      if (c == 'x' || c == 'X') {
+        base = 16;
+  2e:	2210      	movs	r2, #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:175
+        c = *++cp;
+  30:	e002      	b.n	38 <ipaddr_aton+0x38>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:170
+     * 0x=hex, 0=octal, 1-9=decimal.
+     */
+    if (!isdigit(c))
+      return (0);
+    val = 0;
+    base = 10;
+  32:	220a      	movs	r2, #10
+  34:	e000      	b.n	38 <ipaddr_aton+0x38>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:177
+      c = *++cp;
+      if (c == 'x' || c == 'X') {
+        base = 16;
+        c = *++cp;
+      } else
+        base = 8;
+  36:	2208      	movs	r2, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:175
+    base = 10;
+    if (c == '0') {
+      c = *++cp;
+      if (c == 'x' || c == 'X') {
+        base = 16;
+        c = *++cp;
+  38:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:174
+    val = 0;
+    base = 10;
+    if (c == '0') {
+      c = *++cp;
+      if (c == 'x' || c == 'X') {
+        base = 16;
+  3a:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:180
+        c = *++cp;
+      } else
+        base = 8;
+    }
+    for (;;) {
+      if (isdigit(c)) {
+  3c:	b2de      	uxtb	r6, r3
+  3e:	f1a6 0730 	sub.w	r7, r6, #48	; 0x30
+  42:	b2ff      	uxtb	r7, r7
+  44:	2f09      	cmp	r7, #9
+  46:	d804      	bhi.n	52 <ipaddr_aton+0x52>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:181
+        val = (val * base) + (int)(c - '0');
+  48:	b25b      	sxtb	r3, r3
+  4a:	fb02 3000 	mla	r0, r2, r0, r3
+  4e:	3830      	subs	r0, #48	; 0x30
+  50:	e013      	b.n	7a <ipaddr_aton+0x7a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:183
+        c = *++cp;
+      } else if (base == 16 && isxdigit(c)) {
+  52:	2a10      	cmp	r2, #16
+  54:	d114      	bne.n	80 <ipaddr_aton+0x80>
+  56:	f1a6 0761 	sub.w	r7, r6, #97	; 0x61
+  5a:	b2ff      	uxtb	r7, r7
+  5c:	2f05      	cmp	r7, #5
+  5e:	d903      	bls.n	68 <ipaddr_aton+0x68>
+  60:	3e41      	subs	r6, #65	; 0x41
+  62:	b2f6      	uxtb	r6, r6
+  64:	2e05      	cmp	r6, #5
+  66:	d80b      	bhi.n	80 <ipaddr_aton+0x80>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:184
+        val = (val << 4) | (int)(c + 10 - (islower(c) ? 'a' : 'A'));
+  68:	b25b      	sxtb	r3, r3
+  6a:	330a      	adds	r3, #10
+  6c:	2f19      	cmp	r7, #25
+  6e:	bf8c      	ite	hi
+  70:	2741      	movhi	r7, #65	; 0x41
+  72:	2761      	movls	r7, #97	; 0x61
+  74:	1bdf      	subs	r7, r3, r7
+  76:	ea47 1000 	orr.w	r0, r7, r0, lsl #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:185
+        c = *++cp;
+  7a:	784b      	ldrb	r3, [r1, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:175
+    base = 10;
+    if (c == '0') {
+      c = *++cp;
+      if (c == 'x' || c == 'X') {
+        base = 16;
+        c = *++cp;
+  7c:	3101      	adds	r1, #1
+  7e:	e7dd      	b.n	3c <ipaddr_aton+0x3c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:189
+        val = (val << 4) | (int)(c + 10 - (islower(c) ? 'a' : 'A'));
+        c = *++cp;
+      } else
+        break;
+    }
+    if (c == '.') {
+  80:	b25a      	sxtb	r2, r3
+  82:	2a2e      	cmp	r2, #46	; 0x2e
+  84:	d106      	bne.n	94 <ipaddr_aton+0x94>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:196
+       * Internet format:
+       *  a.b.c.d
+       *  a.b.c   (with c treated as 16 bits)
+       *  a.b (with b treated as 24 bits)
+       */
+      if (pp >= parts + 3) {
+  86:	4565      	cmp	r5, ip
+  88:	d03d      	beq.n	106 <ipaddr_aton+0x106>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:199
+        return (0);
+      }
+      *pp++ = val;
+  8a:	f845 0b04 	str.w	r0, [r5], #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:200
+      c = *++cp;
+  8e:	784b      	ldrb	r3, [r1, #1]
+  90:	1c48      	adds	r0, r1, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:203
+    } else
+      break;
+  }
+  92:	e7bc      	b.n	e <ipaddr_aton+0xe>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:207
+  /*
+   * Check for trailing characters.
+   */
+  if (c != '\0' && !isspace(c)) {
+  94:	b15b      	cbz	r3, ae <ipaddr_aton+0xae>
+  96:	2a20      	cmp	r2, #32
+  98:	d009      	beq.n	ae <ipaddr_aton+0xae>
+  9a:	2a0c      	cmp	r2, #12
+  9c:	d007      	beq.n	ae <ipaddr_aton+0xae>
+  9e:	2a0a      	cmp	r2, #10
+  a0:	d005      	beq.n	ae <ipaddr_aton+0xae>
+  a2:	2a0d      	cmp	r2, #13
+  a4:	d003      	beq.n	ae <ipaddr_aton+0xae>
+  a6:	2a09      	cmp	r2, #9
+  a8:	d001      	beq.n	ae <ipaddr_aton+0xae>
+  aa:	2a0b      	cmp	r2, #11
+  ac:	d12b      	bne.n	106 <ipaddr_aton+0x106>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:214
+  }
+  /*
+   * Concoct the address according to
+   * the number of parts specified.
+   */
+  switch (pp - parts + 1) {
+  ae:	466b      	mov	r3, sp
+  b0:	1aed      	subs	r5, r5, r3
+  b2:	10ad      	asrs	r5, r5, #2
+  b4:	3501      	adds	r5, #1
+  b6:	2d04      	cmp	r5, #4
+  b8:	d820      	bhi.n	fc <ipaddr_aton+0xfc>
+  ba:	e8df f005 	tbb	[pc, r5]
+  be:	1f24      	.short	0x1f24
+  c0:	0a03      	.short	0x0a03
+  c2:	13          	.byte	0x13
+  c3:	00          	.byte	0x00
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:223
+
+  case 1:             /* a -- 32 bits */
+    break;
+
+  case 2:             /* a.b -- 8.24 bits */
+    if (val > 0xffffffUL) {
+  c4:	f1b0 7f80 	cmp.w	r0, #16777216	; 0x1000000
+  c8:	d21d      	bcs.n	106 <ipaddr_aton+0x106>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:226
+      return (0);
+    }
+    val |= parts[0] << 24;
+  ca:	9b00      	ldr	r3, [sp, #0]
+  cc:	ea40 6003 	orr.w	r0, r0, r3, lsl #24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:227
+    break;
+  d0:	e014      	b.n	fc <ipaddr_aton+0xfc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:230
+
+  case 3:             /* a.b.c -- 8.8.16 bits */
+    if (val > 0xffff) {
+  d2:	f5b0 3f80 	cmp.w	r0, #65536	; 0x10000
+  d6:	d216      	bcs.n	106 <ipaddr_aton+0x106>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:233
+      return (0);
+    }
+    val |= (parts[0] << 24) | (parts[1] << 16);
+  d8:	9b00      	ldr	r3, [sp, #0]
+  da:	9a01      	ldr	r2, [sp, #4]
+  dc:	061b      	lsls	r3, r3, #24
+  de:	ea43 4302 	orr.w	r3, r3, r2, lsl #16
+  e2:	e009      	b.n	f8 <ipaddr_aton+0xf8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:237
+    break;
+
+  case 4:             /* a.b.c.d -- 8.8.8.8 bits */
+    if (val > 0xff) {
+  e4:	28ff      	cmp	r0, #255	; 0xff
+  e6:	d80e      	bhi.n	106 <ipaddr_aton+0x106>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:240
+      return (0);
+    }
+    val |= (parts[0] << 24) | (parts[1] << 16) | (parts[2] << 8);
+  e8:	9b00      	ldr	r3, [sp, #0]
+  ea:	9a01      	ldr	r2, [sp, #4]
+  ec:	061b      	lsls	r3, r3, #24
+  ee:	ea43 4302 	orr.w	r3, r3, r2, lsl #16
+  f2:	9a02      	ldr	r2, [sp, #8]
+  f4:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+  f8:	ea43 0000 	orr.w	r0, r3, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:246
+    break;
+  default:
+    LWIP_ASSERT("unhandled", 0);
+    break;
+  }
+  if (addr) {
+  fc:	b12c      	cbz	r4, e <lwip_htonl+0xe>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:247
+    ip4_addr_set_u32(addr, htonl(val));
+  fe:	f7ff fffe 	bl	0 <lwip_htonl>
+ 102:	6020      	str	r0, [r4, #0]
+ 104:	e001      	b.n	10a <ipaddr_aton+0x10a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:238
+    val |= (parts[0] << 24) | (parts[1] << 16);
+    break;
+
+  case 4:             /* a.b.c.d -- 8.8.8.8 bits */
+    if (val > 0xff) {
+      return (0);
+ 106:	2000      	movs	r0, #0
+ 108:	e000      	b.n	10c <ipaddr_aton+0x10c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:249
+    break;
+  }
+  if (addr) {
+    ip4_addr_set_u32(addr, htonl(val));
+  }
+  return (1);
+ 10a:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:250
+}
+ 10c:	b005      	add	sp, #20
+ 10e:	bdf0      	pop	{r4, r5, r6, r7, pc}
+
+Disassembly of section .text.ipaddr_addr:
+
+00000000 <ipaddr_addr>:
+ipaddr_addr():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:131
+ * @param cp IP address in ascii represenation (e.g. "127.0.0.1")
+ * @return ip address in network order
+ */
+u32_t
+ipaddr_addr(const char *cp)
+{
+   0:	b507      	push	{r0, r1, r2, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:134
+  ip_addr_t val;
+
+  if (ipaddr_aton(cp, &val)) {
+   2:	a901      	add	r1, sp, #4
+   4:	f7ff fffe 	bl	0 <ipaddr_addr>
+   8:	b108      	cbz	r0, e <ipaddr_addr+0xe>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:135
+    return ip4_addr_get_u32(&val);
+   a:	9801      	ldr	r0, [sp, #4]
+   c:	e001      	b.n	12 <ipaddr_addr+0x12>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:137
+  }
+  return (IPADDR_NONE);
+   e:	f04f 30ff 	mov.w	r0, #4294967295
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:138
+}
+  12:	bd0e      	pop	{r1, r2, r3, pc}
+
+Disassembly of section .text.ipaddr_ntoa_r:
+
+00000000 <ipaddr_ntoa_r>:
+ipaddr_ntoa_r():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:277
+ * @param buflen length of buf
+ * @return either pointer to buf which now holds the ASCII
+ *         representation of addr or NULL if buf was too small
+ */
+char *ipaddr_ntoa_r(const ip_addr_t *addr, char *buf, int buflen)
+{
+   0:	e92d 41f3 	stmdb	sp!, {r0, r1, r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:287
+  u8_t rem;
+  u8_t n;
+  u8_t i;
+  int len = 0;
+
+  s_addr = ip4_addr_get_u32(addr);
+   4:	6803      	ldr	r3, [r0, #0]
+   6:	2400      	movs	r4, #0
+   8:	9300      	str	r3, [sp, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:289
+
+  rp = buf;
+   a:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:285
+  char *rp;
+  u8_t *ap;
+  u8_t rem;
+  u8_t n;
+  u8_t i;
+  int len = 0;
+   c:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:287
+
+  s_addr = ip4_addr_get_u32(addr);
+   e:	f81d 6004 	ldrb.w	r6, [sp, r4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:307
+      *rp++ = inv[i];
+    }
+    if (len++ >= buflen) {
+      return NULL;
+    }
+    *rp++ = '.';
+  12:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:294
+  rp = buf;
+  ap = (u8_t *)&s_addr;
+  for(n = 0; n < 4; n++) {
+    i = 0;
+    do {
+      rem = *ap % (u8_t)10;
+  14:	f04f 0c0a 	mov.w	ip, #10
+  18:	fbb6 f7fc 	udiv	r7, r6, ip
+  1c:	fb0c 6c17 	mls	ip, ip, r7, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:296
+      *ap /= (u8_t)10;
+      inv[i++] = '0' + rem;
+  20:	f10d 0808 	add.w	r8, sp, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:295
+  ap = (u8_t *)&s_addr;
+  for(n = 0; n < 4; n++) {
+    i = 0;
+    do {
+      rem = *ap % (u8_t)10;
+      *ap /= (u8_t)10;
+  24:	b2fe      	uxtb	r6, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:296
+      inv[i++] = '0' + rem;
+  26:	f10c 0c30 	add.w	ip, ip, #48	; 0x30
+  2a:	eb08 0703 	add.w	r7, r8, r3
+  2e:	3301      	adds	r3, #1
+  30:	f807 cc04 	strb.w	ip, [r7, #-4]
+  34:	b2db      	uxtb	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:297
+    } while(*ap);
+  36:	2e00      	cmp	r6, #0
+  38:	d1ec      	bne.n	14 <ipaddr_ntoa_r+0x14>
+  3a:	f80d 6004 	strb.w	r6, [sp, r4]
+  3e:	e00a      	b.n	56 <ipaddr_ntoa_r+0x56>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:299
+    while(i--) {
+      if (len++ >= buflen) {
+  40:	4290      	cmp	r0, r2
+  42:	da18      	bge.n	76 <ipaddr_ntoa_r+0x76>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:298
+    do {
+      rem = *ap % (u8_t)10;
+      *ap /= (u8_t)10;
+      inv[i++] = '0' + rem;
+    } while(*ap);
+    while(i--) {
+  44:	3b01      	subs	r3, #1
+  46:	b2db      	uxtb	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:302
+      if (len++ >= buflen) {
+        return NULL;
+      }
+      *rp++ = inv[i];
+  48:	af02      	add	r7, sp, #8
+  4a:	18fe      	adds	r6, r7, r3
+  4c:	f816 6c04 	ldrb.w	r6, [r6, #-4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:299
+      rem = *ap % (u8_t)10;
+      *ap /= (u8_t)10;
+      inv[i++] = '0' + rem;
+    } while(*ap);
+    while(i--) {
+      if (len++ >= buflen) {
+  50:	3001      	adds	r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:302
+        return NULL;
+      }
+      *rp++ = inv[i];
+  52:	f805 6b01 	strb.w	r6, [r5], #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:298
+    do {
+      rem = *ap % (u8_t)10;
+      *ap /= (u8_t)10;
+      inv[i++] = '0' + rem;
+    } while(*ap);
+    while(i--) {
+  56:	2b00      	cmp	r3, #0
+  58:	d1f2      	bne.n	40 <ipaddr_ntoa_r+0x40>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:304
+      if (len++ >= buflen) {
+        return NULL;
+      }
+      *rp++ = inv[i];
+    }
+    if (len++ >= buflen) {
+  5a:	4290      	cmp	r0, r2
+  5c:	da0d      	bge.n	7a <ipaddr_ntoa_r+0x7a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:307
+      return NULL;
+    }
+    *rp++ = '.';
+  5e:	3401      	adds	r4, #1
+  60:	272e      	movs	r7, #46	; 0x2e
+  62:	462e      	mov	r6, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:291
+
+  s_addr = ip4_addr_get_u32(addr);
+
+  rp = buf;
+  ap = (u8_t *)&s_addr;
+  for(n = 0; n < 4; n++) {
+  64:	2c04      	cmp	r4, #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:307
+      *rp++ = inv[i];
+    }
+    if (len++ >= buflen) {
+      return NULL;
+    }
+    *rp++ = '.';
+  66:	f806 7b01 	strb.w	r7, [r6], #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:291
+
+  s_addr = ip4_addr_get_u32(addr);
+
+  rp = buf;
+  ap = (u8_t *)&s_addr;
+  for(n = 0; n < 4; n++) {
+  6a:	d002      	beq.n	72 <ipaddr_ntoa_r+0x72>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:304
+      if (len++ >= buflen) {
+        return NULL;
+      }
+      *rp++ = inv[i];
+    }
+    if (len++ >= buflen) {
+  6c:	3001      	adds	r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:307
+      return NULL;
+    }
+    *rp++ = '.';
+  6e:	4635      	mov	r5, r6
+  70:	e7cd      	b.n	e <ipaddr_ntoa_r+0xe>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:310
+    ap++;
+  }
+  *--rp = 0;
+  72:	702b      	strb	r3, [r5, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:311
+  return buf;
+  74:	e002      	b.n	7c <ipaddr_ntoa_r+0x7c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:300
+      *ap /= (u8_t)10;
+      inv[i++] = '0' + rem;
+    } while(*ap);
+    while(i--) {
+      if (len++ >= buflen) {
+        return NULL;
+  76:	2100      	movs	r1, #0
+  78:	e000      	b.n	7c <ipaddr_ntoa_r+0x7c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:305
+      }
+      *rp++ = inv[i];
+    }
+    if (len++ >= buflen) {
+      return NULL;
+  7a:	4619      	mov	r1, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:312
+    *rp++ = '.';
+    ap++;
+  }
+  *--rp = 0;
+  return buf;
+}
+  7c:	4608      	mov	r0, r1
+  7e:	e8bd 81fc 	ldmia.w	sp!, {r2, r3, r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.ipaddr_ntoa:
+
+00000000 <ipaddr_ntoa>:
+ipaddr_ntoa():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/ip_addr.c:264
+ */
+char *
+ipaddr_ntoa(const ip_addr_t *addr)
+{
+  static char str[16];
+  return ipaddr_ntoa_r(addr, str, 16);
+   0:	4901      	ldr	r1, [pc, #4]	; (8 <ipaddr_ntoa+0x8>)
+   2:	2210      	movs	r2, #16
+   4:	f7ff bffe 	b.w	0 <ipaddr_ntoa>
+   8:	00000000 	.word	0x00000000

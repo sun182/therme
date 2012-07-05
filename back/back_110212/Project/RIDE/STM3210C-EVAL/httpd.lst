@@ -1,0 +1,2158 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\httpd.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\httpd.o
+
+
+Disassembly of section .text.http_accept:
+
+00000000 <http_accept>:
+http_accept():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:666
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_accept(void *arg, struct tcp_pcb *pcb, err_t err)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:671
+  struct http_state *hs;
+
+  /* Allocate memory for the structure that holds the state of the
+     connection. */
+  hs = mem_malloc(sizeof(struct http_state));
+   2:	2008      	movs	r0, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:666
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_accept(void *arg, struct tcp_pcb *pcb, err_t err)
+{
+   4:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:671
+  struct http_state *hs;
+
+  /* Allocate memory for the structure that holds the state of the
+     connection. */
+  hs = mem_malloc(sizeof(struct http_state));
+   6:	f7ff fffe 	bl	0 <mem_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:673
+
+  if (hs == NULL)
+   a:	4601      	mov	r1, r0
+   c:	b198      	cbz	r0, 36 <http_accept+0x36>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:679
+  {
+    return ERR_MEM;
+  }
+
+  /* Initialize the structure. */
+  hs->file = NULL;
+   e:	2400      	movs	r4, #0
+  10:	6004      	str	r4, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:680
+  hs->left = 0;
+  12:	6044      	str	r4, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:684
+
+  /* Tell TCP that this is the structure we wish to be passed for our
+     callbacks. */
+  tcp_arg(pcb, hs);
+  14:	4628      	mov	r0, r5
+  16:	f7ff fffe 	bl	0 <tcp_arg>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:688
+
+  /* Tell TCP that we wish to be informed of incoming data by a call
+     to the http_recv() function. */
+  tcp_recv(pcb, http_recv);
+  1a:	4628      	mov	r0, r5
+  1c:	4907      	ldr	r1, [pc, #28]	; (3c <http_accept+0x3c>)
+  1e:	f7ff fffe 	bl	0 <tcp_recv>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:690
+ 
+  tcp_err(pcb, conn_err);
+  22:	4628      	mov	r0, r5
+  24:	4906      	ldr	r1, [pc, #24]	; (40 <http_accept+0x40>)
+  26:	f7ff fffe 	bl	0 <tcp_err>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:692
+
+  tcp_poll(pcb, http_poll, 10);
+  2a:	4628      	mov	r0, r5
+  2c:	4905      	ldr	r1, [pc, #20]	; (44 <http_accept+0x44>)
+  2e:	220a      	movs	r2, #10
+  30:	f7ff fffe 	bl	0 <tcp_poll>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:693
+  return ERR_OK;
+  34:	e000      	b.n	38 <http_accept+0x38>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:675
+     connection. */
+  hs = mem_malloc(sizeof(struct http_state));
+
+  if (hs == NULL)
+  {
+    return ERR_MEM;
+  36:	24ff      	movs	r4, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:694
+ 
+  tcp_err(pcb, conn_err);
+
+  tcp_poll(pcb, http_poll, 10);
+  return ERR_OK;
+}
+  38:	b260      	sxtb	r0, r4
+  3a:	bd38      	pop	{r3, r4, r5, pc}
+	...
+
+Disassembly of section .text.send_data:
+
+00000000 <send_data>:
+send_data():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:97
+  tcp_close(pcb);
+}
+/*-----------------------------------------------------------------------------------*/
+static void
+send_data(struct tcp_pcb *pcb, struct http_state *hs)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:103
+  err_t err;
+  u16_t len;
+
+  /* We cannot send more data than space avaliable in the send
+     buffer. */
+  if (tcp_sndbuf(pcb) < hs->left)
+   2:	684b      	ldr	r3, [r1, #4]
+   4:	f8b0 506e 	ldrh.w	r5, [r0, #110]	; 0x6e
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:97
+  tcp_close(pcb);
+}
+/*-----------------------------------------------------------------------------------*/
+static void
+send_data(struct tcp_pcb *pcb, struct http_state *hs)
+{
+   8:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:103
+  err_t err;
+  u16_t len;
+
+  /* We cannot send more data than space avaliable in the send
+     buffer. */
+  if (tcp_sndbuf(pcb) < hs->left)
+   a:	429d      	cmp	r5, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:109
+  {
+    len = tcp_sndbuf(pcb);
+  }
+  else
+  {
+    len = hs->left;
+   c:	bf28      	it	cs
+   e:	b29d      	uxthcs	r5, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:112
+  }
+
+  err = tcp_write(pcb, hs->file, len, 0);
+  10:	6809      	ldr	r1, [r1, #0]
+  12:	462a      	mov	r2, r5
+  14:	2300      	movs	r3, #0
+  16:	f7ff fffe 	bl	0 <tcp_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:114
+
+  if (err == ERR_OK)
+  1a:	b928      	cbnz	r0, 28 <send_data+0x28>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:116
+  {
+    hs->file += len;
+  1c:	6823      	ldr	r3, [r4, #0]
+  1e:	195b      	adds	r3, r3, r5
+  20:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:117
+    hs->left -= len;
+  22:	6863      	ldr	r3, [r4, #4]
+  24:	1b5d      	subs	r5, r3, r5
+  26:	6065      	str	r5, [r4, #4]
+  28:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.http_poll:
+
+00000000 <http_poll>:
+http_poll():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:124
+}
+
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_poll(void *arg, struct tcp_pcb *pcb)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:125
+  if (arg == NULL)
+   2:	4603      	mov	r3, r0
+   4:	b918      	cbnz	r0, e <http_poll+0xe>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:128
+  {
+    /*    printf("Null, close\n");*/
+    tcp_close(pcb);
+   6:	4608      	mov	r0, r1
+   8:	f7ff fffe 	bl	0 <tcp_close>
+   c:	e003      	b.n	16 <http_poll+0x16>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:132
+  }
+  else
+  {
+    send_data(pcb, (struct http_state *)arg);
+   e:	4608      	mov	r0, r1
+  10:	4619      	mov	r1, r3
+  12:	f7ff fffe 	bl	0 <http_poll>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:136
+  }
+
+  return ERR_OK;
+}
+  16:	2000      	movs	r0, #0
+  18:	bd08      	pop	{r3, pc}
+
+Disassembly of section .text.conn_err:
+
+00000000 <conn_err>:
+conn_err():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:81
+static void
+conn_err(void *arg, err_t err)
+{
+  struct http_state *hs;
+  hs = arg;
+  mem_free(hs);
+   0:	f7ff bffe 	b.w	0 <mem_free>
+
+Disassembly of section .text.close_conn:
+
+00000000 <close_conn>:
+close_conn():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:86
+}
+/*-----------------------------------------------------------------------------------*/
+static void
+close_conn(struct tcp_pcb *pcb, struct http_state *hs)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+   4:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:88
+
+  tcp_arg(pcb, NULL);
+   6:	2100      	movs	r1, #0
+   8:	f7ff fffe 	bl	0 <tcp_arg>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:89
+  tcp_sent(pcb, NULL);
+   c:	4620      	mov	r0, r4
+   e:	2100      	movs	r1, #0
+  10:	f7ff fffe 	bl	0 <tcp_sent>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:90
+  tcp_recv(pcb, NULL);
+  14:	4620      	mov	r0, r4
+  16:	2100      	movs	r1, #0
+  18:	f7ff fffe 	bl	0 <tcp_recv>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:91
+  mem_free(hs);
+  1c:	4628      	mov	r0, r5
+  1e:	f7ff fffe 	bl	0 <mem_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:92
+  tcp_close(pcb);
+  22:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:93
+}
+  24:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:92
+
+  tcp_arg(pcb, NULL);
+  tcp_sent(pcb, NULL);
+  tcp_recv(pcb, NULL);
+  mem_free(hs);
+  tcp_close(pcb);
+  28:	f7ff bffe 	b.w	0 <tcp_close>
+
+Disassembly of section .text.http_sent:
+
+00000000 <http_sent>:
+http_sent():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:140
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_sent(void *arg, struct tcp_pcb *pcb, u16_t len)
+{
+   0:	b508      	push	{r3, lr}
+   2:	4603      	mov	r3, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:145
+  struct http_state *hs;
+
+  hs = arg;
+
+  if (hs->left > 0)
+   4:	685a      	ldr	r2, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:140
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_sent(void *arg, struct tcp_pcb *pcb, u16_t len)
+{
+   6:	4608      	mov	r0, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:145
+  struct http_state *hs;
+
+  hs = arg;
+
+  if (hs->left > 0)
+   8:	b11a      	cbz	r2, 12 <http_sent+0x12>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:147
+  {
+    send_data(pcb, hs);
+   a:	4619      	mov	r1, r3
+   c:	f7ff fffe 	bl	0 <http_sent>
+  10:	e002      	b.n	18 <http_sent+0x18>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:151
+  }
+  else
+  {
+    close_conn(pcb, hs);
+  12:	4619      	mov	r1, r3
+  14:	f7ff fffe 	bl	0 <http_sent>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:155
+  }
+
+  return ERR_OK;
+}
+  18:	2000      	movs	r0, #0
+  1a:	bd08      	pop	{r3, pc}
+
+Disassembly of section .text.post_svs:
+
+00000000 <post_svs>:
+post_svs():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:60
+  u32_t left;
+};
+
+char 
+*post_svs(char *str)
+{
+   0:	b508      	push	{r3, lr}
+   2:	e003      	b.n	c <post_svs+0xc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:68
+  char *pcs = NULL;
+  pch = strtok (str,"\r\n");
+ while (pch != NULL)
+  {
+	//memset( pcs, 0);
+	strcpy(pcs, pch);
+   4:	2000      	movs	r0, #0
+   6:	f7ff fffe 	bl	0 <strcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:70
+    //printf ("%s\n",pch);
+   pch = strtok (NULL, "\r\n");
+   a:	2000      	movs	r0, #0
+   c:	4903      	ldr	r1, [pc, #12]	; (1c <post_svs+0x1c>)
+   e:	f7ff fffe 	bl	0 <strtok>
+  12:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:65
+{
+    char *pch;
+    //char *result = NULL;
+  char *pcs = NULL;
+  pch = strtok (str,"\r\n");
+ while (pch != NULL)
+  14:	2800      	cmp	r0, #0
+  16:	d1f5      	bne.n	4 <post_svs+0x4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:73
+	strcpy(pcs, pch);
+    //printf ("%s\n",pch);
+   pch = strtok (NULL, "\r\n");
+  }
+  return pcs;
+}
+  18:	bd08      	pop	{r3, pc}
+  1a:	bf00      	nop
+  1c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.httpd_init:
+
+00000000 <httpd_init>:
+httpd_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:698
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+void
+httpd_init(void)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:701
+  struct tcp_pcb *pcb;
+
+  pcb = tcp_new();
+   2:	f7ff fffe 	bl	0 <tcp_new>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:702
+  tcp_bind(pcb, IP_ADDR_ANY, 80);
+   6:	2250      	movs	r2, #80	; 0x50
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:701
+void
+httpd_init(void)
+{
+  struct tcp_pcb *pcb;
+
+  pcb = tcp_new();
+   8:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:702
+  tcp_bind(pcb, IP_ADDR_ANY, 80);
+   a:	4906      	ldr	r1, [pc, #24]	; (24 <httpd_init+0x24>)
+   c:	f7ff fffe 	bl	0 <tcp_bind>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:703
+  pcb = tcp_listen(pcb);
+  10:	21ff      	movs	r1, #255	; 0xff
+  12:	4620      	mov	r0, r4
+  14:	f7ff fffe 	bl	0 <tcp_listen_with_backlog>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:704
+  tcp_accept(pcb, http_accept);
+  18:	4903      	ldr	r1, [pc, #12]	; (28 <httpd_init+0x28>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:706
+  //  printU("int");
+}
+  1a:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:704
+  struct tcp_pcb *pcb;
+
+  pcb = tcp_new();
+  tcp_bind(pcb, IP_ADDR_ANY, 80);
+  pcb = tcp_listen(pcb);
+  tcp_accept(pcb, http_accept);
+  1e:	f7ff bffe 	b.w	0 <tcp_accept>
+  22:	bf00      	nop
+	...
+
+Disassembly of section .text.fs_open:
+
+00000000 <fs_open>:
+fs_open():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:710
+  //  printU("int");
+}
+/*-----------------------------------------------------------------------------------*/
+int
+fs_open(char *name, struct fs_file *file)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4606      	mov	r6, r0
+   4:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:713
+  struct fsdata_file_noconst *f;
+
+  for (f = (struct fsdata_file_noconst *)FS_ROOT; f != NULL; f = (struct fsdata_file_noconst *)f->next)
+   6:	4c09      	ldr	r4, [pc, #36]	; (2c <fs_open+0x2c>)
+   8:	e00b      	b.n	22 <fs_open+0x22>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:715
+  {
+    if (!strcmp(name, f->name))
+   a:	4630      	mov	r0, r6
+   c:	6861      	ldr	r1, [r4, #4]
+   e:	f7ff fffe 	bl	0 <strcmp>
+  12:	b928      	cbnz	r0, 20 <fs_open+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:717
+    {
+      file->data = f->data;
+  14:	68a3      	ldr	r3, [r4, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:719
+      file->len = f->len;
+      return 1;
+  16:	3001      	adds	r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:717
+
+  for (f = (struct fsdata_file_noconst *)FS_ROOT; f != NULL; f = (struct fsdata_file_noconst *)f->next)
+  {
+    if (!strcmp(name, f->name))
+    {
+      file->data = f->data;
+  18:	602b      	str	r3, [r5, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:718
+      file->len = f->len;
+  1a:	68e3      	ldr	r3, [r4, #12]
+  1c:	606b      	str	r3, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:719
+      return 1;
+  1e:	bd70      	pop	{r4, r5, r6, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:713
+int
+fs_open(char *name, struct fs_file *file)
+{
+  struct fsdata_file_noconst *f;
+
+  for (f = (struct fsdata_file_noconst *)FS_ROOT; f != NULL; f = (struct fsdata_file_noconst *)f->next)
+  20:	6824      	ldr	r4, [r4, #0]
+  22:	2c00      	cmp	r4, #0
+  24:	d1f1      	bne.n	a <fs_open+0xa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:722
+      file->data = f->data;
+      file->len = f->len;
+      return 1;
+    }
+  }
+  return 0;
+  26:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:723
+}
+  28:	bd70      	pop	{r4, r5, r6, pc}
+  2a:	bf00      	nop
+  2c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.http_recv:
+
+00000000 <http_recv>:
+http_recv():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:159
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+{
+   0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+   4:	4615      	mov	r5, r2
+   6:	b09b      	sub	sp, #108	; 0x6c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:167
+      char *pc;
+  int i, j;
+  char *data;
+  char *pdata;
+  char fname[40];
+  struct fs_file file = {0, 0};
+   8:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:159
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+{
+   a:	4604      	mov	r4, r0
+   c:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:167
+      char *pc;
+  int i, j;
+  char *data;
+  char *pdata;
+  char fname[40];
+  struct fs_file file = {0, 0};
+   e:	9217      	str	r2, [sp, #92]	; 0x5c
+  10:	9218      	str	r2, [sp, #96]	; 0x60
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:176
+    char uart_buf[40]; 
+
+
+  hs = arg;
+
+  if (err == ERR_OK && p != NULL)
+  12:	2b00      	cmp	r3, #0
+  14:	f040 832b 	bne.w	66e <http_recv+0x66e>
+  18:	2d00      	cmp	r5, #0
+  1a:	f000 832c 	beq.w	676 <http_recv+0x676>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:180
+  {
+
+    /* Inform TCP that we have taken the data. */
+    tcp_recved(pcb, p->tot_len);
+  1e:	4608      	mov	r0, r1
+  20:	8929      	ldrh	r1, [r5, #8]
+  22:	f7ff fffe 	bl	0 <tcp_recved>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:182
+
+    if (hs->file == NULL)
+  26:	6823      	ldr	r3, [r4, #0]
+  28:	2b00      	cmp	r3, #0
+  2a:	f040 831d 	bne.w	668 <http_recv+0x668>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:184
+    {
+      data = p->payload;
+  2e:	686f      	ldr	r7, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:187
+
+        
+      if ((strncmp(data, "GET /valt.css", 13) == 0) || (strncmp(data, "POST /valt.css", 14) == 0 ))
+  30:	49bb      	ldr	r1, [pc, #748]	; (320 <http_recv+0x320>)
+  32:	4638      	mov	r0, r7
+  34:	220d      	movs	r2, #13
+  36:	f7ff fffe 	bl	0 <strncmp>
+  3a:	b138      	cbz	r0, 4c <http_recv+0x4c>
+  3c:	4638      	mov	r0, r7
+  3e:	49b9      	ldr	r1, [pc, #740]	; (324 <http_recv+0x324>)
+  40:	220e      	movs	r2, #14
+  42:	f7ff fffe 	bl	0 <strncmp>
+  46:	2800      	cmp	r0, #0
+  48:	f040 81b3 	bne.w	3b2 <http_recv+0x3b2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:192
+      {
+
+		
+		
+        pbuf_free(p);
+  4c:	4628      	mov	r0, r5
+  4e:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:212
+        // *((data_control_html)+ 0xab) = 0x30 + Digit2; /* ADC value 2nd digit */ 
+        // *((data_control_html)+ 0xac) = 0x30 + Digit3; /* ADC value 3rd digit*/
+        
+        i=0;
+        /* Update the ADC value in control.html */
+        *((data_valt_css)+ 0x32) = tempc1[i++];
+  52:	4bb5      	ldr	r3, [pc, #724]	; (328 <http_recv+0x328>)
+  54:	4db5      	ldr	r5, [pc, #724]	; (32c <http_recv+0x32c>)
+  56:	781a      	ldrb	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:231
+        sprintf(uart_buf,"%s:%s\r\n",tempc1,tempc2);
+        
+        printUART2((unsigned int *)uart_buf);
+        strcat(data_control_html,uart_buf);
+        */
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[0],delm[0],dels[0]);
+  58:	4fb5      	ldr	r7, [pc, #724]	; (330 <http_recv+0x330>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:212
+        // *((data_control_html)+ 0xab) = 0x30 + Digit2; /* ADC value 2nd digit */ 
+        // *((data_control_html)+ 0xac) = 0x30 + Digit3; /* ADC value 3rd digit*/
+        
+        i=0;
+        /* Update the ADC value in control.html */
+        *((data_valt_css)+ 0x32) = tempc1[i++];
+  5a:	f885 2032 	strb.w	r2, [r5, #50]	; 0x32
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:213
+        *((data_valt_css)+ 0x33) = tempc1[i++]; 
+  5e:	785a      	ldrb	r2, [r3, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:231
+        sprintf(uart_buf,"%s:%s\r\n",tempc1,tempc2);
+        
+        printUART2((unsigned int *)uart_buf);
+        strcat(data_control_html,uart_buf);
+        */
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[0],delm[0],dels[0]);
+  60:	f8df 9308 	ldr.w	r9, [pc, #776]	; 36c <http_recv+0x36c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:213
+        // *((data_control_html)+ 0xac) = 0x30 + Digit3; /* ADC value 3rd digit*/
+        
+        i=0;
+        /* Update the ADC value in control.html */
+        *((data_valt_css)+ 0x32) = tempc1[i++];
+        *((data_valt_css)+ 0x33) = tempc1[i++]; 
+  64:	f885 2033 	strb.w	r2, [r5, #51]	; 0x33
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:214
+        *((data_valt_css)+ 0x34) = tempc1[i++]; 
+  68:	789a      	ldrb	r2, [r3, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:231
+        sprintf(uart_buf,"%s:%s\r\n",tempc1,tempc2);
+        
+        printUART2((unsigned int *)uart_buf);
+        strcat(data_control_html,uart_buf);
+        */
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[0],delm[0],dels[0]);
+  6a:	f8d9 1000 	ldr.w	r1, [r9]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:214
+        
+        i=0;
+        /* Update the ADC value in control.html */
+        *((data_valt_css)+ 0x32) = tempc1[i++];
+        *((data_valt_css)+ 0x33) = tempc1[i++]; 
+        *((data_valt_css)+ 0x34) = tempc1[i++]; 
+  6e:	f885 2034 	strb.w	r2, [r5, #52]	; 0x34
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:215
+        *((data_valt_css)+ 0x35) = tempc1[i++]; 
+  72:	78da      	ldrb	r2, [r3, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:231
+        sprintf(uart_buf,"%s:%s\r\n",tempc1,tempc2);
+        
+        printUART2((unsigned int *)uart_buf);
+        strcat(data_control_html,uart_buf);
+        */
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[0],delm[0],dels[0]);
+  74:	f8df 82f8 	ldr.w	r8, [pc, #760]	; 370 <http_recv+0x370>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:215
+        i=0;
+        /* Update the ADC value in control.html */
+        *((data_valt_css)+ 0x32) = tempc1[i++];
+        *((data_valt_css)+ 0x33) = tempc1[i++]; 
+        *((data_valt_css)+ 0x34) = tempc1[i++]; 
+        *((data_valt_css)+ 0x35) = tempc1[i++]; 
+  78:	f885 2035 	strb.w	r2, [r5, #53]	; 0x35
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:216
+        *((data_valt_css)+ 0x36) = tempc1[i++];
+  7c:	791b      	ldrb	r3, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:231
+        sprintf(uart_buf,"%s:%s\r\n",tempc1,tempc2);
+        
+        printUART2((unsigned int *)uart_buf);
+        strcat(data_control_html,uart_buf);
+        */
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[0],delm[0],dels[0]);
+  7e:	a803      	add	r0, sp, #12
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:216
+        /* Update the ADC value in control.html */
+        *((data_valt_css)+ 0x32) = tempc1[i++];
+        *((data_valt_css)+ 0x33) = tempc1[i++]; 
+        *((data_valt_css)+ 0x34) = tempc1[i++]; 
+        *((data_valt_css)+ 0x35) = tempc1[i++]; 
+        *((data_valt_css)+ 0x36) = tempc1[i++];
+  80:	f885 3036 	strb.w	r3, [r5, #54]	; 0x36
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:220
+        
+          i=0;
+        /* Update the ADC value in control.html */
+        *((data_valt_css)+ 0x57) = tempc2[i++];
+  84:	4bab      	ldr	r3, [pc, #684]	; (334 <http_recv+0x334>)
+  86:	781a      	ldrb	r2, [r3, #0]
+  88:	f885 2057 	strb.w	r2, [r5, #87]	; 0x57
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:221
+        *((data_valt_css)+ 0x58) = tempc2[i++]; 
+  8c:	785a      	ldrb	r2, [r3, #1]
+  8e:	f885 2058 	strb.w	r2, [r5, #88]	; 0x58
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:222
+        *((data_valt_css)+ 0x59) = tempc2[i++]; 
+  92:	789a      	ldrb	r2, [r3, #2]
+  94:	f885 2059 	strb.w	r2, [r5, #89]	; 0x59
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:223
+        *((data_valt_css)+ 0x5a) = tempc2[i++]; 
+  98:	78da      	ldrb	r2, [r3, #3]
+  9a:	f885 205a 	strb.w	r2, [r5, #90]	; 0x5a
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:224
+        *((data_valt_css)+ 0x5b) = tempc2[i++];
+  9e:	791b      	ldrb	r3, [r3, #4]
+  a0:	f885 305b 	strb.w	r3, [r5, #91]	; 0x5b
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:231
+        sprintf(uart_buf,"%s:%s\r\n",tempc1,tempc2);
+        
+        printUART2((unsigned int *)uart_buf);
+        strcat(data_control_html,uart_buf);
+        */
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[0],delm[0],dels[0]);
+  a4:	683b      	ldr	r3, [r7, #0]
+  a6:	7809      	ldrb	r1, [r1, #0]
+  a8:	781a      	ldrb	r2, [r3, #0]
+  aa:	f8d8 3000 	ldr.w	r3, [r8]
+  ae:	781b      	ldrb	r3, [r3, #0]
+  b0:	9100      	str	r1, [sp, #0]
+  b2:	49a1      	ldr	r1, [pc, #644]	; (338 <http_recv+0x338>)
+  b4:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:232
+		*((data_valt_css)+ 0xa5) = uart_buf[0];
+  b8:	f89d 300c 	ldrb.w	r3, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:239
+		*((data_valt_css)+ 0xa8) = uart_buf[3];
+		*((data_valt_css)+ 0xa9) = uart_buf[4];
+		*((data_valt_css)+ 0xab) = uart_buf[6];
+		*((data_valt_css)+ 0xac) = uart_buf[7];
+		
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[1],delm[1],dels[1]);
+  bc:	f8d9 1000 	ldr.w	r1, [r9]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:232
+        
+        printUART2((unsigned int *)uart_buf);
+        strcat(data_control_html,uart_buf);
+        */
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[0],delm[0],dels[0]);
+		*((data_valt_css)+ 0xa5) = uart_buf[0];
+  c0:	f885 30a5 	strb.w	r3, [r5, #165]	; 0xa5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:233
+		*((data_valt_css)+ 0xa6) = uart_buf[1];
+  c4:	f89d 300d 	ldrb.w	r3, [sp, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:239
+		*((data_valt_css)+ 0xa8) = uart_buf[3];
+		*((data_valt_css)+ 0xa9) = uart_buf[4];
+		*((data_valt_css)+ 0xab) = uart_buf[6];
+		*((data_valt_css)+ 0xac) = uart_buf[7];
+		
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[1],delm[1],dels[1]);
+  c8:	a803      	add	r0, sp, #12
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:233
+        printUART2((unsigned int *)uart_buf);
+        strcat(data_control_html,uart_buf);
+        */
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[0],delm[0],dels[0]);
+		*((data_valt_css)+ 0xa5) = uart_buf[0];
+		*((data_valt_css)+ 0xa6) = uart_buf[1];
+  ca:	f885 30a6 	strb.w	r3, [r5, #166]	; 0xa6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:234
+		*((data_valt_css)+ 0xa8) = uart_buf[3];
+  ce:	f89d 300f 	ldrb.w	r3, [sp, #15]
+  d2:	f885 30a8 	strb.w	r3, [r5, #168]	; 0xa8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:235
+		*((data_valt_css)+ 0xa9) = uart_buf[4];
+  d6:	f89d 3010 	ldrb.w	r3, [sp, #16]
+  da:	f885 30a9 	strb.w	r3, [r5, #169]	; 0xa9
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:236
+		*((data_valt_css)+ 0xab) = uart_buf[6];
+  de:	f89d 3012 	ldrb.w	r3, [sp, #18]
+  e2:	f885 30ab 	strb.w	r3, [r5, #171]	; 0xab
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:237
+		*((data_valt_css)+ 0xac) = uart_buf[7];
+  e6:	f89d 3013 	ldrb.w	r3, [sp, #19]
+  ea:	f885 30ac 	strb.w	r3, [r5, #172]	; 0xac
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:239
+		
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[1],delm[1],dels[1]);
+  ee:	683b      	ldr	r3, [r7, #0]
+  f0:	7849      	ldrb	r1, [r1, #1]
+  f2:	785a      	ldrb	r2, [r3, #1]
+  f4:	f8d8 3000 	ldr.w	r3, [r8]
+  f8:	785b      	ldrb	r3, [r3, #1]
+  fa:	9100      	str	r1, [sp, #0]
+  fc:	498e      	ldr	r1, [pc, #568]	; (338 <http_recv+0x338>)
+  fe:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:240
+		*((data_valt_css)+ 0x20a) = uart_buf[0];
+ 102:	f89d 300c 	ldrb.w	r3, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:247
+		*((data_valt_css)+ 0x20d) = uart_buf[3];
+		*((data_valt_css)+ 0x20e) = uart_buf[4];
+		*((data_valt_css)+ 0x210) = uart_buf[6];
+		*((data_valt_css)+ 0x211) = uart_buf[7];
+		
+		sprintf(uart_buf,"%02d:%02d:%02d %02d",delh[2],delm[2],dels[2],sdoor);
+ 106:	f8d9 1000 	ldr.w	r1, [r9]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:240
+		*((data_valt_css)+ 0xa9) = uart_buf[4];
+		*((data_valt_css)+ 0xab) = uart_buf[6];
+		*((data_valt_css)+ 0xac) = uart_buf[7];
+		
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[1],delm[1],dels[1]);
+		*((data_valt_css)+ 0x20a) = uart_buf[0];
+ 10a:	f885 320a 	strb.w	r3, [r5, #522]	; 0x20a
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:241
+		*((data_valt_css)+ 0x20b) = uart_buf[1];
+ 10e:	f89d 300d 	ldrb.w	r3, [sp, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:247
+		*((data_valt_css)+ 0x20d) = uart_buf[3];
+		*((data_valt_css)+ 0x20e) = uart_buf[4];
+		*((data_valt_css)+ 0x210) = uart_buf[6];
+		*((data_valt_css)+ 0x211) = uart_buf[7];
+		
+		sprintf(uart_buf,"%02d:%02d:%02d %02d",delh[2],delm[2],dels[2],sdoor);
+ 112:	a803      	add	r0, sp, #12
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:241
+		*((data_valt_css)+ 0xab) = uart_buf[6];
+		*((data_valt_css)+ 0xac) = uart_buf[7];
+		
+		sprintf(uart_buf,"%02d:%02d:%02d",delh[1],delm[1],dels[1]);
+		*((data_valt_css)+ 0x20a) = uart_buf[0];
+		*((data_valt_css)+ 0x20b) = uart_buf[1];
+ 114:	f885 320b 	strb.w	r3, [r5, #523]	; 0x20b
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:242
+		*((data_valt_css)+ 0x20d) = uart_buf[3];
+ 118:	f89d 300f 	ldrb.w	r3, [sp, #15]
+ 11c:	f885 320d 	strb.w	r3, [r5, #525]	; 0x20d
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:243
+		*((data_valt_css)+ 0x20e) = uart_buf[4];
+ 120:	f89d 3010 	ldrb.w	r3, [sp, #16]
+ 124:	f885 320e 	strb.w	r3, [r5, #526]	; 0x20e
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:244
+		*((data_valt_css)+ 0x210) = uart_buf[6];
+ 128:	f89d 3012 	ldrb.w	r3, [sp, #18]
+ 12c:	f885 3210 	strb.w	r3, [r5, #528]	; 0x210
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:245
+		*((data_valt_css)+ 0x211) = uart_buf[7];
+ 130:	f89d 3013 	ldrb.w	r3, [sp, #19]
+ 134:	f885 3211 	strb.w	r3, [r5, #529]	; 0x211
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:247
+		
+		sprintf(uart_buf,"%02d:%02d:%02d %02d",delh[2],delm[2],dels[2],sdoor);
+ 138:	683b      	ldr	r3, [r7, #0]
+ 13a:	7889      	ldrb	r1, [r1, #2]
+ 13c:	789a      	ldrb	r2, [r3, #2]
+ 13e:	f8d8 3000 	ldr.w	r3, [r8]
+ 142:	4f7e      	ldr	r7, [pc, #504]	; (33c <http_recv+0x33c>)
+ 144:	789b      	ldrb	r3, [r3, #2]
+ 146:	9100      	str	r1, [sp, #0]
+ 148:	7839      	ldrb	r1, [r7, #0]
+ 14a:	46b9      	mov	r9, r7
+ 14c:	9101      	str	r1, [sp, #4]
+ 14e:	497c      	ldr	r1, [pc, #496]	; (340 <http_recv+0x340>)
+ 150:	f7ff fffe 	bl	0 <sprintf>
+ 154:	f505 7216 	add.w	r2, r5, #600	; 0x258
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:248
+		for(i=0;i<11;i++)
+ 158:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:249
+		*((data_valt_css)+ (0x259+i)) = uart_buf[i];
+ 15a:	a903      	add	r1, sp, #12
+ 15c:	5cc9      	ldrb	r1, [r1, r3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:248
+		*((data_valt_css)+ 0x20e) = uart_buf[4];
+		*((data_valt_css)+ 0x210) = uart_buf[6];
+		*((data_valt_css)+ 0x211) = uart_buf[7];
+		
+		sprintf(uart_buf,"%02d:%02d:%02d %02d",delh[2],delm[2],dels[2],sdoor);
+		for(i=0;i<11;i++)
+ 15e:	3301      	adds	r3, #1
+ 160:	2b0b      	cmp	r3, #11
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:249
+		*((data_valt_css)+ (0x259+i)) = uart_buf[i];
+ 162:	f802 1f01 	strb.w	r1, [r2, #1]!
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:248
+		*((data_valt_css)+ 0x20e) = uart_buf[4];
+		*((data_valt_css)+ 0x210) = uart_buf[6];
+		*((data_valt_css)+ 0x211) = uart_buf[7];
+		
+		sprintf(uart_buf,"%02d:%02d:%02d %02d",delh[2],delm[2],dels[2],sdoor);
+		for(i=0;i<11;i++)
+ 166:	d1f8      	bne.n	15a <http_recv+0x15a>
+ 168:	4a76      	ldr	r2, [pc, #472]	; (344 <http_recv+0x344>)
+ 16a:	3b0b      	subs	r3, #11
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:252
+		*((data_valt_css)+ (0x259+i)) = uart_buf[i];
+		
+		for(i=0;i<17;i++)
+		*((data_valt_css)+ (0x2db+i)) = ubuff[i];
+ 16c:	4976      	ldr	r1, [pc, #472]	; (348 <http_recv+0x348>)
+ 16e:	5c59      	ldrb	r1, [r3, r1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:251
+		
+		sprintf(uart_buf,"%02d:%02d:%02d %02d",delh[2],delm[2],dels[2],sdoor);
+		for(i=0;i<11;i++)
+		*((data_valt_css)+ (0x259+i)) = uart_buf[i];
+		
+		for(i=0;i<17;i++)
+ 170:	3301      	adds	r3, #1
+ 172:	2b11      	cmp	r3, #17
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:252
+		*((data_valt_css)+ (0x2db+i)) = ubuff[i];
+ 174:	f802 1f01 	strb.w	r1, [r2, #1]!
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:251
+		
+		sprintf(uart_buf,"%02d:%02d:%02d %02d",delh[2],delm[2],dels[2],sdoor);
+		for(i=0;i<11;i++)
+		*((data_valt_css)+ (0x259+i)) = uart_buf[i];
+		
+		for(i=0;i<17;i++)
+ 178:	d1f8      	bne.n	16c <http_recv+0x16c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:254
+		*((data_valt_css)+ (0x2db+i)) = ubuff[i];
+		
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+ 17a:	2220      	movs	r2, #32
+ 17c:	4613      	mov	r3, r2
+ 17e:	4973      	ldr	r1, [pc, #460]	; (34c <http_recv+0x34c>)
+ 180:	a803      	add	r0, sp, #12
+ 182:	9200      	str	r2, [sp, #0]
+ 184:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:256
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+ 188:	f89d 300c 	ldrb.w	r3, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:258
+		
+		sprintf(uart_buf,"%i",ebuff[33]);
+ 18c:	4f70      	ldr	r7, [pc, #448]	; (350 <http_recv+0x350>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:256
+		for(i=0;i<17;i++)
+		*((data_valt_css)+ (0x2db+i)) = ubuff[i];
+		
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+ 18e:	f885 3292 	strb.w	r3, [r5, #658]	; 0x292
+ 192:	f89d 300d 	ldrb.w	r3, [sp, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:258
+		
+		sprintf(uart_buf,"%i",ebuff[33]);
+ 196:	a803      	add	r0, sp, #12
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:256
+		for(i=0;i<17;i++)
+		*((data_valt_css)+ (0x2db+i)) = ubuff[i];
+		
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+ 198:	f885 3293 	strb.w	r3, [r5, #659]	; 0x293
+ 19c:	f89d 300e 	ldrb.w	r3, [sp, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:258
+		
+		sprintf(uart_buf,"%i",ebuff[33]);
+ 1a0:	496c      	ldr	r1, [pc, #432]	; (354 <http_recv+0x354>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:256
+		for(i=0;i<17;i++)
+		*((data_valt_css)+ (0x2db+i)) = ubuff[i];
+		
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+ 1a2:	f885 3294 	strb.w	r3, [r5, #660]	; 0x294
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:258
+		
+		sprintf(uart_buf,"%i",ebuff[33]);
+ 1a6:	f997 2021 	ldrsb.w	r2, [r7, #33]	; 0x21
+ 1aa:	f7ff fffe 	bl	0 <sprintf>
+ 1ae:	f8df b1c4 	ldr.w	fp, [pc, #452]	; 374 <http_recv+0x374>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:259
+		for(i=0;i<strlen(uart_buf);i++)
+ 1b2:	f04f 0a00 	mov.w	sl, #0
+ 1b6:	46b8      	mov	r8, r7
+ 1b8:	e005      	b.n	1c6 <http_recv+0x1c6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:260
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+ 1ba:	f817 300a 	ldrb.w	r3, [r7, sl]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:259
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+		
+		sprintf(uart_buf,"%i",ebuff[33]);
+		for(i=0;i<strlen(uart_buf);i++)
+ 1be:	f10a 0a01 	add.w	sl, sl, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:260
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+ 1c2:	f80b 3f01 	strb.w	r3, [fp, #1]!
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:259
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+		
+		sprintf(uart_buf,"%i",ebuff[33]);
+		for(i=0;i<strlen(uart_buf);i++)
+ 1c6:	af03      	add	r7, sp, #12
+ 1c8:	4638      	mov	r0, r7
+ 1ca:	f7ff fffe 	bl	0 <strlen>
+ 1ce:	4582      	cmp	sl, r0
+ 1d0:	d3f3      	bcc.n	1ba <http_recv+0x1ba>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:262
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+		
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+ 1d2:	2220      	movs	r2, #32
+ 1d4:	4613      	mov	r3, r2
+ 1d6:	495d      	ldr	r1, [pc, #372]	; (34c <http_recv+0x34c>)
+ 1d8:	4638      	mov	r0, r7
+ 1da:	9200      	str	r2, [sp, #0]
+ 1dc:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:264
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x2b6+i)) = uart_buf[i];
+ 1e0:	f89d 300c 	ldrb.w	r3, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:266
+		
+		sprintf(uart_buf,"%i",ebuff[34]);
+ 1e4:	4638      	mov	r0, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:264
+		for(i=0;i<strlen(uart_buf);i++)
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+		
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x2b6+i)) = uart_buf[i];
+ 1e6:	f885 32b6 	strb.w	r3, [r5, #694]	; 0x2b6
+ 1ea:	f89d 300d 	ldrb.w	r3, [sp, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:266
+		
+		sprintf(uart_buf,"%i",ebuff[34]);
+ 1ee:	4959      	ldr	r1, [pc, #356]	; (354 <http_recv+0x354>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:264
+		for(i=0;i<strlen(uart_buf);i++)
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+		
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x2b6+i)) = uart_buf[i];
+ 1f0:	f885 32b7 	strb.w	r3, [r5, #695]	; 0x2b7
+ 1f4:	f89d 300e 	ldrb.w	r3, [sp, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:266
+		
+		sprintf(uart_buf,"%i",ebuff[34]);
+ 1f8:	f998 2022 	ldrsb.w	r2, [r8, #34]	; 0x22
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:264
+		for(i=0;i<strlen(uart_buf);i++)
+		*((data_valt_css)+ (0x292+i)) = uart_buf[i];
+		
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x2b6+i)) = uart_buf[i];
+ 1fc:	f885 32b8 	strb.w	r3, [r5, #696]	; 0x2b8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:266
+		
+		sprintf(uart_buf,"%i",ebuff[34]);
+ 200:	f7ff fffe 	bl	0 <sprintf>
+ 204:	f8df b170 	ldr.w	fp, [pc, #368]	; 378 <http_recv+0x378>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:267
+		for(i=0;i<strlen(uart_buf);i++)
+ 208:	f04f 0a00 	mov.w	sl, #0
+ 20c:	e005      	b.n	21a <http_recv+0x21a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:268
+		*((data_valt_css)+ (0x2b6+i)) = uart_buf[i];
+ 20e:	f817 300a 	ldrb.w	r3, [r7, sl]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:267
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x2b6+i)) = uart_buf[i];
+		
+		sprintf(uart_buf,"%i",ebuff[34]);
+		for(i=0;i<strlen(uart_buf);i++)
+ 212:	f10a 0a01 	add.w	sl, sl, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:268
+		*((data_valt_css)+ (0x2b6+i)) = uart_buf[i];
+ 216:	f80b 3f01 	strb.w	r3, [fp, #1]!
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:267
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x2b6+i)) = uart_buf[i];
+		
+		sprintf(uart_buf,"%i",ebuff[34]);
+		for(i=0;i<strlen(uart_buf);i++)
+ 21a:	af03      	add	r7, sp, #12
+ 21c:	4638      	mov	r0, r7
+ 21e:	f7ff fffe 	bl	0 <strlen>
+ 222:	4582      	cmp	sl, r0
+ 224:	d3f3      	bcc.n	20e <http_recv+0x20e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:271
+		*((data_valt_css)+ (0x2b6+i)) = uart_buf[i];
+		
+		
+		sprintf(uart_buf,"%02d:%1d:%1d",chk_modes(),sdoor,ebuff[39]);
+ 226:	f7ff fffe 	bl	0 <chk_modes>
+ 22a:	f998 1027 	ldrsb.w	r1, [r8, #39]	; 0x27
+ 22e:	f899 3000 	ldrb.w	r3, [r9]
+ 232:	4602      	mov	r2, r0
+ 234:	9100      	str	r1, [sp, #0]
+ 236:	4638      	mov	r0, r7
+ 238:	4947      	ldr	r1, [pc, #284]	; (358 <http_recv+0x358>)
+ 23a:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:272
+		*((data_valt_css)+ 0x7c) = uart_buf[0];
+ 23e:	f89d 300c 	ldrb.w	r3, [sp, #12]
+ 242:	f8df 80e8 	ldr.w	r8, [pc, #232]	; 32c <http_recv+0x32c>
+ 246:	f885 307c 	strb.w	r3, [r5, #124]	; 0x7c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:273
+		*((data_valt_css)+ 0x7d) = uart_buf[1];
+ 24a:	f89d 300d 	ldrb.w	r3, [sp, #13]
+ 24e:	f885 307d 	strb.w	r3, [r5, #125]	; 0x7d
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:274
+		*((data_valt_css)+ 0x7e) = uart_buf[2];
+ 252:	f89d 300e 	ldrb.w	r3, [sp, #14]
+ 256:	f885 307e 	strb.w	r3, [r5, #126]	; 0x7e
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:275
+		*((data_valt_css)+ 0x7f) = uart_buf[3];
+ 25a:	f89d 300f 	ldrb.w	r3, [sp, #15]
+ 25e:	f885 307f 	strb.w	r3, [r5, #127]	; 0x7f
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:276
+		*((data_valt_css)+ 0x80) = uart_buf[4];
+ 262:	f89d 3010 	ldrb.w	r3, [sp, #16]
+ 266:	f885 3080 	strb.w	r3, [r5, #128]	; 0x80
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:277
+		*((data_valt_css)+ 0x81) = uart_buf[5];
+ 26a:	f89d 3011 	ldrb.w	r3, [sp, #17]
+ 26e:	f885 3081 	strb.w	r3, [r5, #129]	; 0x81
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:280
+		
+		
+		if(start==1)
+ 272:	4b3a      	ldr	r3, [pc, #232]	; (35c <http_recv+0x35c>)
+ 274:	781b      	ldrb	r3, [r3, #0]
+ 276:	2b01      	cmp	r3, #1
+ 278:	d105      	bne.n	286 <http_recv+0x286>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:282
+		{
+			sprintf(uart_buf,"START \"");
+ 27a:	4638      	mov	r0, r7
+ 27c:	4938      	ldr	r1, [pc, #224]	; (360 <http_recv+0x360>)
+ 27e:	f7ff fffe 	bl	0 <strcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:283
+			*((data_valt_css)+ 0x245) = 0x66;
+ 282:	2366      	movs	r3, #102	; 0x66
+ 284:	e004      	b.n	290 <http_recv+0x290>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:288
+		}
+		
+		else
+		{
+			sprintf(uart_buf," STOP \"");
+ 286:	4638      	mov	r0, r7
+ 288:	4936      	ldr	r1, [pc, #216]	; (364 <http_recv+0x364>)
+ 28a:	f7ff fffe 	bl	0 <strcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:289
+			*((data_valt_css)+ 0x245) = 0x32;
+ 28e:	2332      	movs	r3, #50	; 0x32
+ 290:	f888 3245 	strb.w	r3, [r8, #581]	; 0x245
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:292
+		}
+		
+		*((data_valt_css)+ 0x233) = uart_buf[0];
+ 294:	f89d 300c 	ldrb.w	r3, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:316
+        cp3=0x132;
+		cp4=0x160;
+        cp5=0x18e;
+        cp6=0x1bc;
+
+		if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_9)) *((data_valt_css)+ cp1) = 0x6e;//n
+ 298:	4833      	ldr	r0, [pc, #204]	; (368 <http_recv+0x368>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:292
+		{
+			sprintf(uart_buf," STOP \"");
+			*((data_valt_css)+ 0x245) = 0x32;
+		}
+		
+		*((data_valt_css)+ 0x233) = uart_buf[0];
+ 29a:	f885 3233 	strb.w	r3, [r5, #563]	; 0x233
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:293
+		*((data_valt_css)+ 0x234) = uart_buf[1];
+ 29e:	f89d 300d 	ldrb.w	r3, [sp, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:316
+        cp3=0x132;
+		cp4=0x160;
+        cp5=0x18e;
+        cp6=0x1bc;
+
+		if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_9)) *((data_valt_css)+ cp1) = 0x6e;//n
+ 2a2:	f44f 7100 	mov.w	r1, #512	; 0x200
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:293
+			sprintf(uart_buf," STOP \"");
+			*((data_valt_css)+ 0x245) = 0x32;
+		}
+		
+		*((data_valt_css)+ 0x233) = uart_buf[0];
+		*((data_valt_css)+ 0x234) = uart_buf[1];
+ 2a6:	f885 3234 	strb.w	r3, [r5, #564]	; 0x234
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:294
+		*((data_valt_css)+ 0x235) = uart_buf[2];
+ 2aa:	f89d 300e 	ldrb.w	r3, [sp, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:292
+		{
+			sprintf(uart_buf," STOP \"");
+			*((data_valt_css)+ 0x245) = 0x32;
+		}
+		
+		*((data_valt_css)+ 0x233) = uart_buf[0];
+ 2ae:	4f1f      	ldr	r7, [pc, #124]	; (32c <http_recv+0x32c>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:294
+		*((data_valt_css)+ 0x234) = uart_buf[1];
+		*((data_valt_css)+ 0x235) = uart_buf[2];
+ 2b0:	f885 3235 	strb.w	r3, [r5, #565]	; 0x235
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:295
+		*((data_valt_css)+ 0x236) = uart_buf[3];
+ 2b4:	f89d 300f 	ldrb.w	r3, [sp, #15]
+ 2b8:	f885 3236 	strb.w	r3, [r5, #566]	; 0x236
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:296
+		*((data_valt_css)+ 0x237) = uart_buf[4];
+ 2bc:	f89d 3010 	ldrb.w	r3, [sp, #16]
+ 2c0:	f885 3237 	strb.w	r3, [r5, #567]	; 0x237
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:297
+		*((data_valt_css)+ 0x238) = uart_buf[5];
+ 2c4:	f89d 3011 	ldrb.w	r3, [sp, #17]
+ 2c8:	f885 3238 	strb.w	r3, [r5, #568]	; 0x238
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:298
+		*((data_valt_css)+ 0x239) = uart_buf[6];
+ 2cc:	f89d 3012 	ldrb.w	r3, [sp, #18]
+ 2d0:	f885 3239 	strb.w	r3, [r5, #569]	; 0x239
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:316
+        cp3=0x132;
+		cp4=0x160;
+        cp5=0x18e;
+        cp6=0x1bc;
+
+		if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_9)) *((data_valt_css)+ cp1) = 0x6e;//n
+ 2d4:	f7ff fffe 	bl	0 <GPIO_ReadInputDataBit>
+ 2d8:	b108      	cbz	r0, 2de <http_recv+0x2de>
+ 2da:	236e      	movs	r3, #110	; 0x6e
+ 2dc:	e000      	b.n	2e0 <http_recv+0x2e0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:317
+		else{ *((data_valt_css)+ cp1) = 0x66;//f
+ 2de:	2366      	movs	r3, #102	; 0x66
+ 2e0:	f887 30d6 	strb.w	r3, [r7, #214]	; 0xd6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:321
+				//	if(leds[0]==3)leds[0] = 2;
+				}
+		
+		if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_10)) *((data_valt_css)+cp2) = 0x6e;
+ 2e4:	4820      	ldr	r0, [pc, #128]	; (368 <http_recv+0x368>)
+ 2e6:	f44f 6180 	mov.w	r1, #1024	; 0x400
+ 2ea:	f7ff fffe 	bl	0 <GPIO_ReadInputDataBit>
+ 2ee:	b108      	cbz	r0, 2f4 <http_recv+0x2f4>
+ 2f0:	236e      	movs	r3, #110	; 0x6e
+ 2f2:	e000      	b.n	2f6 <http_recv+0x2f6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:322
+		else{ *((data_valt_css)+ cp2) = 0x66; 
+ 2f4:	2366      	movs	r3, #102	; 0x66
+ 2f6:	f885 3104 	strb.w	r3, [r5, #260]	; 0x104
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:326
+		//if(leds[1]==3)leds[1] = 2;
+		 }
+		
+		if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_11)) *((data_valt_css)+ cp3) = 0x6e;
+ 2fa:	481b      	ldr	r0, [pc, #108]	; (368 <http_recv+0x368>)
+ 2fc:	f44f 6100 	mov.w	r1, #2048	; 0x800
+ 300:	f7ff fffe 	bl	0 <GPIO_ReadInputDataBit>
+ 304:	b108      	cbz	r0, 30a <http_recv+0x30a>
+ 306:	236e      	movs	r3, #110	; 0x6e
+ 308:	e000      	b.n	30c <http_recv+0x30c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:327
+		else{ *((data_valt_css)+ cp3) = 0x66; 
+ 30a:	2366      	movs	r3, #102	; 0x66
+ 30c:	f885 3132 	strb.w	r3, [r5, #306]	; 0x132
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:331
+		//if(leds[2]==3)leds[2] = 2;
+		}
+			
+		if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_12)) *((data_valt_css)+cp4) = 0x6e;
+ 310:	4815      	ldr	r0, [pc, #84]	; (368 <http_recv+0x368>)
+ 312:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+ 316:	f7ff fffe 	bl	0 <GPIO_ReadInputDataBit>
+ 31a:	b378      	cbz	r0, 37c <http_recv+0x37c>
+ 31c:	236e      	movs	r3, #110	; 0x6e
+ 31e:	e02e      	b.n	37e <http_recv+0x37e>
+ 320:	00000003 	.word	0x00000003
+ 324:	00000011 	.word	0x00000011
+	...
+ 338:	00000020 	.word	0x00000020
+ 33c:	00000000 	.word	0x00000000
+ 340:	0000002f 	.word	0x0000002f
+ 344:	000002da 	.word	0x000002da
+ 348:	00000000 	.word	0x00000000
+ 34c:	00000043 	.word	0x00000043
+ 350:	00000000 	.word	0x00000000
+ 354:	0000004a 	.word	0x0000004a
+ 358:	0000004d 	.word	0x0000004d
+ 35c:	00000000 	.word	0x00000000
+ 360:	0000005a 	.word	0x0000005a
+ 364:	00000062 	.word	0x00000062
+ 368:	40011800 	.word	0x40011800
+	...
+ 374:	00000291 	.word	0x00000291
+ 378:	000002b5 	.word	0x000002b5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:332
+		else{ *((data_valt_css)+ cp4) = 0x66;
+ 37c:	2366      	movs	r3, #102	; 0x66
+ 37e:	f885 3160 	strb.w	r3, [r5, #352]	; 0x160
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:336
+		//if(leds[3]==3)leds[3] = 2;
+		}
+        
+		if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_13)) *((data_valt_css)+ cp5) = 0x6e;
+ 382:	4890      	ldr	r0, [pc, #576]	; (5c4 <http_recv+0x5c4>)
+ 384:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 388:	f7ff fffe 	bl	0 <GPIO_ReadInputDataBit>
+ 38c:	b108      	cbz	r0, 392 <http_recv+0x392>
+ 38e:	236e      	movs	r3, #110	; 0x6e
+ 390:	e000      	b.n	394 <http_recv+0x394>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:337
+		else *((data_valt_css)+ cp5) = 0x66;
+ 392:	2366      	movs	r3, #102	; 0x66
+ 394:	f885 318e 	strb.w	r3, [r5, #398]	; 0x18e
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:339
+            
+		if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_14)) *((data_valt_css)+ cp6) = 0x6e;
+ 398:	488a      	ldr	r0, [pc, #552]	; (5c4 <http_recv+0x5c4>)
+ 39a:	f44f 4180 	mov.w	r1, #16384	; 0x4000
+ 39e:	f7ff fffe 	bl	0 <GPIO_ReadInputDataBit>
+ 3a2:	b108      	cbz	r0, 3a8 <http_recv+0x3a8>
+ 3a4:	236e      	movs	r3, #110	; 0x6e
+ 3a6:	e000      	b.n	3aa <http_recv+0x3aa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:340
+		else *((data_valt_css)+ cp6) = 0x66;
+ 3a8:	2366      	movs	r3, #102	; 0x66
+ 3aa:	f885 31bc 	strb.w	r3, [r5, #444]	; 0x1bc
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:342
+		
+        fs_open("/valt.css", &file);
+ 3ae:	4886      	ldr	r0, [pc, #536]	; (5c8 <http_recv+0x5c8>)
+ 3b0:	e04b      	b.n	44a <http_recv+0x44a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:353
+
+        /* Tell TCP that we wish be to informed of data that has been
+           successfully sent by a call to the http_sent() function. */
+        tcp_sent(pcb, http_sent);
+      }
+	  else if ((strncmp(data, "GET /ind.html", 13) == 0) || (strncmp(data, "POST /ind.html", 14) == 0 ))
+ 3b2:	4638      	mov	r0, r7
+ 3b4:	4985      	ldr	r1, [pc, #532]	; (5cc <http_recv+0x5cc>)
+ 3b6:	220d      	movs	r2, #13
+ 3b8:	f7ff fffe 	bl	0 <strncmp>
+ 3bc:	b128      	cbz	r0, 3ca <http_recv+0x3ca>
+ 3be:	4638      	mov	r0, r7
+ 3c0:	4983      	ldr	r1, [pc, #524]	; (5d0 <http_recv+0x5d0>)
+ 3c2:	220e      	movs	r2, #14
+ 3c4:	f7ff fffe 	bl	0 <strncmp>
+ 3c8:	b920      	cbnz	r0, 3d4 <http_recv+0x3d4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:356
+      {
+        
+        pbuf_free(p);
+ 3ca:	4628      	mov	r0, r5
+ 3cc:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:358
+            
+        fs_open("/ind.html", &file);
+ 3d0:	4880      	ldr	r0, [pc, #512]	; (5d4 <http_recv+0x5d4>)
+ 3d2:	e03a      	b.n	44a <http_recv+0x44a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:369
+
+        /* Tell TCP that we wish be to informed of data that has been
+           successfully sent by a call to the http_sent() function. */
+        tcp_sent(pcb, http_sent);
+      }
+	   else if (strncmp(data, "GET /uppu", 9) == 0)
+ 3d4:	4638      	mov	r0, r7
+ 3d6:	4980      	ldr	r1, [pc, #512]	; (5d8 <http_recv+0x5d8>)
+ 3d8:	2209      	movs	r2, #9
+ 3da:	f7ff fffe 	bl	0 <strncmp>
+ 3de:	b918      	cbnz	r0, 3e8 <http_recv+0x3e8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:372
+      {
+        
+        pbuf_free(p);
+ 3e0:	4628      	mov	r0, r5
+ 3e2:	f7ff fffe 	bl	0 <pbuf_free>
+ 3e6:	e13d      	b.n	664 <http_recv+0x664>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:385
+
+        /* Tell TCP that we wish be to informed of data that has been
+           successfully sent by a call to the http_sent() function. */
+        tcp_sent(pcb, http_sent);
+      }
+	else if ((strncmp(data, "GET /val.js", 11) == 0)|| (strncmp(data, "POST /val.js", 12) == 0 ))
+ 3e8:	4638      	mov	r0, r7
+ 3ea:	497c      	ldr	r1, [pc, #496]	; (5dc <http_recv+0x5dc>)
+ 3ec:	220b      	movs	r2, #11
+ 3ee:	f7ff fffe 	bl	0 <strncmp>
+ 3f2:	b130      	cbz	r0, 402 <http_recv+0x402>
+ 3f4:	4638      	mov	r0, r7
+ 3f6:	497a      	ldr	r1, [pc, #488]	; (5e0 <http_recv+0x5e0>)
+ 3f8:	220c      	movs	r2, #12
+ 3fa:	f7ff fffe 	bl	0 <strncmp>
+ 3fe:	2800      	cmp	r0, #0
+ 400:	d133      	bne.n	46a <http_recv+0x46a>
+ 402:	f8df 8204 	ldr.w	r8, [pc, #516]	; 608 <http_recv+0x608>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:267
+		sprintf(uart_buf,"%c%c%c",0x20,0x20,0x20);
+		for(i=0;i<3;i++)
+		*((data_valt_css)+ (0x2b6+i)) = uart_buf[i];
+		
+		sprintf(uart_buf,"%i",ebuff[34]);
+		for(i=0;i<strlen(uart_buf);i++)
+ 406:	2741      	movs	r7, #65	; 0x41
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:393
+		char _buf[3]; 
+		char cl;
+	
+	  for(i=0;i<33;i++)
+	  {
+		sprintf(_buf,"%i;",ebuff[i]);
+ 408:	f918 2f01 	ldrsb.w	r2, [r8, #1]!
+ 40c:	4975      	ldr	r1, [pc, #468]	; (5e4 <http_recv+0x5e4>)
+ 40e:	a819      	add	r0, sp, #100	; 0x64
+ 410:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:394
+		cl = strlen(_buf);
+ 414:	a819      	add	r0, sp, #100	; 0x64
+ 416:	f7ff fffe 	bl	0 <strlen>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:158
+
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+ 41a:	4a73      	ldr	r2, [pc, #460]	; (5e8 <http_recv+0x5e8>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:394
+		char cl;
+	
+	  for(i=0;i<33;i++)
+	  {
+		sprintf(_buf,"%i;",ebuff[i]);
+		cl = strlen(_buf);
+ 41c:	b2c0      	uxtb	r0, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:158
+
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+ 41e:	19d2      	adds	r2, r2, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:395
+	
+	  for(i=0;i<33;i++)
+	  {
+		sprintf(_buf,"%i;",ebuff[i]);
+		cl = strlen(_buf);
+		for(ii=0;ii<cl;ii++)
+ 420:	2300      	movs	r3, #0
+ 422:	e004      	b.n	42e <http_recv+0x42e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:396
+		*((data_val_js)+ 0x42+(i*12)+ii) = _buf[ii];
+ 424:	a919      	add	r1, sp, #100	; 0x64
+ 426:	5cc9      	ldrb	r1, [r1, r3]
+ 428:	3301      	adds	r3, #1
+ 42a:	f802 1f01 	strb.w	r1, [r2, #1]!
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:395
+	
+	  for(i=0;i<33;i++)
+	  {
+		sprintf(_buf,"%i;",ebuff[i]);
+		cl = strlen(_buf);
+		for(ii=0;ii<cl;ii++)
+ 42e:	fa4f fe83 	sxtb.w	lr, r3
+ 432:	b241      	sxtb	r1, r0
+ 434:	458e      	cmp	lr, r1
+ 436:	dbf5      	blt.n	424 <http_recv+0x424>
+ 438:	370c      	adds	r7, #12
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:391
+      {
+		char i,ii;
+		char _buf[3]; 
+		char cl;
+	
+	  for(i=0;i<33;i++)
+ 43a:	f240 13cd 	movw	r3, #461	; 0x1cd
+ 43e:	429f      	cmp	r7, r3
+ 440:	d1e2      	bne.n	408 <http_recv+0x408>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:399
+		cl = strlen(_buf);
+		for(ii=0;ii<cl;ii++)
+		*((data_val_js)+ 0x42+(i*12)+ii) = _buf[ii];
+	   
+	  }
+	     pbuf_free(p);
+ 442:	4628      	mov	r0, r5
+ 444:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:401
+	   
+	     fs_open("/val.js", &file);
+ 448:	4868      	ldr	r0, [pc, #416]	; (5ec <http_recv+0x5ec>)
+ 44a:	a917      	add	r1, sp, #92	; 0x5c
+ 44c:	f7ff fffe 	bl	0 <http_recv>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:403
+
+        hs->file = file.data;
+ 450:	9b17      	ldr	r3, [sp, #92]	; 0x5c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:406
+        hs->left = file.len;
+       
+        send_data(pcb, hs);
+ 452:	4630      	mov	r0, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:403
+	  }
+	     pbuf_free(p);
+	   
+	     fs_open("/val.js", &file);
+
+        hs->file = file.data;
+ 454:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:404
+        hs->left = file.len;
+ 456:	9b18      	ldr	r3, [sp, #96]	; 0x60
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:406
+       
+        send_data(pcb, hs);
+ 458:	4621      	mov	r1, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:404
+	     pbuf_free(p);
+	   
+	     fs_open("/val.js", &file);
+
+        hs->file = file.data;
+        hs->left = file.len;
+ 45a:	6063      	str	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:406
+       
+        send_data(pcb, hs);
+ 45c:	f7ff fffe 	bl	0 <http_recv>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:409
+        /* Tell TCP that we wish be to informed of data that has been
+           successfully sent by a call to the http_sent() function. */
+        tcp_sent(pcb, http_sent);
+ 460:	4630      	mov	r0, r6
+ 462:	4963      	ldr	r1, [pc, #396]	; (5f0 <http_recv+0x5f0>)
+ 464:	f7ff fffe 	bl	0 <tcp_sent>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:386
+        /* Tell TCP that we wish be to informed of data that has been
+           successfully sent by a call to the http_sent() function. */
+        tcp_sent(pcb, http_sent);
+      }
+	else if ((strncmp(data, "GET /val.js", 11) == 0)|| (strncmp(data, "POST /val.js", 12) == 0 ))
+      {
+ 468:	e101      	b.n	66e <http_recv+0x66e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:424
+
+        /* Tell TCP that we wish be to informed of data that has been
+           successfully sent by a call to the http_sent() function. */
+       // tcp_sent(pcb, http_sent);
+      }
+      else if (strncmp(data, "GET /method=get", 15) == 0)
+ 46a:	4638      	mov	r0, r7
+ 46c:	4961      	ldr	r1, [pc, #388]	; (5f4 <http_recv+0x5f4>)
+ 46e:	220f      	movs	r2, #15
+ 470:	f7ff fffe 	bl	0 <strncmp>
+ 474:	4680      	mov	r8, r0
+ 476:	2800      	cmp	r0, #0
+ 478:	f040 8081 	bne.w	57e <http_recv+0x57e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:430
+      {
+        i = 16;
+		// out_off(d7);
+		//onmousedown
+		//onmouseup
+	if (data[18] == 0x6C /* l */)
+ 47c:	f997 3012 	ldrsb.w	r3, [r7, #18]
+ 480:	2b6c      	cmp	r3, #108	; 0x6c
+ 482:	d152      	bne.n	52a <http_recv+0x52a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:434
+		{
+                i=21; 
+				//ET-STM32F ARM KIT Hardware Board
+                if(data[i]==0x31 /* 1 */)
+ 484:	7d7a      	ldrb	r2, [r7, #21]
+ 486:	b253      	sxtb	r3, r2
+ 488:	2b31      	cmp	r3, #49	; 0x31
+ 48a:	d002      	beq.n	492 <http_recv+0x492>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:440
+                {
+                   out_toggle_s(k0);
+				   //leds[0] = 1;
+                }
+  
+               else if(data[i]==0x32 /* 2 */)
+ 48c:	2b32      	cmp	r3, #50	; 0x32
+ 48e:	d103      	bne.n	498 <http_recv+0x498>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:442
+                {
+                   out_toggle_s(k1);   
+ 490:	2001      	movs	r0, #1
+ 492:	f7ff fffe 	bl	0 <out_toggle_s>
+ 496:	e044      	b.n	522 <http_recv+0x522>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:446
+				   //leds[1] = 1;
+                }
+        
+               else if(data[i]==0x33 /* 3 */)
+ 498:	2b33      	cmp	r3, #51	; 0x33
+ 49a:	d101      	bne.n	4a0 <http_recv+0x4a0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:448
+                {
+                   out_toggle_s(k2); 
+ 49c:	2002      	movs	r0, #2
+ 49e:	e7f8      	b.n	492 <http_recv+0x492>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:452
+				   //leds[2] = 1;
+                }
+            
+               else if(data[i]==0x34 /* 4 */)
+ 4a0:	2b34      	cmp	r3, #52	; 0x34
+ 4a2:	d101      	bne.n	4a8 <http_recv+0x4a8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:454
+                {
+                     out_toggle_s(k3);  
+ 4a4:	2003      	movs	r0, #3
+ 4a6:	e7f4      	b.n	492 <http_recv+0x492>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:457
+					 //leds[3] = 1;
+                }		
+               else if(data[i]==0x35 /* 5 */)
+ 4a8:	2b35      	cmp	r3, #53	; 0x35
+ 4aa:	d101      	bne.n	4b0 <http_recv+0x4b0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:459
+                {
+					out_toggle_s(k4);  
+ 4ac:	2004      	movs	r0, #4
+ 4ae:	e7f0      	b.n	492 <http_recv+0x492>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:462
+					//out_toggle(k4);
+                }		
+               else if(data[i]==0x36 /* 6 */)
+ 4b0:	2b36      	cmp	r3, #54	; 0x36
+ 4b2:	d101      	bne.n	4b8 <http_recv+0x4b8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:464
+                {
+                  out_toggle_s(k5);
+ 4b4:	2005      	movs	r0, #5
+ 4b6:	e7ec      	b.n	492 <http_recv+0x492>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:467
+				   //out_toggle(k5);  
+                }	
+              else  if(data[i]==0x37 /* 7 */)
+ 4b8:	2b37      	cmp	r3, #55	; 0x37
+ 4ba:	d102      	bne.n	4c2 <http_recv+0x4c2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:470
+                {
+					
+					outpp(0x00);
+ 4bc:	f7ff fffe 	bl	0 <outpp>
+ 4c0:	e02f      	b.n	522 <http_recv+0x522>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:472
+                }	
+			else if(data[i]==0x38 /* 8 */)
+ 4c2:	2b38      	cmp	r3, #56	; 0x38
+ 4c4:	d107      	bne.n	4d6 <http_recv+0x4d6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:474
+                {
+					if(start==1)
+ 4c6:	4b4c      	ldr	r3, [pc, #304]	; (5f8 <http_recv+0x5f8>)
+ 4c8:	781a      	ldrb	r2, [r3, #0]
+ 4ca:	2a01      	cmp	r2, #1
+ 4cc:	d101      	bne.n	4d2 <http_recv+0x4d2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:476
+					{
+						start = 3;
+ 4ce:	3202      	adds	r2, #2
+ 4d0:	e026      	b.n	520 <http_recv+0x520>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:480
+					}						
+					else 
+					{
+						start = 5;
+ 4d2:	2205      	movs	r2, #5
+ 4d4:	e024      	b.n	520 <http_recv+0x520>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:484
+					
+					}						
+                }
+			else if(data[i]==0x39 /* 8 */)
+ 4d6:	2a39      	cmp	r2, #57	; 0x39
+ 4d8:	d123      	bne.n	522 <http_recv+0x522>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:486
+                {
+					if(data[i+1]==0x30)
+ 4da:	f997 3016 	ldrsb.w	r3, [r7, #22]
+ 4de:	2b30      	cmp	r3, #48	; 0x30
+ 4e0:	d104      	bne.n	4ec <http_recv+0x4ec>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:488
+					{
+						ebuff[33] += 1;
+ 4e2:	4b46      	ldr	r3, [pc, #280]	; (5fc <http_recv+0x5fc>)
+ 4e4:	f893 2021 	ldrb.w	r2, [r3, #33]	; 0x21
+ 4e8:	3201      	adds	r2, #1
+ 4ea:	e005      	b.n	4f8 <http_recv+0x4f8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:490
+					}						
+					else if(data[i+1]==0x31)
+ 4ec:	2b31      	cmp	r3, #49	; 0x31
+ 4ee:	d106      	bne.n	4fe <http_recv+0x4fe>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:492
+					{
+						ebuff[33] -= 1;
+ 4f0:	4b42      	ldr	r3, [pc, #264]	; (5fc <http_recv+0x5fc>)
+ 4f2:	f893 2021 	ldrb.w	r2, [r3, #33]	; 0x21
+ 4f6:	3a01      	subs	r2, #1
+ 4f8:	f883 2021 	strb.w	r2, [r3, #33]	; 0x21
+ 4fc:	e00e      	b.n	51c <http_recv+0x51c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:494
+					}	
+					else if(data[i+1]==0x32)
+ 4fe:	2b32      	cmp	r3, #50	; 0x32
+ 500:	d104      	bne.n	50c <http_recv+0x50c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:496
+					{
+						ebuff[34] += 1;
+ 502:	4b3e      	ldr	r3, [pc, #248]	; (5fc <http_recv+0x5fc>)
+ 504:	f893 2022 	ldrb.w	r2, [r3, #34]	; 0x22
+ 508:	3201      	adds	r2, #1
+ 50a:	e005      	b.n	518 <http_recv+0x518>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:498
+					}						
+					else if(data[i+1]==0x33)
+ 50c:	2b33      	cmp	r3, #51	; 0x33
+ 50e:	d105      	bne.n	51c <http_recv+0x51c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:500
+					{
+						ebuff[34] -= 1;
+ 510:	4b3a      	ldr	r3, [pc, #232]	; (5fc <http_recv+0x5fc>)
+ 512:	f893 2022 	ldrb.w	r2, [r3, #34]	; 0x22
+ 516:	3a01      	subs	r2, #1
+ 518:	f883 2022 	strb.w	r2, [r3, #34]	; 0x22
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:502
+					}
+					eemodes = 10;				
+ 51c:	4b38      	ldr	r3, [pc, #224]	; (600 <http_recv+0x600>)
+ 51e:	220a      	movs	r2, #10
+ 520:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:504
+                }	
+				 pbuf_free(p);
+ 522:	4628      	mov	r0, r5
+ 524:	f7ff fffe 	bl	0 <pbuf_free>
+ 528:	e741      	b.n	3ae <http_recv+0x3ae>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:509
+					fs_open("/valt.css", &file);
+					
+              }   
+		
+	else if (data[15] == 0x25/* % */)
+ 52a:	f997 200f 	ldrsb.w	r2, [r7, #15]
+ 52e:	2a25      	cmp	r2, #37	; 0x25
+ 530:	d121      	bne.n	576 <http_recv+0x576>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:512
+          {
+			  i=18;
+          if (data[i] == 0x03a /* : */)
+ 532:	2b3a      	cmp	r3, #58	; 0x3a
+ 534:	d11f      	bne.n	576 <http_recv+0x576>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:515
+          {
+			
+			char delims[] = ":";
+ 536:	a91a      	add	r1, sp, #104	; 0x68
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:522
+			
+			unsigned char ci,cl,cf,bci;
+			char bv;
+			ci=0;
+			bci=0;
+			result = strtok( data, delims );
+ 538:	4638      	mov	r0, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:515
+          {
+			  i=18;
+          if (data[i] == 0x03a /* : */)
+          {
+			
+			char delims[] = ":";
+ 53a:	f821 3d04 	strh.w	r3, [r1, #-4]!
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:522
+			
+			unsigned char ci,cl,cf,bci;
+			char bv;
+			ci=0;
+			bci=0;
+			result = strtok( data, delims );
+ 53e:	f7ff fffe 	bl	0 <strtok>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:520
+			char delims[] = ":";
+			char *result = NULL;
+			
+			unsigned char ci,cl,cf,bci;
+			char bv;
+			ci=0;
+ 542:	4647      	mov	r7, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:523
+			bci=0;
+			result = strtok( data, delims );
+			while( result != NULL ) {
+ 544:	e012      	b.n	56c <http_recv+0x56c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:524
+			if(bci!=0)
+ 546:	f1b8 0f00 	cmp.w	r8, #0
+ 54a:	d005      	beq.n	e <atoi+0xe>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:528
+			{
+				bv=0;
+				cl = strlen(result);
+				bv = atoi(result);
+ 54c:	f7ff fffe 	bl	0 <atoi>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:529
+				ebuff[ci] = bv;
+ 550:	4b2a      	ldr	r3, [pc, #168]	; (5fc <http_recv+0x5fc>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:528
+			while( result != NULL ) {
+			if(bci!=0)
+			{
+				bv=0;
+				cl = strlen(result);
+				bv = atoi(result);
+ 552:	55d8      	strb	r0, [r3, r7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:530
+				ebuff[ci] = bv;
+				ci++;
+ 554:	3701      	adds	r7, #1
+ 556:	b2ff      	uxtb	r7, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:533
+				
+			}
+				if(ci==33)	break;		
+ 558:	2f21      	cmp	r7, #33	; 0x21
+ 55a:	d009      	beq.n	570 <http_recv+0x570>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:534
+				result = strtok( NULL, delims );
+ 55c:	2000      	movs	r0, #0
+ 55e:	a919      	add	r1, sp, #100	; 0x64
+ 560:	f7ff fffe 	bl	0 <strtok>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:535
+				bci++;
+ 564:	f108 0801 	add.w	r8, r8, #1
+ 568:	fa5f f888 	uxtb.w	r8, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:523
+			unsigned char ci,cl,cf,bci;
+			char bv;
+			ci=0;
+			bci=0;
+			result = strtok( data, delims );
+			while( result != NULL ) {
+ 56c:	2800      	cmp	r0, #0
+ 56e:	d1ea      	bne.n	546 <http_recv+0x546>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:538
+				if(ci==33)	break;		
+				result = strtok( NULL, delims );
+				bci++;
+			}
+			
+			eemodes=10;
+ 570:	4b23      	ldr	r3, [pc, #140]	; (600 <http_recv+0x600>)
+ 572:	220a      	movs	r2, #10
+ 574:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:546
+			}
+			else pbuf_free(p);
+		  }		  
+		  else 
+		  {
+		   pbuf_free(p);
+ 576:	4628      	mov	r0, r5
+ 578:	f7ff fffe 	bl	0 <pbuf_free>
+ 57c:	e768      	b.n	450 <http_recv+0x450>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:559
+
+        /* Tell TCP that we wish be to informed of data that has been
+           successfully sent by a call to the http_sent() function. */
+        tcp_sent(pcb, http_sent);
+      }    
+      else if (strncmp(data, "GET ", 4) == 0)
+ 57e:	4638      	mov	r0, r7
+ 580:	4920      	ldr	r1, [pc, #128]	; (604 <http_recv+0x604>)
+ 582:	2204      	movs	r2, #4
+ 584:	f7ff fffe 	bl	0 <strncmp>
+ 588:	2800      	cmp	r0, #0
+ 58a:	d13f      	bne.n	60c <http_recv+0x60c>
+ 58c:	463b      	mov	r3, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:158
+
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+ 58e:	f107 0128 	add.w	r1, r7, #40	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:563
+      }    
+      else if (strncmp(data, "GET ", 4) == 0)
+      {
+        for (i = 0; i < 40; i++)
+        {
+          if (((char *)data + 4)[i] == ' ' ||
+ 592:	f993 2004 	ldrsb.w	r2, [r3, #4]
+ 596:	2a20      	cmp	r2, #32
+ 598:	d003      	beq.n	5a2 <http_recv+0x5a2>
+ 59a:	2a0d      	cmp	r2, #13
+ 59c:	d001      	beq.n	5a2 <http_recv+0x5a2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:564
+              ((char *)data + 4)[i] == '\r' ||
+ 59e:	2a0a      	cmp	r2, #10
+ 5a0:	d101      	bne.n	5a6 <http_recv+0x5a6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:567
+              ((char *)data + 4)[i] == '\n')
+          {
+            ((char *)data + 4)[i] = 0;
+ 5a2:	2200      	movs	r2, #0
+ 5a4:	711a      	strb	r2, [r3, #4]
+ 5a6:	3301      	adds	r3, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:561
+           successfully sent by a call to the http_sent() function. */
+        tcp_sent(pcb, http_sent);
+      }    
+      else if (strncmp(data, "GET ", 4) == 0)
+      {
+        for (i = 0; i < 40; i++)
+ 5a8:	428b      	cmp	r3, r1
+ 5aa:	d1f2      	bne.n	592 <http_recv+0x592>
+ 5ac:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:158
+
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+ 5ae:	18fa      	adds	r2, r7, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:576
+        i = 0;
+        j = 0;
+        
+        do
+        {
+          fname[i] = ((char *)data + 4)[j];
+ 5b0:	7912      	ldrb	r2, [r2, #4]
+ 5b2:	a90d      	add	r1, sp, #52	; 0x34
+ 5b4:	54ca      	strb	r2, [r1, r3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:579
+          j++;
+          i++;
+        } while (fname[i - 1] != 0 && i < 40);
+ 5b6:	2a00      	cmp	r2, #0
+ 5b8:	d04a      	beq.n	650 <http_recv+0x650>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:578
+        
+        do
+        {
+          fname[i] = ((char *)data + 4)[j];
+          j++;
+          i++;
+ 5ba:	3301      	adds	r3, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:579
+        } while (fname[i - 1] != 0 && i < 40);
+ 5bc:	2b28      	cmp	r3, #40	; 0x28
+ 5be:	d1f6      	bne.n	5ae <http_recv+0x5ae>
+ 5c0:	e046      	b.n	650 <http_recv+0x650>
+ 5c2:	bf00      	nop
+ 5c4:	40011800 	.word	0x40011800
+ 5c8:	0000006a 	.word	0x0000006a
+ 5cc:	00000074 	.word	0x00000074
+ 5d0:	00000082 	.word	0x00000082
+ 5d4:	00000091 	.word	0x00000091
+ 5d8:	0000009b 	.word	0x0000009b
+ 5dc:	000000b1 	.word	0x000000b1
+ 5e0:	000000bd 	.word	0x000000bd
+ 5e4:	000000ca 	.word	0x000000ca
+ 5e8:	000002fd 	.word	0x000002fd
+ 5ec:	000000ce 	.word	0x000000ce
+ 5f0:	00000000 	.word	0x00000000
+ 5f4:	000000d6 	.word	0x000000d6
+	...
+ 604:	000000e6 	.word	0x000000e6
+ 608:	ffffffff 	.word	0xffffffff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:596
+
+        /* Tell TCP that we wish be to informed of data that has been
+           successfully sent by a call to the http_sent() function. */
+        tcp_sent(pcb, http_sent);
+      }
+	  else if(strncmp(data, "POST ", 5) == 0)
+ 60c:	4638      	mov	r0, r7
+ 60e:	491c      	ldr	r1, [pc, #112]	; (680 <http_recv+0x680>)
+ 610:	2205      	movs	r2, #5
+ 612:	f7ff fffe 	bl	0 <strncmp>
+ 616:	2800      	cmp	r0, #0
+ 618:	d12d      	bne.n	676 <http_recv+0x676>
+ 61a:	463b      	mov	r3, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:158
+
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+ 61c:	f107 0128 	add.w	r1, r7, #40	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:601
+	  else if(strncmp(data, "POST ", 5) == 0)
+	  {
+		pdata = data;
+        for (i = 0; i < 40; i++)
+        {
+          if (((char *)data + 5)[i] == ' ' ||
+ 620:	f993 2005 	ldrsb.w	r2, [r3, #5]
+ 624:	2a20      	cmp	r2, #32
+ 626:	d003      	beq.n	630 <http_recv+0x630>
+ 628:	2a0d      	cmp	r2, #13
+ 62a:	d001      	beq.n	630 <http_recv+0x630>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:602
+              ((char *)data + 5)[i] == '\r' ||
+ 62c:	2a0a      	cmp	r2, #10
+ 62e:	d101      	bne.n	634 <http_recv+0x634>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:605
+              ((char *)data + 5)[i] == '\n')
+          {
+            ((char *)data + 5)[i] = 0;
+ 630:	2200      	movs	r2, #0
+ 632:	715a      	strb	r2, [r3, #5]
+ 634:	3301      	adds	r3, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:599
+        tcp_sent(pcb, http_sent);
+      }
+	  else if(strncmp(data, "POST ", 5) == 0)
+	  {
+		pdata = data;
+        for (i = 0; i < 40; i++)
+ 636:	428b      	cmp	r3, r1
+ 638:	d1f2      	bne.n	620 <http_recv+0x620>
+ 63a:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:158
+
+  return ERR_OK;
+}
+/*-----------------------------------------------------------------------------------*/
+static err_t
+http_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+ 63c:	18fa      	adds	r2, r7, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:614
+        i = 0;
+        j = 0;
+        
+        do
+        {
+          fname[i] = ((char *)data + 5)[j];
+ 63e:	7952      	ldrb	r2, [r2, #5]
+ 640:	a90d      	add	r1, sp, #52	; 0x34
+ 642:	54ca      	strb	r2, [r1, r3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:617
+          j++;
+          i++;
+        } while (fname[i - 1] != 0 && i < 40 && fname[i - 1] != 20);
+ 644:	b122      	cbz	r2, 650 <http_recv+0x650>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:616
+        
+        do
+        {
+          fname[i] = ((char *)data + 5)[j];
+          j++;
+          i++;
+ 646:	3301      	adds	r3, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:617
+        } while (fname[i - 1] != 0 && i < 40 && fname[i - 1] != 20);
+ 648:	2b28      	cmp	r3, #40	; 0x28
+ 64a:	d001      	beq.n	650 <http_recv+0x650>
+ 64c:	2a14      	cmp	r2, #20
+ 64e:	d1f5      	bne.n	63c <http_recv+0x63c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:619
+        
+        pbuf_free(p);
+ 650:	4628      	mov	r0, r5
+ 652:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:621
+
+        if (!fs_open(fname, &file))
+ 656:	a80d      	add	r0, sp, #52	; 0x34
+ 658:	a917      	add	r1, sp, #92	; 0x5c
+ 65a:	f7ff fffe 	bl	0 <http_recv>
+ 65e:	2800      	cmp	r0, #0
+ 660:	f47f aef6 	bne.w	450 <http_recv+0x450>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:626
+        {
+			// *((data_foot_html)+ 0xa2) = 0x30 + Digit3; /* ADC value 3rd digit*/
+			 
+			//post_svs(pdata);
+			fs_open("/index.html", &file);
+ 664:	4807      	ldr	r0, [pc, #28]	; (684 <http_recv+0x684>)
+ 666:	e6f0      	b.n	44a <http_recv+0x44a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:651
+        close_conn(pcb, hs);
+      }
+    }
+    else
+    {
+      pbuf_free(p);
+ 668:	4628      	mov	r0, r5
+ 66a:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:662
+
+    close_conn(pcb, hs);
+  }
+  
+  return ERR_OK;
+}
+ 66e:	2000      	movs	r0, #0
+ 670:	b01b      	add	sp, #108	; 0x6c
+ 672:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/httpd.c:658
+  }
+
+  if (err == ERR_OK && p == NULL)
+  {
+
+    close_conn(pcb, hs);
+ 676:	4630      	mov	r0, r6
+ 678:	4621      	mov	r1, r4
+ 67a:	f7ff fffe 	bl	0 <http_recv>
+ 67e:	e7f6      	b.n	fffffff0 <data_images_n_png+0xffff653c>
+ 680:	000000eb 	.word	0x000000eb
+ 684:	000000a5 	.word	0x000000a5

@@ -1,0 +1,105 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\disc.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\disc.o
+
+
+Disassembly of section .text.disc_loadMBR:
+
+00000000 <disc_loadMBR>:
+disc_loadMBR():
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:56
+/* ****************************************************************************  
+ * void disc_loadMBR(Disc *disc)
+ * Description: This functions copies the partitiontable to the partitions field.
+*/
+void disc_loadMBR(Disc *disc)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:60
+	euint8 x;
+	euint8 *buf;
+	
+	buf=ioman_getSector(disc->ioman,LBA_ADDR_MBR,IOM_MODE_READONLY|IOM_MODE_EXP_REQ);
+   4:	2100      	movs	r1, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:56
+/* ****************************************************************************  
+ * void disc_loadMBR(Disc *disc)
+ * Description: This functions copies the partitiontable to the partitions field.
+*/
+void disc_loadMBR(Disc *disc)
+{
+   6:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:60
+	euint8 x;
+	euint8 *buf;
+	
+	buf=ioman_getSector(disc->ioman,LBA_ADDR_MBR,IOM_MODE_READONLY|IOM_MODE_EXP_REQ);
+   8:	2205      	movs	r2, #5
+   a:	6800      	ldr	r0, [r0, #0]
+   c:	f7ff fffe 	bl	0 <ioman_getSector>
+  10:	f44f 76df 	mov.w	r6, #446	; 0x1be
+  14:	4607      	mov	r7, r0
+  16:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:62
+	for(x=0;x<4;x++){
+		ex_getPartitionField(buf,&(disc->partitions[x]),PARTITION_TABLE_OFFSET+(x*SIZE_PARTITION_FIELD));
+  18:	eb05 1104 	add.w	r1, r5, r4, lsl #4
+  1c:	3108      	adds	r1, #8
+  1e:	4632      	mov	r2, r6
+  20:	4638      	mov	r0, r7
+  22:	3401      	adds	r4, #1
+  24:	f7ff fffe 	bl	0 <ex_getPartitionField>
+  28:	3610      	adds	r6, #16
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:61
+{
+	euint8 x;
+	euint8 *buf;
+	
+	buf=ioman_getSector(disc->ioman,LBA_ADDR_MBR,IOM_MODE_READONLY|IOM_MODE_EXP_REQ);
+	for(x=0;x<4;x++){
+  2a:	2c04      	cmp	r4, #4
+  2c:	d1f4      	bne.n	18 <disc_loadMBR+0x18>
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:64
+		ex_getPartitionField(buf,&(disc->partitions[x]),PARTITION_TABLE_OFFSET+(x*SIZE_PARTITION_FIELD));
+	}
+	ioman_releaseSector(disc->ioman,buf);
+  2e:	6828      	ldr	r0, [r5, #0]
+  30:	4639      	mov	r1, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:65
+}
+  32:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:64
+	
+	buf=ioman_getSector(disc->ioman,LBA_ADDR_MBR,IOM_MODE_READONLY|IOM_MODE_EXP_REQ);
+	for(x=0;x<4;x++){
+		ex_getPartitionField(buf,&(disc->partitions[x]),PARTITION_TABLE_OFFSET+(x*SIZE_PARTITION_FIELD));
+	}
+	ioman_releaseSector(disc->ioman,buf);
+  36:	f7ff bffe 	b.w	0 <ioman_releaseSector>
+
+Disassembly of section .text.disc_initDisc:
+
+00000000 <disc_initDisc>:
+disc_initDisc():
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:46
+ * pointer to the hardware object.
+*/
+void disc_initDisc(Disc *disc,IOManager* ioman)
+{
+	disc->ioman=ioman;
+	disc_setError(disc,DISC_NOERROR);
+   0:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:45
+ * Description: This initialises the disc by loading the MBR and setting the
+ * pointer to the hardware object.
+*/
+void disc_initDisc(Disc *disc,IOManager* ioman)
+{
+	disc->ioman=ioman;
+   2:	6001      	str	r1, [r0, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:46
+	disc_setError(disc,DISC_NOERROR);
+   4:	7102      	strb	r2, [r0, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/disc.c:47
+	disc_loadMBR(disc);
+   6:	f7ff bffe 	b.w	0 <disc_initDisc>

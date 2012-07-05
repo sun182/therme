@@ -1,0 +1,115 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\efs.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\efs.o
+
+
+Disassembly of section .text.efs_init:
+
+00000000 <efs_init>:
+efs_init():
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:45
+ * Description: This function initialises all subelements of a filesystem.
+ * It sets the pointerchain and verifies each step.
+ * Return value: 0 on success and -1 on failure.
+*/
+esint8 efs_init(EmbeddedFileSystem * efs,eint8* opts)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:46
+	if(if_initInterface(&efs->myCard, opts)==0)
+   4:	f7ff fffe 	bl	0 <if_initInterface>
+   8:	4605      	mov	r5, r0
+   a:	bb60      	cbnz	r0, 66 <efs_init+0x66>
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:48
+	{
+		ioman_init(&efs->myIOman,&efs->myCard,0);
+   c:	1d26      	adds	r6, r4, #4
+   e:	462a      	mov	r2, r5
+  10:	4630      	mov	r0, r6
+  12:	4621      	mov	r1, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:49
+		disc_initDisc(&efs->myDisc, &efs->myIOman);
+  14:	f504 7709 	add.w	r7, r4, #548	; 0x224
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:48
+*/
+esint8 efs_init(EmbeddedFileSystem * efs,eint8* opts)
+{
+	if(if_initInterface(&efs->myCard, opts)==0)
+	{
+		ioman_init(&efs->myIOman,&efs->myCard,0);
+  18:	f7ff fffe 	bl	0 <ioman_init>
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:49
+		disc_initDisc(&efs->myDisc, &efs->myIOman);
+  1c:	4631      	mov	r1, r6
+  1e:	4638      	mov	r0, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:50
+		part_initPartition(&efs->myPart, &efs->myDisc);
+  20:	f504 761b 	add.w	r6, r4, #620	; 0x26c
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:49
+esint8 efs_init(EmbeddedFileSystem * efs,eint8* opts)
+{
+	if(if_initInterface(&efs->myCard, opts)==0)
+	{
+		ioman_init(&efs->myIOman,&efs->myCard,0);
+		disc_initDisc(&efs->myDisc, &efs->myIOman);
+  24:	f7ff fffe 	bl	0 <disc_initDisc>
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:50
+		part_initPartition(&efs->myPart, &efs->myDisc);
+  28:	4630      	mov	r0, r6
+  2a:	4639      	mov	r1, r7
+  2c:	f7ff fffe 	bl	0 <part_initPartition>
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:51
+		if(efs->myPart.activePartition==-1){
+  30:	f994 3270 	ldrsb.w	r3, [r4, #624]	; 0x270
+  34:	f1b3 3fff 	cmp.w	r3, #4294967295
+  38:	d10b      	bne.n	52 <efs_init+0x52>
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:52
+			efs->myDisc.partitions[0].type=0x0B;
+  3a:	330c      	adds	r3, #12
+  3c:	f884 3230 	strb.w	r3, [r4, #560]	; 0x230
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:54
+			efs->myDisc.partitions[0].LBA_begin=0;
+			efs->myDisc.partitions[0].numSectors=efs->myCard.sectorCount;	
+  40:	6823      	ldr	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:53
+		ioman_init(&efs->myIOman,&efs->myCard,0);
+		disc_initDisc(&efs->myDisc, &efs->myIOman);
+		part_initPartition(&efs->myPart, &efs->myDisc);
+		if(efs->myPart.activePartition==-1){
+			efs->myDisc.partitions[0].type=0x0B;
+			efs->myDisc.partitions[0].LBA_begin=0;
+  42:	f8c4 5234 	str.w	r5, [r4, #564]	; 0x234
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:54
+			efs->myDisc.partitions[0].numSectors=efs->myCard.sectorCount;	
+  46:	f8c4 3238 	str.w	r3, [r4, #568]	; 0x238
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:57
+			/*efs->myPart.activePartition = 0;*/
+			/*efs->myPart.disc = &(efs->myDisc);*/
+			part_initPartition(&efs->myPart, &efs->myDisc);
+  4a:	4630      	mov	r0, r6
+  4c:	4639      	mov	r1, r7
+  4e:	f7ff fffe 	bl	0 <part_initPartition>
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:60
+		}
+		/*part_initPartition(&efs->myPart, &efs->myDisc);*/
+		if(fs_initFs(&efs->myFs, &efs->myPart))
+  52:	f504 701d 	add.w	r0, r4, #628	; 0x274
+  56:	4631      	mov	r1, r6
+  58:	f7ff fffe 	bl	0 <fs_initFs>
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:61
+			return(-2);
+  5c:	2800      	cmp	r0, #0
+  5e:	bf14      	ite	ne
+  60:	20fe      	movne	r0, #254	; 0xfe
+  62:	2000      	moveq	r0, #0
+  64:	e000      	b.n	68 <efs_init+0x68>
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:64
+		return(0);
+	}
+	return(-1);
+  66:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/efs.c:65
+}
+  68:	b240      	sxtb	r0, r0
+  6a:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}

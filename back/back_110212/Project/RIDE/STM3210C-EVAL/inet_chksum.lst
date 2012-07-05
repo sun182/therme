@@ -1,0 +1,745 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\inet_chksum.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\inet_chksum.o
+
+
+Disassembly of section .text.lwip_standard_chksum:
+
+00000000 <lwip_standard_chksum>:
+lwip_standard_chksum():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:136
+ * @return host order (!) lwip checksum (non-inverted Internet sum) 
+ */
+
+static u16_t
+lwip_standard_chksum(void *dataptr, int len)
+{
+   0:	b513      	push	{r0, r1, r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:138
+  u8_t *pb = (u8_t *)dataptr;
+  u16_t *ps, t = 0;
+   2:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:143
+  u32_t sum = 0;
+  int odd = ((mem_ptr_t)pb & 1);
+
+  /* Get aligned to u16_t */
+  if (odd && len > 0) {
+   4:	f010 0201 	ands.w	r2, r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:138
+
+static u16_t
+lwip_standard_chksum(void *dataptr, int len)
+{
+  u8_t *pb = (u8_t *)dataptr;
+  u16_t *ps, t = 0;
+   8:	f8ad 3006 	strh.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:143
+  u32_t sum = 0;
+  int odd = ((mem_ptr_t)pb & 1);
+
+  /* Get aligned to u16_t */
+  if (odd && len > 0) {
+   c:	d006      	beq.n	1c <lwip_standard_chksum+0x1c>
+   e:	2900      	cmp	r1, #0
+  10:	dd04      	ble.n	1c <lwip_standard_chksum+0x1c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:144
+    ((u8_t *)&t)[1] = *pb++;
+  12:	f810 3b01 	ldrb.w	r3, [r0], #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:145
+    len--;
+  16:	3901      	subs	r1, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:144
+  u32_t sum = 0;
+  int odd = ((mem_ptr_t)pb & 1);
+
+  /* Get aligned to u16_t */
+  if (odd && len > 0) {
+    ((u8_t *)&t)[1] = *pb++;
+  18:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:139
+static u16_t
+lwip_standard_chksum(void *dataptr, int len)
+{
+  u8_t *pb = (u8_t *)dataptr;
+  u16_t *ps, t = 0;
+  u32_t sum = 0;
+  1c:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:150
+    len--;
+  }
+
+  /* Add the bulk of the data */
+  ps = (u16_t *)(void *)pb;
+  while (len > 1) {
+  1e:	e003      	b.n	28 <lwip_standard_chksum+0x28>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:151
+    sum += *ps++;
+  20:	f830 4b02 	ldrh.w	r4, [r0], #2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:152
+    len -= 2;
+  24:	3902      	subs	r1, #2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:151
+  }
+
+  /* Add the bulk of the data */
+  ps = (u16_t *)(void *)pb;
+  while (len > 1) {
+    sum += *ps++;
+  26:	191b      	adds	r3, r3, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:150
+    len--;
+  }
+
+  /* Add the bulk of the data */
+  ps = (u16_t *)(void *)pb;
+  while (len > 1) {
+  28:	2901      	cmp	r1, #1
+  2a:	dcf9      	bgt.n	20 <lwip_standard_chksum+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:157
+    len -= 2;
+  }
+
+  /* Consume left-over byte, if any */
+  if (len > 0) {
+    ((u8_t *)&t)[0] = *(u8_t *)ps;
+  2c:	bf04      	itt	eq
+  2e:	7801      	ldrbeq	r1, [r0, #0]
+  30:	f88d 1006 	strbeq.w	r1, [sp, #6]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:161
+  }
+
+  /* Add end bytes */
+  sum += t;
+  34:	f8bd 0006 	ldrh.w	r0, [sp, #6]
+  38:	181b      	adds	r3, r3, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:165
+
+  /* Fold 32-bit sum to 16 bits
+     calling this twice is propably faster than if statements... */
+  sum = FOLD_U32T(sum);
+  3a:	b298      	uxth	r0, r3
+  3c:	eb00 4313 	add.w	r3, r0, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:166
+  sum = FOLD_U32T(sum);
+  40:	b298      	uxth	r0, r3
+  42:	eb00 4013 	add.w	r0, r0, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:169
+
+  /* Swap if alignment was odd */
+  if (odd) {
+  46:	b12a      	cbz	r2, 54 <lwip_standard_chksum+0x54>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:170
+    sum = SWAP_BYTES_IN_WORD(sum);
+  48:	0603      	lsls	r3, r0, #24
+  4a:	f400 407f 	and.w	r0, r0, #65280	; 0xff00
+  4e:	0a00      	lsrs	r0, r0, #8
+  50:	ea40 4013 	orr.w	r0, r0, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:174
+  }
+
+  return (u16_t)sum;
+}
+  54:	b280      	uxth	r0, r0
+  56:	bd1c      	pop	{r2, r3, r4, pc}
+
+Disassembly of section .text.inet_chksum_pseudo:
+
+00000000 <inet_chksum_pseudo>:
+inet_chksum_pseudo():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:275
+ */
+u16_t
+inet_chksum_pseudo(struct pbuf *p,
+       ip_addr_t *src, ip_addr_t *dest,
+       u8_t proto, u16_t proto_len)
+{
+   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:282
+  u32_t addr;
+  struct pbuf *q;
+  u8_t swapped;
+
+  acc = 0;
+  swapped = 0;
+   4:	f04f 0800 	mov.w	r8, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:275
+ */
+u16_t
+inet_chksum_pseudo(struct pbuf *p,
+       ip_addr_t *src, ip_addr_t *dest,
+       u8_t proto, u16_t proto_len)
+{
+   8:	460c      	mov	r4, r1
+   a:	4615      	mov	r5, r2
+   c:	469b      	mov	fp, r3
+   e:	f8bd a028 	ldrh.w	sl, [sp, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:284
+  u8_t swapped;
+
+  acc = 0;
+  swapped = 0;
+  /* iterate through all pbuf in chain */
+  for(q = p; q != NULL; q = q->next) {
+  12:	4607      	mov	r7, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:281
+  u32_t acc;
+  u32_t addr;
+  struct pbuf *q;
+  u8_t swapped;
+
+  acc = 0;
+  14:	4646      	mov	r6, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:284
+  swapped = 0;
+  /* iterate through all pbuf in chain */
+  for(q = p; q != NULL; q = q->next) {
+  16:	e017      	b.n	48 <inet_chksum_pseudo+0x48>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:287
+    LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+      (void *)q, (void *)q->next));
+    acc += LWIP_CHKSUM(q->payload, q->len);
+  18:	f8b7 900a 	ldrh.w	r9, [r7, #10]
+  1c:	6878      	ldr	r0, [r7, #4]
+  1e:	4649      	mov	r1, r9
+  20:	f7ff fffe 	bl	0 <inet_chksum_pseudo>
+  24:	1980      	adds	r0, r0, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:291
+    /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): unwrapped lwip_chksum()=%"X32_F" \n", acc));*/
+    /* just executing this next line is probably faster that the if statement needed
+       to check whether we really need to execute it, and does no harm */
+    acc = FOLD_U32T(acc);
+  26:	b286      	uxth	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:292
+    if (q->len % 2 != 0) {
+  28:	f019 0f01 	tst.w	r9, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:291
+      (void *)q, (void *)q->next));
+    acc += LWIP_CHKSUM(q->payload, q->len);
+    /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): unwrapped lwip_chksum()=%"X32_F" \n", acc));*/
+    /* just executing this next line is probably faster that the if statement needed
+       to check whether we really need to execute it, and does no harm */
+    acc = FOLD_U32T(acc);
+  2c:	eb06 4610 	add.w	r6, r6, r0, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:292
+    if (q->len % 2 != 0) {
+  30:	d009      	beq.n	46 <inet_chksum_pseudo+0x46>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:294
+      swapped = 1 - swapped;
+      acc = SWAP_BYTES_IN_WORD(acc);
+  32:	0633      	lsls	r3, r6, #24
+  34:	f406 467f 	and.w	r6, r6, #65280	; 0xff00
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:293
+    /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): unwrapped lwip_chksum()=%"X32_F" \n", acc));*/
+    /* just executing this next line is probably faster that the if statement needed
+       to check whether we really need to execute it, and does no harm */
+    acc = FOLD_U32T(acc);
+    if (q->len % 2 != 0) {
+      swapped = 1 - swapped;
+  38:	f1c8 0801 	rsb	r8, r8, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:294
+      acc = SWAP_BYTES_IN_WORD(acc);
+  3c:	0a36      	lsrs	r6, r6, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:293
+    /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): unwrapped lwip_chksum()=%"X32_F" \n", acc));*/
+    /* just executing this next line is probably faster that the if statement needed
+       to check whether we really need to execute it, and does no harm */
+    acc = FOLD_U32T(acc);
+    if (q->len % 2 != 0) {
+      swapped = 1 - swapped;
+  3e:	fa5f f888 	uxtb.w	r8, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:294
+      acc = SWAP_BYTES_IN_WORD(acc);
+  42:	ea46 4613 	orr.w	r6, r6, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:284
+  u8_t swapped;
+
+  acc = 0;
+  swapped = 0;
+  /* iterate through all pbuf in chain */
+  for(q = p; q != NULL; q = q->next) {
+  46:	683f      	ldr	r7, [r7, #0]
+  48:	2f00      	cmp	r7, #0
+  4a:	d1e5      	bne.n	18 <inet_chksum_pseudo+0x18>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:299
+      acc = SWAP_BYTES_IN_WORD(acc);
+    }
+    /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): wrapped lwip_chksum()=%"X32_F" \n", acc));*/
+  }
+
+  if (swapped) {
+  4c:	f1b8 0f00 	cmp.w	r8, #0
+  50:	d005      	beq.n	5e <inet_chksum_pseudo+0x5e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:300
+    acc = SWAP_BYTES_IN_WORD(acc);
+  52:	0633      	lsls	r3, r6, #24
+  54:	f406 467f 	and.w	r6, r6, #65280	; 0xff00
+  58:	0a36      	lsrs	r6, r6, #8
+  5a:	ea46 4613 	orr.w	r6, r6, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:302
+  }
+  addr = ip4_addr_get_u32(src);
+  5e:	6822      	ldr	r2, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:305
+  acc += (addr & 0xffffUL);
+  acc += ((addr >> 16) & 0xffffUL);
+  addr = ip4_addr_get_u32(dest);
+  60:	682b      	ldr	r3, [r5, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:303
+
+  if (swapped) {
+    acc = SWAP_BYTES_IN_WORD(acc);
+  }
+  addr = ip4_addr_get_u32(src);
+  acc += (addr & 0xffffUL);
+  62:	b291      	uxth	r1, r2
+  64:	eb01 4212 	add.w	r2, r1, r2, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:306
+  acc += ((addr >> 16) & 0xffffUL);
+  addr = ip4_addr_get_u32(dest);
+  acc += (addr & 0xffffUL);
+  68:	b299      	uxth	r1, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:304
+  if (swapped) {
+    acc = SWAP_BYTES_IN_WORD(acc);
+  }
+  addr = ip4_addr_get_u32(src);
+  acc += (addr & 0xffffUL);
+  acc += ((addr >> 16) & 0xffffUL);
+  6a:	1852      	adds	r2, r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:306
+  addr = ip4_addr_get_u32(dest);
+  acc += (addr & 0xffffUL);
+  6c:	eb02 4313 	add.w	r3, r2, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:308
+  acc += ((addr >> 16) & 0xffffUL);
+  acc += (u32_t)htons((u16_t)proto);
+  70:	4658      	mov	r0, fp
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:307
+  addr = ip4_addr_get_u32(src);
+  acc += (addr & 0xffffUL);
+  acc += ((addr >> 16) & 0xffffUL);
+  addr = ip4_addr_get_u32(dest);
+  acc += (addr & 0xffffUL);
+  acc += ((addr >> 16) & 0xffffUL);
+  72:	199e      	adds	r6, r3, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:308
+  acc += (u32_t)htons((u16_t)proto);
+  74:	f7ff fffe 	bl	0 <lwip_htons>
+  78:	1836      	adds	r6, r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:309
+  acc += (u32_t)htons(proto_len);
+  7a:	4650      	mov	r0, sl
+  7c:	f7ff fffe 	bl	0 <lwip_htons>
+  80:	1836      	adds	r6, r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:313
+
+  /* Fold 32-bit sum to 16 bits
+     calling this twice is propably faster than if statements... */
+  acc = FOLD_U32T(acc);
+  82:	b2b3      	uxth	r3, r6
+  84:	eb03 4616 	add.w	r6, r3, r6, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:314
+  acc = FOLD_U32T(acc);
+  88:	b2b0      	uxth	r0, r6
+  8a:	eb00 4616 	add.w	r6, r0, r6, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:316
+  LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): pbuf chain lwip_chksum()=%"X32_F"\n", acc));
+  return (u16_t)~(acc & 0xffffUL);
+  8e:	43f0      	mvns	r0, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:317
+}
+  90:	b280      	uxth	r0, r0
+  92:	e8bd 8ff8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+
+Disassembly of section .text.inet_chksum_pseudo_partial:
+
+00000000 <inet_chksum_pseudo_partial>:
+inet_chksum_pseudo_partial():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:335
+ */
+u16_t
+inet_chksum_pseudo_partial(struct pbuf *p,
+       ip_addr_t *src, ip_addr_t *dest,
+       u8_t proto, u16_t proto_len, u16_t chksum_len)
+{
+   0:	e92d 4ff7 	stmdb	sp!, {r0, r1, r2, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:343
+  struct pbuf *q;
+  u8_t swapped;
+  u16_t chklen;
+
+  acc = 0;
+  swapped = 0;
+   4:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:335
+ */
+u16_t
+inet_chksum_pseudo_partial(struct pbuf *p,
+       ip_addr_t *src, ip_addr_t *dest,
+       u8_t proto, u16_t proto_len, u16_t chksum_len)
+{
+   6:	9101      	str	r1, [sp, #4]
+   8:	469b      	mov	fp, r3
+   a:	f8bd a030 	ldrh.w	sl, [sp, #48]	; 0x30
+   e:	f8bd 7034 	ldrh.w	r7, [sp, #52]	; 0x34
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:345
+  u16_t chklen;
+
+  acc = 0;
+  swapped = 0;
+  /* iterate through all pbuf in chain */
+  for(q = p; (q != NULL) && (chksum_len > 0); q = q->next) {
+  12:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:342
+  u32_t addr;
+  struct pbuf *q;
+  u8_t swapped;
+  u16_t chklen;
+
+  acc = 0;
+  14:	4634      	mov	r4, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:345
+  swapped = 0;
+  /* iterate through all pbuf in chain */
+  for(q = p; (q != NULL) && (chksum_len > 0); q = q->next) {
+  16:	e01f      	b.n	58 <inet_chksum_pseudo_partial+0x58>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:348
+    LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+      (void *)q, (void *)q->next));
+    chklen = q->len;
+  18:	f8b5 800a 	ldrh.w	r8, [r5, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:352
+    if (chklen > chksum_len) {
+      chklen = chksum_len;
+    }
+    acc += LWIP_CHKSUM(q->payload, chklen);
+  1c:	6868      	ldr	r0, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:348
+  swapped = 0;
+  /* iterate through all pbuf in chain */
+  for(q = p; (q != NULL) && (chksum_len > 0); q = q->next) {
+    LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+      (void *)q, (void *)q->next));
+    chklen = q->len;
+  1e:	4547      	cmp	r7, r8
+  20:	bf34      	ite	cc
+  22:	46b9      	movcc	r9, r7
+  24:	46c1      	movcs	r9, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:352
+    if (chklen > chksum_len) {
+      chklen = chksum_len;
+    }
+    acc += LWIP_CHKSUM(q->payload, chklen);
+  26:	4649      	mov	r1, r9
+  28:	9200      	str	r2, [sp, #0]
+  2a:	f7ff fffe 	bl	0 <inet_chksum_pseudo_partial>
+  2e:	1900      	adds	r0, r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:353
+    chksum_len -= chklen;
+  30:	ebc9 0707 	rsb	r7, r9, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:357
+    LWIP_ASSERT("delete me", chksum_len < 0x7fff);
+    /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): unwrapped lwip_chksum()=%"X32_F" \n", acc));*/
+    /* fold the upper bit down */
+    acc = FOLD_U32T(acc);
+  34:	b284      	uxth	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:358
+    if (q->len % 2 != 0) {
+  36:	f018 0f01 	tst.w	r8, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:353
+    chklen = q->len;
+    if (chklen > chksum_len) {
+      chklen = chksum_len;
+    }
+    acc += LWIP_CHKSUM(q->payload, chklen);
+    chksum_len -= chklen;
+  3a:	b2bf      	uxth	r7, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:357
+    LWIP_ASSERT("delete me", chksum_len < 0x7fff);
+    /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): unwrapped lwip_chksum()=%"X32_F" \n", acc));*/
+    /* fold the upper bit down */
+    acc = FOLD_U32T(acc);
+  3c:	eb04 4410 	add.w	r4, r4, r0, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:358
+    if (q->len % 2 != 0) {
+  40:	9a00      	ldr	r2, [sp, #0]
+  42:	d008      	beq.n	56 <inet_chksum_pseudo_partial+0x56>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:360
+      swapped = 1 - swapped;
+      acc = SWAP_BYTES_IN_WORD(acc);
+  44:	0623      	lsls	r3, r4, #24
+  46:	f404 447f 	and.w	r4, r4, #65280	; 0xff00
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:359
+    LWIP_ASSERT("delete me", chksum_len < 0x7fff);
+    /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): unwrapped lwip_chksum()=%"X32_F" \n", acc));*/
+    /* fold the upper bit down */
+    acc = FOLD_U32T(acc);
+    if (q->len % 2 != 0) {
+      swapped = 1 - swapped;
+  4a:	f1c6 0601 	rsb	r6, r6, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:360
+      acc = SWAP_BYTES_IN_WORD(acc);
+  4e:	0a24      	lsrs	r4, r4, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:359
+    LWIP_ASSERT("delete me", chksum_len < 0x7fff);
+    /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): unwrapped lwip_chksum()=%"X32_F" \n", acc));*/
+    /* fold the upper bit down */
+    acc = FOLD_U32T(acc);
+    if (q->len % 2 != 0) {
+      swapped = 1 - swapped;
+  50:	b2f6      	uxtb	r6, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:360
+      acc = SWAP_BYTES_IN_WORD(acc);
+  52:	ea44 4413 	orr.w	r4, r4, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:345
+  u16_t chklen;
+
+  acc = 0;
+  swapped = 0;
+  /* iterate through all pbuf in chain */
+  for(q = p; (q != NULL) && (chksum_len > 0); q = q->next) {
+  56:	682d      	ldr	r5, [r5, #0]
+  58:	b10d      	cbz	r5, 5e <inet_chksum_pseudo_partial+0x5e>
+  5a:	2f00      	cmp	r7, #0
+  5c:	d1dc      	bne.n	18 <inet_chksum_pseudo_partial+0x18>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:365
+      acc = SWAP_BYTES_IN_WORD(acc);
+    }
+    /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): wrapped lwip_chksum()=%"X32_F" \n", acc));*/
+  }
+
+  if (swapped) {
+  5e:	b12e      	cbz	r6, 6c <inet_chksum_pseudo_partial+0x6c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:366
+    acc = SWAP_BYTES_IN_WORD(acc);
+  60:	0623      	lsls	r3, r4, #24
+  62:	f404 447f 	and.w	r4, r4, #65280	; 0xff00
+  66:	0a24      	lsrs	r4, r4, #8
+  68:	ea44 4413 	orr.w	r4, r4, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:368
+  }
+  addr = ip4_addr_get_u32(src);
+  6c:	9b01      	ldr	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:374
+  acc += (addr & 0xffffUL);
+  acc += ((addr >> 16) & 0xffffUL);
+  addr = ip4_addr_get_u32(dest);
+  acc += (addr & 0xffffUL);
+  acc += ((addr >> 16) & 0xffffUL);
+  acc += (u32_t)htons((u16_t)proto);
+  6e:	4658      	mov	r0, fp
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:368
+  }
+
+  if (swapped) {
+    acc = SWAP_BYTES_IN_WORD(acc);
+  }
+  addr = ip4_addr_get_u32(src);
+  70:	6819      	ldr	r1, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:371
+  acc += (addr & 0xffffUL);
+  acc += ((addr >> 16) & 0xffffUL);
+  addr = ip4_addr_get_u32(dest);
+  72:	6813      	ldr	r3, [r2, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:369
+
+  if (swapped) {
+    acc = SWAP_BYTES_IN_WORD(acc);
+  }
+  addr = ip4_addr_get_u32(src);
+  acc += (addr & 0xffffUL);
+  74:	b28a      	uxth	r2, r1
+  76:	eb02 4111 	add.w	r1, r2, r1, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:372
+  acc += ((addr >> 16) & 0xffffUL);
+  addr = ip4_addr_get_u32(dest);
+  acc += (addr & 0xffffUL);
+  7a:	b29a      	uxth	r2, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:370
+  if (swapped) {
+    acc = SWAP_BYTES_IN_WORD(acc);
+  }
+  addr = ip4_addr_get_u32(src);
+  acc += (addr & 0xffffUL);
+  acc += ((addr >> 16) & 0xffffUL);
+  7c:	1889      	adds	r1, r1, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:372
+  addr = ip4_addr_get_u32(dest);
+  acc += (addr & 0xffffUL);
+  7e:	eb01 4313 	add.w	r3, r1, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:373
+  acc += ((addr >> 16) & 0xffffUL);
+  82:	191c      	adds	r4, r3, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:374
+  acc += (u32_t)htons((u16_t)proto);
+  84:	f7ff fffe 	bl	0 <lwip_htons>
+  88:	1824      	adds	r4, r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:375
+  acc += (u32_t)htons(proto_len);
+  8a:	4650      	mov	r0, sl
+  8c:	f7ff fffe 	bl	0 <lwip_htons>
+  90:	1824      	adds	r4, r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:379
+
+  /* Fold 32-bit sum to 16 bits
+     calling this twice is propably faster than if statements... */
+  acc = FOLD_U32T(acc);
+  92:	b2a3      	uxth	r3, r4
+  94:	eb03 4414 	add.w	r4, r3, r4, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:380
+  acc = FOLD_U32T(acc);
+  98:	b2a0      	uxth	r0, r4
+  9a:	eb00 4414 	add.w	r4, r0, r4, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:382
+  LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): pbuf chain lwip_chksum()=%"X32_F"\n", acc));
+  return (u16_t)~(acc & 0xffffUL);
+  9e:	43e0      	mvns	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:383
+}
+  a0:	b280      	uxth	r0, r0
+  a2:	e8bd 8ffe 	ldmia.w	sp!, {r1, r2, r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+
+Disassembly of section .text.inet_chksum:
+
+00000000 <inet_chksum>:
+inet_chksum():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:397
+ * @return checksum (as u16_t) to be saved directly in the protocol header
+ */
+
+u16_t
+inet_chksum(void *dataptr, u16_t len)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:398
+  return ~LWIP_CHKSUM(dataptr, len);
+   2:	f7ff fffe 	bl	0 <inet_chksum>
+   6:	43c0      	mvns	r0, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:399
+}
+   8:	b280      	uxth	r0, r0
+   a:	bd08      	pop	{r3, pc}
+
+Disassembly of section .text.inet_chksum_pbuf:
+
+00000000 <inet_chksum_pbuf>:
+inet_chksum_pbuf():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:410
+ * @param p pbuf chain over that the checksum should be calculated
+ * @return checksum (as u16_t) to be saved directly in the protocol header
+ */
+u16_t
+inet_chksum_pbuf(struct pbuf *p)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:416
+  u32_t acc;
+  struct pbuf *q;
+  u8_t swapped;
+
+  acc = 0;
+  swapped = 0;
+   2:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:410
+ * @param p pbuf chain over that the checksum should be calculated
+ * @return checksum (as u16_t) to be saved directly in the protocol header
+ */
+u16_t
+inet_chksum_pbuf(struct pbuf *p)
+{
+   4:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:415
+  u32_t acc;
+  struct pbuf *q;
+  u8_t swapped;
+
+  acc = 0;
+   6:	4634      	mov	r4, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:417
+  swapped = 0;
+  for(q = p; q != NULL; q = q->next) {
+   8:	e015      	b.n	36 <inet_chksum_pbuf+0x36>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:418
+    acc += LWIP_CHKSUM(q->payload, q->len);
+   a:	896f      	ldrh	r7, [r5, #10]
+   c:	6868      	ldr	r0, [r5, #4]
+   e:	4639      	mov	r1, r7
+  10:	f7ff fffe 	bl	0 <inet_chksum_pbuf>
+  14:	1900      	adds	r0, r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:419
+    acc = FOLD_U32T(acc);
+  16:	b284      	uxth	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:420
+    if (q->len % 2 != 0) {
+  18:	f017 0f01 	tst.w	r7, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:419
+
+  acc = 0;
+  swapped = 0;
+  for(q = p; q != NULL; q = q->next) {
+    acc += LWIP_CHKSUM(q->payload, q->len);
+    acc = FOLD_U32T(acc);
+  1c:	eb04 4410 	add.w	r4, r4, r0, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:420
+    if (q->len % 2 != 0) {
+  20:	d008      	beq.n	34 <inet_chksum_pbuf+0x34>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:422
+      swapped = 1 - swapped;
+      acc = SWAP_BYTES_IN_WORD(acc);
+  22:	0623      	lsls	r3, r4, #24
+  24:	f404 447f 	and.w	r4, r4, #65280	; 0xff00
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:421
+  swapped = 0;
+  for(q = p; q != NULL; q = q->next) {
+    acc += LWIP_CHKSUM(q->payload, q->len);
+    acc = FOLD_U32T(acc);
+    if (q->len % 2 != 0) {
+      swapped = 1 - swapped;
+  28:	f1c6 0601 	rsb	r6, r6, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:422
+      acc = SWAP_BYTES_IN_WORD(acc);
+  2c:	0a24      	lsrs	r4, r4, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:421
+  swapped = 0;
+  for(q = p; q != NULL; q = q->next) {
+    acc += LWIP_CHKSUM(q->payload, q->len);
+    acc = FOLD_U32T(acc);
+    if (q->len % 2 != 0) {
+      swapped = 1 - swapped;
+  2e:	b2f6      	uxtb	r6, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:422
+      acc = SWAP_BYTES_IN_WORD(acc);
+  30:	ea44 4413 	orr.w	r4, r4, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:417
+  struct pbuf *q;
+  u8_t swapped;
+
+  acc = 0;
+  swapped = 0;
+  for(q = p; q != NULL; q = q->next) {
+  34:	682d      	ldr	r5, [r5, #0]
+  36:	2d00      	cmp	r5, #0
+  38:	d1e7      	bne.n	a <inet_chksum_pbuf+0xa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:426
+      swapped = 1 - swapped;
+      acc = SWAP_BYTES_IN_WORD(acc);
+    }
+  }
+
+  if (swapped) {
+  3a:	b12e      	cbz	r6, 48 <inet_chksum_pbuf+0x48>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:427
+    acc = SWAP_BYTES_IN_WORD(acc);
+  3c:	0623      	lsls	r3, r4, #24
+  3e:	f404 447f 	and.w	r4, r4, #65280	; 0xff00
+  42:	0a24      	lsrs	r4, r4, #8
+  44:	ea44 4413 	orr.w	r4, r4, r3, lsr #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:429
+  }
+  return (u16_t)~(acc & 0xffffUL);
+  48:	43e0      	mvns	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/inet_chksum.c:430
+}
+  4a:	b280      	uxth	r0, r0
+  4c:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}

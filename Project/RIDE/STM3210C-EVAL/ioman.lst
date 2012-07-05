@@ -1,0 +1,2204 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\ioman.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\ioman.o
+
+
+Disassembly of section .text.ioman_reset:
+
+00000000 <ioman_reset>:
+ioman_reset():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:58
+
+void ioman_reset(IOManager *ioman)
+{
+	euint16 nb,ni;
+	
+	memClr(ioman->sector,sizeof(euint32)*ioman->numbuf);
+   0:	8901      	ldrh	r1, [r0, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:55
+	return(0);
+}
+/*****************************************************************************/
+
+void ioman_reset(IOManager *ioman)
+{
+   2:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:58
+	euint16 nb,ni;
+	
+	memClr(ioman->sector,sizeof(euint32)*ioman->numbuf);
+   4:	0089      	lsls	r1, r1, #2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:55
+	return(0);
+}
+/*****************************************************************************/
+
+void ioman_reset(IOManager *ioman)
+{
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:58
+	euint16 nb,ni;
+	
+	memClr(ioman->sector,sizeof(euint32)*ioman->numbuf);
+   8:	3018      	adds	r0, #24
+   a:	f7ff fffe 	bl	0 <memClr>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:59
+	memClr(ioman->status,sizeof(euint8) *ioman->numbuf);
+   e:	f104 001c 	add.w	r0, r4, #28
+  12:	8921      	ldrh	r1, [r4, #8]
+  14:	f7ff fffe 	bl	0 <memClr>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:60
+	memClr(ioman->usage ,sizeof(euint8) *ioman->numbuf);
+  18:	f104 001d 	add.w	r0, r4, #29
+  1c:	8921      	ldrh	r1, [r4, #8]
+  1e:	f7ff fffe 	bl	0 <memClr>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:61
+	memClr(ioman->itptr ,sizeof(euint8) *ioman->numbuf);
+  22:	f104 001f 	add.w	r0, r4, #31
+  26:	8921      	ldrh	r1, [r4, #8]
+  28:	f7ff fffe 	bl	0 <memClr>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:62
+	ioman_setError(ioman,IOMAN_NOERROR);
+  2c:	2200      	movs	r2, #0
+  2e:	7322      	strb	r2, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:64
+		
+	for(nb=0;nb<ioman->numbuf;nb++){
+  30:	8925      	ldrh	r5, [r4, #8]
+  32:	e00c      	b.n	4e <ioman_reset+0x4e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:66
+		for(ni=0;ni<ioman->numit;ni++){
+			ioman->stack[nb][ni].sector=0;
+  34:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:65
+	memClr(ioman->usage ,sizeof(euint8) *ioman->numbuf);
+	memClr(ioman->itptr ,sizeof(euint8) *ioman->numbuf);
+	ioman_setError(ioman,IOMAN_NOERROR);
+		
+	for(nb=0;nb<ioman->numbuf;nb++){
+		for(ni=0;ni<ioman->numit;ni++){
+  36:	3101      	adds	r1, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:66
+			ioman->stack[nb][ni].sector=0;
+  38:	f843 0c08 	str.w	r0, [r3, #-8]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:67
+			ioman->stack[nb][ni].status=0;
+  3c:	f803 0c04 	strb.w	r0, [r3, #-4]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:68
+			ioman->stack[nb][ni].usage =0;
+  40:	f803 0c03 	strb.w	r0, [r3, #-3]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:65
+	memClr(ioman->usage ,sizeof(euint8) *ioman->numbuf);
+	memClr(ioman->itptr ,sizeof(euint8) *ioman->numbuf);
+	ioman_setError(ioman,IOMAN_NOERROR);
+		
+	for(nb=0;nb<ioman->numbuf;nb++){
+		for(ni=0;ni<ioman->numit;ni++){
+  44:	b289      	uxth	r1, r1
+  46:	3308      	adds	r3, #8
+  48:	42b1      	cmp	r1, r6
+  4a:	d1f3      	bne.n	34 <ioman_reset+0x34>
+  4c:	3201      	adds	r2, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:64
+	memClr(ioman->status,sizeof(euint8) *ioman->numbuf);
+	memClr(ioman->usage ,sizeof(euint8) *ioman->numbuf);
+	memClr(ioman->itptr ,sizeof(euint8) *ioman->numbuf);
+	ioman_setError(ioman,IOMAN_NOERROR);
+		
+	for(nb=0;nb<ioman->numbuf;nb++){
+  4e:	b293      	uxth	r3, r2
+  50:	42ab      	cmp	r3, r5
+  52:	d205      	bcs.n	60 <ioman_reset+0x60>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:54
+	ioman_reset(ioman);
+	return(0);
+}
+/*****************************************************************************/
+
+void ioman_reset(IOManager *ioman)
+  54:	1c93      	adds	r3, r2, #2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:65
+	memClr(ioman->usage ,sizeof(euint8) *ioman->numbuf);
+	memClr(ioman->itptr ,sizeof(euint8) *ioman->numbuf);
+	ioman_setError(ioman,IOMAN_NOERROR);
+		
+	for(nb=0;nb<ioman->numbuf;nb++){
+		for(ni=0;ni<ioman->numit;ni++){
+  56:	8966      	ldrh	r6, [r4, #10]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:54
+	ioman_reset(ioman);
+	return(0);
+}
+/*****************************************************************************/
+
+void ioman_reset(IOManager *ioman)
+  58:	eb04 03c3 	add.w	r3, r4, r3, lsl #3
+  5c:	2100      	movs	r1, #0
+  5e:	e7f2      	b.n	46 <ioman_reset+0x46>
+  60:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.ioman_getBuffer:
+
+00000000 <ioman_getBuffer>:
+ioman_getBuffer():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:81
+#ifdef IOMAN_DO_MEMALLOC
+	return(ioman->cache_mem);
+#else
+	return(bufferarea);
+#endif
+}
+   0:	3020      	adds	r0, #32
+   2:	4770      	bx	lr
+
+Disassembly of section .text.ioman_init:
+
+00000000 <ioman_init>:
+ioman_init():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:42
+/*****************************************************************************/
+#include "ioman.h"
+/*****************************************************************************/
+
+esint8 ioman_init(IOManager *ioman, hwInterface *iface, euint8* bufferarea)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:43
+	ioman->iface=iface;
+   2:	6001      	str	r1, [r0, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:45
+	
+	ioman->bufptr = ioman_getBuffer(ioman,bufferarea);
+   4:	4611      	mov	r1, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:42
+/*****************************************************************************/
+#include "ioman.h"
+/*****************************************************************************/
+
+esint8 ioman_init(IOManager *ioman, hwInterface *iface, euint8* bufferarea)
+{
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:45
+	ioman->iface=iface;
+	
+	ioman->bufptr = ioman_getBuffer(ioman,bufferarea);
+   8:	f7ff fffe 	bl	0 <ioman_init>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:46
+	ioman->numbuf = IOMAN_NUMBUFFER;
+   c:	2301      	movs	r3, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:45
+
+esint8 ioman_init(IOManager *ioman, hwInterface *iface, euint8* bufferarea)
+{
+	ioman->iface=iface;
+	
+	ioman->bufptr = ioman_getBuffer(ioman,bufferarea);
+   e:	6060      	str	r0, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:46
+	ioman->numbuf = IOMAN_NUMBUFFER;
+  10:	8123      	strh	r3, [r4, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:49
+	ioman->numit  = IOMAN_NUMITERATIONS;
+	
+	ioman_reset(ioman);
+  12:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:47
+{
+	ioman->iface=iface;
+	
+	ioman->bufptr = ioman_getBuffer(ioman,bufferarea);
+	ioman->numbuf = IOMAN_NUMBUFFER;
+	ioman->numit  = IOMAN_NUMITERATIONS;
+  14:	8163      	strh	r3, [r4, #10]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:49
+	
+	ioman_reset(ioman);
+  16:	f7ff fffe 	bl	0 <ioman_init>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:51
+	return(0);
+}
+  1a:	2000      	movs	r0, #0
+  1c:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.ioman_setAttr:
+
+00000000 <ioman_setAttr>:
+ioman_setAttr():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:85
+#endif
+}
+/*****************************************************************************/
+
+void ioman_setAttr(IOManager *ioman,euint16 bufplace,euint8 attribute,euint8 val)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:86
+	if(bufplace>=ioman->numbuf){
+   2:	8904      	ldrh	r4, [r0, #8]
+   4:	428c      	cmp	r4, r1
+   6:	f04f 0401 	mov.w	r4, #1
+   a:	d801      	bhi.n	10 <ioman_setAttr+0x10>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:87
+		ioman_setError(ioman,IOMAN_ERR_SETATTROUTOFBOUNDS);
+   c:	7304      	strb	r4, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:88
+		return; /* Out of bounds */
+   e:	bd10      	pop	{r4, pc}
+  10:	1840      	adds	r0, r0, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:91
+	}
+	
+	if(val){
+  12:	b123      	cbz	r3, 1e <ioman_setAttr+0x1e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:92
+		ioman->status[bufplace]|=1<<attribute;
+  14:	fa14 f202 	lsls.w	r2, r4, r2
+  18:	7f03      	ldrb	r3, [r0, #28]
+  1a:	431a      	orrs	r2, r3
+  1c:	e004      	b.n	28 <ioman_setAttr+0x28>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:94
+	}else{
+		ioman->status[bufplace]&=~(1<<attribute);
+  1e:	fa14 f202 	lsls.w	r2, r4, r2
+  22:	7f03      	ldrb	r3, [r0, #28]
+  24:	ea23 0202 	bic.w	r2, r3, r2
+  28:	7702      	strb	r2, [r0, #28]
+  2a:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.ioman_getAttr:
+
+00000000 <ioman_getAttr>:
+ioman_getAttr():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:101
+}
+/*****************************************************************************/
+
+euint8 ioman_getAttr(IOManager *ioman,euint16 bufplace,euint8 attribute)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d803      	bhi.n	e <ioman_getAttr+0xe>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:102
+		ioman_setError(ioman,IOMAN_ERR_GETATTROUTOFBOUNDS);
+   6:	2302      	movs	r3, #2
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:103
+		return(0xFF); /* Out of bounds */
+   a:	20ff      	movs	r0, #255	; 0xff
+   c:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:106
+	}
+
+	return(ioman->status[bufplace]&(1<<attribute));
+   e:	2301      	movs	r3, #1
+  10:	fa13 f202 	lsls.w	r2, r3, r2
+  14:	1840      	adds	r0, r0, r1
+  16:	7f03      	ldrb	r3, [r0, #28]
+  18:	ea02 0003 	and.w	r0, r2, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:107
+}
+  1c:	4770      	bx	lr
+
+Disassembly of section .text.ioman_getUseCnt:
+
+00000000 <ioman_getUseCnt>:
+ioman_getUseCnt():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:112
+/*****************************************************************************/
+
+euint8 ioman_getUseCnt(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d803      	bhi.n	e <ioman_getUseCnt+0xe>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:113
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   6:	2305      	movs	r3, #5
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:114
+		return(0x00);
+   a:	2000      	movs	r0, #0
+   c:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:116
+	}
+	return(ioman->usage[bufplace]);
+   e:	1840      	adds	r0, r0, r1
+  10:	7f40      	ldrb	r0, [r0, #29]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:117
+}
+  12:	4770      	bx	lr
+
+Disassembly of section .text.ioman_incUseCnt:
+
+00000000 <ioman_incUseCnt>:
+ioman_incUseCnt():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:123
+/*****************************************************************************/
+
+
+void ioman_incUseCnt(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d802      	bhi.n	c <ioman_incUseCnt+0xc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:124
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   6:	2305      	movs	r3, #5
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:125
+		return;
+   a:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:127
+	}
+	if(ioman->usage[bufplace]==0xFF)return;
+   c:	1840      	adds	r0, r0, r1
+   e:	7f43      	ldrb	r3, [r0, #29]
+  10:	2bff      	cmp	r3, #255	; 0xff
+  12:	d001      	beq.n	18 <ioman_incUseCnt+0x18>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:128
+	else ioman->usage[bufplace]++;
+  14:	3301      	adds	r3, #1
+  16:	7743      	strb	r3, [r0, #29]
+  18:	4770      	bx	lr
+
+Disassembly of section .text.ioman_decUseCnt:
+
+00000000 <ioman_decUseCnt>:
+ioman_decUseCnt():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:134
+}
+/*****************************************************************************/
+
+void ioman_decUseCnt(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d802      	bhi.n	c <ioman_decUseCnt+0xc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:135
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   6:	2305      	movs	r3, #5
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:136
+		return;
+   a:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:138
+	}
+	if(ioman->usage[bufplace]==0x0)return;
+   c:	1840      	adds	r0, r0, r1
+   e:	7f43      	ldrb	r3, [r0, #29]
+  10:	b10b      	cbz	r3, 16 <ioman_decUseCnt+0x16>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:139
+	else ioman->usage[bufplace]--;
+  12:	3b01      	subs	r3, #1
+  14:	7743      	strb	r3, [r0, #29]
+  16:	4770      	bx	lr
+
+Disassembly of section .text.ioman_resetUseCnt:
+
+00000000 <ioman_resetUseCnt>:
+ioman_resetUseCnt():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:145
+}
+/*****************************************************************************/
+
+void ioman_resetUseCnt(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d802      	bhi.n	c <ioman_resetUseCnt+0xc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:146
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   6:	2305      	movs	r3, #5
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:147
+		return;
+   a:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:149
+	}
+	ioman->usage[bufplace]=0x00;
+   c:	1840      	adds	r0, r0, r1
+   e:	2300      	movs	r3, #0
+  10:	7743      	strb	r3, [r0, #29]
+  12:	4770      	bx	lr
+
+Disassembly of section .text.ioman_getRefCnt:
+
+00000000 <ioman_getRefCnt>:
+ioman_getRefCnt():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:155
+}
+/*****************************************************************************/
+
+euint8 ioman_getRefCnt(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d803      	bhi.n	e <ioman_getRefCnt+0xe>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:156
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   6:	2305      	movs	r3, #5
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:157
+		return(0x00);
+   a:	2000      	movs	r0, #0
+   c:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:159
+	}
+	return(ioman->reference[bufplace]);
+   e:	1840      	adds	r0, r0, r1
+  10:	7f80      	ldrb	r0, [r0, #30]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:160
+}
+  12:	4770      	bx	lr
+
+Disassembly of section .text.ioman_incRefCnt:
+
+00000000 <ioman_incRefCnt>:
+ioman_incRefCnt():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:165
+/*****************************************************************************/
+
+void ioman_incRefCnt(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d802      	bhi.n	c <ioman_incRefCnt+0xc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:166
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   6:	2305      	movs	r3, #5
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:167
+		return;
+   a:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:169
+	}
+	if(ioman->reference[bufplace]==0xFF)return;
+   c:	1840      	adds	r0, r0, r1
+   e:	7f83      	ldrb	r3, [r0, #30]
+  10:	2bff      	cmp	r3, #255	; 0xff
+  12:	d001      	beq.n	18 <ioman_incRefCnt+0x18>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:170
+	else ioman->reference[bufplace]++;
+  14:	3301      	adds	r3, #1
+  16:	7783      	strb	r3, [r0, #30]
+  18:	4770      	bx	lr
+
+Disassembly of section .text.ioman_decRefCnt:
+
+00000000 <ioman_decRefCnt>:
+ioman_decRefCnt():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:176
+}
+/*****************************************************************************/
+
+void ioman_decRefCnt(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d802      	bhi.n	c <ioman_decRefCnt+0xc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:177
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   6:	2305      	movs	r3, #5
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:178
+		return;
+   a:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:180
+	}
+	if(ioman->reference[bufplace]==0x00)return;
+   c:	1840      	adds	r0, r0, r1
+   e:	7f83      	ldrb	r3, [r0, #30]
+  10:	b10b      	cbz	r3, 16 <ioman_decRefCnt+0x16>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:181
+	else ioman->reference[bufplace]--;
+  12:	3b01      	subs	r3, #1
+  14:	7783      	strb	r3, [r0, #30]
+  16:	4770      	bx	lr
+
+Disassembly of section .text.ioman_resetRefCnt:
+
+00000000 <ioman_resetRefCnt>:
+ioman_resetRefCnt():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:187
+}
+/*****************************************************************************/
+
+void ioman_resetRefCnt(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d802      	bhi.n	c <ioman_resetRefCnt+0xc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:188
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   6:	2305      	movs	r3, #5
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:189
+		return;
+   a:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:191
+	}
+	ioman->reference[bufplace]=0x00;
+   c:	1840      	adds	r0, r0, r1
+   e:	2300      	movs	r3, #0
+  10:	7783      	strb	r3, [r0, #30]
+  12:	4770      	bx	lr
+
+Disassembly of section .text.ioman_pop:
+
+00000000 <ioman_pop>:
+ioman_pop():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:197
+}
+/*****************************************************************************/
+
+esint8 ioman_pop(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:196
+	ioman->reference[bufplace]=0x00;
+}
+/*****************************************************************************/
+
+esint8 ioman_pop(IOManager *ioman,euint16 bufplace)
+{
+   2:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:197
+	if(bufplace>=ioman->numbuf){
+   4:	428b      	cmp	r3, r1
+   6:	d802      	bhi.n	e <ioman_pop+0xe>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:198
+		ioman_setError(ioman,IOMAN_ERR_POPEMPTYSTACK);
+   8:	2307      	movs	r3, #7
+   a:	7303      	strb	r3, [r0, #12]
+   c:	e012      	b.n	34 <ioman_pop+0x34>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:201
+		return(-1);
+	}
+	if(ioman->itptr[bufplace]==0 || ioman->itptr[bufplace]>IOMAN_NUMITERATIONS)return(-1);
+   e:	1843      	adds	r3, r0, r1
+  10:	7fda      	ldrb	r2, [r3, #31]
+  12:	2a01      	cmp	r2, #1
+  14:	d10e      	bne.n	34 <ioman_pop+0x34>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:202
+	ioman->sector[bufplace] = ioman->stack[bufplace][ioman->itptr[bufplace]].sector;
+  16:	1d8a      	adds	r2, r1, #6
+  18:	3103      	adds	r1, #3
+  1a:	f850 4031 	ldr.w	r4, [r0, r1, lsl #3]
+  1e:	f840 4022 	str.w	r4, [r0, r2, lsl #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:203
+	ioman->status[bufplace] = ioman->stack[bufplace][ioman->itptr[bufplace]].status;
+  22:	eb00 00c1 	add.w	r0, r0, r1, lsl #3
+  26:	7902      	ldrb	r2, [r0, #4]
+  28:	771a      	strb	r2, [r3, #28]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:204
+	ioman->usage[bufplace]  = ioman->stack[bufplace][ioman->itptr[bufplace]].usage; 
+  2a:	7942      	ldrb	r2, [r0, #5]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:205
+	ioman->itptr[bufplace]--;
+  2c:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:204
+		return(-1);
+	}
+	if(ioman->itptr[bufplace]==0 || ioman->itptr[bufplace]>IOMAN_NUMITERATIONS)return(-1);
+	ioman->sector[bufplace] = ioman->stack[bufplace][ioman->itptr[bufplace]].sector;
+	ioman->status[bufplace] = ioman->stack[bufplace][ioman->itptr[bufplace]].status;
+	ioman->usage[bufplace]  = ioman->stack[bufplace][ioman->itptr[bufplace]].usage; 
+  2e:	775a      	strb	r2, [r3, #29]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:205
+	ioman->itptr[bufplace]--;
+  30:	77d8      	strb	r0, [r3, #31]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:206
+	return(0);
+  32:	e000      	b.n	36 <ioman_pop+0x36>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:201
+{
+	if(bufplace>=ioman->numbuf){
+		ioman_setError(ioman,IOMAN_ERR_POPEMPTYSTACK);
+		return(-1);
+	}
+	if(ioman->itptr[bufplace]==0 || ioman->itptr[bufplace]>IOMAN_NUMITERATIONS)return(-1);
+  34:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:207
+	ioman->sector[bufplace] = ioman->stack[bufplace][ioman->itptr[bufplace]].sector;
+	ioman->status[bufplace] = ioman->stack[bufplace][ioman->itptr[bufplace]].status;
+	ioman->usage[bufplace]  = ioman->stack[bufplace][ioman->itptr[bufplace]].usage; 
+	ioman->itptr[bufplace]--;
+	return(0);
+}
+  36:	b240      	sxtb	r0, r0
+  38:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.ioman_push:
+
+00000000 <ioman_push>:
+ioman_push():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:212
+/*****************************************************************************/
+
+esint8 ioman_push(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:211
+	return(0);
+}
+/*****************************************************************************/
+
+esint8 ioman_push(IOManager *ioman,euint16 bufplace)
+{
+   2:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:212
+	if(bufplace>=ioman->numbuf){
+   4:	428b      	cmp	r3, r1
+   6:	d801      	bhi.n	c <ioman_push+0xc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:213
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   8:	2305      	movs	r3, #5
+   a:	e003      	b.n	14 <ioman_push+0x14>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:216
+		return(-1);
+	}
+	if(ioman->itptr[bufplace]>=IOMAN_NUMITERATIONS){
+   c:	1843      	adds	r3, r0, r1
+   e:	7fda      	ldrb	r2, [r3, #31]
+  10:	b11a      	cbz	r2, 1a <ioman_push+0x1a>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:217
+		ioman_setError(ioman,IOMAN_ERR_PUSHBEYONDSTACK);	
+  12:	2306      	movs	r3, #6
+  14:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:218
+		return(-1);
+  16:	20ff      	movs	r0, #255	; 0xff
+  18:	e00e      	b.n	38 <ioman_push+0x38>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:220
+	}
+	ioman->itptr[bufplace]++;
+  1a:	2401      	movs	r4, #1
+  1c:	77dc      	strb	r4, [r3, #31]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:221
+	ioman->stack[bufplace][ioman->itptr[bufplace]].sector = ioman->sector[bufplace];
+  1e:	1ccc      	adds	r4, r1, #3
+  20:	3106      	adds	r1, #6
+  22:	f850 1021 	ldr.w	r1, [r0, r1, lsl #2]
+  26:	f840 1034 	str.w	r1, [r0, r4, lsl #3]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:222
+	ioman->stack[bufplace][ioman->itptr[bufplace]].status = ioman->status[bufplace];
+  2a:	7f19      	ldrb	r1, [r3, #28]
+  2c:	eb00 00c4 	add.w	r0, r0, r4, lsl #3
+  30:	7101      	strb	r1, [r0, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:223
+	ioman->stack[bufplace][ioman->itptr[bufplace]].usage  = ioman->usage[bufplace];
+  32:	7f5b      	ldrb	r3, [r3, #29]
+  34:	7143      	strb	r3, [r0, #5]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:224
+	return(0);
+  36:	4610      	mov	r0, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:225
+}
+  38:	b240      	sxtb	r0, r0
+  3a:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.ioman_getPtr:
+
+00000000 <ioman_getPtr>:
+ioman_getPtr():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:230
+/*****************************************************************************/
+
+euint8* ioman_getPtr(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d803      	bhi.n	e <ioman_getPtr+0xe>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:231
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   6:	2305      	movs	r3, #5
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:232
+		return(0);
+   a:	2000      	movs	r0, #0
+   c:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:234
+	}
+	return(ioman->bufptr+bufplace*512);
+   e:	6840      	ldr	r0, [r0, #4]
+  10:	0249      	lsls	r1, r1, #9
+  12:	1840      	adds	r0, r0, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:235
+}
+  14:	4770      	bx	lr
+
+Disassembly of section .text.ioman_getBp:
+
+00000000 <ioman_getBp>:
+ioman_getBp():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:240
+/*****************************************************************************/
+
+esint16 ioman_getBp(IOManager *ioman,euint8* buf)
+{
+	if(buf<(ioman->bufptr) || buf>=( ioman->bufptr+(ioman->numbuf*512) )){
+   0:	6843      	ldr	r3, [r0, #4]
+   2:	4299      	cmp	r1, r3
+   4:	d304      	bcc.n	10 <ioman_getBp+0x10>
+   6:	8902      	ldrh	r2, [r0, #8]
+   8:	0252      	lsls	r2, r2, #9
+   a:	189a      	adds	r2, r3, r2
+   c:	4291      	cmp	r1, r2
+   e:	d304      	bcc.n	1a <ioman_getBp+0x1a>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:241
+		ioman_setError(ioman,IOMAN_ERR_CACHEPTROUTOFRANGE);
+  10:	2308      	movs	r3, #8
+  12:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:242
+		return(-1);
+  14:	f64f 70ff 	movw	r0, #65535	; 0xffff
+  18:	e006      	b.n	28 <ioman_getBp+0x28>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:244
+	}
+	return((buf-(ioman->bufptr))/512);
+  1a:	1ac9      	subs	r1, r1, r3
+  1c:	bf44      	itt	mi
+  1e:	f501 71fe 	addmi.w	r1, r1, #508	; 0x1fc
+  22:	3103      	addmi	r1, #3
+  24:	1249      	asrs	r1, r1, #9
+  26:	b288      	uxth	r0, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:245
+}
+  28:	b200      	sxth	r0, r0
+  2a:	4770      	bx	lr
+
+Disassembly of section .text.ioman_readSector:
+
+00000000 <ioman_readSector>:
+ioman_readSector():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:249
+/*****************************************************************************/
+
+esint8 ioman_readSector(IOManager *ioman,euint32 address,euint8* buf)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:252
+	esint8 r;
+
+	if(buf==0){
+   4:	b12a      	cbz	r2, 12 <ioman_readSector+0x12>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:256
+		return(-1);
+	}
+	
+	r=if_readBuf(ioman->iface,address,buf);
+   6:	6800      	ldr	r0, [r0, #0]
+   8:	f7ff fffe 	bl	0 <if_readBuf>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:258
+	
+	if(r!=0){
+   c:	b110      	cbz	r0, 14 <ioman_readSector+0x14>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:259
+		ioman_setError(ioman,IOMAN_ERR_READFAIL);
+   e:	2303      	movs	r3, #3
+  10:	7323      	strb	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:253
+esint8 ioman_readSector(IOManager *ioman,euint32 address,euint8* buf)
+{
+	esint8 r;
+
+	if(buf==0){
+		return(-1);
+  12:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:263
+	if(r!=0){
+		ioman_setError(ioman,IOMAN_ERR_READFAIL);
+		return(-1);
+	}
+	return(0);
+}
+  14:	b240      	sxtb	r0, r0
+  16:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.ioman_writeSector:
+
+00000000 <ioman_writeSector>:
+ioman_writeSector():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:267
+/*****************************************************************************/
+
+esint8 ioman_writeSector(IOManager *ioman, euint32 address, euint8* buf)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:270
+	esint8 r;
+
+	if(buf==0)return(-1);
+   4:	b132      	cbz	r2, 14 <ioman_writeSector+0x14>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:272
+	
+	r=if_writeBuf(ioman->iface,address,buf);
+   6:	6800      	ldr	r0, [r0, #0]
+   8:	f7ff fffe 	bl	0 <if_writeBuf>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:274
+
+	if(r<=0){
+   c:	2800      	cmp	r0, #0
+   e:	dc03      	bgt.n	18 <ioman_writeSector+0x18>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:275
+		ioman_setError(ioman,IOMAN_ERR_WRITEFAIL);
+  10:	2304      	movs	r3, #4
+  12:	7323      	strb	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:270
+
+esint8 ioman_writeSector(IOManager *ioman, euint32 address, euint8* buf)
+{
+	esint8 r;
+
+	if(buf==0)return(-1);
+  14:	20ff      	movs	r0, #255	; 0xff
+  16:	e000      	b.n	1a <ioman_writeSector+0x1a>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:278
+
+	if(r<=0){
+		ioman_setError(ioman,IOMAN_ERR_WRITEFAIL);
+		return(-1);
+	}
+	return(0);
+  18:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:279
+}
+  1a:	b240      	sxtb	r0, r0
+  1c:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.ioman_resetCacheItem:
+
+00000000 <ioman_resetCacheItem>:
+ioman_resetCacheItem():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:284
+/*****************************************************************************/
+
+void ioman_resetCacheItem(IOManager *ioman,euint16 bufplace)
+{
+	if(bufplace>=ioman->numbuf){
+   0:	8903      	ldrh	r3, [r0, #8]
+   2:	428b      	cmp	r3, r1
+   4:	d802      	bhi.n	c <ioman_resetCacheItem+0xc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:285
+		ioman_setError(ioman,IOMAN_ERR_OPOUTOFBOUNDS);
+   6:	2305      	movs	r3, #5
+   8:	7303      	strb	r3, [r0, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:286
+		return;
+   a:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:288
+	}
+	ioman->sector[bufplace]    = 0;
+   c:	2300      	movs	r3, #0
+   e:	1d8a      	adds	r2, r1, #6
+  10:	f840 3022 	str.w	r3, [r0, r2, lsl #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:289
+	ioman->status[bufplace]    = 0;
+  14:	1840      	adds	r0, r0, r1
+  16:	7703      	strb	r3, [r0, #28]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:290
+	ioman->usage[bufplace]     = 0;
+  18:	7743      	strb	r3, [r0, #29]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:291
+	ioman->reference[bufplace] = 0;
+  1a:	7783      	strb	r3, [r0, #30]
+  1c:	4770      	bx	lr
+
+Disassembly of section .text.ioman_findSectorInCache:
+
+00000000 <ioman_findSectorInCache>:
+ioman_findSectorInCache():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:296
+}
+/*****************************************************************************/
+
+esint32 ioman_findSectorInCache(IOManager *ioman, euint32 address)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4605      	mov	r5, r0
+   4:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:299
+	euint16 c;
+	
+	for(c=0;c<ioman->numbuf;c++){
+   6:	2400      	movs	r4, #0
+   8:	e00d      	b.n	26 <ioman_findSectorInCache+0x26>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:300
+		if(ioman_isValid(c) && ioman->sector[c] == address)return(c);
+   a:	4628      	mov	r0, r5
+   c:	4621      	mov	r1, r4
+   e:	2200      	movs	r2, #0
+  10:	f7ff fffe 	bl	0 <ioman_findSectorInCache>
+  14:	b128      	cbz	r0, 22 <ioman_findSectorInCache+0x22>
+  16:	1da3      	adds	r3, r4, #6
+  18:	f855 3023 	ldr.w	r3, [r5, r3, lsl #2]
+  1c:	4620      	mov	r0, r4
+  1e:	42b3      	cmp	r3, r6
+  20:	d006      	beq.n	30 <ioman_findSectorInCache+0x30>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:299
+
+esint32 ioman_findSectorInCache(IOManager *ioman, euint32 address)
+{
+	euint16 c;
+	
+	for(c=0;c<ioman->numbuf;c++){
+  22:	3401      	adds	r4, #1
+  24:	b2a4      	uxth	r4, r4
+  26:	892b      	ldrh	r3, [r5, #8]
+  28:	42a3      	cmp	r3, r4
+  2a:	d8ee      	bhi.n	a <ioman_findSectorInCache+0xa>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:302
+		if(ioman_isValid(c) && ioman->sector[c] == address)return(c);
+	}
+	return(-1);
+  2c:	f04f 30ff 	mov.w	r0, #4294967295
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:303
+}
+  30:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.ioman_findFreeSpot:
+
+00000000 <ioman_findFreeSpot>:
+ioman_findFreeSpot():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:307
+/*****************************************************************************/
+
+esint32 ioman_findFreeSpot(IOManager *ioman)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:310
+	euint16 c;
+	
+	for(c=0;c<ioman->numbuf;c++){
+   4:	2400      	movs	r4, #0
+   6:	e009      	b.n	1c <ioman_findFreeSpot+0x1c>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:311
+		if(!ioman_isValid(c))return(c);
+   8:	4628      	mov	r0, r5
+   a:	4621      	mov	r1, r4
+   c:	2200      	movs	r2, #0
+   e:	f7ff fffe 	bl	0 <ioman_findFreeSpot>
+  12:	b908      	cbnz	r0, 18 <ioman_findFreeSpot+0x18>
+  14:	4620      	mov	r0, r4
+  16:	bd38      	pop	{r3, r4, r5, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:310
+
+esint32 ioman_findFreeSpot(IOManager *ioman)
+{
+	euint16 c;
+	
+	for(c=0;c<ioman->numbuf;c++){
+  18:	3401      	adds	r4, #1
+  1a:	b2a4      	uxth	r4, r4
+  1c:	892b      	ldrh	r3, [r5, #8]
+  1e:	42a3      	cmp	r3, r4
+  20:	d8f2      	bhi.n	8 <ioman_findFreeSpot+0x8>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:313
+		if(!ioman_isValid(c))return(c);
+	}
+	return(-1);
+  22:	f04f 30ff 	mov.w	r0, #4294967295
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:314
+}
+  26:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.ioman_findUnusedSpot:
+
+00000000 <ioman_findUnusedSpot>:
+ioman_findUnusedSpot():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:318
+/*****************************************************************************/
+
+esint32 ioman_findUnusedSpot(IOManager *ioman)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:321
+	esint32 r=-1;
+	euint16 c;
+	euint8 fr=0,lr=0xFF;
+   4:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:318
+	return(-1);
+}
+/*****************************************************************************/
+
+esint32 ioman_findUnusedSpot(IOManager *ioman)
+{
+   6:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:321
+	esint32 r=-1;
+	euint16 c;
+	euint8 fr=0,lr=0xFF;
+   8:	27ff      	movs	r7, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:323
+	
+	for(c=0;c<ioman->numbuf;c++){
+   a:	4634      	mov	r4, r6
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:319
+}
+/*****************************************************************************/
+
+esint32 ioman_findUnusedSpot(IOManager *ioman)
+{
+	esint32 r=-1;
+   c:	f04f 38ff 	mov.w	r8, #4294967295
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:323
+	euint16 c;
+	euint8 fr=0,lr=0xFF;
+	
+	for(c=0;c<ioman->numbuf;c++){
+  10:	e02c      	b.n	6c <ioman_findUnusedSpot+0x6c>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:324
+		if(ioman_getUseCnt(ioman,c)==0){
+  12:	4628      	mov	r0, r5
+  14:	4621      	mov	r1, r4
+  16:	f7ff fffe 	bl	0 <ioman_findUnusedSpot>
+  1a:	bb28      	cbnz	r0, 68 <ioman_findUnusedSpot+0x68>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:325
+			if(!ioman_isWritable(c) && !fr){
+  1c:	4628      	mov	r0, r5
+  1e:	4621      	mov	r1, r4
+  20:	2202      	movs	r2, #2
+  22:	f7ff fffe 	bl	0 <ioman_findUnusedSpot>
+  26:	b920      	cbnz	r0, 32 <ioman_findUnusedSpot+0x32>
+  28:	b91e      	cbnz	r6, 32 <ioman_findUnusedSpot+0x32>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:327
+				fr=1;
+				lr=0xFF;
+  2a:	27ff      	movs	r7, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:326
+	euint8 fr=0,lr=0xFF;
+	
+	for(c=0;c<ioman->numbuf;c++){
+		if(ioman_getUseCnt(ioman,c)==0){
+			if(!ioman_isWritable(c) && !fr){
+				fr=1;
+  2c:	3601      	adds	r6, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:328
+				lr=0xFF;
+				r=-1;
+  2e:	f04f 38ff 	mov.w	r8, #4294967295
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:330
+			}
+			if(ioman_isWritable(c) && !fr){
+  32:	4628      	mov	r0, r5
+  34:	4621      	mov	r1, r4
+  36:	2202      	movs	r2, #2
+  38:	f7ff fffe 	bl	0 <ioman_findUnusedSpot>
+  3c:	b108      	cbz	r0, 42 <ioman_findUnusedSpot+0x42>
+  3e:	b90e      	cbnz	r6, 44 <ioman_findUnusedSpot+0x44>
+  40:	e006      	b.n	50 <ioman_findUnusedSpot+0x50>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:336
+				if(ioman_getRefCnt(ioman,c)<=lr){
+					r=c;
+					lr=ioman_getRefCnt(ioman,c);
+				}
+			}
+			if(fr && !ioman_isWritable(c)){
+  42:	b18e      	cbz	r6, 68 <ioman_findUnusedSpot+0x68>
+  44:	4628      	mov	r0, r5
+  46:	4621      	mov	r1, r4
+  48:	2202      	movs	r2, #2
+  4a:	f7ff fffe 	bl	0 <ioman_findUnusedSpot>
+  4e:	b958      	cbnz	r0, 68 <ioman_findUnusedSpot+0x68>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:337
+				if(ioman_getRefCnt(ioman,c)<=lr){
+  50:	4628      	mov	r0, r5
+  52:	4621      	mov	r1, r4
+  54:	f7ff fffe 	bl	0 <ioman_findUnusedSpot>
+  58:	42b8      	cmp	r0, r7
+  5a:	d805      	bhi.n	68 <ioman_findUnusedSpot+0x68>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:339
+					r=c;
+					lr=ioman_getRefCnt(ioman,c);
+  5c:	4628      	mov	r0, r5
+  5e:	4621      	mov	r1, r4
+  60:	f7ff fffe 	bl	0 <ioman_findUnusedSpot>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:338
+					lr=ioman_getRefCnt(ioman,c);
+				}
+			}
+			if(fr && !ioman_isWritable(c)){
+				if(ioman_getRefCnt(ioman,c)<=lr){
+					r=c;
+  64:	46a0      	mov	r8, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:339
+					lr=ioman_getRefCnt(ioman,c);
+  66:	4607      	mov	r7, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:323
+{
+	esint32 r=-1;
+	euint16 c;
+	euint8 fr=0,lr=0xFF;
+	
+	for(c=0;c<ioman->numbuf;c++){
+  68:	3401      	adds	r4, #1
+  6a:	b2a4      	uxth	r4, r4
+  6c:	892b      	ldrh	r3, [r5, #8]
+  6e:	42a3      	cmp	r3, r4
+  70:	d8cf      	bhi.n	12 <ioman_findUnusedSpot+0x12>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:345
+				}
+			}
+		}
+	}
+	return(r);
+}
+  72:	4640      	mov	r0, r8
+  74:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.ioman_findOverallocableSpot:
+
+00000000 <ioman_findOverallocableSpot>:
+ioman_findOverallocableSpot():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:349
+/*****************************************************************************/
+
+esint32 ioman_findOverallocableSpot(IOManager *ioman)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:352
+	euint8 points,lp=0xFF;
+	euint16 c;
+	esint32 r=-1;
+   6:	f04f 36ff 	mov.w	r6, #4294967295
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:354
+	
+	for(c=0;c<ioman->numbuf;c++){
+   a:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:350
+}
+/*****************************************************************************/
+
+esint32 ioman_findOverallocableSpot(IOManager *ioman)
+{
+	euint8 points,lp=0xFF;
+   c:	27ff      	movs	r7, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:354
+	euint16 c;
+	esint32 r=-1;
+	
+	for(c=0;c<ioman->numbuf;c++){
+   e:	e02e      	b.n	6e <ioman_findOverallocableSpot+0x6e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:355
+		if(ioman->itptr[c]<ioman->numit){
+  10:	eb05 0804 	add.w	r8, r5, r4
+  14:	f898 201f 	ldrb.w	r2, [r8, #31]
+  18:	896b      	ldrh	r3, [r5, #10]
+  1a:	429a      	cmp	r2, r3
+  1c:	d225      	bcs.n	6a <ioman_findOverallocableSpot+0x6a>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:357
+			points = 0;
+			if(ioman_isWritable(c))points+=0x7F;
+  1e:	2202      	movs	r2, #2
+  20:	4621      	mov	r1, r4
+  22:	4628      	mov	r0, r5
+  24:	f7ff fffe 	bl	0 <ioman_findOverallocableSpot>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:358
+			points += ((euint16)(ioman->itptr[c]*0x4D))/(ioman->numit);
+  28:	f898 301f 	ldrb.w	r3, [r8, #31]
+  2c:	f04f 084d 	mov.w	r8, #77	; 0x4d
+  30:	fb08 f803 	mul.w	r8, r8, r3
+  34:	896b      	ldrh	r3, [r5, #10]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:356
+	euint16 c;
+	esint32 r=-1;
+	
+	for(c=0;c<ioman->numbuf;c++){
+		if(ioman->itptr[c]<ioman->numit){
+			points = 0;
+  36:	2800      	cmp	r0, #0
+  38:	bf14      	ite	ne
+  3a:	207f      	movne	r0, #127	; 0x7f
+  3c:	2000      	moveq	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:358
+			if(ioman_isWritable(c))points+=0x7F;
+			points += ((euint16)(ioman->itptr[c]*0x4D))/(ioman->numit);
+  3e:	fbb8 f8f3 	udiv	r8, r8, r3
+  42:	4480      	add	r8, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:359
+			points += ((euint16)(ioman_getRefCnt(ioman,c)*0x33))/0xFF;
+  44:	4621      	mov	r1, r4
+  46:	4628      	mov	r0, r5
+  48:	f7ff fffe 	bl	0 <ioman_findOverallocableSpot>
+  4c:	2333      	movs	r3, #51	; 0x33
+  4e:	4343      	muls	r3, r0
+  50:	22ff      	movs	r2, #255	; 0xff
+  52:	b29b      	uxth	r3, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:358
+	
+	for(c=0;c<ioman->numbuf;c++){
+		if(ioman->itptr[c]<ioman->numit){
+			points = 0;
+			if(ioman_isWritable(c))points+=0x7F;
+			points += ((euint16)(ioman->itptr[c]*0x4D))/(ioman->numit);
+  54:	fa5f f888 	uxtb.w	r8, r8
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:359
+			points += ((euint16)(ioman_getRefCnt(ioman,c)*0x33))/0xFF;
+  58:	fbb3 f3f2 	udiv	r3, r3, r2
+  5c:	4498      	add	r8, r3
+  5e:	fa5f f888 	uxtb.w	r8, r8
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:360
+			if(points<lp){
+  62:	45b8      	cmp	r8, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:362
+				lp=points;
+				r=c;
+  64:	bf3c      	itt	cc
+  66:	4626      	movcc	r6, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:360
+		if(ioman->itptr[c]<ioman->numit){
+			points = 0;
+			if(ioman_isWritable(c))points+=0x7F;
+			points += ((euint16)(ioman->itptr[c]*0x4D))/(ioman->numit);
+			points += ((euint16)(ioman_getRefCnt(ioman,c)*0x33))/0xFF;
+			if(points<lp){
+  68:	4647      	movcc	r7, r8
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:354
+{
+	euint8 points,lp=0xFF;
+	euint16 c;
+	esint32 r=-1;
+	
+	for(c=0;c<ioman->numbuf;c++){
+  6a:	3401      	adds	r4, #1
+  6c:	b2a4      	uxth	r4, r4
+  6e:	892b      	ldrh	r3, [r5, #8]
+  70:	42a3      	cmp	r3, r4
+  72:	d8cd      	bhi.n	10 <ioman_findOverallocableSpot+0x10>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:367
+				r=c;
+			}
+		}
+	}
+	return(r);
+}
+  74:	4630      	mov	r0, r6
+  76:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.ioman_putSectorInCache:
+
+00000000 <ioman_putSectorInCache>:
+ioman_putSectorInCache():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:371
+/*****************************************************************************/
+
+esint8 ioman_putSectorInCache(IOManager *ioman, euint32 address, euint16 bufplace)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+   2:	460f      	mov	r7, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:374
+	euint8* buf;
+	
+	if((buf = ioman_getPtr(ioman,bufplace))==0){
+   4:	4611      	mov	r1, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:371
+	return(r);
+}
+/*****************************************************************************/
+
+esint8 ioman_putSectorInCache(IOManager *ioman, euint32 address, euint16 bufplace)
+{
+   6:	4616      	mov	r6, r2
+   8:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:374
+	euint8* buf;
+	
+	if((buf = ioman_getPtr(ioman,bufplace))==0){
+   a:	f7ff fffe 	bl	0 <ioman_putSectorInCache>
+   e:	4602      	mov	r2, r0
+  10:	b908      	cbnz	r0, 16 <ioman_putSectorInCache+0x16>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:375
+		ioman_setError(ioman,IOMAN_ERR_CACHEPTROUTOFRANGE);
+  12:	2308      	movs	r3, #8
+  14:	e006      	b.n	24 <ioman_putSectorInCache+0x24>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:378
+		return(-1);
+	}
+	if((ioman_readSector(ioman,address,buf))){
+  16:	4620      	mov	r0, r4
+  18:	4639      	mov	r1, r7
+  1a:	f7ff fffe 	bl	0 <ioman_putSectorInCache>
+  1e:	4605      	mov	r5, r0
+  20:	b118      	cbz	r0, 2a <ioman_putSectorInCache+0x2a>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:379
+		ioman_setError(ioman,IOMAN_ERR_READFAIL);
+  22:	2303      	movs	r3, #3
+  24:	7323      	strb	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:380
+		return(-1);
+  26:	25ff      	movs	r5, #255	; 0xff
+  28:	e008      	b.n	3c <ioman_putSectorInCache+0x3c>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:382
+	}
+	ioman_setValid(bufplace);
+  2a:	4631      	mov	r1, r6
+  2c:	4620      	mov	r0, r4
+  2e:	462a      	mov	r2, r5
+  30:	2301      	movs	r3, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:383
+	ioman->sector[bufplace]=address;
+  32:	3606      	adds	r6, #6
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:382
+	}
+	if((ioman_readSector(ioman,address,buf))){
+		ioman_setError(ioman,IOMAN_ERR_READFAIL);
+		return(-1);
+	}
+	ioman_setValid(bufplace);
+  34:	f7ff fffe 	bl	0 <ioman_putSectorInCache>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:383
+	ioman->sector[bufplace]=address;
+  38:	f844 7026 	str.w	r7, [r4, r6, lsl #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:385
+	return(0);
+}
+  3c:	b268      	sxtb	r0, r5
+  3e:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+
+Disassembly of section .text.ioman_flushSector:
+
+00000000 <ioman_flushSector>:
+ioman_flushSector():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:390
+/*****************	if(bufplace>=ioman->numbuf)return;
+************************************************************/
+
+esint8 ioman_flushSector(IOManager *ioman, euint16 bufplace)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+   4:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:393
+	euint8* buf;
+	
+	if((buf = ioman_getPtr(ioman,bufplace))==0){
+   6:	f7ff fffe 	bl	0 <ioman_flushSector>
+   a:	4605      	mov	r5, r0
+   c:	b918      	cbnz	r0, 16 <ioman_flushSector+0x16>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:394
+		ioman_setError(ioman,IOMAN_ERR_CACHEPTROUTOFRANGE);
+   e:	2308      	movs	r3, #8
+  10:	7323      	strb	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:395
+		return(-1);
+  12:	20ff      	movs	r0, #255	; 0xff
+  14:	e014      	b.n	40 <ioman_flushSector+0x40>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:397
+	}
+	if(!ioman_isWritable(bufplace)){
+  16:	4620      	mov	r0, r4
+  18:	4631      	mov	r1, r6
+  1a:	2202      	movs	r2, #2
+  1c:	f7ff fffe 	bl	0 <ioman_flushSector>
+  20:	b908      	cbnz	r0, 26 <ioman_flushSector+0x26>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:398
+		ioman_setError(ioman,IOMAN_ERR_WRITEREADONLYSECTOR);
+  22:	2309      	movs	r3, #9
+  24:	e008      	b.n	38 <ioman_flushSector+0x38>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:401
+		return(-1);
+	}
+	if(!(ioman_writeSector(ioman,ioman->sector[bufplace],buf))){
+  26:	3606      	adds	r6, #6
+  28:	4620      	mov	r0, r4
+  2a:	f854 1026 	ldr.w	r1, [r4, r6, lsl #2]
+  2e:	462a      	mov	r2, r5
+  30:	f7ff fffe 	bl	0 <ioman_flushSector>
+  34:	b918      	cbnz	r0, 3e <ioman_flushSector+0x3e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:402
+		ioman_setError(ioman,IOMAN_ERR_WRITEFAIL);	
+  36:	2304      	movs	r3, #4
+  38:	7323      	strb	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:403
+		return(-1);
+  3a:	30ff      	adds	r0, #255	; 0xff
+  3c:	e000      	b.n	40 <ioman_flushSector+0x40>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:406
+	}
+	if(ioman->usage==0)ioman_setNotWritable(bufplace);
+	return(0);
+  3e:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:407
+}
+  40:	b240      	sxtb	r0, r0
+  42:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.ioman_flushRange:
+
+00000000 <ioman_flushRange>:
+ioman_flushRange():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:414
+
+esint8 ioman_flushRange(IOManager *ioman,euint32 address_low, euint32 address_high)
+{
+	euint32 c;
+	
+	if(address_low>address_high){
+   0:	4291      	cmp	r1, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:411
+	return(0);
+}
+/*****************************************************************************/
+
+esint8 ioman_flushRange(IOManager *ioman,euint32 address_low, euint32 address_high)
+{
+   2:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+   6:	4604      	mov	r4, r0
+   8:	460e      	mov	r6, r1
+   a:	4617      	mov	r7, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:414
+	euint32 c;
+	
+	if(address_low>address_high){
+   c:	d901      	bls.n	12 <ioman_flushRange+0x12>
+   e:	4616      	mov	r6, r2
+  10:	460f      	mov	r7, r1
+  12:	46a1      	mov	r9, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:418
+		c=address_low; address_low=address_high;address_high=c;
+	}
+	
+	for(c=0;c<ioman->numbuf;c++){
+  14:	2500      	movs	r5, #0
+  16:	e01d      	b.n	54 <ioman_flushRange+0x54>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:419
+		if((ioman->sector[c]>=address_low) && (ioman->sector[c]<=address_high) && (ioman_isWritable(c))){
+  18:	f8d9 3018 	ldr.w	r3, [r9, #24]
+  1c:	42b3      	cmp	r3, r6
+  1e:	d316      	bcc.n	4e <ioman_flushRange+0x4e>
+  20:	42bb      	cmp	r3, r7
+  22:	d814      	bhi.n	4e <ioman_flushRange+0x4e>
+  24:	fa1f f885 	uxth.w	r8, r5
+  28:	4620      	mov	r0, r4
+  2a:	4641      	mov	r1, r8
+  2c:	2202      	movs	r2, #2
+  2e:	f7ff fffe 	bl	0 <ioman_flushRange>
+  32:	b160      	cbz	r0, 4e <ioman_flushRange+0x4e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:420
+			if(ioman_flushSector(ioman,c)){
+  34:	4620      	mov	r0, r4
+  36:	4641      	mov	r1, r8
+  38:	f7ff fffe 	bl	0 <ioman_flushRange>
+  3c:	b978      	cbnz	r0, 5e <ioman_flushRange+0x5e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:410
+	if(ioman->usage==0)ioman_setNotWritable(bufplace);
+	return(0);
+}
+/*****************************************************************************/
+
+esint8 ioman_flushRange(IOManager *ioman,euint32 address_low, euint32 address_high)
+  3e:	1963      	adds	r3, r4, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:423
+	for(c=0;c<ioman->numbuf;c++){
+		if((ioman->sector[c]>=address_low) && (ioman->sector[c]<=address_high) && (ioman_isWritable(c))){
+			if(ioman_flushSector(ioman,c)){
+				return(-1);
+			}
+			if(ioman->usage[c]==0)ioman_setNotWritable(c);
+  40:	7f5b      	ldrb	r3, [r3, #29]
+  42:	b923      	cbnz	r3, 4e <ioman_flushRange+0x4e>
+  44:	4620      	mov	r0, r4
+  46:	4641      	mov	r1, r8
+  48:	2202      	movs	r2, #2
+  4a:	f7ff fffe 	bl	0 <ioman_flushRange>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:418
+	
+	if(address_low>address_high){
+		c=address_low; address_low=address_high;address_high=c;
+	}
+	
+	for(c=0;c<ioman->numbuf;c++){
+  4e:	3501      	adds	r5, #1
+  50:	f109 0904 	add.w	r9, r9, #4
+  54:	8923      	ldrh	r3, [r4, #8]
+  56:	429d      	cmp	r5, r3
+  58:	d3de      	bcc.n	18 <ioman_flushRange+0x18>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:426
+				return(-1);
+			}
+			if(ioman->usage[c]==0)ioman_setNotWritable(c);
+		}
+	}
+	return(0);
+  5a:	2000      	movs	r0, #0
+  5c:	e000      	b.n	60 <ioman_flushRange+0x60>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:421
+	}
+	
+	for(c=0;c<ioman->numbuf;c++){
+		if((ioman->sector[c]>=address_low) && (ioman->sector[c]<=address_high) && (ioman_isWritable(c))){
+			if(ioman_flushSector(ioman,c)){
+				return(-1);
+  5e:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:427
+			}
+			if(ioman->usage[c]==0)ioman_setNotWritable(c);
+		}
+	}
+	return(0);
+}
+  60:	b240      	sxtb	r0, r0
+  62:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+
+Disassembly of section .text.ioman_flushAll:
+
+00000000 <ioman_flushAll>:
+ioman_flushAll():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:431
+/*****************************************************************************/
+
+esint8 ioman_flushAll(IOManager *ioman)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:434
+	euint16 c;
+	
+	for(c=0;c<ioman->numbuf;c++){
+   4:	2400      	movs	r4, #0
+   6:	e014      	b.n	32 <ioman_flushAll+0x32>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:435
+		if(ioman_isWritable(c)){
+   8:	4628      	mov	r0, r5
+   a:	4621      	mov	r1, r4
+   c:	2202      	movs	r2, #2
+   e:	f7ff fffe 	bl	0 <ioman_flushAll>
+  12:	b160      	cbz	r0, 2e <ioman_flushAll+0x2e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:436
+			if(ioman_flushSector(ioman,c)){
+  14:	4628      	mov	r0, r5
+  16:	4621      	mov	r1, r4
+  18:	f7ff fffe 	bl	0 <ioman_flushAll>
+  1c:	b970      	cbnz	r0, 3c <ioman_flushAll+0x3c>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:439
+				return(-1);
+			}
+			if(ioman->usage[c]==0)ioman_setNotWritable(c);
+  1e:	192b      	adds	r3, r5, r4
+  20:	7f5b      	ldrb	r3, [r3, #29]
+  22:	b923      	cbnz	r3, 2e <ioman_flushAll+0x2e>
+  24:	4628      	mov	r0, r5
+  26:	4621      	mov	r1, r4
+  28:	2202      	movs	r2, #2
+  2a:	f7ff fffe 	bl	0 <ioman_flushAll>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:434
+
+esint8 ioman_flushAll(IOManager *ioman)
+{
+	euint16 c;
+	
+	for(c=0;c<ioman->numbuf;c++){
+  2e:	3401      	adds	r4, #1
+  30:	b2a4      	uxth	r4, r4
+  32:	892b      	ldrh	r3, [r5, #8]
+  34:	42a3      	cmp	r3, r4
+  36:	d8e7      	bhi.n	8 <ioman_flushAll+0x8>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:442
+				return(-1);
+			}
+			if(ioman->usage[c]==0)ioman_setNotWritable(c);
+		}
+	}
+	return(0);
+  38:	2000      	movs	r0, #0
+  3a:	e000      	b.n	3e <ioman_flushAll+0x3e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:437
+	euint16 c;
+	
+	for(c=0;c<ioman->numbuf;c++){
+		if(ioman_isWritable(c)){
+			if(ioman_flushSector(ioman,c)){
+				return(-1);
+  3c:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:443
+			}
+			if(ioman->usage[c]==0)ioman_setNotWritable(c);
+		}
+	}
+	return(0);
+}
+  3e:	b240      	sxtb	r0, r0
+  40:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.ioman_getSector:
+
+00000000 <ioman_getSector>:
+ioman_getSector():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:447
+/*****************************************************************************/
+
+euint8* ioman_getSector(IOManager *ioman,euint32 address, euint8 mode)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4604      	mov	r4, r0
+   6:	460f      	mov	r7, r1
+   8:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:450
+	esint32 bp;
+	
+	if((bp=ioman_findSectorInCache(ioman,address))!=-1){
+   a:	f7ff fffe 	bl	0 <ioman_getSector>
+   e:	f1b0 3fff 	cmp.w	r0, #4294967295
+  12:	4605      	mov	r5, r0
+  14:	d00a      	beq.n	2c <ioman_getSector+0x2c>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:451
+		if(ioman_isReqRw(mode)){
+  16:	f016 0f02 	tst.w	r6, #2
+  1a:	d005      	beq.n	28 <ioman_getSector+0x28>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:452
+			ioman_setWritable(bp);
+  1c:	4620      	mov	r0, r4
+  1e:	b2a9      	uxth	r1, r5
+  20:	2202      	movs	r2, #2
+  22:	2301      	movs	r3, #1
+  24:	f7ff fffe 	bl	0 <ioman_getSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:454
+		}
+		ioman_incUseCnt(ioman,bp);
+  28:	b2ad      	uxth	r5, r5
+  2a:	e04f      	b.n	cc <ioman_getSector+0xcc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:459
+		if(!ioman_isReqExp(mode))ioman_incRefCnt(ioman,bp);
+		return(ioman_getPtr(ioman,bp));
+	}
+	
+	if((bp=ioman_findFreeSpot(ioman))==-1){
+  2c:	4620      	mov	r0, r4
+  2e:	f7ff fffe 	bl	0 <ioman_getSector>
+  32:	f1b0 3fff 	cmp.w	r0, #4294967295
+  36:	4605      	mov	r5, r0
+  38:	d112      	bne.n	60 <ioman_getSector+0x60>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:460
+		if(((bp=ioman_findUnusedSpot(ioman))!=-1)&&(ioman_isWritable(bp))){
+  3a:	4620      	mov	r0, r4
+  3c:	f7ff fffe 	bl	0 <ioman_getSector>
+  40:	f1b0 3fff 	cmp.w	r0, #4294967295
+  44:	4605      	mov	r5, r0
+  46:	d057      	beq.n	f8 <ioman_getSector+0xf8>
+  48:	fa1f f880 	uxth.w	r8, r0
+  4c:	4641      	mov	r1, r8
+  4e:	4620      	mov	r0, r4
+  50:	2202      	movs	r2, #2
+  52:	f7ff fffe 	bl	0 <ioman_getSector>
+  56:	b118      	cbz	r0, 60 <ioman_getSector+0x60>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:461
+			ioman_flushSector(ioman,bp);
+  58:	4620      	mov	r0, r4
+  5a:	4641      	mov	r1, r8
+  5c:	f7ff fffe 	bl	0 <ioman_getSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:466
+		}
+	}
+	
+	if(bp!=-1){
+		ioman_resetCacheItem(ioman,bp);
+  60:	b2ad      	uxth	r5, r5
+  62:	4620      	mov	r0, r4
+  64:	4629      	mov	r1, r5
+  66:	f7ff fffe 	bl	0 <ioman_getSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:467
+		if((ioman_putSectorInCache(ioman,address,bp))){
+  6a:	4620      	mov	r0, r4
+  6c:	4639      	mov	r1, r7
+  6e:	462a      	mov	r2, r5
+  70:	f7ff fffe 	bl	0 <ioman_getSector>
+  74:	2800      	cmp	r0, #0
+  76:	d13c      	bne.n	f2 <ioman_getSector+0xf2>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:470
+			return(0);
+		}
+		if(mode==IOM_MODE_READWRITE){
+  78:	2e02      	cmp	r6, #2
+  7a:	d127      	bne.n	cc <ioman_getSector+0xcc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:471
+			ioman_setWritable(bp);
+  7c:	4620      	mov	r0, r4
+  7e:	4629      	mov	r1, r5
+  80:	4632      	mov	r2, r6
+  82:	e020      	b.n	c6 <ioman_getSector+0xc6>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:479
+		if(!ioman_isReqExp(mode))ioman_incRefCnt(ioman,bp);
+		return(ioman_getPtr(ioman,bp));
+	}
+	
+	if((bp=ioman_findOverallocableSpot(ioman))!=-1){
+		if(ioman_isWritable(bp)){
+  84:	b285      	uxth	r5, r0
+  86:	4629      	mov	r1, r5
+  88:	4620      	mov	r0, r4
+  8a:	2202      	movs	r2, #2
+  8c:	f7ff fffe 	bl	0 <ioman_getSector>
+  90:	b118      	cbz	r0, 9a <ioman_getSector+0x9a>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:480
+			ioman_flushSector(ioman,bp);
+  92:	4620      	mov	r0, r4
+  94:	4629      	mov	r1, r5
+  96:	f7ff fffe 	bl	0 <ioman_getSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:482
+		}
+		if(ioman_push(ioman,bp)){
+  9a:	4620      	mov	r0, r4
+  9c:	4629      	mov	r1, r5
+  9e:	f7ff fffe 	bl	0 <ioman_getSector>
+  a2:	2800      	cmp	r0, #0
+  a4:	d125      	bne.n	f2 <ioman_getSector+0xf2>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:485
+			return(0);
+		}
+		ioman_resetCacheItem(ioman,bp);
+  a6:	4620      	mov	r0, r4
+  a8:	4629      	mov	r1, r5
+  aa:	f7ff fffe 	bl	0 <ioman_getSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:486
+		if((ioman_putSectorInCache(ioman,address,bp))){
+  ae:	4620      	mov	r0, r4
+  b0:	4639      	mov	r1, r7
+  b2:	462a      	mov	r2, r5
+  b4:	f7ff fffe 	bl	0 <ioman_getSector>
+  b8:	b9d8      	cbnz	r0, f2 <ioman_getSector+0xf2>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:489
+			return(0);
+		}
+		if(ioman_isReqRw(mode)){
+  ba:	f016 0f02 	tst.w	r6, #2
+  be:	d005      	beq.n	cc <ioman_getSector+0xcc>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:490
+			ioman_setWritable(bp);
+  c0:	4620      	mov	r0, r4
+  c2:	4629      	mov	r1, r5
+  c4:	2202      	movs	r2, #2
+  c6:	2301      	movs	r3, #1
+  c8:	f7ff fffe 	bl	0 <ioman_getSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:492
+		}
+		ioman_incUseCnt(ioman,bp);
+  cc:	4620      	mov	r0, r4
+  ce:	4629      	mov	r1, r5
+  d0:	f7ff fffe 	bl	0 <ioman_getSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:493
+		if(!ioman_isReqExp(mode))ioman_incRefCnt(ioman,bp);
+  d4:	f016 0f04 	tst.w	r6, #4
+  d8:	d103      	bne.n	e2 <ioman_getSector+0xe2>
+  da:	4620      	mov	r0, r4
+  dc:	4629      	mov	r1, r5
+  de:	f7ff fffe 	bl	0 <ioman_getSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:494
+		return(ioman_getPtr(ioman,bp));
+  e2:	4620      	mov	r0, r4
+  e4:	4629      	mov	r1, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:498
+	}
+	ioman_setError(ioman,IOMAN_ERR_NOMEMORY);
+	return(0);
+}
+  e6:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:494
+		if(ioman_isReqRw(mode)){
+			ioman_setWritable(bp);
+		}
+		ioman_incUseCnt(ioman,bp);
+		if(!ioman_isReqExp(mode))ioman_incRefCnt(ioman,bp);
+		return(ioman_getPtr(ioman,bp));
+  ea:	f7ff bffe 	b.w	0 <ioman_getSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:496
+	}
+	ioman_setError(ioman,IOMAN_ERR_NOMEMORY);
+  ee:	230a      	movs	r3, #10
+  f0:	7323      	strb	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:498
+	return(0);
+}
+  f2:	2000      	movs	r0, #0
+  f4:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:478
+		ioman_incUseCnt(ioman,bp);
+		if(!ioman_isReqExp(mode))ioman_incRefCnt(ioman,bp);
+		return(ioman_getPtr(ioman,bp));
+	}
+	
+	if((bp=ioman_findOverallocableSpot(ioman))!=-1){
+  f8:	4620      	mov	r0, r4
+  fa:	f7ff fffe 	bl	0 <ioman_getSector>
+  fe:	f1b0 3fff 	cmp.w	r0, #4294967295
+ 102:	d1bf      	bne.n	84 <ioman_getSector+0x84>
+ 104:	e7f3      	b.n	ee <ioman_getSector+0xee>
+
+Disassembly of section .text.ioman_releaseSector:
+
+00000000 <ioman_releaseSector>:
+ioman_releaseSector():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:502
+	return(0);
+}
+/*****************************************************************************/
+
+esint8 ioman_releaseSector(IOManager *ioman,euint8* buf)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:505
+	euint16 bp;
+	
+	bp=ioman_getBp(ioman,buf);
+   4:	f7ff fffe 	bl	0 <ioman_releaseSector>
+   8:	b284      	uxth	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:506
+	ioman_decUseCnt(ioman,bp);
+   a:	4621      	mov	r1, r4
+   c:	4628      	mov	r0, r5
+   e:	f7ff fffe 	bl	0 <ioman_releaseSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:508
+	
+	if(ioman_getUseCnt(ioman,bp)==0 && ioman->itptr[bp]!=0){
+  12:	4628      	mov	r0, r5
+  14:	4621      	mov	r1, r4
+  16:	f7ff fffe 	bl	0 <ioman_releaseSector>
+  1a:	b9b8      	cbnz	r0, 4c <ioman_releaseSector+0x4c>
+  1c:	192b      	adds	r3, r5, r4
+  1e:	7fdb      	ldrb	r3, [r3, #31]
+  20:	b1a3      	cbz	r3, 4c <ioman_releaseSector+0x4c>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:509
+		if(ioman_isWritable(bp)){
+  22:	4628      	mov	r0, r5
+  24:	4621      	mov	r1, r4
+  26:	2202      	movs	r2, #2
+  28:	f7ff fffe 	bl	0 <ioman_releaseSector>
+  2c:	b118      	cbz	r0, 36 <ioman_releaseSector+0x36>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:510
+			ioman_flushSector(ioman,bp);
+  2e:	4628      	mov	r0, r5
+  30:	4621      	mov	r1, r4
+  32:	f7ff fffe 	bl	0 <ioman_releaseSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:512
+		}
+		ioman_pop(ioman,bp);
+  36:	4621      	mov	r1, r4
+  38:	4628      	mov	r0, r5
+  3a:	f7ff fffe 	bl	0 <ioman_releaseSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:513
+		ioman_putSectorInCache(ioman,ioman->sector[bp],bp);
+  3e:	1da3      	adds	r3, r4, #6
+  40:	4628      	mov	r0, r5
+  42:	f855 1023 	ldr.w	r1, [r5, r3, lsl #2]
+  46:	4622      	mov	r2, r4
+  48:	f7ff fffe 	bl	0 <ioman_releaseSector>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:516
+	}
+	return(0);
+}
+  4c:	2000      	movs	r0, #0
+  4e:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.ioman_directSectorRead:
+
+00000000 <ioman_directSectorRead>:
+ioman_directSectorRead():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:520
+/*****************************************************************************/
+
+esint8 ioman_directSectorRead(IOManager *ioman,euint32 address, euint8* buf)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+   2:	460e      	mov	r6, r1
+   4:	4604      	mov	r4, r0
+   6:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:524
+	euint8* ibuf;
+	esint16 bp;
+	
+	if((bp=ioman_findSectorInCache(ioman,address))!=-1){
+   8:	f7ff fffe 	bl	0 <ioman_directSectorRead>
+   c:	b281      	uxth	r1, r0
+   e:	b20b      	sxth	r3, r1
+  10:	f1b3 3fff 	cmp.w	r3, #4294967295
+  14:	d009      	beq.n	2a <ioman_directSectorRead+0x2a>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:525
+		ibuf=ioman_getPtr(ioman,bp);
+  16:	4620      	mov	r0, r4
+  18:	f7ff fffe 	bl	0 <ioman_directSectorRead>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:526
+		memCpy(ibuf,buf,512);
+  1c:	4629      	mov	r1, r5
+  1e:	f44f 7200 	mov.w	r2, #512	; 0x200
+  22:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:527
+		return(0);
+  26:	2600      	movs	r6, #0
+  28:	e024      	b.n	74 <ioman_directSectorRead+0x74>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:530
+	}
+	
+	if((bp=ioman_findFreeSpot(ioman))!=-1){
+  2a:	4620      	mov	r0, r4
+  2c:	f7ff fffe 	bl	0 <ioman_directSectorRead>
+  30:	b280      	uxth	r0, r0
+  32:	b203      	sxth	r3, r0
+  34:	f1b3 3fff 	cmp.w	r3, #4294967295
+  38:	d011      	beq.n	5e <ioman_directSectorRead+0x5e>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:531
+		if((ioman_putSectorInCache(ioman,address,bp))){
+  3a:	b287      	uxth	r7, r0
+  3c:	4631      	mov	r1, r6
+  3e:	4620      	mov	r0, r4
+  40:	463a      	mov	r2, r7
+  42:	f7ff fffe 	bl	0 <ioman_directSectorRead>
+  46:	4606      	mov	r6, r0
+  48:	b998      	cbnz	r0, 72 <ioman_directSectorRead+0x72>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:534
+			return(-1);
+		}
+		ibuf=ioman_getPtr(ioman,bp);
+  4a:	4639      	mov	r1, r7
+  4c:	4620      	mov	r0, r4
+  4e:	f7ff fffe 	bl	0 <ioman_directSectorRead>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:535
+		memCpy(ibuf,buf,512);
+  52:	4629      	mov	r1, r5
+  54:	f44f 7200 	mov.w	r2, #512	; 0x200
+  58:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:536
+		return(0);
+  5c:	e00a      	b.n	74 <ioman_directSectorRead+0x74>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:539
+	}
+
+	if(ioman_readSector(ioman,address,buf)){
+  5e:	4631      	mov	r1, r6
+  60:	4620      	mov	r0, r4
+  62:	462a      	mov	r2, r5
+  64:	f7ff fffe 	bl	0 <ioman_directSectorRead>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:540
+		return(-1);
+  68:	2800      	cmp	r0, #0
+  6a:	bf14      	ite	ne
+  6c:	26ff      	movne	r6, #255	; 0xff
+  6e:	2600      	moveq	r6, #0
+  70:	e000      	b.n	74 <ioman_directSectorRead+0x74>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:532
+		return(0);
+	}
+	
+	if((bp=ioman_findFreeSpot(ioman))!=-1){
+		if((ioman_putSectorInCache(ioman,address,bp))){
+			return(-1);
+  72:	26ff      	movs	r6, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:544
+	if(ioman_readSector(ioman,address,buf)){
+		return(-1);
+	}
+
+	return(0);
+}
+  74:	b270      	sxtb	r0, r6
+  76:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+
+Disassembly of section .text.ioman_directSectorWrite:
+
+00000000 <ioman_directSectorWrite>:
+ioman_directSectorWrite():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:548
+/*****************************************************************************/
+
+esint8 ioman_directSectorWrite(IOManager *ioman,euint32 address, euint8* buf)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4604      	mov	r4, r0
+   6:	460e      	mov	r6, r1
+   8:	4690      	mov	r8, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:552
+	euint8* ibuf;
+	esint16 bp;
+	
+	if((bp=ioman_findSectorInCache(ioman,address))!=-1){
+   a:	f7ff fffe 	bl	0 <ioman_directSectorWrite>
+   e:	b280      	uxth	r0, r0
+  10:	b203      	sxth	r3, r0
+  12:	f1b3 3fff 	cmp.w	r3, #4294967295
+  16:	d00e      	beq.n	36 <ioman_directSectorWrite+0x36>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:553
+		ibuf=ioman_getPtr(ioman,bp);
+  18:	b285      	uxth	r5, r0
+  1a:	4629      	mov	r1, r5
+  1c:	4620      	mov	r0, r4
+  1e:	f7ff fffe 	bl	0 <ioman_directSectorWrite>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:554
+		memCpy(buf,ibuf,512);
+  22:	f44f 7200 	mov.w	r2, #512	; 0x200
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:553
+{
+	euint8* ibuf;
+	esint16 bp;
+	
+	if((bp=ioman_findSectorInCache(ioman,address))!=-1){
+		ibuf=ioman_getPtr(ioman,bp);
+  26:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:554
+		memCpy(buf,ibuf,512);
+  28:	4640      	mov	r0, r8
+  2a:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:555
+		ioman_setWritable(bp);
+  2e:	4620      	mov	r0, r4
+  30:	4629      	mov	r1, r5
+  32:	2202      	movs	r2, #2
+  34:	e022      	b.n	7c <ioman_directSectorWrite+0x7c>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:559
+		return(0);
+	}
+	
+	if((bp=ioman_findFreeSpot(ioman))!=-1){
+  36:	4620      	mov	r0, r4
+  38:	f7ff fffe 	bl	0 <ioman_directSectorWrite>
+  3c:	b280      	uxth	r0, r0
+  3e:	b207      	sxth	r7, r0
+  40:	f1b7 3fff 	cmp.w	r7, #4294967295
+  44:	d01f      	beq.n	86 <ioman_directSectorWrite+0x86>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:560
+		ibuf=ioman_getPtr(ioman,bp);
+  46:	b285      	uxth	r5, r0
+  48:	4629      	mov	r1, r5
+  4a:	4620      	mov	r0, r4
+  4c:	f7ff fffe 	bl	0 <ioman_directSectorWrite>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:561
+		memCpy(buf,ibuf,512);
+  50:	f44f 7200 	mov.w	r2, #512	; 0x200
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:560
+		ioman_setWritable(bp);
+		return(0);
+	}
+	
+	if((bp=ioman_findFreeSpot(ioman))!=-1){
+		ibuf=ioman_getPtr(ioman,bp);
+  54:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:561
+		memCpy(buf,ibuf,512);
+  56:	4640      	mov	r0, r8
+  58:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:563
+		ioman_resetCacheItem(ioman,bp);
+		ioman->sector[bp]=address;
+  5c:	3706      	adds	r7, #6
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:562
+	}
+	
+	if((bp=ioman_findFreeSpot(ioman))!=-1){
+		ibuf=ioman_getPtr(ioman,bp);
+		memCpy(buf,ibuf,512);
+		ioman_resetCacheItem(ioman,bp);
+  5e:	4620      	mov	r0, r4
+  60:	4629      	mov	r1, r5
+  62:	f7ff fffe 	bl	0 <ioman_directSectorWrite>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:564
+		ioman->sector[bp]=address;
+		ioman_setWritable(bp);
+  66:	4620      	mov	r0, r4
+  68:	4629      	mov	r1, r5
+  6a:	2202      	movs	r2, #2
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:563
+	
+	if((bp=ioman_findFreeSpot(ioman))!=-1){
+		ibuf=ioman_getPtr(ioman,bp);
+		memCpy(buf,ibuf,512);
+		ioman_resetCacheItem(ioman,bp);
+		ioman->sector[bp]=address;
+  6c:	f844 6027 	str.w	r6, [r4, r7, lsl #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:564
+		ioman_setWritable(bp);
+  70:	2301      	movs	r3, #1
+  72:	f7ff fffe 	bl	0 <ioman_directSectorWrite>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:565
+		ioman_setValid(bp);
+  76:	4620      	mov	r0, r4
+  78:	4629      	mov	r1, r5
+  7a:	2200      	movs	r2, #0
+  7c:	2301      	movs	r3, #1
+  7e:	f7ff fffe 	bl	0 <ioman_directSectorWrite>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:566
+		return(0);
+  82:	2000      	movs	r0, #0
+  84:	e008      	b.n	98 <ioman_directSectorWrite+0x98>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:569
+	}
+
+	if(ioman_writeSector(ioman,address,buf)){
+  86:	4620      	mov	r0, r4
+  88:	4631      	mov	r1, r6
+  8a:	4642      	mov	r2, r8
+  8c:	f7ff fffe 	bl	0 <ioman_directSectorWrite>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:570
+		return(-1);
+  90:	2800      	cmp	r0, #0
+  92:	bf14      	ite	ne
+  94:	20ff      	movne	r0, #255	; 0xff
+  96:	2000      	moveq	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:574
+	}
+
+	return(0);
+}
+  98:	b240      	sxtb	r0, r0
+  9a:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.ioman_printStatus:
+
+00000000 <ioman_printStatus>:
+ioman_printStatus():
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:578
+/*****************************************************************************/
+
+void ioman_printStatus(IOManager *ioman)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:584
+	euint16 c;
+	
+	//DBG((TXT("IO-Manager -- Report\n====================\n")));
+	//DBG((TXT("Buffer is %i sectors, from %p to %p\n"),
+	          //ioman->numbuf,ioman->bufptr,ioman->bufptr+(ioman->numbuf*512)));
+	for(c=0;c<ioman->numbuf;c++){
+   4:	2400      	movs	r4, #0
+   6:	e006      	b.n	16 <ioman_printStatus+0x16>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:585
+		if(ioman_isValid(c)){
+   8:	4621      	mov	r1, r4
+   a:	4628      	mov	r0, r5
+   c:	2200      	movs	r2, #0
+   e:	f7ff fffe 	bl	0 <ioman_printStatus>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:584
+	euint16 c;
+	
+	//DBG((TXT("IO-Manager -- Report\n====================\n")));
+	//DBG((TXT("Buffer is %i sectors, from %p to %p\n"),
+	          //ioman->numbuf,ioman->bufptr,ioman->bufptr+(ioman->numbuf*512)));
+	for(c=0;c<ioman->numbuf;c++){
+  12:	3401      	adds	r4, #1
+  14:	b2a4      	uxth	r4, r4
+  16:	892b      	ldrh	r3, [r5, #8]
+  18:	42a3      	cmp	r3, r4
+  1a:	d8f5      	bhi.n	8 <ioman_printStatus+0x8>
+D:\sunny\stm32\therme\Utilities\efsl\source/ioman.c:592
+				//c,ioman->sector[c],ioman_getUseCnt(ioman,c),ioman_getRefCnt(ioman,c),
+				//ioman_isUserBuf(c) ? "USRBUF" : "      ",
+				//ioman_isWritable(c) ? "WRITABLE" : "READONLY"));
+		}
+	}
+}
+  1c:	bd38      	pop	{r3, r4, r5, pc}

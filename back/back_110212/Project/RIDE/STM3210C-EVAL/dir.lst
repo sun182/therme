@@ -1,0 +1,1175 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\dir.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\dir.o
+
+
+Disassembly of section .text.dir_getFileStructure:
+
+00000000 <dir_getFileStructure>:
+dir_getFileStructure():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:46
+ * Description: This function stores the filerecord located at loc in filerec.
+ * It fetches the required sector for this.
+ * Return value: void
+*/
+void dir_getFileStructure(FileSystem *fs,FileRecord *filerec,FileLocation *loc)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4607      	mov	r7, r0
+   6:	460c      	mov	r4, r1
+   8:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:49
+	euint8 *buf;
+
+	buf=part_getSect(fs->part,loc->Sector,IOM_MODE_READONLY);
+   a:	6811      	ldr	r1, [r2, #0]
+   c:	6800      	ldr	r0, [r0, #0]
+   e:	2201      	movs	r2, #1
+  10:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:50
+	*filerec=*(((FileRecord*)buf)+loc->Offset);
+  14:	f895 c004 	ldrb.w	ip, [r5, #4]
+  18:	4625      	mov	r5, r4
+  1a:	ea4f 1c4c 	mov.w	ip, ip, lsl #5
+  1e:	4484      	add	ip, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:49
+*/
+void dir_getFileStructure(FileSystem *fs,FileRecord *filerec,FileLocation *loc)
+{
+	euint8 *buf;
+
+	buf=part_getSect(fs->part,loc->Sector,IOM_MODE_READONLY);
+  20:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:50
+	*filerec=*(((FileRecord*)buf)+loc->Offset);
+  22:	e8bc 000f 	ldmia.w	ip!, {r0, r1, r2, r3}
+  26:	c50f      	stmia	r5!, {r0, r1, r2, r3}
+  28:	e89c 000f 	ldmia.w	ip, {r0, r1, r2, r3}
+  2c:	e885 000f 	stmia.w	r5, {r0, r1, r2, r3}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:51
+	part_relSect(fs->part,buf);
+  30:	6838      	ldr	r0, [r7, #0]
+  32:	4631      	mov	r1, r6
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:52
+}	
+  34:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:51
+{
+	euint8 *buf;
+
+	buf=part_getSect(fs->part,loc->Sector,IOM_MODE_READONLY);
+	*filerec=*(((FileRecord*)buf)+loc->Offset);
+	part_relSect(fs->part,buf);
+  38:	f7ff bffe 	b.w	0 <part_relSect>
+
+Disassembly of section .text.dir_createDirectoryEntry:
+
+00000000 <dir_createDirectoryEntry>:
+dir_createDirectoryEntry():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:63
+ * Description: This function writes the filerecord stored in filerec to disc at
+ * location loc. 
+ * Return value: void
+*/
+void dir_createDirectoryEntry(FileSystem *fs,FileRecord *filerec,FileLocation *loc)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4605      	mov	r5, r0
+   6:	460f      	mov	r7, r1
+   8:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:66
+	euint8 *buf;
+	
+	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+   a:	6811      	ldr	r1, [r2, #0]
+   c:	6800      	ldr	r0, [r0, #0]
+   e:	2202      	movs	r2, #2
+  10:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:67
+	memCpy(filerec,buf+(loc->Offset*sizeof(*filerec)),sizeof(*filerec));
+  14:	7931      	ldrb	r1, [r6, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:66
+*/
+void dir_createDirectoryEntry(FileSystem *fs,FileRecord *filerec,FileLocation *loc)
+{
+	euint8 *buf;
+	
+	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+  16:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:67
+	memCpy(filerec,buf+(loc->Offset*sizeof(*filerec)),sizeof(*filerec));
+  18:	0149      	lsls	r1, r1, #5
+  1a:	4638      	mov	r0, r7
+  1c:	1861      	adds	r1, r4, r1
+  1e:	2220      	movs	r2, #32
+  20:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:68
+	part_relSect(fs->part,buf);
+  24:	6828      	ldr	r0, [r5, #0]
+  26:	4621      	mov	r1, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:69
+}
+  28:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:68
+{
+	euint8 *buf;
+	
+	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+	memCpy(filerec,buf+(loc->Offset*sizeof(*filerec)),sizeof(*filerec));
+	part_relSect(fs->part,buf);
+  2c:	f7ff bffe 	b.w	0 <part_relSect>
+
+Disassembly of section .text.dir_createDefaultEntry:
+
+00000000 <dir_createDefaultEntry>:
+dir_createDefaultEntry():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:80
+ * a given fatfilename. If your system has a means of knowing time, here is an 
+ * excellent place to apply it to the filerecord.  
+ * Return value: void
+*/
+void dir_createDefaultEntry(FileSystem *fs,FileRecord *filerec,eint8* fatfilename)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:81
+	memCpy(fatfilename,filerec->FileName,11);
+   2:	4610      	mov	r0, r2
+   4:	220b      	movs	r2, #11
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:80
+ * a given fatfilename. If your system has a means of knowing time, here is an 
+ * excellent place to apply it to the filerecord.  
+ * Return value: void
+*/
+void dir_createDefaultEntry(FileSystem *fs,FileRecord *filerec,eint8* fatfilename)
+{
+   6:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:81
+	memCpy(fatfilename,filerec->FileName,11);
+   8:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:82
+	filerec->Attribute=0x00;
+   c:	2300      	movs	r3, #0
+   e:	72e3      	strb	r3, [r4, #11]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:83
+	filerec->NTReserved=0x00;
+  10:	7323      	strb	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:84
+	filerec->MilliSecTimeStamp=0x00;
+  12:	7363      	strb	r3, [r4, #13]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:85
+	filerec->CreatedTime=time_getTime();
+  14:	81e3      	strh	r3, [r4, #14]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:86
+	filerec->CreatedDate=time_getDate(); 
+  16:	8223      	strh	r3, [r4, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:87
+	filerec->AccessDate=filerec->CreatedDate;
+  18:	8263      	strh	r3, [r4, #18]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:88
+	filerec->FirstClusterHigh=0x0000;
+  1a:	82a3      	strh	r3, [r4, #20]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:89
+	filerec->WriteTime=filerec->CreatedTime;
+  1c:	82e3      	strh	r3, [r4, #22]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:90
+	filerec->WriteDate=filerec->CreatedDate;
+  1e:	8323      	strh	r3, [r4, #24]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:91
+	filerec->FirstClusterLow=0x0000;
+  20:	8363      	strh	r3, [r4, #26]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:92
+	filerec->FileSize=0x00000000;
+  22:	61e3      	str	r3, [r4, #28]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:93
+}
+  24:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.dir_setFirstCluster:
+
+00000000 <dir_setFirstCluster>:
+dir_setFirstCluster():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:103
+ * Description: This function requires modification to release it from
+ * depending on the file object.
+ * Return value:
+*/
+void dir_setFirstCluster(FileSystem *fs,FileLocation *loc,euint32 cluster_addr)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	460c      	mov	r4, r1
+   4:	4616      	mov	r6, r2
+   6:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:106
+	euint8 *buf;
+ 	
+ 	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+   8:	2202      	movs	r2, #2
+   a:	6809      	ldr	r1, [r1, #0]
+   c:	6800      	ldr	r0, [r0, #0]
+   e:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:107
+	(((FileRecord*)buf)+loc->Offset)->FirstClusterHigh=cluster_addr>>16;
+  12:	7923      	ldrb	r3, [r4, #4]
+  14:	0c32      	lsrs	r2, r6, #16
+  16:	015b      	lsls	r3, r3, #5
+  18:	18c3      	adds	r3, r0, r3
+  1a:	829a      	strh	r2, [r3, #20]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:108
+	(((FileRecord*)buf)+loc->Offset)->FirstClusterLow=cluster_addr&0xFFFF;	
+  1c:	7923      	ldrb	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:106
+*/
+void dir_setFirstCluster(FileSystem *fs,FileLocation *loc,euint32 cluster_addr)
+{
+	euint8 *buf;
+ 	
+ 	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+  1e:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:108
+	(((FileRecord*)buf)+loc->Offset)->FirstClusterHigh=cluster_addr>>16;
+	(((FileRecord*)buf)+loc->Offset)->FirstClusterLow=cluster_addr&0xFFFF;	
+  20:	015b      	lsls	r3, r3, #5
+  22:	18c3      	adds	r3, r0, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:109
+	part_relSect(fs->part,buf);
+  24:	6828      	ldr	r0, [r5, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:108
+{
+	euint8 *buf;
+ 	
+ 	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+	(((FileRecord*)buf)+loc->Offset)->FirstClusterHigh=cluster_addr>>16;
+	(((FileRecord*)buf)+loc->Offset)->FirstClusterLow=cluster_addr&0xFFFF;	
+  26:	835e      	strh	r6, [r3, #26]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:110
+	part_relSect(fs->part,buf);
+}
+  28:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:109
+	euint8 *buf;
+ 	
+ 	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+	(((FileRecord*)buf)+loc->Offset)->FirstClusterHigh=cluster_addr>>16;
+	(((FileRecord*)buf)+loc->Offset)->FirstClusterLow=cluster_addr&0xFFFF;	
+	part_relSect(fs->part,buf);
+  2c:	f7ff bffe 	b.w	0 <part_relSect>
+
+Disassembly of section .text.dir_setFileSize:
+
+00000000 <dir_setFileSize>:
+dir_setFileSize():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:120
+ * Description: This function changes the filesize recorded at loc->Sector
+ * to 'numbytes'.
+ * Return value: void
+*/
+void dir_setFileSize(FileSystem *fs, FileLocation *loc,euint32 numbytes)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+   4:	460d      	mov	r5, r1
+   6:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:123
+	euint8 *buf;
+	
+	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+   8:	6809      	ldr	r1, [r1, #0]
+   a:	2202      	movs	r2, #2
+   c:	6800      	ldr	r0, [r0, #0]
+   e:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:124
+	(((FileRecord*)buf)+loc->Offset)->FileSize=numbytes;
+  12:	792b      	ldrb	r3, [r5, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:123
+*/
+void dir_setFileSize(FileSystem *fs, FileLocation *loc,euint32 numbytes)
+{
+	euint8 *buf;
+	
+	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+  14:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:124
+	(((FileRecord*)buf)+loc->Offset)->FileSize=numbytes;
+  16:	015b      	lsls	r3, r3, #5
+  18:	18c3      	adds	r3, r0, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:125
+	part_relSect(fs->part,buf);
+  1a:	6820      	ldr	r0, [r4, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:124
+void dir_setFileSize(FileSystem *fs, FileLocation *loc,euint32 numbytes)
+{
+	euint8 *buf;
+	
+	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+	(((FileRecord*)buf)+loc->Offset)->FileSize=numbytes;
+  1c:	61de      	str	r6, [r3, #28]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:126
+	part_relSect(fs->part,buf);
+}
+  1e:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:125
+{
+	euint8 *buf;
+	
+	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+	(((FileRecord*)buf)+loc->Offset)->FileSize=numbytes;
+	part_relSect(fs->part,buf);
+  22:	f7ff bffe 	b.w	0 <part_relSect>
+
+Disassembly of section .text.dir_updateDirectoryEntry:
+
+00000000 <dir_updateDirectoryEntry>:
+dir_updateDirectoryEntry():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:136
+ * This function changes the entire entity stores at loc to the data recorded
+ * in entry. This is for custom updates to the directoryentry.
+ * Return value: 0 on success, -1 on failure
+*/
+esint8 dir_updateDirectoryEntry(FileSystem *fs,FileRecord *entry,FileLocation *loc)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+   2:	4605      	mov	r5, r0
+   4:	460f      	mov	r7, r1
+   6:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:139
+	euint8 *buf;
+	
+	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+   8:	6811      	ldr	r1, [r2, #0]
+   a:	6800      	ldr	r0, [r0, #0]
+   c:	2202      	movs	r2, #2
+   e:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:140
+	memCpy(entry,buf+(loc->Offset*sizeof(*entry)),sizeof(*entry));
+  12:	7931      	ldrb	r1, [r6, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:139
+*/
+esint8 dir_updateDirectoryEntry(FileSystem *fs,FileRecord *entry,FileLocation *loc)
+{
+	euint8 *buf;
+	
+	buf = part_getSect(fs->part,loc->Sector,IOM_MODE_READWRITE);
+  14:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:140
+	memCpy(entry,buf+(loc->Offset*sizeof(*entry)),sizeof(*entry));
+  16:	0149      	lsls	r1, r1, #5
+  18:	4638      	mov	r0, r7
+  1a:	1861      	adds	r1, r4, r1
+  1c:	2220      	movs	r2, #32
+  1e:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:141
+	part_relSect(fs->part,buf);
+  22:	6828      	ldr	r0, [r5, #0]
+  24:	4621      	mov	r1, r4
+  26:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:143
+	return(0);
+}
+  2a:	2000      	movs	r0, #0
+  2c:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+
+Disassembly of section .text.dir_findFileinBuf:
+
+00000000 <dir_findFileinBuf>:
+dir_findFileinBuf():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:156
+ * If loc is 0, then it's members are not touched.
+ * Return value: This function returns 0 when it cannot find the file,
+ * if it can find the file it will return the first cluster number.
+*/
+euint32 dir_findFileinBuf(euint8 *buf, eint8 *fatname, FileLocation *loc)
+{
+   0:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+   4:	2700      	movs	r7, #0
+   6:	b088      	sub	sp, #32
+   8:	4681      	mov	r9, r0
+   a:	468a      	mov	sl, r1
+   c:	4690      	mov	r8, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:160
+	FileRecord fileEntry;
+	euint8 c;
+	
+	for(c=0; c<16; c++)
+   e:	463e      	mov	r6, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:162
+	{
+		fileEntry = *(((FileRecord*)buf) + c);
+  10:	466c      	mov	r4, sp
+  12:	eb09 0507 	add.w	r5, r9, r7
+  16:	cd0f      	ldmia	r5!, {r0, r1, r2, r3}
+  18:	c40f      	stmia	r4!, {r0, r1, r2, r3}
+  1a:	e895 000f 	ldmia.w	r5, {r0, r1, r2, r3}
+  1e:	e884 000f 	stmia.w	r4, {r0, r1, r2, r3}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:164
+		/* Check if the entry is for short filenames */
+		if( !( (fileEntry.Attribute & 0x0F) == 0x0F ) )
+  22:	f89d 300b 	ldrb.w	r3, [sp, #11]
+  26:	f003 030f 	and.w	r3, r3, #15
+  2a:	2b0f      	cmp	r3, #15
+  2c:	d017      	beq.n	5e <dir_findFileinBuf+0x5e>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:166
+		{
+			if( strMatch((eint8*)fileEntry.FileName,fatname,11) == 0 )
+  2e:	4668      	mov	r0, sp
+  30:	4651      	mov	r1, sl
+  32:	220b      	movs	r2, #11
+  34:	f7ff fffe 	bl	0 <strMatch>
+  38:	b988      	cbnz	r0, 5e <dir_findFileinBuf+0x5e>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:169
+			{
+				/* The entry has been found, return the location in the dir */
+				if(loc)loc->Offset = c;
+  3a:	f1b8 0f00 	cmp.w	r8, #0
+  3e:	d005      	beq.n	4c <dir_findFileinBuf+0x4c>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:170
+				if(loc)loc->attrib = fileEntry.Attribute;
+  40:	f89d 300b 	ldrb.w	r3, [sp, #11]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:169
+		if( !( (fileEntry.Attribute & 0x0F) == 0x0F ) )
+		{
+			if( strMatch((eint8*)fileEntry.FileName,fatname,11) == 0 )
+			{
+				/* The entry has been found, return the location in the dir */
+				if(loc)loc->Offset = c;
+  44:	f888 6004 	strb.w	r6, [r8, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:170
+				if(loc)loc->attrib = fileEntry.Attribute;
+  48:	f888 3005 	strb.w	r3, [r8, #5]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:171
+				if((((euint32 )fileEntry.FirstClusterHigh)<<16)+ fileEntry.FirstClusterLow==0){
+  4c:	f8bd 0014 	ldrh.w	r0, [sp, #20]
+  50:	f8bd 301a 	ldrh.w	r3, [sp, #26]
+  54:	0400      	lsls	r0, r0, #16
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:172
+					return(1); /* Lie about cluster, 0 means not found! */
+  56:	18c0      	adds	r0, r0, r3
+  58:	bf08      	it	eq
+  5a:	2001      	moveq	r0, #1
+  5c:	e005      	b.n	6a <dir_findFileinBuf+0x6a>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:160
+euint32 dir_findFileinBuf(euint8 *buf, eint8 *fatname, FileLocation *loc)
+{
+	FileRecord fileEntry;
+	euint8 c;
+	
+	for(c=0; c<16; c++)
+  5e:	3601      	adds	r6, #1
+  60:	b2f6      	uxtb	r6, r6
+  62:	3720      	adds	r7, #32
+  64:	2e10      	cmp	r6, #16
+  66:	d1d3      	bne.n	10 <dir_findFileinBuf+0x10>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:183
+							);
+				}
+			}
+		}
+	}
+	return(0);
+  68:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:184
+}
+  6a:	b008      	add	sp, #32
+  6c:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+
+Disassembly of section .text.dir_findFreeEntryinBuf:
+
+00000000 <dir_findFreeEntryinBuf>:
+dir_findFreeEntryinBuf():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:193
+ * This function searches for a free entry in a given sector 'buf'.
+ * It will put the offset into the loc->Offset field, given that loc is not 0.
+ * Return value: 1 when it found a free spot, 0 if it hasn't.
+*/
+euint32 dir_findFreeEntryinBuf(euint8* buf, FileLocation *loc)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:197
+	FileRecord fileEntry;
+	euint8 c;
+	
+	for(c=0;c<16;c++){
+   2:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:199
+		fileEntry = *(((FileRecord*)buf) + c);
+		if( !( (fileEntry.Attribute & 0x0F) == 0x0F ) ){
+   4:	7ac4      	ldrb	r4, [r0, #11]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:192
+ * euint32 dir_findFreeEntryinBuf(euint8* buf, FileLocation *loc)
+ * This function searches for a free entry in a given sector 'buf'.
+ * It will put the offset into the loc->Offset field, given that loc is not 0.
+ * Return value: 1 when it found a free spot, 0 if it hasn't.
+*/
+euint32 dir_findFreeEntryinBuf(euint8* buf, FileLocation *loc)
+   6:	7802      	ldrb	r2, [r0, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:199
+	FileRecord fileEntry;
+	euint8 c;
+	
+	for(c=0;c<16;c++){
+		fileEntry = *(((FileRecord*)buf) + c);
+		if( !( (fileEntry.Attribute & 0x0F) == 0x0F ) ){
+   8:	f004 040f 	and.w	r4, r4, #15
+   c:	2c0f      	cmp	r4, #15
+   e:	d006      	beq.n	1e <dir_findFreeEntryinBuf+0x1e>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:200
+			if(fileEntry.FileName[0] == 0x00 ||
+  10:	b10a      	cbz	r2, 16 <dir_findFreeEntryinBuf+0x16>
+  12:	2ae5      	cmp	r2, #229	; 0xe5
+  14:	d103      	bne.n	1e <dir_findFreeEntryinBuf+0x1e>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:202
+			   fileEntry.FileName[0] == 0xE5 ){
+				if(loc)loc->Offset=c;
+  16:	b149      	cbz	r1, 2c <dir_findFreeEntryinBuf+0x2c>
+  18:	710b      	strb	r3, [r1, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:203
+				return(1);
+  1a:	2001      	movs	r0, #1
+  1c:	bd10      	pop	{r4, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:197
+euint32 dir_findFreeEntryinBuf(euint8* buf, FileLocation *loc)
+{
+	FileRecord fileEntry;
+	euint8 c;
+	
+	for(c=0;c<16;c++){
+  1e:	3301      	adds	r3, #1
+  20:	b2db      	uxtb	r3, r3
+  22:	3020      	adds	r0, #32
+  24:	2b10      	cmp	r3, #16
+  26:	d1ed      	bne.n	4 <dir_findFreeEntryinBuf+0x4>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:207
+				if(loc)loc->Offset=c;
+				return(1);
+			}
+		}
+	}
+	return(0);
+  28:	2000      	movs	r0, #0
+  2a:	bd10      	pop	{r4, pc}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:203
+		fileEntry = *(((FileRecord*)buf) + c);
+		if( !( (fileEntry.Attribute & 0x0F) == 0x0F ) ){
+			if(fileEntry.FileName[0] == 0x00 ||
+			   fileEntry.FileName[0] == 0xE5 ){
+				if(loc)loc->Offset=c;
+				return(1);
+  2c:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:208
+			}
+		}
+	}
+	return(0);
+}
+  2e:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.dir_findinBuf:
+
+00000000 <dir_findinBuf>:
+dir_findinBuf():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:216
+ * euint32  dir_findinBuf(euint8 *buf, eint8 *fatname, FileLocation *loc)
+ * Description: This function searches for a given fatfilename in a buffer.
+ * Return value: Returns 0 on not found, and the firstcluster when the name is found.
+*/
+euint32  dir_findinBuf(euint8 *buf, eint8 *fatname, FileLocation *loc, euint8 mode)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4614      	mov	r4, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:217
+	switch(mode){
+   4:	b113      	cbz	r3, c <dir_findinBuf+0xc>
+   6:	2b01      	cmp	r3, #1
+   8:	d109      	bne.n	1e <dir_findinBuf+0x1e>
+   a:	e003      	b.n	14 <dir_findinBuf+0x14>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:229
+		default:
+			return(0);
+			//break;
+	}
+	//return(0);
+}
+   c:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:219
+*/
+euint32  dir_findinBuf(euint8 *buf, eint8 *fatname, FileLocation *loc, euint8 mode)
+{
+	switch(mode){
+		case DIRFIND_FILE:
+			return(dir_findFileinBuf(buf,fatname,loc));
+  10:	f7ff bffe 	b.w	0 <dir_findinBuf>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:222
+			//break;
+		case DIRFIND_FREE:
+			return(dir_findFreeEntryinBuf(buf,loc));
+  14:	4611      	mov	r1, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:229
+		default:
+			return(0);
+			//break;
+	}
+	//return(0);
+}
+  16:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:222
+	switch(mode){
+		case DIRFIND_FILE:
+			return(dir_findFileinBuf(buf,fatname,loc));
+			//break;
+		case DIRFIND_FREE:
+			return(dir_findFreeEntryinBuf(buf,loc));
+  1a:	f7ff bffe 	b.w	0 <dir_findinBuf>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:229
+		default:
+			return(0);
+			//break;
+	}
+	//return(0);
+}
+  1e:	2000      	movs	r0, #0
+  20:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.dir_findinCluster:
+
+00000000 <dir_findinCluster>:
+dir_findinCluster():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:239
+ * This function will search for an existing (fatname) or free directory entry
+ * in a full cluster.
+ * Return value: 0 on failure, firstcluster on finding file, and 1 on finding free spot.
+*/
+euint32 dir_findinCluster(FileSystem *fs,euint32 cluster,eint8 *fatname, FileLocation *loc, euint8 mode)
+{
+   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+   4:	4604      	mov	r4, r0
+   6:	460f      	mov	r7, r1
+   8:	4691      	mov	r9, r2
+   a:	461e      	mov	r6, r3
+   c:	f89d a028 	ldrb.w	sl, [sp, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:243
+	euint8 c,*buf=0;
+	euint32 fclus;
+	
+	for(c=0;c<fs->volumeId.SectorsPerCluster;c++){
+  10:	2500      	movs	r5, #0
+  12:	e024      	b.n	5e <dir_findinCluster+0x5e>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:244
+		buf = part_getSect(fs->part,fs_clusterToSector(fs,cluster)+c,IOM_MODE_READONLY);
+  14:	4639      	mov	r1, r7
+  16:	4620      	mov	r0, r4
+  18:	f8d4 8000 	ldr.w	r8, [r4]
+  1c:	f7ff fffe 	bl	0 <fs_clusterToSector>
+  20:	2201      	movs	r2, #1
+  22:	1941      	adds	r1, r0, r5
+  24:	4640      	mov	r0, r8
+  26:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:245
+		if((fclus=dir_findinBuf(buf,fatname,loc,mode))){
+  2a:	4649      	mov	r1, r9
+  2c:	4632      	mov	r2, r6
+  2e:	4653      	mov	r3, sl
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:244
+{
+	euint8 c,*buf=0;
+	euint32 fclus;
+	
+	for(c=0;c<fs->volumeId.SectorsPerCluster;c++){
+		buf = part_getSect(fs->part,fs_clusterToSector(fs,cluster)+c,IOM_MODE_READONLY);
+  30:	4680      	mov	r8, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:245
+		if((fclus=dir_findinBuf(buf,fatname,loc,mode))){
+  32:	f7ff fffe 	bl	0 <dir_findinCluster>
+  36:	4683      	mov	fp, r0
+  38:	b158      	cbz	r0, 52 <dir_findinCluster+0x52>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:246
+			if(loc)loc->Sector=fs_clusterToSector(fs,cluster)+c;
+  3a:	b12e      	cbz	r6, 48 <dir_findinCluster+0x48>
+  3c:	4620      	mov	r0, r4
+  3e:	4639      	mov	r1, r7
+  40:	f7ff fffe 	bl	0 <fs_clusterToSector>
+  44:	1940      	adds	r0, r0, r5
+  46:	6030      	str	r0, [r6, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:247
+			part_relSect(fs->part,buf);
+  48:	6820      	ldr	r0, [r4, #0]
+  4a:	4641      	mov	r1, r8
+  4c:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:248
+			return(fclus);
+  50:	e00a      	b.n	68 <dir_findinCluster+0x68>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:250
+		}
+		part_relSect(fs->part,buf); /* Thanks Mike ;) */
+  52:	6820      	ldr	r0, [r4, #0]
+  54:	4641      	mov	r1, r8
+  56:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:243
+euint32 dir_findinCluster(FileSystem *fs,euint32 cluster,eint8 *fatname, FileLocation *loc, euint8 mode)
+{
+	euint8 c,*buf=0;
+	euint32 fclus;
+	
+	for(c=0;c<fs->volumeId.SectorsPerCluster;c++){
+  5a:	3501      	adds	r5, #1
+  5c:	b2ed      	uxtb	r5, r5
+  5e:	79a3      	ldrb	r3, [r4, #6]
+  60:	42ab      	cmp	r3, r5
+  62:	d8d7      	bhi.n	14 <dir_findinCluster+0x14>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:252
+			part_relSect(fs->part,buf);
+			return(fclus);
+		}
+		part_relSect(fs->part,buf); /* Thanks Mike ;) */
+	}
+	return(0);
+  64:	f04f 0b00 	mov.w	fp, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:253
+}
+  68:	4658      	mov	r0, fp
+  6a:	e8bd 8ff8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+
+Disassembly of section .text.dir_findinRootArea:
+
+00000000 <dir_findinRootArea>:
+dir_findinRootArea():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:288
+ * This function will search for an existing (fatname) or free directory entry
+ * in the rootdirectory-area of a FAT12/FAT16 filesystem.
+ * Return value: 0 on failure, firstcluster on finding file, and 1 on finding free spot.
+*/
+euint32 dir_findinRootArea(FileSystem *fs,eint8* fatname, FileLocation *loc, euint8 mode)
+{
+   0:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+   4:	4698      	mov	r8, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:292
+	euint32 c,fclus;
+	euint8 *buf=0;
+	
+	if((fs->type != FAT12) && (fs->type != FAT16))return(0);
+   6:	f890 303c 	ldrb.w	r3, [r0, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:288
+ * This function will search for an existing (fatname) or free directory entry
+ * in the rootdirectory-area of a FAT12/FAT16 filesystem.
+ * Return value: 0 on failure, firstcluster on finding file, and 1 on finding free spot.
+*/
+euint32 dir_findinRootArea(FileSystem *fs,eint8* fatname, FileLocation *loc, euint8 mode)
+{
+   a:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:292
+	euint32 c,fclus;
+	euint8 *buf=0;
+	
+	if((fs->type != FAT12) && (fs->type != FAT16))return(0);
+   c:	3b01      	subs	r3, #1
+   e:	b2db      	uxtb	r3, r3
+  10:	2b01      	cmp	r3, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:288
+ * This function will search for an existing (fatname) or free directory entry
+ * in the rootdirectory-area of a FAT12/FAT16 filesystem.
+ * Return value: 0 on failure, firstcluster on finding file, and 1 on finding free spot.
+*/
+euint32 dir_findinRootArea(FileSystem *fs,eint8* fatname, FileLocation *loc, euint8 mode)
+{
+  12:	4689      	mov	r9, r1
+  14:	4617      	mov	r7, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:292
+	euint32 c,fclus;
+	euint8 *buf=0;
+	
+	if((fs->type != FAT12) && (fs->type != FAT16))return(0);
+  16:	d825      	bhi.n	64 <dir_findinRootArea+0x64>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:294
+	
+	for(c=fs->FirstSectorRootDir;c<(fs->FirstSectorRootDir+fs->volumeId.RootEntryCount/32);c++){
+  18:	6ac5      	ldr	r5, [r0, #44]	; 0x2c
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:290
+ * Return value: 0 on failure, firstcluster on finding file, and 1 on finding free spot.
+*/
+euint32 dir_findinRootArea(FileSystem *fs,eint8* fatname, FileLocation *loc, euint8 mode)
+{
+	euint32 c,fclus;
+	euint8 *buf=0;
+  1a:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:294
+	
+	if((fs->type != FAT12) && (fs->type != FAT16))return(0);
+	
+	for(c=fs->FirstSectorRootDir;c<(fs->FirstSectorRootDir+fs->volumeId.RootEntryCount/32);c++){
+  1c:	e018      	b.n	50 <dir_findinRootArea+0x50>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:295
+		buf = part_getSect(fs->part,c,IOM_MODE_READONLY);
+  1e:	4629      	mov	r1, r5
+  20:	2201      	movs	r2, #1
+  22:	6820      	ldr	r0, [r4, #0]
+  24:	f7ff fffe 	bl	0 <part_getSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:296
+		if((fclus=dir_findinBuf(buf,fatname,loc,mode))){
+  28:	4649      	mov	r1, r9
+  2a:	463a      	mov	r2, r7
+  2c:	4643      	mov	r3, r8
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:295
+	euint8 *buf=0;
+	
+	if((fs->type != FAT12) && (fs->type != FAT16))return(0);
+	
+	for(c=fs->FirstSectorRootDir;c<(fs->FirstSectorRootDir+fs->volumeId.RootEntryCount/32);c++){
+		buf = part_getSect(fs->part,c,IOM_MODE_READONLY);
+  2e:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:296
+		if((fclus=dir_findinBuf(buf,fatname,loc,mode))){
+  30:	f7ff fffe 	bl	0 <dir_findinRootArea>
+  34:	4682      	mov	sl, r0
+  36:	b130      	cbz	r0, 46 <dir_findinRootArea+0x46>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:297
+			if(loc)loc->Sector=c;
+  38:	b107      	cbz	r7, 3c <dir_findinRootArea+0x3c>
+  3a:	603d      	str	r5, [r7, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:298
+			part_relSect(fs->part,buf);
+  3c:	6820      	ldr	r0, [r4, #0]
+  3e:	4631      	mov	r1, r6
+  40:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:299
+			return(fclus);
+  44:	e010      	b.n	68 <dir_findinRootArea+0x68>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:301
+		}	
+		part_relSect(fs->part,buf);	
+  46:	6820      	ldr	r0, [r4, #0]
+  48:	4631      	mov	r1, r6
+  4a:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:294
+	euint32 c,fclus;
+	euint8 *buf=0;
+	
+	if((fs->type != FAT12) && (fs->type != FAT16))return(0);
+	
+	for(c=fs->FirstSectorRootDir;c<(fs->FirstSectorRootDir+fs->volumeId.RootEntryCount/32);c++){
+  4e:	3501      	adds	r5, #1
+  50:	89a2      	ldrh	r2, [r4, #12]
+  52:	6ae3      	ldr	r3, [r4, #44]	; 0x2c
+  54:	eb03 1352 	add.w	r3, r3, r2, lsr #5
+  58:	429d      	cmp	r5, r3
+  5a:	d3e0      	bcc.n	1e <dir_findinRootArea+0x1e>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:303
+			part_relSect(fs->part,buf);
+			return(fclus);
+		}	
+		part_relSect(fs->part,buf);	
+	}
+	part_relSect(fs->part,buf);
+  5c:	6820      	ldr	r0, [r4, #0]
+  5e:	4631      	mov	r1, r6
+  60:	f7ff fffe 	bl	0 <part_relSect>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:292
+euint32 dir_findinRootArea(FileSystem *fs,eint8* fatname, FileLocation *loc, euint8 mode)
+{
+	euint32 c,fclus;
+	euint8 *buf=0;
+	
+	if((fs->type != FAT12) && (fs->type != FAT16))return(0);
+  64:	f04f 0a00 	mov.w	sl, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:305
+		}	
+		part_relSect(fs->part,buf);	
+	}
+	part_relSect(fs->part,buf);
+	return(0);
+}
+  68:	4650      	mov	r0, sl
+  6a:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+
+Disassembly of section .text.dir_findinDir:
+
+00000000 <dir_findinDir>:
+dir_findinDir():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:262
+ * This function will search for an existing (fatname) or free directory entry
+ * in a directory, following the clusterchains.
+ * Return value: 0 on failure, firstcluster on finding file, and 1 on finding free spot.
+*/
+euint32 dir_findinDir(FileSystem *fs, eint8* fatname,euint32 firstcluster, FileLocation *loc, euint8 mode)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	461d      	mov	r5, r3
+   6:	b088      	sub	sp, #32
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:267
+	euint32 c=0,cluster;
+	ClusterChain Cache;
+	
+	Cache.DiscCluster = Cache.FirstCluster = firstcluster;
+	Cache.LogicCluster = Cache.LastCluster = Cache.Linear = 0;
+   8:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:269
+	
+	if(firstcluster <= 1){
+   a:	2a01      	cmp	r2, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:262
+ * This function will search for an existing (fatname) or free directory entry
+ * in a directory, following the clusterchains.
+ * Return value: 0 on failure, firstcluster on finding file, and 1 on finding free spot.
+*/
+euint32 dir_findinDir(FileSystem *fs, eint8* fatname,euint32 firstcluster, FileLocation *loc, euint8 mode)
+{
+   c:	4604      	mov	r4, r0
+   e:	4688      	mov	r8, r1
+  10:	f89d 6038 	ldrb.w	r6, [sp, #56]	; 0x38
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:266
+	euint32 c=0,cluster;
+	ClusterChain Cache;
+	
+	Cache.DiscCluster = Cache.FirstCluster = firstcluster;
+  14:	9205      	str	r2, [sp, #20]
+  16:	9204      	str	r2, [sp, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:267
+	Cache.LogicCluster = Cache.LastCluster = Cache.Linear = 0;
+  18:	f88d 3008 	strb.w	r3, [sp, #8]
+  1c:	9306      	str	r3, [sp, #24]
+  1e:	9303      	str	r3, [sp, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:269
+	
+	if(firstcluster <= 1){
+  20:	d80e      	bhi.n	40 <dir_findinDir+0x40>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:270
+		return(dir_findinRootArea(fs,fatname,loc,mode));	
+  22:	462a      	mov	r2, r5
+  24:	4633      	mov	r3, r6
+  26:	f7ff fffe 	bl	0 <dir_findinDir>
+  2a:	e012      	b.n	52 <dir_findinDir+0x52>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:274
+	}
+	
+	while(!fat_LogicToDiscCluster(fs,&Cache,c++)){
+		if((cluster=dir_findinCluster(fs,Cache.DiscCluster,fatname,loc,mode))){
+  2c:	4620      	mov	r0, r4
+  2e:	9904      	ldr	r1, [sp, #16]
+  30:	4642      	mov	r2, r8
+  32:	462b      	mov	r3, r5
+  34:	9600      	str	r6, [sp, #0]
+  36:	f7ff fffe 	bl	0 <dir_findinDir>
+  3a:	b950      	cbnz	r0, 52 <dir_findinDir+0x52>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:273
+	
+	if(firstcluster <= 1){
+		return(dir_findinRootArea(fs,fatname,loc,mode));	
+	}
+	
+	while(!fat_LogicToDiscCluster(fs,&Cache,c++)){
+  3c:	463a      	mov	r2, r7
+  3e:	e000      	b.n	42 <dir_findinDir+0x42>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:269
+	ClusterChain Cache;
+	
+	Cache.DiscCluster = Cache.FirstCluster = firstcluster;
+	Cache.LogicCluster = Cache.LastCluster = Cache.Linear = 0;
+	
+	if(firstcluster <= 1){
+  40:	461a      	mov	r2, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:273
+		return(dir_findinRootArea(fs,fatname,loc,mode));	
+	}
+	
+	while(!fat_LogicToDiscCluster(fs,&Cache,c++)){
+  42:	4620      	mov	r0, r4
+  44:	a902      	add	r1, sp, #8
+  46:	1c57      	adds	r7, r2, #1
+  48:	f7ff fffe 	bl	0 <fat_LogicToDiscCluster>
+  4c:	2800      	cmp	r0, #0
+  4e:	d0ed      	beq.n	2c <dir_findinDir+0x2c>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:278
+		if((cluster=dir_findinCluster(fs,Cache.DiscCluster,fatname,loc,mode))){
+			return(cluster);
+		}
+	}
+	return(0);
+  50:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:279
+}
+  52:	b008      	add	sp, #32
+  54:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.dir_getFatFileName:
+
+00000000 <dir_getFatFileName>:
+dir_getFatFileName():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:314
+ * This function will take a full directory path, and strip off all leading
+ * dirs and characters, leaving you with the MS-DOS notation of the actual filename.
+ * Return value: 1 on success, 0 on not being able to produca a filename
+*/
+esint8 dir_getFatFileName(eint8* filename, eint8* fatfilename)
+{
+   0:	b57f      	push	{r0, r1, r2, r3, r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+   4:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:317
+	eint8 ffnamec[11],*next,nn=0;
+	
+	memClr(ffnamec,11); memClr(fatfilename,11);
+   6:	a801      	add	r0, sp, #4
+   8:	210b      	movs	r1, #11
+   a:	f7ff fffe 	bl	0 <memClr>
+   e:	210b      	movs	r1, #11
+  10:	4630      	mov	r0, r6
+  12:	f7ff fffe 	bl	0 <memClr>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:320
+	next = filename;
+	
+	if(*filename=='/')next++;
+  16:	f994 3000 	ldrsb.w	r3, [r4]
+  1a:	2b2f      	cmp	r3, #47	; 0x2f
+  1c:	bf08      	it	eq
+  1e:	3401      	addeq	r4, #1
+  20:	2500      	movs	r5, #0
+  22:	e006      	b.n	32 <dir_getFatFileName+0x32>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:323
+	
+	while((next=file_normalToFatName(next,ffnamec))){
+		memCpy(ffnamec,fatfilename,11);	
+  24:	a801      	add	r0, sp, #4
+  26:	4631      	mov	r1, r6
+  28:	220b      	movs	r2, #11
+  2a:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:324
+		nn++;
+  2e:	3501      	adds	r5, #1
+  30:	b2ed      	uxtb	r5, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:322
+	memClr(ffnamec,11); memClr(fatfilename,11);
+	next = filename;
+	
+	if(*filename=='/')next++;
+	
+	while((next=file_normalToFatName(next,ffnamec))){
+  32:	4620      	mov	r0, r4
+  34:	a901      	add	r1, sp, #4
+  36:	f7ff fffe 	bl	0 <file_normalToFatName>
+  3a:	4604      	mov	r4, r0
+  3c:	2800      	cmp	r0, #0
+  3e:	d1f1      	bne.n	24 <dir_getFatFileName+0x24>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:328
+		memCpy(ffnamec,fatfilename,11);	
+		nn++;
+	}
+	if(nn)return(1);
+	return(0);
+}
+  40:	1e28      	subs	r0, r5, #0
+  42:	bf18      	it	ne
+  44:	2001      	movne	r0, #1
+  46:	b004      	add	sp, #16
+  48:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.dir_addCluster:
+
+00000000 <dir_addCluster>:
+dir_addCluster():
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:338
+ * clusters you want pre-allocated. It will also delete the contents of that
+ * cluster. (or clusters)
+ * Return value: 0 on success, -1 on fail
+*/
+esint8 dir_addCluster(FileSystem *fs,euint32 firstCluster)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	460d      	mov	r5, r1
+   4:	b086      	sub	sp, #24
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:342
+	euint32 lastc,logicalc;
+	ClusterChain cache;
+		
+	fs_initClusterChain(fs,&cache,firstCluster);
+   8:	4669      	mov	r1, sp
+   a:	462a      	mov	r2, r5
+   c:	f7ff fffe 	bl	0 <fs_initClusterChain>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:343
+	if(fat_allocClusterChain(fs,&cache,1)){
+  10:	4620      	mov	r0, r4
+  12:	4669      	mov	r1, sp
+  14:	2201      	movs	r2, #1
+  16:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+  1a:	b9f8      	cbnz	r0, 5c <dir_addCluster+0x5c>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:346
+		return(-1);
+	}
+	lastc = fs_getLastCluster(fs,&cache);
+  1c:	4669      	mov	r1, sp
+  1e:	4620      	mov	r0, r4
+  20:	f7ff fffe 	bl	0 <fs_getLastCluster>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:348
+	if(CLUSTER_PREALLOC_DIRECTORY){
+		if(fat_allocClusterChain(fs,&cache,CLUSTER_PREALLOC_DIRECTORY)){
+  24:	4669      	mov	r1, sp
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:346
+		
+	fs_initClusterChain(fs,&cache,firstCluster);
+	if(fat_allocClusterChain(fs,&cache,1)){
+		return(-1);
+	}
+	lastc = fs_getLastCluster(fs,&cache);
+  26:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:348
+	if(CLUSTER_PREALLOC_DIRECTORY){
+		if(fat_allocClusterChain(fs,&cache,CLUSTER_PREALLOC_DIRECTORY)){
+  28:	2201      	movs	r2, #1
+  2a:	4620      	mov	r0, r4
+  2c:	f7ff fffe 	bl	0 <fat_allocClusterChain>
+  30:	b9a0      	cbnz	r0, 5c <dir_addCluster+0x5c>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:351
+			return(-1);
+		}
+		logicalc = fat_DiscToLogicCluster(fs,firstCluster,lastc);
+  32:	4629      	mov	r1, r5
+  34:	4620      	mov	r0, r4
+  36:	4632      	mov	r2, r6
+  38:	f7ff fffe 	bl	0 <fat_DiscToLogicCluster>
+  3c:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:352
+		while(!fat_LogicToDiscCluster(fs,&cache,++logicalc)){
+  3e:	e003      	b.n	48 <dir_addCluster+0x48>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:353
+			fs_clearCluster(fs,cache.DiscCluster);
+  40:	4620      	mov	r0, r4
+  42:	9902      	ldr	r1, [sp, #8]
+  44:	f7ff fffe 	bl	0 <fs_clearCluster>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:352
+	if(CLUSTER_PREALLOC_DIRECTORY){
+		if(fat_allocClusterChain(fs,&cache,CLUSTER_PREALLOC_DIRECTORY)){
+			return(-1);
+		}
+		logicalc = fat_DiscToLogicCluster(fs,firstCluster,lastc);
+		while(!fat_LogicToDiscCluster(fs,&cache,++logicalc)){
+  48:	3501      	adds	r5, #1
+  4a:	4620      	mov	r0, r4
+  4c:	4669      	mov	r1, sp
+  4e:	462a      	mov	r2, r5
+  50:	f7ff fffe 	bl	0 <fat_LogicToDiscCluster>
+  54:	2800      	cmp	r0, #0
+  56:	d0f3      	beq.n	40 <dir_addCluster+0x40>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:358
+			fs_clearCluster(fs,cache.DiscCluster);
+		}
+	}else{
+			fs_clearCluster(fs,lastc);
+	}
+	return(0);
+  58:	2000      	movs	r0, #0
+  5a:	e000      	b.n	5e <dir_addCluster+0x5e>
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:349
+		return(-1);
+	}
+	lastc = fs_getLastCluster(fs,&cache);
+	if(CLUSTER_PREALLOC_DIRECTORY){
+		if(fat_allocClusterChain(fs,&cache,CLUSTER_PREALLOC_DIRECTORY)){
+			return(-1);
+  5c:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/dir.c:359
+		}
+	}else{
+			fs_clearCluster(fs,lastc);
+	}
+	return(0);
+}
+  5e:	b240      	sxtb	r0, r0
+  60:	b006      	add	sp, #24
+  62:	bd70      	pop	{r4, r5, r6, pc}

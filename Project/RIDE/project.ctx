@@ -1,0 +1,98 @@
+
+<Debug>
+	<Flags>
+		<Report>
+			<Def Header="FlagReport" NbCol="9" >
+				<Col Type="PT_BOOL" Header="Check" sizeCache="18" AutoSize="0" Edit="1" Sortable="1" Icon="C:\Program Files (x86)\Raisonance\Ride\Config\Resources\check.bmp" />
+				<Col Type="PT_STRING" Header="Kind" sizeCache="DDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="1" />
+				<Col Type="PT_STRING" Header="KindID" sizeCache="DD" AutoSize="1" Edit="0" Sortable="1" Visible="0" />
+				<Col Type="PT_STRING" Header="Space" sizeCache="DDDDDD" AutoSize="1" Edit="0" Sortable="1" />
+				<Col Type="PT_STRING" Header="SpaceID" sizeCache="DD" AutoSize="0" Edit="0" Sortable="0" Visible="0" />
+				<Col Type="PT_STRING" Header="Line" sizeCache="DDDDDDDDD" AutoSize="1" Edit="0" Sortable="1" Visible="1" />
+				<Col Type="PT_STRING" Header="File" sizeCache="DDDDDDDDDDDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="1" Visible="1" />
+				<Col Type="PT_STRING" Header="Path" sizeCache="DDDDDDDDDDDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="0" Visible="0" />
+				<Col Type="PT_STRING" Header="Condition" sizeCache="DDDDDDDDDDDDDDDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="0" />
+				<Col Type="PT_STRING" Header="Condexpr" sizeCache="DD" AutoSize="1" Edit="0" Sortable="0" Visible="0" />
+				<Col Type="PT_STRING" Header="Condcount" sizeCache="DD" AutoSize="1" Edit="0" Sortable="0" Visible="0" />
+							
+			</Def>
+			<Rows/>
+					
+		</Report>
+			
+	</Flags>
+	<Views>
+		<View File="..\src\main.c" Line="124" Index="0" />
+		<View File="..\..\Utilities\lwip-1.3.1\port\client.c" Line="106" Index="1" />
+		<View File="..\src\netconf.c" Line="0" Index="2" />
+		<View File="..\..\Utilities\lwip-1.3.1\port\helloworld.c" Line="81" Index="3" />
+		<View File="c:\program files (x86)\raisonance\ride\arm-gcc\arm-none-eabi\include\stdio.h" Line="0" Index="4" />
+		<View File="..\..\Utilities\lwip-1.3.1\port\httpd.c" Line="325" Index="5" />
+		<View File="..\src\httpclient.c" Line="0" Index="6" />
+		<View File="..\..\Utilities\lwip-1.3.1\src\core\tcp_out.c" Line="0" Index="7" />
+		<View File="..\src\stm32f10x_it.c" Line="289" Index="8" focus="1" />
+	</Views>
+	<BookMarks>
+		<BookMark File="" Line="33653344" />
+		<BookMark File="" Line="0" />
+		<BookMark File="" Line="0" />
+		<BookMark File="" Line="0" />
+		<BookMark File="" Line="0" />
+		<BookMark File="" Line="0" />
+		<BookMark File="" Line="0" />
+		<BookMark File="" Line="0" />
+		<BookMark File="" Line="0" />
+		<BookMark File="" Line="0" />
+	</BookMarks>
+	<Grep>
+		<GrepIncludeSub>yes</GrepIncludeSub>
+		<GrepMatchCase>no</GrepMatchCase>
+		<GrepMatchWhole>no</GrepMatchWhole>
+		<GrepRegExp>no</GrepRegExp>
+		<GrepReplaceMode>no</GrepReplaceMode>
+		<GrepFileTypes>
+			<GrepFileTypesValue>*.c;*.h</GrepFileTypesValue>
+			<GrepFileType>*.c;*.h</GrepFileType>
+		</GrepFileTypes>
+		<GrepFindWhat>
+			<GrepFindWhatValue/>
+		</GrepFindWhat>
+		<GrepFindWhere>
+			<GrepFindWhereValue/>
+			<GrepPathStr>Application Files</GrepPathStr>
+			<GrepPathStr>Application Path</GrepPathStr>
+		</GrepFindWhere>
+		<GrepReplaceWhat>
+			<GrepReplaceWhatValue/>
+		</GrepReplaceWhat>
+	</Grep>
+	<FindStrings>
+		<Find>htonl</Find>
+		<Find>TIM3_IRQn</Find>
+		<Find>TIM2_IRQn</Find>
+		<Find>irq</Find>
+		<Find>tcp_led_control</Find>
+		<Find>STM_EVAL_LEDInit</Find>
+		<Find>I2C_EE_PageWrite</Find>
+		<Find>I2C_EE_WaitEepromStandbyState</Find>
+		<Find>test</Find>
+		<Find>lcd_disp</Find>
+		<Find>lcd_displaystrin</Find>
+		<Find>lcd_displayst</Find>
+		<Find>TIM3</Find>
+		<Find>TIM1</Find>
+		<Find>TIM2</Find>
+		<Find>CCR1_Val</Find>
+		<Find>TIM_IT_CC1</Find>
+		<Find>SysTick_Config</Find>
+		<Find>SysTick_IRQn</Find>
+		<Find>fs_open</Find>
+	</FindStrings>
+	<ReplaceStrings>
+		<Find>out_init</Find>
+		<Find>TIM3</Find>
+		<Find>TIM1</Find>
+		<Find>GPIOE</Find>
+		<Find>pcb-&gt;remote_port</Find>
+	</ReplaceStrings>
+</Debug>

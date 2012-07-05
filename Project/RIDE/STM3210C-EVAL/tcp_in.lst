@@ -1,0 +1,3430 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\tcp_in.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\tcp_in.o
+
+
+Disassembly of section .text.tcp_receive:
+
+00000000 <tcp_receive>:
+tcp_receive():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:845
+ *
+ * Called from tcp_process().
+ */
+static void
+tcp_receive(struct tcp_pcb *pcb)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:857
+  s16_t m;
+  u32_t right_wnd_edge;
+  u16_t new_tot_len;
+  int found_dupack = 0;
+
+  if (flags & TCP_ACK) {
+   4:	4d7f      	ldr	r5, [pc, #508]	; (204 <tcp_receive+0x204>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:845
+ *
+ * Called from tcp_process().
+ */
+static void
+tcp_receive(struct tcp_pcb *pcb)
+{
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:857
+  s16_t m;
+  u32_t right_wnd_edge;
+  u16_t new_tot_len;
+  int found_dupack = 0;
+
+  if (flags & TCP_ACK) {
+   8:	782b      	ldrb	r3, [r5, #0]
+   a:	f013 0f10 	tst.w	r3, #16
+   e:	f000 8171 	beq.w	2f4 <tcp_receive+0x2f4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:861
+    right_wnd_edge = pcb->snd_wnd + pcb->snd_wl2;
+
+    /* Update window. */
+    if (TCP_SEQ_LT(pcb->snd_wl1, seqno) ||
+  12:	6e22      	ldr	r2, [r4, #96]	; 0x60
+  14:	686b      	ldr	r3, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:858
+  u32_t right_wnd_edge;
+  u16_t new_tot_len;
+  int found_dupack = 0;
+
+  if (flags & TCP_ACK) {
+    right_wnd_edge = pcb->snd_wnd + pcb->snd_wl2;
+  16:	f8b0 005c 	ldrh.w	r0, [r0, #92]	; 0x5c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:861
+
+    /* Update window. */
+    if (TCP_SEQ_LT(pcb->snd_wl1, seqno) ||
+  1a:	1ad6      	subs	r6, r2, r3
+  1c:	2e00      	cmp	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:858
+  u32_t right_wnd_edge;
+  u16_t new_tot_len;
+  int found_dupack = 0;
+
+  if (flags & TCP_ACK) {
+    right_wnd_edge = pcb->snd_wnd + pcb->snd_wl2;
+  1e:	6e61      	ldr	r1, [r4, #100]	; 0x64
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:861
+
+    /* Update window. */
+    if (TCP_SEQ_LT(pcb->snd_wl1, seqno) ||
+  20:	db10      	blt.n	44 <tcp_receive+0x44>
+  22:	429a      	cmp	r2, r3
+  24:	d103      	bne.n	2e <tcp_receive+0x2e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:862
+       (pcb->snd_wl1 == seqno && TCP_SEQ_LT(pcb->snd_wl2, ackno)) ||
+  26:	68aa      	ldr	r2, [r5, #8]
+  28:	1a8a      	subs	r2, r1, r2
+  2a:	2a00      	cmp	r2, #0
+  2c:	db0a      	blt.n	44 <tcp_receive+0x44>
+  2e:	68aa      	ldr	r2, [r5, #8]
+  30:	4291      	cmp	r1, r2
+  32:	d118      	bne.n	66 <tcp_receive+0x66>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:863
+       (pcb->snd_wl2 == ackno && tcphdr->wnd > pcb->snd_wnd)) {
+  34:	4a73      	ldr	r2, [pc, #460]	; (204 <tcp_receive+0x204>)
+  36:	68d2      	ldr	r2, [r2, #12]
+  38:	7b96      	ldrb	r6, [r2, #14]
+  3a:	7bd2      	ldrb	r2, [r2, #15]
+  3c:	ea46 2202 	orr.w	r2, r6, r2, lsl #8
+  40:	4282      	cmp	r2, r0
+  42:	d910      	bls.n	66 <tcp_receive+0x66>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:864
+      pcb->snd_wnd = tcphdr->wnd;
+  44:	68ee      	ldr	r6, [r5, #12]
+  46:	7bb2      	ldrb	r2, [r6, #14]
+  48:	7bf6      	ldrb	r6, [r6, #15]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:865
+      pcb->snd_wl1 = seqno;
+  4a:	6623      	str	r3, [r4, #96]	; 0x60
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:866
+      pcb->snd_wl2 = ackno;
+  4c:	68ab      	ldr	r3, [r5, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:864
+
+    /* Update window. */
+    if (TCP_SEQ_LT(pcb->snd_wl1, seqno) ||
+       (pcb->snd_wl1 == seqno && TCP_SEQ_LT(pcb->snd_wl2, ackno)) ||
+       (pcb->snd_wl2 == ackno && tcphdr->wnd > pcb->snd_wnd)) {
+      pcb->snd_wnd = tcphdr->wnd;
+  4e:	ea42 2206 	orr.w	r2, r2, r6, lsl #8
+  52:	f8a4 205c 	strh.w	r2, [r4, #92]	; 0x5c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:866
+      pcb->snd_wl1 = seqno;
+      pcb->snd_wl2 = ackno;
+  56:	6663      	str	r3, [r4, #100]	; 0x64
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:867
+      if (pcb->snd_wnd > 0 && pcb->persist_backoff > 0) {
+  58:	b12a      	cbz	r2, 66 <tcp_receive+0x66>
+  5a:	f894 309c 	ldrb.w	r3, [r4, #156]	; 0x9c
+  5e:	b113      	cbz	r3, 66 <tcp_receive+0x66>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:868
+          pcb->persist_backoff = 0;
+  60:	2300      	movs	r3, #0
+  62:	f884 309c 	strb.w	r3, [r4, #156]	; 0x9c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:903
+     * If it only passes 1, should reset dupack counter
+     *
+     */
+
+    /* Clause 1 */
+    if (TCP_SEQ_LEQ(ackno, pcb->lastack)) {
+  66:	68ab      	ldr	r3, [r5, #8]
+  68:	6ce2      	ldr	r2, [r4, #76]	; 0x4c
+  6a:	1a9e      	subs	r6, r3, r2
+  6c:	2e00      	cmp	r6, #0
+  6e:	dc2f      	bgt.n	d0 <tcp_receive+0xd0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:904
+      pcb->acked = 0;
+  70:	2600      	movs	r6, #0
+  72:	f8a4 606c 	strh.w	r6, [r4, #108]	; 0x6c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:906
+      /* Clause 2 */
+      if (tcplen == 0) {
+  76:	4e63      	ldr	r6, [pc, #396]	; (204 <tcp_receive+0x204>)
+  78:	8a36      	ldrh	r6, [r6, #16]
+  7a:	bb2e      	cbnz	r6, c8 <tcp_receive+0xc8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:908
+        /* Clause 3 */
+        if (pcb->snd_wl2 + pcb->snd_wnd == right_wnd_edge){
+  7c:	f8b4 705c 	ldrh.w	r7, [r4, #92]	; 0x5c
+  80:	6e66      	ldr	r6, [r4, #100]	; 0x64
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:858
+  u32_t right_wnd_edge;
+  u16_t new_tot_len;
+  int found_dupack = 0;
+
+  if (flags & TCP_ACK) {
+    right_wnd_edge = pcb->snd_wnd + pcb->snd_wl2;
+  82:	1841      	adds	r1, r0, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:908
+    if (TCP_SEQ_LEQ(ackno, pcb->lastack)) {
+      pcb->acked = 0;
+      /* Clause 2 */
+      if (tcplen == 0) {
+        /* Clause 3 */
+        if (pcb->snd_wl2 + pcb->snd_wnd == right_wnd_edge){
+  84:	19be      	adds	r6, r7, r6
+  86:	428e      	cmp	r6, r1
+  88:	d11e      	bne.n	c8 <tcp_receive+0xc8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:910
+          /* Clause 4 */
+          if (pcb->rtime >= 0) {
+  8a:	f9b4 1036 	ldrsh.w	r1, [r4, #54]	; 0x36
+  8e:	2900      	cmp	r1, #0
+  90:	db1a      	blt.n	c8 <tcp_receive+0xc8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:912
+            /* Clause 5 */
+            if (pcb->lastack == ackno) {
+  92:	429a      	cmp	r2, r3
+  94:	d118      	bne.n	c8 <tcp_receive+0xc8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:915
+              found_dupack = 1;
+              if (pcb->dupacks + 1 > pcb->dupacks)
+                ++pcb->dupacks;
+  96:	f894 3050 	ldrb.w	r3, [r4, #80]	; 0x50
+  9a:	3301      	adds	r3, #1
+  9c:	b2db      	uxtb	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:916
+              if (pcb->dupacks > 3) {
+  9e:	2b03      	cmp	r3, #3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:915
+          if (pcb->rtime >= 0) {
+            /* Clause 5 */
+            if (pcb->lastack == ackno) {
+              found_dupack = 1;
+              if (pcb->dupacks + 1 > pcb->dupacks)
+                ++pcb->dupacks;
+  a0:	f884 3050 	strb.w	r3, [r4, #80]	; 0x50
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:916
+              if (pcb->dupacks > 3) {
+  a4:	d90a      	bls.n	bc <tcp_receive+0xbc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:919
+                /* Inflate the congestion window, but not if it means that
+                   the value overflows. */
+                if ((u16_t)(pcb->cwnd + pcb->mss) > pcb->cwnd) {
+  a6:	f8b4 2052 	ldrh.w	r2, [r4, #82]	; 0x52
+  aa:	8f23      	ldrh	r3, [r4, #56]	; 0x38
+  ac:	18d3      	adds	r3, r2, r3
+  ae:	b29b      	uxth	r3, r3
+  b0:	4293      	cmp	r3, r2
+  b2:	f240 80cc 	bls.w	24e <tcp_receive+0x24e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:920
+                  pcb->cwnd += pcb->mss;
+  b6:	f8a4 3052 	strh.w	r3, [r4, #82]	; 0x52
+  ba:	e0c8      	b.n	24e <tcp_receive+0x24e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:922
+                }
+              } else if (pcb->dupacks == 3) {
+  bc:	f040 80c7 	bne.w	24e <tcp_receive+0x24e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:924
+                /* Do fast retransmit */
+                tcp_rexmit_fast(pcb);
+  c0:	4620      	mov	r0, r4
+  c2:	f7ff fffe 	bl	0 <tcp_rexmit_fast>
+  c6:	e0c2      	b.n	24e <tcp_receive+0x24e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:933
+        }
+      }
+      /* If Clause (1) or more is true, but not a duplicate ack, reset
+       * count of consecutive duplicate acks */
+      if (!found_dupack) {
+        pcb->dupacks = 0;
+  c8:	2300      	movs	r3, #0
+  ca:	f884 3050 	strb.w	r3, [r4, #80]	; 0x50
+  ce:	e0be      	b.n	24e <tcp_receive+0x24e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:935
+      }
+    } else if (TCP_SEQ_BETWEEN(ackno, pcb->lastack+1, pcb->snd_nxt)){
+  d0:	43d1      	mvns	r1, r2
+  d2:	42d9      	cmn	r1, r3
+  d4:	f100 8091 	bmi.w	1fa <tcp_receive+0x1fa>
+  d8:	6da1      	ldr	r1, [r4, #88]	; 0x58
+  da:	1a59      	subs	r1, r3, r1
+  dc:	2900      	cmp	r1, #0
+  de:	f300 808c 	bgt.w	1fa <tcp_receive+0x1fa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:941
+      /* We come here when the ACK acknowledges new data. */
+
+      /* Reset the "IN Fast Retransmit" flag, since we are no longer
+         in fast retransmit. Also reset the congestion window to the
+         slow start threshold. */
+      if (pcb->flags & TF_INFR) {
+  e2:	f894 1020 	ldrb.w	r1, [r4, #32]
+  e6:	f011 0f04 	tst.w	r1, #4
+  ea:	d007      	beq.n	fc <tcp_receive+0xfc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:942
+        pcb->flags &= ~TF_INFR;
+  ec:	f021 0104 	bic.w	r1, r1, #4
+  f0:	f884 1020 	strb.w	r1, [r4, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:943
+        pcb->cwnd = pcb->ssthresh;
+  f4:	f8b4 1054 	ldrh.w	r1, [r4, #84]	; 0x54
+  f8:	f8a4 1052 	strh.w	r1, [r4, #82]	; 0x52
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:950
+
+      /* Reset the number of retransmissions. */
+      pcb->nrtx = 0;
+
+      /* Reset the retransmission time-out. */
+      pcb->rto = (pcb->sa >> 3) + pcb->sv;
+  fc:	f9b4 6044 	ldrsh.w	r6, [r4, #68]	; 0x44
+ 100:	f8b4 0046 	ldrh.w	r0, [r4, #70]	; 0x46
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:953
+
+      /* Update the send buffer space. Diff between the two can never exceed 64K? */
+      pcb->acked = (u16_t)(ackno - pcb->lastack);
+ 104:	1a9a      	subs	r2, r3, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:950
+
+      /* Reset the number of retransmissions. */
+      pcb->nrtx = 0;
+
+      /* Reset the retransmission time-out. */
+      pcb->rto = (pcb->sa >> 3) + pcb->sv;
+ 106:	eb00 00e6 	add.w	r0, r0, r6, asr #3
+ 10a:	f8a4 0048 	strh.w	r0, [r4, #72]	; 0x48
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:959
+
+      pcb->snd_buf += pcb->acked;
+
+      /* Reset the fast retransmit variables. */
+      pcb->dupacks = 0;
+      pcb->lastack = ackno;
+ 10e:	64e3      	str	r3, [r4, #76]	; 0x4c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:955
+      pcb->rto = (pcb->sa >> 3) + pcb->sv;
+
+      /* Update the send buffer space. Diff between the two can never exceed 64K? */
+      pcb->acked = (u16_t)(ackno - pcb->lastack);
+
+      pcb->snd_buf += pcb->acked;
+ 110:	f8b4 006e 	ldrh.w	r0, [r4, #110]	; 0x6e
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:963
+      pcb->dupacks = 0;
+      pcb->lastack = ackno;
+
+      /* Update the congestion control variables (cwnd and
+         ssthresh). */
+      if (pcb->state >= ESTABLISHED) {
+ 114:	7c23      	ldrb	r3, [r4, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:953
+
+      /* Reset the retransmission time-out. */
+      pcb->rto = (pcb->sa >> 3) + pcb->sv;
+
+      /* Update the send buffer space. Diff between the two can never exceed 64K? */
+      pcb->acked = (u16_t)(ackno - pcb->lastack);
+ 116:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:947
+        pcb->flags &= ~TF_INFR;
+        pcb->cwnd = pcb->ssthresh;
+      }
+
+      /* Reset the number of retransmissions. */
+      pcb->nrtx = 0;
+ 118:	2100      	movs	r1, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:953
+
+      /* Reset the retransmission time-out. */
+      pcb->rto = (pcb->sa >> 3) + pcb->sv;
+
+      /* Update the send buffer space. Diff between the two can never exceed 64K? */
+      pcb->acked = (u16_t)(ackno - pcb->lastack);
+ 11a:	f8a4 206c 	strh.w	r2, [r4, #108]	; 0x6c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:963
+      pcb->dupacks = 0;
+      pcb->lastack = ackno;
+
+      /* Update the congestion control variables (cwnd and
+         ssthresh). */
+      if (pcb->state >= ESTABLISHED) {
+ 11e:	2b03      	cmp	r3, #3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:955
+      pcb->rto = (pcb->sa >> 3) + pcb->sv;
+
+      /* Update the send buffer space. Diff between the two can never exceed 64K? */
+      pcb->acked = (u16_t)(ackno - pcb->lastack);
+
+      pcb->snd_buf += pcb->acked;
+ 120:	4402      	add	r2, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:947
+        pcb->flags &= ~TF_INFR;
+        pcb->cwnd = pcb->ssthresh;
+      }
+
+      /* Reset the number of retransmissions. */
+      pcb->nrtx = 0;
+ 122:	f884 104a 	strb.w	r1, [r4, #74]	; 0x4a
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:955
+      pcb->rto = (pcb->sa >> 3) + pcb->sv;
+
+      /* Update the send buffer space. Diff between the two can never exceed 64K? */
+      pcb->acked = (u16_t)(ackno - pcb->lastack);
+
+      pcb->snd_buf += pcb->acked;
+ 126:	f8a4 206e 	strh.w	r2, [r4, #110]	; 0x6e
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:958
+
+      /* Reset the fast retransmit variables. */
+      pcb->dupacks = 0;
+ 12a:	f884 1050 	strb.w	r1, [r4, #80]	; 0x50
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:963
+      pcb->lastack = ackno;
+
+      /* Update the congestion control variables (cwnd and
+         ssthresh). */
+      if (pcb->state >= ESTABLISHED) {
+ 12e:	d935      	bls.n	19c <tcp_receive+0x19c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:964
+        if (pcb->cwnd < pcb->ssthresh) {
+ 130:	f8b4 3052 	ldrh.w	r3, [r4, #82]	; 0x52
+ 134:	f8b4 2054 	ldrh.w	r2, [r4, #84]	; 0x54
+ 138:	429a      	cmp	r2, r3
+ 13a:	d901      	bls.n	140 <tcp_receive+0x140>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:965
+          if ((u16_t)(pcb->cwnd + pcb->mss) > pcb->cwnd) {
+ 13c:	8f22      	ldrh	r2, [r4, #56]	; 0x38
+ 13e:	e003      	b.n	148 <tcp_receive+0x148>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:970
+            pcb->cwnd += pcb->mss;
+          }
+          LWIP_DEBUGF(TCP_CWND_DEBUG, ("tcp_receive: slow start cwnd %"U16_F"\n", pcb->cwnd));
+        } else {
+          u16_t new_cwnd = (pcb->cwnd + pcb->mss * pcb->mss / pcb->cwnd);
+ 140:	8f22      	ldrh	r2, [r4, #56]	; 0x38
+ 142:	4352      	muls	r2, r2
+ 144:	fb92 f2f3 	sdiv	r2, r2, r3
+ 148:	189a      	adds	r2, r3, r2
+ 14a:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:971
+          if (new_cwnd > pcb->cwnd) {
+ 14c:	429a      	cmp	r2, r3
+ 14e:	d925      	bls.n	19c <tcp_receive+0x19c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:972
+            pcb->cwnd = new_cwnd;
+ 150:	f8a4 2052 	strh.w	r2, [r4, #82]	; 0x52
+ 154:	e022      	b.n	19c <tcp_receive+0x19c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:994
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_receive: removing %"U32_F":%"U32_F" from pcb->unacked\n",
+                                      ntohl(pcb->unacked->tcphdr->seqno),
+                                      ntohl(pcb->unacked->tcphdr->seqno) +
+                                      TCP_TCPLEN(pcb->unacked)));
+
+        next = pcb->unacked;
+ 156:	6fa6      	ldr	r6, [r4, #120]	; 0x78
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:995
+        pcb->unacked = pcb->unacked->next;
+ 158:	6833      	ldr	r3, [r6, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:998
+
+        LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_receive: queuelen %"U16_F" ... ", (u16_t)pcb->snd_queuelen));
+        LWIP_ASSERT("pcb->snd_queuelen >= pbuf_clen(next->p)", (pcb->snd_queuelen >= pbuf_clen(next->p)));
+ 15a:	6870      	ldr	r0, [r6, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:995
+                                      ntohl(pcb->unacked->tcphdr->seqno),
+                                      ntohl(pcb->unacked->tcphdr->seqno) +
+                                      TCP_TCPLEN(pcb->unacked)));
+
+        next = pcb->unacked;
+        pcb->unacked = pcb->unacked->next;
+ 15c:	67a3      	str	r3, [r4, #120]	; 0x78
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:998
+
+        LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_receive: queuelen %"U16_F" ... ", (u16_t)pcb->snd_queuelen));
+        LWIP_ASSERT("pcb->snd_queuelen >= pbuf_clen(next->p)", (pcb->snd_queuelen >= pbuf_clen(next->p)));
+ 15e:	f7ff fffe 	bl	0 <pbuf_clen>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1000
+        /* Prevent ACK for FIN to generate a sent event */
+        if ((pcb->acked != 0) && ((TCPH_FLAGS(next->tcphdr) & TCP_FIN) != 0)) {
+ 162:	f8b4 306c 	ldrh.w	r3, [r4, #108]	; 0x6c
+ 166:	b173      	cbz	r3, 186 <tcp_receive+0x186>
+ 168:	68f3      	ldr	r3, [r6, #12]
+ 16a:	7b1a      	ldrb	r2, [r3, #12]
+ 16c:	7b58      	ldrb	r0, [r3, #13]
+ 16e:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 172:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 176:	f010 0f01 	tst.w	r0, #1
+ 17a:	d004      	beq.n	186 <tcp_receive+0x186>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1001
+          pcb->acked--;
+ 17c:	f8b4 306c 	ldrh.w	r3, [r4, #108]	; 0x6c
+ 180:	3b01      	subs	r3, #1
+ 182:	f8a4 306c 	strh.w	r3, [r4, #108]	; 0x6c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1004
+        }
+
+        pcb->snd_queuelen -= pbuf_clen(next->p);
+ 186:	6870      	ldr	r0, [r6, #4]
+ 188:	f8b4 7070 	ldrh.w	r7, [r4, #112]	; 0x70
+ 18c:	f7ff fffe 	bl	0 <pbuf_clen>
+ 190:	1a38      	subs	r0, r7, r0
+ 192:	f8a4 0070 	strh.w	r0, [r4, #112]	; 0x70
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1005
+        tcp_seg_free(next);
+ 196:	4630      	mov	r0, r6
+ 198:	f7ff fffe 	bl	0 <tcp_seg_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:986
+                                    pcb->unacked != NULL?
+                                    ntohl(pcb->unacked->tcphdr->seqno) + TCP_TCPLEN(pcb->unacked): 0));
+
+      /* Remove segment from the unacknowledged list if the incoming
+         ACK acknowlegdes them. */
+      while (pcb->unacked != NULL &&
+ 19c:	6fa3      	ldr	r3, [r4, #120]	; 0x78
+ 19e:	b303      	cbz	r3, 1e2 <tcp_receive+0x1e2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:987
+             TCP_SEQ_LEQ(ntohl(pcb->unacked->tcphdr->seqno) +
+ 1a0:	68db      	ldr	r3, [r3, #12]
+ 1a2:	7959      	ldrb	r1, [r3, #5]
+ 1a4:	791a      	ldrb	r2, [r3, #4]
+ 1a6:	79d8      	ldrb	r0, [r3, #7]
+ 1a8:	ea42 2201 	orr.w	r2, r2, r1, lsl #8
+ 1ac:	7999      	ldrb	r1, [r3, #6]
+ 1ae:	ea42 4201 	orr.w	r2, r2, r1, lsl #16
+ 1b2:	ea42 6000 	orr.w	r0, r2, r0, lsl #24
+ 1b6:	f7ff fffe 	bl	0 <lwip_ntohl>
+ 1ba:	6fa3      	ldr	r3, [r4, #120]	; 0x78
+ 1bc:	4607      	mov	r7, r0
+ 1be:	891e      	ldrh	r6, [r3, #8]
+ 1c0:	68db      	ldr	r3, [r3, #12]
+ 1c2:	7b1a      	ldrb	r2, [r3, #12]
+ 1c4:	7b58      	ldrb	r0, [r3, #13]
+ 1c6:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 1ca:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 1ce:	68ab      	ldr	r3, [r5, #8]
+ 1d0:	f000 0003 	and.w	r0, r0, #3
+ 1d4:	2800      	cmp	r0, #0
+ 1d6:	bf18      	it	ne
+ 1d8:	3601      	addne	r6, #1
+ 1da:	1afb      	subs	r3, r7, r3
+ 1dc:	199b      	adds	r3, r3, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:986
+                                    pcb->unacked != NULL?
+                                    ntohl(pcb->unacked->tcphdr->seqno) + TCP_TCPLEN(pcb->unacked): 0));
+
+      /* Remove segment from the unacknowledged list if the incoming
+         ACK acknowlegdes them. */
+      while (pcb->unacked != NULL &&
+ 1de:	2b00      	cmp	r3, #0
+ 1e0:	ddb9      	ble.n	156 <tcp_receive+0x156>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1016
+        }
+      }
+
+      /* If there's nothing left to acknowledge, stop the retransmit
+         timer, otherwise reset it to start again */
+      if(pcb->unacked == NULL)
+ 1e2:	6fa3      	ldr	r3, [r4, #120]	; 0x78
+ 1e4:	b91b      	cbnz	r3, 1ee <tcp_receive+0x1ee>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1017
+        pcb->rtime = -1;
+ 1e6:	f04f 33ff 	mov.w	r3, #4294967295
+ 1ea:	86e3      	strh	r3, [r4, #54]	; 0x36
+ 1ec:	e001      	b.n	1f2 <tcp_receive+0x1f2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1019
+      else
+        pcb->rtime = 0;
+ 1ee:	2600      	movs	r6, #0
+ 1f0:	86e6      	strh	r6, [r4, #54]	; 0x36
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1021
+
+      pcb->polltmr = 0;
+ 1f2:	2300      	movs	r3, #0
+ 1f4:	f884 3034 	strb.w	r3, [r4, #52]	; 0x34
+ 1f8:	e029      	b.n	24e <tcp_receive+0x24e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1024
+    } else {
+      /* Fix bug bug #21582: out of sequence ACK, didn't really ack anything */
+      pcb->acked = 0;
+ 1fa:	2100      	movs	r1, #0
+ 1fc:	f8a4 106c 	strh.w	r1, [r4, #108]	; 0x6c
+ 200:	e025      	b.n	24e <tcp_receive+0x24e>
+ 202:	bf00      	nop
+ 204:	00000000 	.word	0x00000000
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1040
+                           TCP_TCPLEN(pcb->unsent), pcb->snd_nxt)) {
+      LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_receive: removing %"U32_F":%"U32_F" from pcb->unsent\n",
+                                    ntohl(pcb->unsent->tcphdr->seqno), ntohl(pcb->unsent->tcphdr->seqno) +
+                                    TCP_TCPLEN(pcb->unsent)));
+
+      next = pcb->unsent;
+ 208:	6f66      	ldr	r6, [r4, #116]	; 0x74
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1041
+      pcb->unsent = pcb->unsent->next;
+ 20a:	6833      	ldr	r3, [r6, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1043
+      LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_receive: queuelen %"U16_F" ... ", (u16_t)pcb->snd_queuelen));
+      LWIP_ASSERT("pcb->snd_queuelen >= pbuf_clen(next->p)", (pcb->snd_queuelen >= pbuf_clen(next->p)));
+ 20c:	6870      	ldr	r0, [r6, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1041
+      LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_receive: removing %"U32_F":%"U32_F" from pcb->unsent\n",
+                                    ntohl(pcb->unsent->tcphdr->seqno), ntohl(pcb->unsent->tcphdr->seqno) +
+                                    TCP_TCPLEN(pcb->unsent)));
+
+      next = pcb->unsent;
+      pcb->unsent = pcb->unsent->next;
+ 20e:	6763      	str	r3, [r4, #116]	; 0x74
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1043
+      LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_receive: queuelen %"U16_F" ... ", (u16_t)pcb->snd_queuelen));
+      LWIP_ASSERT("pcb->snd_queuelen >= pbuf_clen(next->p)", (pcb->snd_queuelen >= pbuf_clen(next->p)));
+ 210:	f7ff fffe 	bl	0 <pbuf_clen>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1045
+      /* Prevent ACK for FIN to generate a sent event */
+      if ((pcb->acked != 0) && ((TCPH_FLAGS(next->tcphdr) & TCP_FIN) != 0)) {
+ 214:	f8b4 306c 	ldrh.w	r3, [r4, #108]	; 0x6c
+ 218:	b173      	cbz	r3, 238 <tcp_receive+0x238>
+ 21a:	68f3      	ldr	r3, [r6, #12]
+ 21c:	7b1a      	ldrb	r2, [r3, #12]
+ 21e:	7b58      	ldrb	r0, [r3, #13]
+ 220:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 224:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 228:	f010 0f01 	tst.w	r0, #1
+ 22c:	d004      	beq.n	238 <tcp_receive+0x238>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1046
+        pcb->acked--;
+ 22e:	f8b4 306c 	ldrh.w	r3, [r4, #108]	; 0x6c
+ 232:	3b01      	subs	r3, #1
+ 234:	f8a4 306c 	strh.w	r3, [r4, #108]	; 0x6c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1048
+      }
+      pcb->snd_queuelen -= pbuf_clen(next->p);
+ 238:	6870      	ldr	r0, [r6, #4]
+ 23a:	f8b4 7070 	ldrh.w	r7, [r4, #112]	; 0x70
+ 23e:	f7ff fffe 	bl	0 <pbuf_clen>
+ 242:	1a38      	subs	r0, r7, r0
+ 244:	f8a4 0070 	strh.w	r0, [r4, #112]	; 0x70
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1049
+      tcp_seg_free(next);
+ 248:	4630      	mov	r0, r6
+ 24a:	f7ff fffe 	bl	0 <tcp_seg_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1033
+       on the list are acknowledged by the ACK. This may seem
+       strange since an "unsent" segment shouldn't be acked. The
+       rationale is that lwIP puts all outstanding segments on the
+       ->unsent list after a retransmission, so these segments may
+       in fact have been sent once. */
+    while (pcb->unsent != NULL &&
+ 24e:	6f63      	ldr	r3, [r4, #116]	; 0x74
+ 250:	b343      	cbz	r3, 2a4 <tcp_receive+0x2a4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1034
+           TCP_SEQ_BETWEEN(ackno, ntohl(pcb->unsent->tcphdr->seqno) + 
+ 252:	68db      	ldr	r3, [r3, #12]
+ 254:	f8d5 8008 	ldr.w	r8, [r5, #8]
+ 258:	7959      	ldrb	r1, [r3, #5]
+ 25a:	791a      	ldrb	r2, [r3, #4]
+ 25c:	79d8      	ldrb	r0, [r3, #7]
+ 25e:	ea42 2201 	orr.w	r2, r2, r1, lsl #8
+ 262:	7999      	ldrb	r1, [r3, #6]
+ 264:	ea42 4201 	orr.w	r2, r2, r1, lsl #16
+ 268:	ea42 6000 	orr.w	r0, r2, r0, lsl #24
+ 26c:	f7ff fffe 	bl	0 <lwip_ntohl>
+ 270:	6f63      	ldr	r3, [r4, #116]	; 0x74
+ 272:	4607      	mov	r7, r0
+ 274:	891e      	ldrh	r6, [r3, #8]
+ 276:	68db      	ldr	r3, [r3, #12]
+ 278:	7b1a      	ldrb	r2, [r3, #12]
+ 27a:	7b58      	ldrb	r0, [r3, #13]
+ 27c:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 280:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 284:	f000 0003 	and.w	r0, r0, #3
+ 288:	2800      	cmp	r0, #0
+ 28a:	bf18      	it	ne
+ 28c:	3601      	addne	r6, #1
+ 28e:	ebc7 0308 	rsb	r3, r7, r8
+ 292:	1b9b      	subs	r3, r3, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1033
+       on the list are acknowledged by the ACK. This may seem
+       strange since an "unsent" segment shouldn't be acked. The
+       rationale is that lwIP puts all outstanding segments on the
+       ->unsent list after a retransmission, so these segments may
+       in fact have been sent once. */
+    while (pcb->unsent != NULL &&
+ 294:	2b00      	cmp	r3, #0
+ 296:	db05      	blt.n	2a4 <tcp_receive+0x2a4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1034
+           TCP_SEQ_BETWEEN(ackno, ntohl(pcb->unsent->tcphdr->seqno) + 
+ 298:	4b8a      	ldr	r3, [pc, #552]	; (4c4 <tcp_receive+0x4c4>)
+ 29a:	689a      	ldr	r2, [r3, #8]
+ 29c:	6da3      	ldr	r3, [r4, #88]	; 0x58
+ 29e:	1ad3      	subs	r3, r2, r3
+ 2a0:	2b00      	cmp	r3, #0
+ 2a2:	ddb1      	ble.n	208 <tcp_receive+0x208>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1064
+                                pcb->rttest, pcb->rtseq, ackno));
+
+    /* RTT estimation calculations. This is done by checking if the
+       incoming segment acknowledges the segment we use to take a
+       round-trip time measurement. */
+    if (pcb->rttest && TCP_SEQ_LT(pcb->rtseq, ackno)) {
+ 2a4:	6be3      	ldr	r3, [r4, #60]	; 0x3c
+ 2a6:	b32b      	cbz	r3, 2f4 <tcp_receive+0x2f4>
+ 2a8:	6c21      	ldr	r1, [r4, #64]	; 0x40
+ 2aa:	68aa      	ldr	r2, [r5, #8]
+ 2ac:	1a8a      	subs	r2, r1, r2
+ 2ae:	2a00      	cmp	r2, #0
+ 2b0:	da20      	bge.n	2f4 <tcp_receive+0x2f4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1067
+      /* diff between this shouldn't exceed 32K since this are tcp timer ticks
+         and a round-trip shouldn't be that long... */
+      m = (s16_t)(tcp_ticks - pcb->rttest);
+ 2b2:	4985      	ldr	r1, [pc, #532]	; (4c8 <tcp_receive+0x4c8>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1073
+
+      LWIP_DEBUGF(TCP_RTO_DEBUG, ("tcp_receive: experienced rtt %"U16_F" ticks (%"U16_F" msec).\n",
+                                  m, m * TCP_SLOW_INTERVAL));
+
+      /* This is taken directly from VJs original code in his paper */
+      m = m - (pcb->sa >> 3);
+ 2b4:	f8b4 2044 	ldrh.w	r2, [r4, #68]	; 0x44
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1067
+       incoming segment acknowledges the segment we use to take a
+       round-trip time measurement. */
+    if (pcb->rttest && TCP_SEQ_LT(pcb->rtseq, ackno)) {
+      /* diff between this shouldn't exceed 32K since this are tcp timer ticks
+         and a round-trip shouldn't be that long... */
+      m = (s16_t)(tcp_ticks - pcb->rttest);
+ 2b8:	6809      	ldr	r1, [r1, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1073
+
+      LWIP_DEBUGF(TCP_RTO_DEBUG, ("tcp_receive: experienced rtt %"U16_F" ticks (%"U16_F" msec).\n",
+                                  m, m * TCP_SLOW_INTERVAL));
+
+      /* This is taken directly from VJs original code in his paper */
+      m = m - (pcb->sa >> 3);
+ 2ba:	b210      	sxth	r0, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1067
+       incoming segment acknowledges the segment we use to take a
+       round-trip time measurement. */
+    if (pcb->rttest && TCP_SEQ_LT(pcb->rtseq, ackno)) {
+      /* diff between this shouldn't exceed 32K since this are tcp timer ticks
+         and a round-trip shouldn't be that long... */
+      m = (s16_t)(tcp_ticks - pcb->rttest);
+ 2bc:	1ac9      	subs	r1, r1, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1073
+
+      LWIP_DEBUGF(TCP_RTO_DEBUG, ("tcp_receive: experienced rtt %"U16_F" ticks (%"U16_F" msec).\n",
+                                  m, m * TCP_SLOW_INTERVAL));
+
+      /* This is taken directly from VJs original code in his paper */
+      m = m - (pcb->sa >> 3);
+ 2be:	eba1 01e0 	sub.w	r1, r1, r0, asr #3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1078
+      pcb->sa += m;
+      if (m < 0) {
+        m = -m;
+      }
+      m = m - (pcb->sv >> 2);
+ 2c2:	f8b4 3046 	ldrh.w	r3, [r4, #70]	; 0x46
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1073
+
+      LWIP_DEBUGF(TCP_RTO_DEBUG, ("tcp_receive: experienced rtt %"U16_F" ticks (%"U16_F" msec).\n",
+                                  m, m * TCP_SLOW_INTERVAL));
+
+      /* This is taken directly from VJs original code in his paper */
+      m = m - (pcb->sa >> 3);
+ 2c6:	b289      	uxth	r1, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1074
+      pcb->sa += m;
+ 2c8:	188a      	adds	r2, r1, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1078
+      if (m < 0) {
+        m = -m;
+      }
+      m = m - (pcb->sv >> 2);
+ 2ca:	b218      	sxth	r0, r3
+ 2cc:	b209      	sxth	r1, r1
+ 2ce:	eba3 03a0 	sub.w	r3, r3, r0, asr #2
+ 2d2:	2900      	cmp	r1, #0
+ 2d4:	bfb8      	it	lt
+ 2d6:	4249      	neglt	r1, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1074
+      LWIP_DEBUGF(TCP_RTO_DEBUG, ("tcp_receive: experienced rtt %"U16_F" ticks (%"U16_F" msec).\n",
+                                  m, m * TCP_SLOW_INTERVAL));
+
+      /* This is taken directly from VJs original code in his paper */
+      m = m - (pcb->sa >> 3);
+      pcb->sa += m;
+ 2d8:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1079
+      if (m < 0) {
+        m = -m;
+      }
+      m = m - (pcb->sv >> 2);
+      pcb->sv += m;
+ 2da:	185b      	adds	r3, r3, r1
+ 2dc:	b29b      	uxth	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1074
+      LWIP_DEBUGF(TCP_RTO_DEBUG, ("tcp_receive: experienced rtt %"U16_F" ticks (%"U16_F" msec).\n",
+                                  m, m * TCP_SLOW_INTERVAL));
+
+      /* This is taken directly from VJs original code in his paper */
+      m = m - (pcb->sa >> 3);
+      pcb->sa += m;
+ 2de:	f8a4 2044 	strh.w	r2, [r4, #68]	; 0x44
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1080
+      if (m < 0) {
+        m = -m;
+      }
+      m = m - (pcb->sv >> 2);
+      pcb->sv += m;
+      pcb->rto = (pcb->sa >> 3) + pcb->sv;
+ 2e2:	b212      	sxth	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1079
+      pcb->sa += m;
+      if (m < 0) {
+        m = -m;
+      }
+      m = m - (pcb->sv >> 2);
+      pcb->sv += m;
+ 2e4:	f8a4 3046 	strh.w	r3, [r4, #70]	; 0x46
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1080
+      pcb->rto = (pcb->sa >> 3) + pcb->sv;
+ 2e8:	eb03 03e2 	add.w	r3, r3, r2, asr #3
+ 2ec:	f8a4 3048 	strh.w	r3, [r4, #72]	; 0x48
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1085
+
+      LWIP_DEBUGF(TCP_RTO_DEBUG, ("tcp_receive: RTO %"U16_F" (%"U16_F" milliseconds)\n",
+                                  pcb->rto, pcb->rto * TCP_SLOW_INTERVAL));
+
+      pcb->rttest = 0;
+ 2f0:	2300      	movs	r3, #0
+ 2f2:	63e3      	str	r3, [r4, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1091
+    }
+  }
+
+  /* If the incoming segment contains data, we must process it
+     further. */
+  if (tcplen > 0) {
+ 2f4:	8a29      	ldrh	r1, [r5, #16]
+ 2f6:	4873      	ldr	r0, [pc, #460]	; (4c4 <tcp_receive+0x4c4>)
+ 2f8:	6a63      	ldr	r3, [r4, #36]	; 0x24
+ 2fa:	2900      	cmp	r1, #0
+ 2fc:	f000 80d0 	beq.w	4a0 <tcp_receive+0x4a0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1122
+       this if the sequence number of the incoming segment is less
+       than rcv_nxt, and the sequence number plus the length of the
+       segment is larger than rcv_nxt. */
+    /*    if (TCP_SEQ_LT(seqno, pcb->rcv_nxt)){
+          if (TCP_SEQ_LT(pcb->rcv_nxt, seqno + tcplen)) {*/
+    if (TCP_SEQ_BETWEEN(pcb->rcv_nxt, seqno + 1, seqno + tcplen - 1)){
+ 300:	6842      	ldr	r2, [r0, #4]
+ 302:	43d6      	mvns	r6, r2
+ 304:	42de      	cmn	r6, r3
+ 306:	d429      	bmi.n	35c <tcp_receive+0x35c>
+ 308:	1c5e      	adds	r6, r3, #1
+ 30a:	1ab6      	subs	r6, r6, r2
+ 30c:	1a71      	subs	r1, r6, r1
+ 30e:	2900      	cmp	r1, #0
+ 310:	dc24      	bgt.n	35c <tcp_receive+0x35c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1144
+         After we are done with adjusting the pbuf pointers we must
+         adjust the ->data pointer in the seg and the segment
+         length.*/
+
+      off = pcb->rcv_nxt - seqno;
+      p = inseg.p;
+ 312:	6980      	ldr	r0, [r0, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1143
+
+         After we are done with adjusting the pbuf pointers we must
+         adjust the ->data pointer in the seg and the segment
+         length.*/
+
+      off = pcb->rcv_nxt - seqno;
+ 314:	1a99      	subs	r1, r3, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1147
+      p = inseg.p;
+      LWIP_ASSERT("inseg.p != NULL", inseg.p);
+      LWIP_ASSERT("insane offset!", (off < 0x7fff));
+      if (inseg.p->len < off) {
+ 316:	8943      	ldrh	r3, [r0, #10]
+ 318:	428b      	cmp	r3, r1
+ 31a:	da0b      	bge.n	334 <tcp_receive+0x334>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1149
+        LWIP_ASSERT("pbuf too short!", (((s32_t)inseg.p->tot_len) >= off));
+        new_tot_len = (u16_t)(inseg.p->tot_len - off);
+ 31c:	8902      	ldrh	r2, [r0, #8]
+ 31e:	1a52      	subs	r2, r2, r1
+ 320:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1150
+        while (p->len < off) {
+ 322:	e004      	b.n	32e <tcp_receive+0x32e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1151
+          off -= p->len;
+ 324:	1ac9      	subs	r1, r1, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1156
+          /* KJM following line changed (with addition of new_tot_len var)
+             to fix bug #9076
+             inseg.p->tot_len -= p->len; */
+          p->tot_len = new_tot_len;
+          p->len = 0;
+ 326:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1155
+        while (p->len < off) {
+          off -= p->len;
+          /* KJM following line changed (with addition of new_tot_len var)
+             to fix bug #9076
+             inseg.p->tot_len -= p->len; */
+          p->tot_len = new_tot_len;
+ 328:	8102      	strh	r2, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1156
+          p->len = 0;
+ 32a:	8143      	strh	r3, [r0, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1157
+          p = p->next;
+ 32c:	6800      	ldr	r0, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1150
+      LWIP_ASSERT("inseg.p != NULL", inseg.p);
+      LWIP_ASSERT("insane offset!", (off < 0x7fff));
+      if (inseg.p->len < off) {
+        LWIP_ASSERT("pbuf too short!", (((s32_t)inseg.p->tot_len) >= off));
+        new_tot_len = (u16_t)(inseg.p->tot_len - off);
+        while (p->len < off) {
+ 32e:	8943      	ldrh	r3, [r0, #10]
+ 330:	428b      	cmp	r3, r1
+ 332:	dbf7      	blt.n	324 <tcp_receive+0x324>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1164
+        if(pbuf_header(p, (s16_t)-off)) {
+          /* Do we need to cope with this failing?  Assert for now */
+          LWIP_ASSERT("pbuf_header failed", 0);
+        }
+      } else {
+        if(pbuf_header(inseg.p, (s16_t)-off)) {
+ 334:	4249      	negs	r1, r1
+ 336:	b209      	sxth	r1, r1
+ 338:	f7ff fffe 	bl	0 <pbuf_header>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1169
+          /* Do we need to cope with this failing?  Assert for now */
+          LWIP_ASSERT("pbuf_header failed", 0);
+        }
+      }
+      inseg.len -= (u16_t)(pcb->rcv_nxt - seqno);
+ 33c:	6869      	ldr	r1, [r5, #4]
+ 33e:	8baa      	ldrh	r2, [r5, #28]
+ 340:	6a63      	ldr	r3, [r4, #36]	; 0x24
+ 342:	188a      	adds	r2, r1, r2
+ 344:	1ad2      	subs	r2, r2, r3
+ 346:	83aa      	strh	r2, [r5, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1170
+      inseg.tcphdr->seqno = seqno = pcb->rcv_nxt;
+ 348:	6a2a      	ldr	r2, [r5, #32]
+ 34a:	0a19      	lsrs	r1, r3, #8
+ 34c:	606b      	str	r3, [r5, #4]
+ 34e:	7113      	strb	r3, [r2, #4]
+ 350:	7151      	strb	r1, [r2, #5]
+ 352:	0c19      	lsrs	r1, r3, #16
+ 354:	0e1b      	lsrs	r3, r3, #24
+ 356:	7191      	strb	r1, [r2, #6]
+ 358:	71d3      	strb	r3, [r2, #7]
+ 35a:	e008      	b.n	36e <tcp_receive+0x36e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1173
+    }
+    else {
+      if (TCP_SEQ_LT(seqno, pcb->rcv_nxt)){
+ 35c:	1ad3      	subs	r3, r2, r3
+ 35e:	2b00      	cmp	r3, #0
+ 360:	da05      	bge.n	36e <tcp_receive+0x36e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1178
+        /* the whole segment is < rcv_nxt */
+        /* must be a duplicate of a packet that has already been correctly handled */
+
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_receive: duplicate seqno %"U32_F"\n", seqno));
+        tcp_ack_now(pcb);
+ 362:	f894 3020 	ldrb.w	r3, [r4, #32]
+ 366:	f043 0302 	orr.w	r3, r3, #2
+ 36a:	f884 3020 	strb.w	r3, [r4, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1185
+    }
+
+    /* The sequence number must be within the window (above rcv_nxt
+       and below rcv_nxt + rcv_wnd) in order to be further
+       processed. */
+    if (TCP_SEQ_BETWEEN(seqno, pcb->rcv_nxt, 
+ 36e:	686b      	ldr	r3, [r5, #4]
+ 370:	6a62      	ldr	r2, [r4, #36]	; 0x24
+ 372:	4e54      	ldr	r6, [pc, #336]	; (4c4 <tcp_receive+0x4c4>)
+ 374:	1a99      	subs	r1, r3, r2
+ 376:	2900      	cmp	r1, #0
+ 378:	f2c0 808d 	blt.w	496 <tcp_receive+0x496>
+ 37c:	1c59      	adds	r1, r3, #1
+ 37e:	8d20      	ldrh	r0, [r4, #40]	; 0x28
+ 380:	1a89      	subs	r1, r1, r2
+ 382:	1a09      	subs	r1, r1, r0
+ 384:	2900      	cmp	r1, #0
+ 386:	f300 8086 	bgt.w	496 <tcp_receive+0x496>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1187
+                        pcb->rcv_nxt + pcb->rcv_wnd - 1)){
+      if (pcb->rcv_nxt == seqno) {
+ 38a:	429a      	cmp	r2, r3
+ 38c:	f040 8083 	bne.w	496 <tcp_receive+0x496>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1191
+        /* The incoming segment is the next in sequence. We check if
+           we have to trim the end of the segment and update rcv_nxt
+           and pass the data to the application. */
+        tcplen = TCP_TCPLEN(&inseg);
+ 390:	6a33      	ldr	r3, [r6, #32]
+ 392:	8bb7      	ldrh	r7, [r6, #28]
+ 394:	7b1a      	ldrb	r2, [r3, #12]
+ 396:	7b58      	ldrb	r0, [r3, #13]
+ 398:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 39c:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 3a0:	f000 0003 	and.w	r0, r0, #3
+ 3a4:	2800      	cmp	r0, #0
+ 3a6:	bf18      	it	ne
+ 3a8:	3701      	addne	r7, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1193
+
+        if (tcplen > pcb->rcv_wnd) {
+ 3aa:	8d23      	ldrh	r3, [r4, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1191
+                        pcb->rcv_nxt + pcb->rcv_wnd - 1)){
+      if (pcb->rcv_nxt == seqno) {
+        /* The incoming segment is the next in sequence. We check if
+           we have to trim the end of the segment and update rcv_nxt
+           and pass the data to the application. */
+        tcplen = TCP_TCPLEN(&inseg);
+ 3ac:	b2bf      	uxth	r7, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1193
+
+        if (tcplen > pcb->rcv_wnd) {
+ 3ae:	42bb      	cmp	r3, r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1191
+                        pcb->rcv_nxt + pcb->rcv_wnd - 1)){
+      if (pcb->rcv_nxt == seqno) {
+        /* The incoming segment is the next in sequence. We check if
+           we have to trim the end of the segment and update rcv_nxt
+           and pass the data to the application. */
+        tcplen = TCP_TCPLEN(&inseg);
+ 3b0:	8237      	strh	r7, [r6, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1193
+
+        if (tcplen > pcb->rcv_wnd) {
+ 3b2:	d23f      	bcs.n	434 <tcp_receive+0x434>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1198
+          LWIP_DEBUGF(TCP_INPUT_DEBUG, 
+                      ("tcp_receive: other end overran receive window"
+                       "seqno %"U32_F" len %"U16_F" right edge %"U32_F"\n",
+                       seqno, tcplen, pcb->rcv_nxt + pcb->rcv_wnd));
+          if (TCPH_FLAGS(inseg.tcphdr) & TCP_FIN) {
+ 3b4:	6a33      	ldr	r3, [r6, #32]
+ 3b6:	7b1a      	ldrb	r2, [r3, #12]
+ 3b8:	7b58      	ldrb	r0, [r3, #13]
+ 3ba:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 3be:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 3c2:	f010 0f01 	tst.w	r0, #1
+ 3c6:	d013      	beq.n	3f0 <tcp_receive+0x3f0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1201
+            /* Must remove the FIN from the header as we're trimming 
+             * that byte of sequence-space from the packet */
+            TCPH_FLAGS_SET(inseg.tcphdr, TCPH_FLAGS(inseg.tcphdr) &~ TCP_FIN);
+ 3c8:	6a36      	ldr	r6, [r6, #32]
+ 3ca:	7b33      	ldrb	r3, [r6, #12]
+ 3cc:	7b77      	ldrb	r7, [r6, #13]
+ 3ce:	ea43 2707 	orr.w	r7, r3, r7, lsl #8
+ 3d2:	4638      	mov	r0, r7
+ 3d4:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 3d8:	f000 003e 	and.w	r0, r0, #62	; 0x3e
+ 3dc:	f7ff fffe 	bl	0 <lwip_htons>
+ 3e0:	f427 577c 	bic.w	r7, r7, #16128	; 0x3f00
+ 3e4:	ea40 0707 	orr.w	r7, r0, r7
+ 3e8:	b2bf      	uxth	r7, r7
+ 3ea:	7337      	strb	r7, [r6, #12]
+ 3ec:	0a3f      	lsrs	r7, r7, #8
+ 3ee:	7377      	strb	r7, [r6, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1204
+          }
+          /* Adjust length of segment to fit in the window. */
+          inseg.len = pcb->rcv_wnd;
+ 3f0:	8d21      	ldrh	r1, [r4, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1205
+          if (TCPH_FLAGS(inseg.tcphdr) & TCP_SYN) {
+ 3f2:	6a2b      	ldr	r3, [r5, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1204
+            /* Must remove the FIN from the header as we're trimming 
+             * that byte of sequence-space from the packet */
+            TCPH_FLAGS_SET(inseg.tcphdr, TCPH_FLAGS(inseg.tcphdr) &~ TCP_FIN);
+          }
+          /* Adjust length of segment to fit in the window. */
+          inseg.len = pcb->rcv_wnd;
+ 3f4:	83a9      	strh	r1, [r5, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1205
+          if (TCPH_FLAGS(inseg.tcphdr) & TCP_SYN) {
+ 3f6:	7b1a      	ldrb	r2, [r3, #12]
+ 3f8:	7b58      	ldrb	r0, [r3, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1204
+            /* Must remove the FIN from the header as we're trimming 
+             * that byte of sequence-space from the packet */
+            TCPH_FLAGS_SET(inseg.tcphdr, TCPH_FLAGS(inseg.tcphdr) &~ TCP_FIN);
+          }
+          /* Adjust length of segment to fit in the window. */
+          inseg.len = pcb->rcv_wnd;
+ 3fa:	4e32      	ldr	r6, [pc, #200]	; (4c4 <tcp_receive+0x4c4>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1205
+          if (TCPH_FLAGS(inseg.tcphdr) & TCP_SYN) {
+ 3fc:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 400:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 404:	f010 0f02 	tst.w	r0, #2
+ 408:	d002      	beq.n	410 <tcp_receive+0x410>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1206
+            inseg.len -= 1;
+ 40a:	8bb3      	ldrh	r3, [r6, #28]
+ 40c:	3b01      	subs	r3, #1
+ 40e:	83b3      	strh	r3, [r6, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1208
+          }
+          pbuf_realloc(inseg.p, inseg.len);
+ 410:	69a8      	ldr	r0, [r5, #24]
+ 412:	8ba9      	ldrh	r1, [r5, #28]
+ 414:	f7ff fffe 	bl	0 <pbuf_realloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1209
+          tcplen = TCP_TCPLEN(&inseg);
+ 418:	6a2b      	ldr	r3, [r5, #32]
+ 41a:	8bae      	ldrh	r6, [r5, #28]
+ 41c:	7b1a      	ldrb	r2, [r3, #12]
+ 41e:	7b58      	ldrb	r0, [r3, #13]
+ 420:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 424:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 428:	f000 0003 	and.w	r0, r0, #3
+ 42c:	2800      	cmp	r0, #0
+ 42e:	bf18      	it	ne
+ 430:	3601      	addne	r6, #1
+ 432:	822e      	strh	r6, [r5, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1267
+            pcb->ooseq = next;
+          }
+        }
+#endif /* TCP_QUEUE_OOSEQ */
+
+        pcb->rcv_nxt = seqno + tcplen;
+ 434:	8a2b      	ldrh	r3, [r5, #16]
+ 436:	686a      	ldr	r2, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1273
+
+        /* Update the receiver's (our) window. */
+        LWIP_ASSERT("tcp_receive: tcplen > rcv_wnd\n", pcb->rcv_wnd >= tcplen);
+        pcb->rcv_wnd -= tcplen;
+
+        tcp_update_rcv_ann_wnd(pcb);
+ 438:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1267
+            pcb->ooseq = next;
+          }
+        }
+#endif /* TCP_QUEUE_OOSEQ */
+
+        pcb->rcv_nxt = seqno + tcplen;
+ 43a:	189a      	adds	r2, r3, r2
+ 43c:	6262      	str	r2, [r4, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1271
+
+        /* Update the receiver's (our) window. */
+        LWIP_ASSERT("tcp_receive: tcplen > rcv_wnd\n", pcb->rcv_wnd >= tcplen);
+        pcb->rcv_wnd -= tcplen;
+ 43e:	8d22      	ldrh	r2, [r4, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1267
+            pcb->ooseq = next;
+          }
+        }
+#endif /* TCP_QUEUE_OOSEQ */
+
+        pcb->rcv_nxt = seqno + tcplen;
+ 440:	4e20      	ldr	r6, [pc, #128]	; (4c4 <tcp_receive+0x4c4>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1271
+
+        /* Update the receiver's (our) window. */
+        LWIP_ASSERT("tcp_receive: tcplen > rcv_wnd\n", pcb->rcv_wnd >= tcplen);
+        pcb->rcv_wnd -= tcplen;
+ 442:	1ad3      	subs	r3, r2, r3
+ 444:	8523      	strh	r3, [r4, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1273
+
+        tcp_update_rcv_ann_wnd(pcb);
+ 446:	f7ff fffe 	bl	0 <tcp_update_rcv_ann_wnd>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1284
+           chains its data on this pbuf as well.
+
+           If the segment was a FIN, we set the TF_GOT_FIN flag that will
+           be used to indicate to the application that the remote side has
+           closed its end of the connection. */
+        if (inseg.p->tot_len > 0) {
+ 44a:	69ab      	ldr	r3, [r5, #24]
+ 44c:	891a      	ldrh	r2, [r3, #8]
+ 44e:	b112      	cbz	r2, 456 <tcp_receive+0x456>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1285
+          recv_data = inseg.p;
+ 450:	6273      	str	r3, [r6, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1289
+          /* Since this pbuf now is the responsibility of the
+             application, we delete our reference to it so that we won't
+             (mistakingly) deallocate it. */
+          inseg.p = NULL;
+ 452:	2300      	movs	r3, #0
+ 454:	61b3      	str	r3, [r6, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1291
+        }
+        if (TCPH_FLAGS(inseg.tcphdr) & TCP_FIN) {
+ 456:	6a2b      	ldr	r3, [r5, #32]
+ 458:	4e1a      	ldr	r6, [pc, #104]	; (4c4 <tcp_receive+0x4c4>)
+ 45a:	7b1a      	ldrb	r2, [r3, #12]
+ 45c:	7b58      	ldrb	r0, [r3, #13]
+ 45e:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 462:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 466:	f010 0f01 	tst.w	r0, #1
+ 46a:	d005      	beq.n	478 <tcp_receive+0x478>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1293
+          LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_receive: received FIN.\n"));
+          recv_flags |= TF_GOT_FIN;
+ 46c:	f896 3028 	ldrb.w	r3, [r6, #40]	; 0x28
+ 470:	f043 0320 	orr.w	r3, r3, #32
+ 474:	f886 3028 	strb.w	r3, [r6, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1337
+        }
+#endif /* TCP_QUEUE_OOSEQ */
+
+
+        /* Acknowledge the segment(s). */
+        tcp_ack(pcb);
+ 478:	f894 3020 	ldrb.w	r3, [r4, #32]
+ 47c:	f013 0f01 	tst.w	r3, #1
+ 480:	bf1a      	itte	ne
+ 482:	f023 0301 	bicne.w	r3, r3, #1
+ 486:	f043 0302 	orrne.w	r3, r3, #2
+ 48a:	f043 0301 	orreq.w	r3, r3, #1
+ 48e:	f884 3020 	strb.w	r3, [r4, #32]
+ 492:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1468
+#endif /* TCP_QUEUE_OOSEQ */
+
+      }
+    } else {
+      /* The incoming segment is not withing the window. */
+      tcp_send_empty_ack(pcb);
+ 496:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1479
+      TCP_SEQ_GEQ(seqno, pcb->rcv_nxt + pcb->rcv_wnd)) {*/
+    if(!TCP_SEQ_BETWEEN(seqno, pcb->rcv_nxt, pcb->rcv_nxt + pcb->rcv_wnd-1)){
+      tcp_ack_now(pcb);
+    }
+  }
+}
+ 498:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1468
+#endif /* TCP_QUEUE_OOSEQ */
+
+      }
+    } else {
+      /* The incoming segment is not withing the window. */
+      tcp_send_empty_ack(pcb);
+ 49c:	f7ff bffe 	b.w	0 <tcp_send_empty_ack>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1475
+  } else {
+    /* Segments with length 0 is taken care of here. Segments that
+       fall out of the window are ACKed. */
+    /*if (TCP_SEQ_GT(pcb->rcv_nxt, seqno) ||
+      TCP_SEQ_GEQ(seqno, pcb->rcv_nxt + pcb->rcv_wnd)) {*/
+    if(!TCP_SEQ_BETWEEN(seqno, pcb->rcv_nxt, pcb->rcv_nxt + pcb->rcv_wnd-1)){
+ 4a0:	6842      	ldr	r2, [r0, #4]
+ 4a2:	1ad1      	subs	r1, r2, r3
+ 4a4:	2900      	cmp	r1, #0
+ 4a6:	db05      	blt.n	4b4 <tcp_receive+0x4b4>
+ 4a8:	3201      	adds	r2, #1
+ 4aa:	8d21      	ldrh	r1, [r4, #40]	; 0x28
+ 4ac:	1ad3      	subs	r3, r2, r3
+ 4ae:	1a5b      	subs	r3, r3, r1
+ 4b0:	2b00      	cmp	r3, #0
+ 4b2:	dd05      	ble.n	4c0 <tcp_receive+0x4c0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1476
+      tcp_ack_now(pcb);
+ 4b4:	f894 3020 	ldrb.w	r3, [r4, #32]
+ 4b8:	f043 0302 	orr.w	r3, r3, #2
+ 4bc:	f884 3020 	strb.w	r3, [r4, #32]
+ 4c0:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+	...
+
+Disassembly of section .text.tcp_parseopt.clone.0:
+
+00000000 <tcp_parseopt.clone.0>:
+tcp_parseopt():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1490
+ * Currently, only the MSS option is supported!
+ *
+ * @param pcb the tcp_pcb for which a segment arrived
+ */
+static void
+tcp_parseopt(struct tcp_pcb *pcb)
+   0:	4c22b5f8 	.word	0x4c22b5f8
+   4:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1499
+  u8_t *opts, opt;
+#if LWIP_TCP_TIMESTAMPS
+  u32_t tsval;
+#endif
+
+  opts = (u8_t *)tcphdr + TCP_HLEN;
+   6:	68e3      	ldr	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1502
+
+  /* Parse the TCP MSS option, if present. */
+  if(TCPH_HDRLEN(tcphdr) > 0x5) {
+   8:	7b1a      	ldrb	r2, [r3, #12]
+   a:	7b58      	ldrb	r0, [r3, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1499
+  u8_t *opts, opt;
+#if LWIP_TCP_TIMESTAMPS
+  u32_t tsval;
+#endif
+
+  opts = (u8_t *)tcphdr + TCP_HLEN;
+   c:	f103 0514 	add.w	r5, r3, #20
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1502
+
+  /* Parse the TCP MSS option, if present. */
+  if(TCPH_HDRLEN(tcphdr) > 0x5) {
+  10:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+  14:	f7ff fffe 	bl	0 <lwip_ntohs>
+  18:	0b00      	lsrs	r0, r0, #12
+  1a:	b280      	uxth	r0, r0
+  1c:	2805      	cmp	r0, #5
+  1e:	d933      	bls.n	88 <tcp_parseopt.clone.0+0x88>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1503
+    max_c = (TCPH_HDRLEN(tcphdr) - 5) << 2;
+  20:	68e3      	ldr	r3, [r4, #12]
+  22:	7b1a      	ldrb	r2, [r3, #12]
+  24:	7b58      	ldrb	r0, [r3, #13]
+  26:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+  2a:	f7ff fffe 	bl	0 <lwip_ntohs>
+  2e:	0b01      	lsrs	r1, r0, #12
+  30:	3905      	subs	r1, #5
+  32:	0089      	lsls	r1, r1, #2
+  34:	b289      	uxth	r1, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1504
+    for (c = 0; c < max_c; ) {
+  36:	2300      	movs	r3, #0
+  38:	e024      	b.n	84 <tcp_parseopt.clone.0+0x84>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1506
+      opt = opts[c];
+      switch (opt) {
+  3a:	5cea      	ldrb	r2, [r5, r3]
+  3c:	2a01      	cmp	r2, #1
+  3e:	d005      	beq.n	4c <tcp_parseopt.clone.0+0x4c>
+  40:	d322      	bcc.n	88 <tcp_parseopt.clone.0+0x88>
+  42:	2a02      	cmp	r2, #2
+  44:	eb05 0203 	add.w	r2, r5, r3
+  48:	d118      	bne.n	7c <tcp_parseopt.clone.0+0x7c>
+  4a:	e001      	b.n	50 <tcp_parseopt.clone.0+0x50>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1513
+        /* End of options. */
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_parseopt: EOL\n"));
+        return;
+      case 0x01:
+        /* NOP option. */
+        ++c;
+  4c:	3301      	adds	r3, #1
+  4e:	e018      	b.n	82 <tcp_parseopt.clone.0+0x82>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1518
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_parseopt: NOP\n"));
+        break;
+      case 0x02:
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_parseopt: MSS\n"));
+        if (opts[c + 1] != 0x04 || c + 0x04 > max_c) {
+  50:	7850      	ldrb	r0, [r2, #1]
+  52:	2804      	cmp	r0, #4
+  54:	d118      	bne.n	88 <tcp_parseopt.clone.0+0x88>
+  56:	1cd8      	adds	r0, r3, #3
+  58:	4288      	cmp	r0, r1
+  5a:	da15      	bge.n	88 <tcp_parseopt.clone.0+0x88>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1524
+          /* Bad length */
+          LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_parseopt: bad length\n"));
+          return;
+        }
+        /* An MSS option with the right option length. */
+        mss = (opts[c + 2] << 8) | opts[c + 3];
+  5c:	7890      	ldrb	r0, [r2, #2]
+  5e:	78d2      	ldrb	r2, [r2, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1526
+        /* Limit the mss to the configured TCP_MSS and prevent division by zero */
+        pcb->mss = ((mss > TCP_MSS) || (mss == 0)) ? TCP_MSS : mss;
+  60:	f240 54b3 	movw	r4, #1459	; 0x5b3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1524
+          /* Bad length */
+          LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_parseopt: bad length\n"));
+          return;
+        }
+        /* An MSS option with the right option length. */
+        mss = (opts[c + 2] << 8) | opts[c + 3];
+  64:	ea42 2200 	orr.w	r2, r2, r0, lsl #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1526
+        /* Limit the mss to the configured TCP_MSS and prevent division by zero */
+        pcb->mss = ((mss > TCP_MSS) || (mss == 0)) ? TCP_MSS : mss;
+  68:	1e57      	subs	r7, r2, #1
+  6a:	b2bf      	uxth	r7, r7
+  6c:	f240 50b4 	movw	r0, #1460	; 0x5b4
+  70:	42a7      	cmp	r7, r4
+  72:	bf88      	it	hi
+  74:	4602      	movhi	r2, r0
+  76:	8032      	strh	r2, [r6, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1528
+        /* Advance to next option */
+        c += 0x04;
+  78:	3304      	adds	r3, #4
+  7a:	e002      	b.n	82 <tcp_parseopt.clone.0+0x82>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1553
+        c += 0x0A;
+        break;
+#endif
+      default:
+        LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_parseopt: other\n"));
+        if (opts[c + 1] == 0) {
+  7c:	7852      	ldrb	r2, [r2, #1]
+  7e:	b11a      	cbz	r2, 88 <tcp_parseopt.clone.0+0x88>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1561
+             and we don't process them further. */
+          return;
+        }
+        /* All other options have a length field, so that we easily
+           can skip past them. */
+        c += opts[c + 1];
+  80:	18d3      	adds	r3, r2, r3
+  82:	b29b      	uxth	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:1504
+  opts = (u8_t *)tcphdr + TCP_HLEN;
+
+  /* Parse the TCP MSS option, if present. */
+  if(TCPH_HDRLEN(tcphdr) > 0x5) {
+    max_c = (TCPH_HDRLEN(tcphdr) - 5) << 2;
+    for (c = 0; c < max_c; ) {
+  84:	428b      	cmp	r3, r1
+  86:	d3d8      	bcc.n	3a <tcp_parseopt.clone.0+0x3a>
+  88:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+  8a:	bf00      	nop
+  8c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.tcp_input:
+
+00000000 <tcp_input>:
+tcp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:93
+ * @param p received TCP segment to process (p->payload pointing to the IP header)
+ * @param inp network interface on which this segment was received
+ */
+void
+tcp_input(struct pbuf *p, struct netif *inp)
+{
+   0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:108
+  PERF_START;
+
+  TCP_STATS_INC(tcp.recv);
+  snmp_inc_tcpinsegs();
+
+  iphdr = (struct ip_hdr *)p->payload;
+   4:	6845      	ldr	r5, [r0, #4]
+   6:	4ca3      	ldr	r4, [pc, #652]	; (294 <tcp_input+0x294>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:93
+ * @param p received TCP segment to process (p->payload pointing to the IP header)
+ * @param inp network interface on which this segment was received
+ */
+void
+tcp_input(struct pbuf *p, struct netif *inp)
+{
+   8:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:108
+  PERF_START;
+
+  TCP_STATS_INC(tcp.recv);
+  snmp_inc_tcpinsegs();
+
+  iphdr = (struct ip_hdr *)p->payload;
+   a:	62e5      	str	r5, [r4, #44]	; 0x2c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:109
+  tcphdr = (struct tcp_hdr *)((u8_t *)p->payload + IPH_HL(iphdr) * 4);
+   c:	782b      	ldrb	r3, [r5, #0]
+   e:	7868      	ldrb	r0, [r5, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:93
+ * @param p received TCP segment to process (p->payload pointing to the IP header)
+ * @param inp network interface on which this segment was received
+ */
+void
+tcp_input(struct pbuf *p, struct netif *inp)
+{
+  10:	b087      	sub	sp, #28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:109
+
+  TCP_STATS_INC(tcp.recv);
+  snmp_inc_tcpinsegs();
+
+  iphdr = (struct ip_hdr *)p->payload;
+  tcphdr = (struct tcp_hdr *)((u8_t *)p->payload + IPH_HL(iphdr) * 4);
+  12:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:93
+ * @param p received TCP segment to process (p->payload pointing to the IP header)
+ * @param inp network interface on which this segment was received
+ */
+void
+tcp_input(struct pbuf *p, struct netif *inp)
+{
+  16:	4688      	mov	r8, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:109
+
+  TCP_STATS_INC(tcp.recv);
+  snmp_inc_tcpinsegs();
+
+  iphdr = (struct ip_hdr *)p->payload;
+  tcphdr = (struct tcp_hdr *)((u8_t *)p->payload + IPH_HL(iphdr) * 4);
+  18:	f7ff fffe 	bl	0 <lwip_ntohs>
+  1c:	0980      	lsrs	r0, r0, #6
+  1e:	f000 003c 	and.w	r0, r0, #60	; 0x3c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:116
+#if TCP_INPUT_DEBUG
+  tcp_debug_print(tcphdr);
+#endif
+
+  /* remove header from payload */
+  if (pbuf_header(p, -((s16_t)(IPH_HL(iphdr) * 4))) || (p->tot_len < sizeof(struct tcp_hdr))) {
+  22:	6ae3      	ldr	r3, [r4, #44]	; 0x2c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:109
+
+  TCP_STATS_INC(tcp.recv);
+  snmp_inc_tcpinsegs();
+
+  iphdr = (struct ip_hdr *)p->payload;
+  tcphdr = (struct tcp_hdr *)((u8_t *)p->payload + IPH_HL(iphdr) * 4);
+  24:	182d      	adds	r5, r5, r0
+  26:	60e5      	str	r5, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:116
+#if TCP_INPUT_DEBUG
+  tcp_debug_print(tcphdr);
+#endif
+
+  /* remove header from payload */
+  if (pbuf_header(p, -((s16_t)(IPH_HL(iphdr) * 4))) || (p->tot_len < sizeof(struct tcp_hdr))) {
+  28:	781a      	ldrb	r2, [r3, #0]
+  2a:	7858      	ldrb	r0, [r3, #1]
+  2c:	4625      	mov	r5, r4
+  2e:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+  32:	f7ff fffe 	bl	0 <lwip_ntohs>
+  36:	0981      	lsrs	r1, r0, #6
+  38:	f001 013c 	and.w	r1, r1, #60	; 0x3c
+  3c:	4630      	mov	r0, r6
+  3e:	4249      	negs	r1, r1
+  40:	f7ff fffe 	bl	0 <pbuf_header>
+  44:	2800      	cmp	r0, #0
+  46:	f040 840a 	bne.w	85e <tcp_input+0x85e>
+  4a:	8933      	ldrh	r3, [r6, #8]
+  4c:	2b13      	cmp	r3, #19
+  4e:	f240 8406 	bls.w	85e <tcp_input+0x85e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:127
+    pbuf_free(p);
+    return;
+  }
+
+  /* Don't even process incoming broadcasts/multicasts. */
+  if (ip_addr_isbroadcast(&current_iphdr_dest, inp) ||
+  52:	4f91      	ldr	r7, [pc, #580]	; (298 <tcp_input+0x298>)
+  54:	4641      	mov	r1, r8
+  56:	6838      	ldr	r0, [r7, #0]
+  58:	f7ff fffe 	bl	0 <ip4_addr_isbroadcast>
+  5c:	2800      	cmp	r0, #0
+  5e:	f040 83fe 	bne.w	85e <tcp_input+0x85e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:128
+      ip_addr_ismulticast(&current_iphdr_dest)) {
+  62:	683b      	ldr	r3, [r7, #0]
+  64:	f003 03f0 	and.w	r3, r3, #240	; 0xf0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:127
+    pbuf_free(p);
+    return;
+  }
+
+  /* Don't even process incoming broadcasts/multicasts. */
+  if (ip_addr_isbroadcast(&current_iphdr_dest, inp) ||
+  68:	2be0      	cmp	r3, #224	; 0xe0
+  6a:	f000 83f8 	beq.w	85e <tcp_input+0x85e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:156
+  }
+#endif
+
+  /* Move the payload pointer in the pbuf so that it points to the
+     TCP data instead of the TCP header. */
+  hdrlen = TCPH_HDRLEN(tcphdr);
+  6e:	68e3      	ldr	r3, [r4, #12]
+  70:	7b1a      	ldrb	r2, [r3, #12]
+  72:	7b58      	ldrb	r0, [r3, #13]
+  74:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+  78:	f7ff fffe 	bl	0 <lwip_ntohs>
+  7c:	0b03      	lsrs	r3, r0, #12
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:157
+  if(pbuf_header(p, -(hdrlen * 4))){
+  7e:	b2db      	uxtb	r3, r3
+  80:	f06f 0103 	mvn.w	r1, #3
+  84:	4630      	mov	r0, r6
+  86:	4359      	muls	r1, r3
+  88:	f7ff fffe 	bl	0 <pbuf_header>
+  8c:	4607      	mov	r7, r0
+  8e:	2800      	cmp	r0, #0
+  90:	f040 83e5 	bne.w	85e <tcp_input+0x85e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:168
+    pbuf_free(p);
+    return;
+  }
+
+  /* Convert fields in TCP header to host byte order. */
+  tcphdr->src = ntohs(tcphdr->src);
+  94:	68e4      	ldr	r4, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:182
+  /* Demultiplex an incoming segment. First, we check if it is destined
+     for an active connection. */
+  prev = NULL;
+
+  
+  for(pcb = tcp_active_pcbs; pcb != NULL; pcb = pcb->next) {
+  96:	f8df 8210 	ldr.w	r8, [pc, #528]	; 2a8 <tcp_input+0x2a8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:168
+    pbuf_free(p);
+    return;
+  }
+
+  /* Convert fields in TCP header to host byte order. */
+  tcphdr->src = ntohs(tcphdr->src);
+  9a:	7823      	ldrb	r3, [r4, #0]
+  9c:	7860      	ldrb	r0, [r4, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:188
+    LWIP_ASSERT("tcp_input: active pcb->state != CLOSED", pcb->state != CLOSED);
+    LWIP_ASSERT("tcp_input: active pcb->state != TIME-WAIT", pcb->state != TIME_WAIT);
+    LWIP_ASSERT("tcp_input: active pcb->state != LISTEN", pcb->state != LISTEN);
+    if (pcb->remote_port == tcphdr->src &&
+       pcb->local_port == tcphdr->dest &&
+       ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src) &&
+  9e:	f8df 920c 	ldr.w	r9, [pc, #524]	; 2ac <tcp_input+0x2ac>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:168
+    pbuf_free(p);
+    return;
+  }
+
+  /* Convert fields in TCP header to host byte order. */
+  tcphdr->src = ntohs(tcphdr->src);
+  a2:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  a6:	f7ff fffe 	bl	0 <lwip_ntohs>
+  aa:	7020      	strb	r0, [r4, #0]
+  ac:	0a00      	lsrs	r0, r0, #8
+  ae:	7060      	strb	r0, [r4, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:169
+  tcphdr->dest = ntohs(tcphdr->dest);
+  b0:	68ec      	ldr	r4, [r5, #12]
+  b2:	78a3      	ldrb	r3, [r4, #2]
+  b4:	78e0      	ldrb	r0, [r4, #3]
+  b6:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+  ba:	f7ff fffe 	bl	0 <lwip_ntohs>
+  be:	70a0      	strb	r0, [r4, #2]
+  c0:	0a00      	lsrs	r0, r0, #8
+  c2:	70e0      	strb	r0, [r4, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:170
+  seqno = tcphdr->seqno = ntohl(tcphdr->seqno);
+  c4:	68ec      	ldr	r4, [r5, #12]
+  c6:	7962      	ldrb	r2, [r4, #5]
+  c8:	7923      	ldrb	r3, [r4, #4]
+  ca:	79e0      	ldrb	r0, [r4, #7]
+  cc:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+  d0:	79a2      	ldrb	r2, [r4, #6]
+  d2:	ea43 4302 	orr.w	r3, r3, r2, lsl #16
+  d6:	ea43 6000 	orr.w	r0, r3, r0, lsl #24
+  da:	f7ff fffe 	bl	0 <lwip_ntohl>
+  de:	0a03      	lsrs	r3, r0, #8
+  e0:	7163      	strb	r3, [r4, #5]
+  e2:	0c03      	lsrs	r3, r0, #16
+  e4:	71a3      	strb	r3, [r4, #6]
+  e6:	0e03      	lsrs	r3, r0, #24
+  e8:	7120      	strb	r0, [r4, #4]
+  ea:	71e3      	strb	r3, [r4, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:171
+  ackno = tcphdr->ackno = ntohl(tcphdr->ackno);
+  ec:	68ec      	ldr	r4, [r5, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:170
+  }
+
+  /* Convert fields in TCP header to host byte order. */
+  tcphdr->src = ntohs(tcphdr->src);
+  tcphdr->dest = ntohs(tcphdr->dest);
+  seqno = tcphdr->seqno = ntohl(tcphdr->seqno);
+  ee:	6068      	str	r0, [r5, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:171
+  ackno = tcphdr->ackno = ntohl(tcphdr->ackno);
+  f0:	7a62      	ldrb	r2, [r4, #9]
+  f2:	7a23      	ldrb	r3, [r4, #8]
+  f4:	7ae0      	ldrb	r0, [r4, #11]
+  f6:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+  fa:	7aa2      	ldrb	r2, [r4, #10]
+  fc:	ea43 4302 	orr.w	r3, r3, r2, lsl #16
+ 100:	ea43 6000 	orr.w	r0, r3, r0, lsl #24
+ 104:	f7ff fffe 	bl	0 <lwip_ntohl>
+ 108:	0a03      	lsrs	r3, r0, #8
+ 10a:	7263      	strb	r3, [r4, #9]
+ 10c:	0c03      	lsrs	r3, r0, #16
+ 10e:	72a3      	strb	r3, [r4, #10]
+ 110:	0e03      	lsrs	r3, r0, #24
+ 112:	7220      	strb	r0, [r4, #8]
+ 114:	72e3      	strb	r3, [r4, #11]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:172
+  tcphdr->wnd = ntohs(tcphdr->wnd);
+ 116:	68ec      	ldr	r4, [r5, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:171
+
+  /* Convert fields in TCP header to host byte order. */
+  tcphdr->src = ntohs(tcphdr->src);
+  tcphdr->dest = ntohs(tcphdr->dest);
+  seqno = tcphdr->seqno = ntohl(tcphdr->seqno);
+  ackno = tcphdr->ackno = ntohl(tcphdr->ackno);
+ 118:	60a8      	str	r0, [r5, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:172
+  tcphdr->wnd = ntohs(tcphdr->wnd);
+ 11a:	7ba3      	ldrb	r3, [r4, #14]
+ 11c:	7be0      	ldrb	r0, [r4, #15]
+ 11e:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+ 122:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 126:	73a0      	strb	r0, [r4, #14]
+ 128:	0a00      	lsrs	r0, r0, #8
+ 12a:	73e0      	strb	r0, [r4, #15]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:174
+
+  flags = TCPH_FLAGS(tcphdr);
+ 12c:	68eb      	ldr	r3, [r5, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:189
+    LWIP_ASSERT("tcp_input: active pcb->state != TIME-WAIT", pcb->state != TIME_WAIT);
+    LWIP_ASSERT("tcp_input: active pcb->state != LISTEN", pcb->state != LISTEN);
+    if (pcb->remote_port == tcphdr->src &&
+       pcb->local_port == tcphdr->dest &&
+       ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src) &&
+       ip_addr_cmp(&(pcb->local_ip), &current_iphdr_dest)) {
+ 12e:	4c5a      	ldr	r4, [pc, #360]	; (298 <tcp_input+0x298>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:174
+  tcphdr->dest = ntohs(tcphdr->dest);
+  seqno = tcphdr->seqno = ntohl(tcphdr->seqno);
+  ackno = tcphdr->ackno = ntohl(tcphdr->ackno);
+  tcphdr->wnd = ntohs(tcphdr->wnd);
+
+  flags = TCPH_FLAGS(tcphdr);
+ 130:	7b1a      	ldrb	r2, [r3, #12]
+ 132:	7b58      	ldrb	r0, [r3, #13]
+ 134:	ea42 2000 	orr.w	r0, r2, r0, lsl #8
+ 138:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 13c:	f000 033f 	and.w	r3, r0, #63	; 0x3f
+ 140:	702b      	strb	r3, [r5, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:175
+  tcplen = p->tot_len + ((flags & (TCP_FIN | TCP_SYN)) ? 1 : 0);
+ 142:	8930      	ldrh	r0, [r6, #8]
+ 144:	f003 0203 	and.w	r2, r3, #3
+ 148:	2a00      	cmp	r2, #0
+ 14a:	bf0c      	ite	eq
+ 14c:	4602      	moveq	r2, r0
+ 14e:	1c42      	addne	r2, r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:182
+  /* Demultiplex an incoming segment. First, we check if it is destined
+     for an active connection. */
+  prev = NULL;
+
+  
+  for(pcb = tcp_active_pcbs; pcb != NULL; pcb = pcb->next) {
+ 150:	f8d8 c000 	ldr.w	ip, [r8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:175
+  seqno = tcphdr->seqno = ntohl(tcphdr->seqno);
+  ackno = tcphdr->ackno = ntohl(tcphdr->ackno);
+  tcphdr->wnd = ntohs(tcphdr->wnd);
+
+  flags = TCPH_FLAGS(tcphdr);
+  tcplen = p->tot_len + ((flags & (TCP_FIN | TCP_SYN)) ? 1 : 0);
+ 154:	b292      	uxth	r2, r2
+ 156:	9204      	str	r2, [sp, #16]
+ 158:	822a      	strh	r2, [r5, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:189
+    LWIP_ASSERT("tcp_input: active pcb->state != TIME-WAIT", pcb->state != TIME_WAIT);
+    LWIP_ASSERT("tcp_input: active pcb->state != LISTEN", pcb->state != LISTEN);
+    if (pcb->remote_port == tcphdr->src &&
+       pcb->local_port == tcphdr->dest &&
+       ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src) &&
+       ip_addr_cmp(&(pcb->local_ip), &current_iphdr_dest)) {
+ 15a:	6821      	ldr	r1, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:186
+  
+  for(pcb = tcp_active_pcbs; pcb != NULL; pcb = pcb->next) {
+    LWIP_ASSERT("tcp_input: active pcb->state != CLOSED", pcb->state != CLOSED);
+    LWIP_ASSERT("tcp_input: active pcb->state != TIME-WAIT", pcb->state != TIME_WAIT);
+    LWIP_ASSERT("tcp_input: active pcb->state != LISTEN", pcb->state != LISTEN);
+    if (pcb->remote_port == tcphdr->src &&
+ 15c:	68ea      	ldr	r2, [r5, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:188
+       pcb->local_port == tcphdr->dest &&
+       ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src) &&
+ 15e:	f8d9 a000 	ldr.w	sl, [r9]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:182
+  /* Demultiplex an incoming segment. First, we check if it is destined
+     for an active connection. */
+  prev = NULL;
+
+  
+  for(pcb = tcp_active_pcbs; pcb != NULL; pcb = pcb->next) {
+ 162:	4664      	mov	r4, ip
+ 164:	9303      	str	r3, [sp, #12]
+ 166:	e023      	b.n	1b0 <tcp_input+0x1b0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:186
+    LWIP_ASSERT("tcp_input: active pcb->state != CLOSED", pcb->state != CLOSED);
+    LWIP_ASSERT("tcp_input: active pcb->state != TIME-WAIT", pcb->state != TIME_WAIT);
+    LWIP_ASSERT("tcp_input: active pcb->state != LISTEN", pcb->state != LISTEN);
+    if (pcb->remote_port == tcphdr->src &&
+ 168:	f892 b000 	ldrb.w	fp, [r2]
+ 16c:	f892 9001 	ldrb.w	r9, [r2, #1]
+ 170:	8be3      	ldrh	r3, [r4, #30]
+ 172:	ea4b 2909 	orr.w	r9, fp, r9, lsl #8
+ 176:	454b      	cmp	r3, r9
+ 178:	d118      	bne.n	1ac <tcp_input+0x1ac>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:187
+       pcb->local_port == tcphdr->dest &&
+ 17a:	f892 b002 	ldrb.w	fp, [r2, #2]
+ 17e:	f892 9003 	ldrb.w	r9, [r2, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:186
+  
+  for(pcb = tcp_active_pcbs; pcb != NULL; pcb = pcb->next) {
+    LWIP_ASSERT("tcp_input: active pcb->state != CLOSED", pcb->state != CLOSED);
+    LWIP_ASSERT("tcp_input: active pcb->state != TIME-WAIT", pcb->state != TIME_WAIT);
+    LWIP_ASSERT("tcp_input: active pcb->state != LISTEN", pcb->state != LISTEN);
+    if (pcb->remote_port == tcphdr->src &&
+ 182:	8ba3      	ldrh	r3, [r4, #28]
+ 184:	ea4b 2909 	orr.w	r9, fp, r9, lsl #8
+ 188:	454b      	cmp	r3, r9
+ 18a:	d10f      	bne.n	1ac <tcp_input+0x1ac>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:187
+       pcb->local_port == tcphdr->dest &&
+ 18c:	f8d4 9004 	ldr.w	r9, [r4, #4]
+ 190:	45d1      	cmp	r9, sl
+ 192:	d10b      	bne.n	1ac <tcp_input+0x1ac>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:188
+       ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src) &&
+ 194:	f8d4 9000 	ldr.w	r9, [r4]
+ 198:	4589      	cmp	r9, r1
+ 19a:	d107      	bne.n	1ac <tcp_input+0x1ac>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:195
+
+      /* Move this PCB to the front of the list so that subsequent
+         lookups will be faster (we exploit locality in TCP segment
+         arrivals). */
+      LWIP_ASSERT("tcp_input: pcb->next != pcb (before cache)", pcb->next != pcb);
+      if (prev != NULL) {
+ 19c:	b177      	cbz	r7, 1bc <tcp_input+0x1bc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:196
+        prev->next = pcb->next;
+ 19e:	68e3      	ldr	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:198
+        pcb->next = tcp_active_pcbs;
+        tcp_active_pcbs = pcb;
+ 1a0:	f8c8 4000 	str.w	r4, [r8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:196
+      /* Move this PCB to the front of the list so that subsequent
+         lookups will be faster (we exploit locality in TCP segment
+         arrivals). */
+      LWIP_ASSERT("tcp_input: pcb->next != pcb (before cache)", pcb->next != pcb);
+      if (prev != NULL) {
+        prev->next = pcb->next;
+ 1a4:	60fb      	str	r3, [r7, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:197
+        pcb->next = tcp_active_pcbs;
+ 1a6:	f8c4 c00c 	str.w	ip, [r4, #12]
+ 1aa:	e007      	b.n	1bc <tcp_input+0x1bc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:182
+  /* Demultiplex an incoming segment. First, we check if it is destined
+     for an active connection. */
+  prev = NULL;
+
+  
+  for(pcb = tcp_active_pcbs; pcb != NULL; pcb = pcb->next) {
+ 1ac:	4627      	mov	r7, r4
+ 1ae:	68e4      	ldr	r4, [r4, #12]
+ 1b0:	2c00      	cmp	r4, #0
+ 1b2:	d1d9      	bne.n	168 <tcp_input+0x168>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:209
+  }
+
+  if (pcb == NULL) {
+    /* If it did not go to an active connection, we check the connections
+       in the TIME-WAIT state. */
+    for(pcb = tcp_tw_pcbs; pcb != NULL; pcb = pcb->next) {
+ 1b4:	4839      	ldr	r0, [pc, #228]	; (29c <tcp_input+0x29c>)
+ 1b6:	9b03      	ldr	r3, [sp, #12]
+ 1b8:	6800      	ldr	r0, [r0, #0]
+ 1ba:	e04d      	b.n	258 <tcp_input+0x258>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:292
+    tcp_debug_print_state(pcb->state);
+#endif /* TCP_DEBUG */
+#endif /* TCP_INPUT_DEBUG */
+
+    /* Set up a tcp_seg structure. */
+    inseg.next = NULL;
+ 1bc:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:298
+    inseg.len = p->tot_len;
+    inseg.p = p;
+    inseg.tcphdr = tcphdr;
+
+    recv_data = NULL;
+    recv_flags = 0;
+ 1be:	f885 3028 	strb.w	r3, [r5, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:295
+
+    /* Set up a tcp_seg structure. */
+    inseg.next = NULL;
+    inseg.len = p->tot_len;
+    inseg.p = p;
+    inseg.tcphdr = tcphdr;
+ 1c2:	622a      	str	r2, [r5, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:301
+
+    recv_data = NULL;
+    recv_flags = 0;
+
+    /* If there is data which was previously "refused" by upper layer */
+    if (pcb->refused_data != NULL) {
+ 1c4:	6fe2      	ldr	r2, [r4, #124]	; 0x7c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:292
+    tcp_debug_print_state(pcb->state);
+#endif /* TCP_DEBUG */
+#endif /* TCP_INPUT_DEBUG */
+
+    /* Set up a tcp_seg structure. */
+    inseg.next = NULL;
+ 1c6:	616b      	str	r3, [r5, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:293
+    inseg.len = p->tot_len;
+ 1c8:	83a8      	strh	r0, [r5, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:294
+    inseg.p = p;
+ 1ca:	61ae      	str	r6, [r5, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:297
+    inseg.tcphdr = tcphdr;
+
+    recv_data = NULL;
+ 1cc:	626b      	str	r3, [r5, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:301
+    recv_flags = 0;
+
+    /* If there is data which was previously "refused" by upper layer */
+    if (pcb->refused_data != NULL) {
+ 1ce:	2a00      	cmp	r2, #0
+ 1d0:	f040 80d3 	bne.w	37a <tcp_input+0x37a>
+ 1d4:	e0e9      	b.n	3aa <tcp_input+0x3aa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:211
+  if (pcb == NULL) {
+    /* If it did not go to an active connection, we check the connections
+       in the TIME-WAIT state. */
+    for(pcb = tcp_tw_pcbs; pcb != NULL; pcb = pcb->next) {
+      LWIP_ASSERT("tcp_input: TIME-WAIT pcb->state == TIME-WAIT", pcb->state == TIME_WAIT);
+      if (pcb->remote_port == tcphdr->src &&
+ 1d6:	7817      	ldrb	r7, [r2, #0]
+ 1d8:	f892 c001 	ldrb.w	ip, [r2, #1]
+ 1dc:	8bc4      	ldrh	r4, [r0, #30]
+ 1de:	ea47 270c 	orr.w	r7, r7, ip, lsl #8
+ 1e2:	42bc      	cmp	r4, r7
+ 1e4:	d137      	bne.n	256 <tcp_input+0x256>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:212
+         pcb->local_port == tcphdr->dest &&
+ 1e6:	f892 c002 	ldrb.w	ip, [r2, #2]
+ 1ea:	f892 9003 	ldrb.w	r9, [r2, #3]
+ 1ee:	8b87      	ldrh	r7, [r0, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:211
+  if (pcb == NULL) {
+    /* If it did not go to an active connection, we check the connections
+       in the TIME-WAIT state. */
+    for(pcb = tcp_tw_pcbs; pcb != NULL; pcb = pcb->next) {
+      LWIP_ASSERT("tcp_input: TIME-WAIT pcb->state == TIME-WAIT", pcb->state == TIME_WAIT);
+      if (pcb->remote_port == tcphdr->src &&
+ 1f0:	ea4c 2c09 	orr.w	ip, ip, r9, lsl #8
+ 1f4:	4567      	cmp	r7, ip
+ 1f6:	d12e      	bne.n	256 <tcp_input+0x256>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:212
+         pcb->local_port == tcphdr->dest &&
+ 1f8:	f8d0 c004 	ldr.w	ip, [r0, #4]
+ 1fc:	45d4      	cmp	ip, sl
+ 1fe:	d12a      	bne.n	256 <tcp_input+0x256>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:213
+         ip_addr_cmp(&(pcb->remote_ip), &current_iphdr_src) &&
+ 200:	f8d0 c000 	ldr.w	ip, [r0]
+ 204:	458c      	cmp	ip, r1
+ 206:	d126      	bne.n	256 <tcp_input+0x256>
+tcp_timewait_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:533
+  /* RFC 1337: in TIME_WAIT, ignore RST and ACK FINs + any 'acceptable' segments */
+  /* RFC 793 3.9 Event Processing - Segment Arrives:
+   * - first check sequence number - we skip that one in TIME_WAIT (always
+   *   acceptable since we only send ACKs)
+   * - second check the RST bit (... return) */
+  if (flags & TCP_RST)  {
+ 208:	f013 0f04 	tst.w	r3, #4
+ 20c:	f040 8327 	bne.w	85e <tcp_input+0x85e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:537
+    return ERR_OK;
+  }
+  /* - fourth, check the SYN bit, */
+  if (flags & TCP_SYN) {
+ 210:	f013 0f02 	tst.w	r3, #2
+ 214:	d00e      	beq.n	234 <tcp_input+0x234>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:540
+    /* If an incoming segment is not acceptable, an acknowledgment
+       should be sent in reply */
+    if (TCP_SEQ_BETWEEN(seqno, pcb->rcv_nxt, pcb->rcv_nxt+pcb->rcv_wnd)) {
+ 216:	6869      	ldr	r1, [r5, #4]
+ 218:	6a43      	ldr	r3, [r0, #36]	; 0x24
+ 21a:	1acb      	subs	r3, r1, r3
+ 21c:	d410      	bmi.n	240 <tcp_input+0x240>
+ 21e:	8d02      	ldrh	r2, [r0, #40]	; 0x28
+ 220:	1a9b      	subs	r3, r3, r2
+ 222:	2b00      	cmp	r3, #0
+ 224:	dc0c      	bgt.n	240 <tcp_input+0x240>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:542
+      /* If the SYN is in the window it is an error, send a reset */
+      tcp_rst(ackno, seqno + tcplen, ip_current_dest_addr(), ip_current_src_addr(),
+ 226:	9401      	str	r4, [sp, #4]
+ 228:	4b1a      	ldr	r3, [pc, #104]	; (294 <tcp_input+0x294>)
+ 22a:	9c04      	ldr	r4, [sp, #16]
+ 22c:	9700      	str	r7, [sp, #0]
+ 22e:	6898      	ldr	r0, [r3, #8]
+ 230:	1861      	adds	r1, r4, r1
+ 232:	e310      	b.n	856 <tcp_input+0x856>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:546
+        tcphdr->dest, tcphdr->src);
+      return ERR_OK;
+    }
+  } else if (flags & TCP_FIN) {
+ 234:	f013 0f01 	tst.w	r3, #1
+ 238:	d002      	beq.n	240 <tcp_input+0x240>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:549
+    /* - eighth, check the FIN bit: Remain in the TIME-WAIT state.
+         Restart the 2 MSL time-wait timeout.*/
+    pcb->tmr = tcp_ticks;
+ 23a:	4b19      	ldr	r3, [pc, #100]	; (2a0 <tcp_input+0x2a0>)
+ 23c:	681b      	ldr	r3, [r3, #0]
+ 23e:	6303      	str	r3, [r0, #48]	; 0x30
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:552
+  }
+
+  if ((tcplen > 0))  {
+ 240:	8a2b      	ldrh	r3, [r5, #16]
+ 242:	2b00      	cmp	r3, #0
+ 244:	f000 830b 	beq.w	85e <tcp_input+0x85e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:554
+    /* Acknowledge data, FIN or out-of-window SYN */
+    pcb->flags |= TF_ACK_NOW;
+ 248:	f890 3020 	ldrb.w	r3, [r0, #32]
+ 24c:	f043 0302 	orr.w	r3, r3, #2
+ 250:	f880 3020 	strb.w	r3, [r0, #32]
+ 254:	e08e      	b.n	374 <tcp_input+0x374>
+tcp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:209
+  }
+
+  if (pcb == NULL) {
+    /* If it did not go to an active connection, we check the connections
+       in the TIME-WAIT state. */
+    for(pcb = tcp_tw_pcbs; pcb != NULL; pcb = pcb->next) {
+ 256:	68c0      	ldr	r0, [r0, #12]
+ 258:	2800      	cmp	r0, #0
+ 25a:	d1bc      	bne.n	1d6 <tcp_input+0x1d6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:228
+    }
+
+    /* Finally, if we still did not get a match, we check all PCBs that
+       are LISTENing for incoming connections. */
+    prev = NULL;
+    for(lpcb = tcp_listen_pcbs.listen_pcbs; lpcb != NULL; lpcb = lpcb->next) {
+ 25c:	4f11      	ldr	r7, [pc, #68]	; (2a4 <tcp_input+0x2a4>)
+ 25e:	f8d7 c000 	ldr.w	ip, [r7]
+ 262:	46bb      	mov	fp, r7
+ 264:	4664      	mov	r4, ip
+ 266:	e011      	b.n	28c <tcp_input+0x28c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:229
+      if (lpcb->local_port == tcphdr->dest) {
+ 268:	f892 a002 	ldrb.w	sl, [r2, #2]
+ 26c:	f892 9003 	ldrb.w	r9, [r2, #3]
+ 270:	8ba7      	ldrh	r7, [r4, #28]
+ 272:	ea4a 2909 	orr.w	r9, sl, r9, lsl #8
+ 276:	454f      	cmp	r7, r9
+ 278:	d106      	bne.n	288 <tcp_input+0x288>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:240
+          /* found an ANY-match */
+          lpcb_any = lpcb;
+          lpcb_prev = prev;
+        }
+#else /* SO_REUSE */
+        if (ip_addr_cmp(&(lpcb->local_ip), &current_iphdr_dest) ||
+ 27a:	f8d4 9000 	ldr.w	r9, [r4]
+ 27e:	4589      	cmp	r9, r1
+ 280:	d016      	beq.n	2b0 <tcp_input+0x2b0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:241
+            ip_addr_isany(&(lpcb->local_ip))) {
+ 282:	f1b9 0f00 	cmp.w	r9, #0
+ 286:	d013      	beq.n	2b0 <tcp_input+0x2b0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:247
+          /* found a match */
+          break;
+        }
+#endif /* SO_REUSE */
+      }
+      prev = (struct tcp_pcb *)lpcb;
+ 288:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:228
+    }
+
+    /* Finally, if we still did not get a match, we check all PCBs that
+       are LISTENing for incoming connections. */
+    prev = NULL;
+    for(lpcb = tcp_listen_pcbs.listen_pcbs; lpcb != NULL; lpcb = lpcb->next) {
+ 28a:	68e4      	ldr	r4, [r4, #12]
+ 28c:	2c00      	cmp	r4, #0
+ 28e:	d1eb      	bne.n	268 <tcp_input+0x268>
+ 290:	e2f8      	b.n	884 <tcp_input+0x884>
+ 292:	bf00      	nop
+	...
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:261
+#endif /* SO_REUSE */
+    if (lpcb != NULL) {
+      /* Move this PCB to the front of the list so that subsequent
+         lookups will be faster (we exploit locality in TCP segment
+         arrivals). */
+      if (prev != NULL) {
+ 2b0:	b128      	cbz	r0, 2be <tcp_input+0x2be>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:262
+        ((struct tcp_pcb_listen *)prev)->next = lpcb->next;
+ 2b2:	68e1      	ldr	r1, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:266
+              /* our successor is the remainder of the listening list */
+        lpcb->next = tcp_listen_pcbs.listen_pcbs;
+              /* put this listening pcb at the head of the listening list */
+        tcp_listen_pcbs.listen_pcbs = lpcb;
+ 2b4:	f8cb 4000 	str.w	r4, [fp]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:262
+    if (lpcb != NULL) {
+      /* Move this PCB to the front of the list so that subsequent
+         lookups will be faster (we exploit locality in TCP segment
+         arrivals). */
+      if (prev != NULL) {
+        ((struct tcp_pcb_listen *)prev)->next = lpcb->next;
+ 2b8:	60c1      	str	r1, [r0, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:264
+              /* our successor is the remainder of the listening list */
+        lpcb->next = tcp_listen_pcbs.listen_pcbs;
+ 2ba:	f8c4 c00c 	str.w	ip, [r4, #12]
+tcp_listen_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:449
+  struct tcp_pcb *npcb;
+  err_t rc;
+
+  /* In the LISTEN state, we check for incoming SYN segments,
+     creates a new PCB, and responds with a SYN|ACK. */
+  if (flags & TCP_ACK) {
+ 2be:	f013 0910 	ands.w	r9, r3, #16
+ 2c2:	d00b      	beq.n	2dc <tcp_input+0x2dc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:453
+    /* For incoming segments with the ACK flag set, respond with a
+       RST. */
+    LWIP_DEBUGF(TCP_RST_DEBUG, ("tcp_listen_input: ACK in LISTEN, sending reset\n"));
+    tcp_rst(ackno + 1, seqno + tcplen,
+ 2c4:	68a8      	ldr	r0, [r5, #8]
+ 2c6:	6869      	ldr	r1, [r5, #4]
+ 2c8:	9700      	str	r7, [sp, #0]
+ 2ca:	7813      	ldrb	r3, [r2, #0]
+ 2cc:	7852      	ldrb	r2, [r2, #1]
+ 2ce:	3001      	adds	r0, #1
+ 2d0:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+ 2d4:	9a04      	ldr	r2, [sp, #16]
+ 2d6:	9301      	str	r3, [sp, #4]
+ 2d8:	1851      	adds	r1, r2, r1
+ 2da:	e2bc      	b.n	856 <tcp_input+0x856>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:456
+      ip_current_dest_addr(), ip_current_src_addr(),
+      tcphdr->dest, tcphdr->src);
+  } else if (flags & TCP_SYN) {
+ 2dc:	f013 0f02 	tst.w	r3, #2
+ 2e0:	f000 82bd 	beq.w	85e <tcp_input+0x85e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:464
+    if (pcb->accepts_pending >= pcb->backlog) {
+      LWIP_DEBUGF(TCP_DEBUG, ("tcp_listen_input: listen backlog exceeded for port %"U16_F"\n", tcphdr->dest));
+      return ERR_ABRT;
+    }
+#endif /* TCP_LISTEN_BACKLOG */
+    npcb = tcp_alloc(pcb->prio);
+ 2e4:	7c60      	ldrb	r0, [r4, #17]
+ 2e6:	f7ff fffe 	bl	0 <tcp_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:468
+    /* If a new PCB could not be created (probably due to lack of memory),
+       we don't do anything, but rely on the sender will retransmit the
+       SYN at a time when we have more memory available. */
+    if (npcb == NULL) {
+ 2ea:	4607      	mov	r7, r0
+ 2ec:	2800      	cmp	r0, #0
+ 2ee:	f000 82b6 	beq.w	85e <tcp_input+0x85e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:477
+    }
+#if TCP_LISTEN_BACKLOG
+    pcb->accepts_pending++;
+#endif /* TCP_LISTEN_BACKLOG */
+    /* Set up the new PCB. */
+    ip_addr_copy(npcb->local_ip, current_iphdr_dest);
+ 2f2:	4a9a      	ldr	r2, [pc, #616]	; (55c <tcp_input+0x55c>)
+ 2f4:	6813      	ldr	r3, [r2, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:479
+    npcb->local_port = pcb->local_port;
+    ip_addr_copy(npcb->remote_ip, current_iphdr_src);
+ 2f6:	4a9a      	ldr	r2, [pc, #616]	; (560 <tcp_input+0x560>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:477
+    }
+#if TCP_LISTEN_BACKLOG
+    pcb->accepts_pending++;
+#endif /* TCP_LISTEN_BACKLOG */
+    /* Set up the new PCB. */
+    ip_addr_copy(npcb->local_ip, current_iphdr_dest);
+ 2f8:	6003      	str	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:478
+    npcb->local_port = pcb->local_port;
+ 2fa:	8ba3      	ldrh	r3, [r4, #28]
+ 2fc:	8383      	strh	r3, [r0, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:479
+    ip_addr_copy(npcb->remote_ip, current_iphdr_src);
+ 2fe:	6813      	ldr	r3, [r2, #0]
+ 300:	6043      	str	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:480
+    npcb->remote_port = tcphdr->src;
+ 302:	68eb      	ldr	r3, [r5, #12]
+ 304:	7859      	ldrb	r1, [r3, #1]
+ 306:	781a      	ldrb	r2, [r3, #0]
+ 308:	ea42 2201 	orr.w	r2, r2, r1, lsl #8
+ 30c:	83c2      	strh	r2, [r0, #30]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:481
+    npcb->state = SYN_RCVD;
+ 30e:	2203      	movs	r2, #3
+ 310:	7402      	strb	r2, [r0, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:482
+    npcb->rcv_nxt = seqno + 1;
+ 312:	686a      	ldr	r2, [r5, #4]
+ 314:	1c51      	adds	r1, r2, #1
+ 316:	6241      	str	r1, [r0, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:483
+    npcb->rcv_ann_right_edge = npcb->rcv_nxt;
+ 318:	62c1      	str	r1, [r0, #44]	; 0x2c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:484
+    npcb->snd_wnd = tcphdr->wnd;
+ 31a:	7b99      	ldrb	r1, [r3, #14]
+ 31c:	7bdb      	ldrb	r3, [r3, #15]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:486
+    npcb->ssthresh = npcb->snd_wnd;
+    npcb->snd_wl1 = seqno - 1;/* initialise to seqno-1 to force window update */
+ 31e:	3a01      	subs	r2, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:484
+    ip_addr_copy(npcb->remote_ip, current_iphdr_src);
+    npcb->remote_port = tcphdr->src;
+    npcb->state = SYN_RCVD;
+    npcb->rcv_nxt = seqno + 1;
+    npcb->rcv_ann_right_edge = npcb->rcv_nxt;
+    npcb->snd_wnd = tcphdr->wnd;
+ 320:	ea41 2303 	orr.w	r3, r1, r3, lsl #8
+ 324:	f8a0 305c 	strh.w	r3, [r0, #92]	; 0x5c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:485
+    npcb->ssthresh = npcb->snd_wnd;
+ 328:	f8a0 3054 	strh.w	r3, [r0, #84]	; 0x54
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:487
+    npcb->snd_wl1 = seqno - 1;/* initialise to seqno-1 to force window update */
+    npcb->callback_arg = pcb->callback_arg;
+ 32c:	6963      	ldr	r3, [r4, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:486
+    npcb->state = SYN_RCVD;
+    npcb->rcv_nxt = seqno + 1;
+    npcb->rcv_ann_right_edge = npcb->rcv_nxt;
+    npcb->snd_wnd = tcphdr->wnd;
+    npcb->ssthresh = npcb->snd_wnd;
+    npcb->snd_wl1 = seqno - 1;/* initialise to seqno-1 to force window update */
+ 32e:	6602      	str	r2, [r0, #96]	; 0x60
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:487
+    npcb->callback_arg = pcb->callback_arg;
+ 330:	6143      	str	r3, [r0, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:489
+#if LWIP_CALLBACK_API
+    npcb->accept = pcb->accept;
+ 332:	69a3      	ldr	r3, [r4, #24]
+ 334:	6183      	str	r3, [r0, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:492
+#endif /* LWIP_CALLBACK_API */
+    /* inherit socket options */
+    npcb->so_options = pcb->so_options & SOF_INHERITED;
+ 336:	7a23      	ldrb	r3, [r4, #8]
+ 338:	f023 0373 	bic.w	r3, r3, #115	; 0x73
+ 33c:	7203      	strb	r3, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:495
+    /* Register the new PCB so that we can begin receiving segments
+       for it. */
+    TCP_REG(&tcp_active_pcbs, npcb);
+ 33e:	f8d8 3000 	ldr.w	r3, [r8]
+ 342:	f8c8 0000 	str.w	r0, [r8]
+ 346:	60c3      	str	r3, [r0, #12]
+ 348:	f7ff fffe 	bl	0 <tcp_timer_needed>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:498
+
+    /* Parse any options in the SYN. */
+    tcp_parseopt(npcb);
+ 34c:	f107 0038 	add.w	r0, r7, #56	; 0x38
+ 350:	f7ff fffe 	bl	0 <tcp_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:500
+#if TCP_CALCULATE_EFF_SEND_MSS
+    npcb->mss = tcp_eff_send_mss(npcb->mss, &(npcb->remote_ip));
+ 354:	1d39      	adds	r1, r7, #4
+ 356:	8f38      	ldrh	r0, [r7, #56]	; 0x38
+ 358:	f7ff fffe 	bl	0 <tcp_eff_send_mss>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:506
+#endif /* TCP_CALCULATE_EFF_SEND_MSS */
+
+    snmp_inc_tcppassiveopens();
+
+    /* Send a SYN|ACK together with the MSS option. */
+    rc = tcp_enqueue_flags(npcb, TCP_SYN | TCP_ACK);
+ 35c:	2112      	movs	r1, #18
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:500
+    TCP_REG(&tcp_active_pcbs, npcb);
+
+    /* Parse any options in the SYN. */
+    tcp_parseopt(npcb);
+#if TCP_CALCULATE_EFF_SEND_MSS
+    npcb->mss = tcp_eff_send_mss(npcb->mss, &(npcb->remote_ip));
+ 35e:	8738      	strh	r0, [r7, #56]	; 0x38
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:506
+#endif /* TCP_CALCULATE_EFF_SEND_MSS */
+
+    snmp_inc_tcppassiveopens();
+
+    /* Send a SYN|ACK together with the MSS option. */
+    rc = tcp_enqueue_flags(npcb, TCP_SYN | TCP_ACK);
+ 360:	4638      	mov	r0, r7
+ 362:	f7ff fffe 	bl	0 <tcp_enqueue_flags>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:507
+    if (rc != ERR_OK) {
+ 366:	b120      	cbz	r0, 372 <tcp_input+0x372>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:508
+      tcp_abandon(npcb, 0);
+ 368:	4638      	mov	r0, r7
+ 36a:	4649      	mov	r1, r9
+ 36c:	f7ff fffe 	bl	0 <tcp_abandon>
+ 370:	e275      	b.n	85e <tcp_input+0x85e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:511
+      return rc;
+    }
+    return tcp_output(npcb);
+ 372:	4638      	mov	r0, r7
+ 374:	f7ff fffe 	bl	0 <tcp_output>
+ 378:	e271      	b.n	85e <tcp_input+0x85e>
+tcp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:304
+
+    /* If there is data which was previously "refused" by upper layer */
+    if (pcb->refused_data != NULL) {
+      /* Notify again application with data previously received. */
+      LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_input: notify kept packet\n"));
+      TCP_EVENT_RECV(pcb, pcb->refused_data, ERR_OK, err);
+ 37a:	f8d4 7084 	ldr.w	r7, [r4, #132]	; 0x84
+ 37e:	b11f      	cbz	r7, 388 <tcp_input+0x388>
+ 380:	6960      	ldr	r0, [r4, #20]
+ 382:	4621      	mov	r1, r4
+ 384:	47b8      	blx	r7
+ 386:	e004      	b.n	392 <tcp_input+0x392>
+ 388:	4638      	mov	r0, r7
+ 38a:	4621      	mov	r1, r4
+ 38c:	463b      	mov	r3, r7
+ 38e:	f7ff fffe 	bl	0 <tcp_recv_null>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:305
+      if (err == ERR_OK) {
+ 392:	b908      	cbnz	r0, 398 <tcp_input+0x398>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:306
+        pcb->refused_data = NULL;
+ 394:	67e0      	str	r0, [r4, #124]	; 0x7c
+ 396:	e008      	b.n	3aa <tcp_input+0x3aa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:307
+      } else if ((err == ERR_ABRT) || (tcplen > 0)) {
+ 398:	b240      	sxtb	r0, r0
+ 39a:	f110 0f0a 	cmn.w	r0, #10
+ 39e:	f000 825e 	beq.w	85e <tcp_input+0x85e>
+ 3a2:	8a2b      	ldrh	r3, [r5, #16]
+ 3a4:	2b00      	cmp	r3, #0
+ 3a6:	f040 825a 	bne.w	85e <tcp_input+0x85e>
+tcp_process():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:581
+  err_t err;
+
+  err = ERR_OK;
+
+  /* Process incoming RST segments. */
+  if (flags & TCP_RST) {
+ 3aa:	782b      	ldrb	r3, [r5, #0]
+tcp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:318
+        snmp_inc_tcpinerrs();
+        pbuf_free(p);
+        return;
+      }
+    }
+    tcp_input_pcb = pcb;
+ 3ac:	4e6d      	ldr	r6, [pc, #436]	; (564 <tcp_input+0x564>)
+tcp_process():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:581
+  err_t err;
+
+  err = ERR_OK;
+
+  /* Process incoming RST segments. */
+  if (flags & TCP_RST) {
+ 3ae:	f013 0f04 	tst.w	r3, #4
+tcp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:318
+        snmp_inc_tcpinerrs();
+        pbuf_free(p);
+        return;
+      }
+    }
+    tcp_input_pcb = pcb;
+ 3b2:	6034      	str	r4, [r6, #0]
+tcp_process():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:581
+  err_t err;
+
+  err = ERR_OK;
+
+  /* Process incoming RST segments. */
+  if (flags & TCP_RST) {
+ 3b4:	4a6c      	ldr	r2, [pc, #432]	; (568 <tcp_input+0x568>)
+ 3b6:	d013      	beq.n	3e0 <tcp_input+0x3e0>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:583
+    /* First, determine if the reset is acceptable. */
+    if (pcb->state == SYN_SENT) {
+ 3b8:	7c23      	ldrb	r3, [r4, #16]
+ 3ba:	2b02      	cmp	r3, #2
+ 3bc:	d105      	bne.n	3ca <tcp_input+0x3ca>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:584
+      if (ackno == pcb->snd_nxt) {
+ 3be:	6892      	ldr	r2, [r2, #8]
+ 3c0:	6da3      	ldr	r3, [r4, #88]	; 0x58
+ 3c2:	429a      	cmp	r2, r3
+ 3c4:	f040 81b5 	bne.w	732 <tcp_input+0x732>
+ 3c8:	e24f      	b.n	86a <tcp_input+0x86a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:588
+        acceptable = 1;
+      }
+    } else {
+      if (TCP_SEQ_BETWEEN(seqno, pcb->rcv_nxt, 
+ 3ca:	6852      	ldr	r2, [r2, #4]
+ 3cc:	6a63      	ldr	r3, [r4, #36]	; 0x24
+ 3ce:	1ad3      	subs	r3, r2, r3
+ 3d0:	f100 81af 	bmi.w	732 <tcp_input+0x732>
+ 3d4:	8d21      	ldrh	r1, [r4, #40]	; 0x28
+ 3d6:	1a5b      	subs	r3, r3, r1
+ 3d8:	2b00      	cmp	r3, #0
+ 3da:	f300 81aa 	bgt.w	732 <tcp_input+0x732>
+ 3de:	e244      	b.n	86a <tcp_input+0x86a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:609
+       seqno, pcb->rcv_nxt));
+      return ERR_OK;
+    }
+  }
+
+  if ((flags & TCP_SYN) && (pcb->state != SYN_SENT && pcb->state != SYN_RCVD)) { 
+ 3e0:	f013 0f02 	tst.w	r3, #2
+ 3e4:	d004      	beq.n	3f0 <tcp_input+0x3f0>
+ 3e6:	7c23      	ldrb	r3, [r4, #16]
+ 3e8:	3b02      	subs	r3, #2
+ 3ea:	b2db      	uxtb	r3, r3
+ 3ec:	2b01      	cmp	r3, #1
+ 3ee:	d87b      	bhi.n	4e8 <tcp_input+0x4e8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:615
+    /* Cope with new connection attempt after remote end crashed */
+    tcp_ack_now(pcb);
+    return ERR_OK;
+  }
+  
+  if ((pcb->flags & TF_RXCLOSED) == 0) {
+ 3f0:	f894 3020 	ldrb.w	r3, [r4, #32]
+ 3f4:	f013 0f10 	tst.w	r3, #16
+ 3f8:	d102      	bne.n	400 <tcp_input+0x400>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:617
+    /* Update the PCB (in)activity timer unless rx is closed (see tcp_shutdown) */
+    pcb->tmr = tcp_ticks;
+ 3fa:	4b5c      	ldr	r3, [pc, #368]	; (56c <tcp_input+0x56c>)
+ 3fc:	681b      	ldr	r3, [r3, #0]
+ 3fe:	6323      	str	r3, [r4, #48]	; 0x30
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:619
+  }
+  pcb->keep_cnt_sent = 0;
+ 400:	2300      	movs	r3, #0
+ 402:	f884 309d 	strb.w	r3, [r4, #157]	; 0x9d
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:621
+
+  tcp_parseopt(pcb);
+ 406:	f104 0038 	add.w	r0, r4, #56	; 0x38
+ 40a:	f7ff fffe 	bl	0 <tcp_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:624
+
+  /* Do different things depending on the TCP state. */
+  switch (pcb->state) {
+ 40e:	7c23      	ldrb	r3, [r4, #16]
+ 410:	3b02      	subs	r3, #2
+ 412:	2b07      	cmp	r3, #7
+ 414:	f200 818d 	bhi.w	732 <tcp_input+0x732>
+ 418:	e8df f013 	tbh	[pc, r3, lsl #1]
+ 41c:	00810008 	.word	0x00810008
+ 420:	00f200e1 	.word	0x00f200e1
+ 424:	00e1012c 	.word	0x00e1012c
+ 428:	0179014b 	.word	0x0179014b
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:629
+  case SYN_SENT:
+    LWIP_DEBUGF(TCP_INPUT_DEBUG, ("SYN-SENT: ackno %"U32_F" pcb->snd_nxt %"U32_F" unacked %"U32_F"\n", ackno,
+     pcb->snd_nxt, ntohl(pcb->unacked->tcphdr->seqno)));
+    /* received SYN ACK with expected sequence number? */
+    if ((flags & TCP_ACK) && (flags & TCP_SYN)
+ 42c:	782b      	ldrb	r3, [r5, #0]
+ 42e:	4f4e      	ldr	r7, [pc, #312]	; (568 <tcp_input+0x568>)
+ 430:	f003 0312 	and.w	r3, r3, #18
+ 434:	2b12      	cmp	r3, #18
+ 436:	d15c      	bne.n	4f2 <tcp_input+0x4f2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:630
+        && ackno == ntohl(pcb->unacked->tcphdr->seqno) + 1) {
+ 438:	6fa3      	ldr	r3, [r4, #120]	; 0x78
+ 43a:	f8d7 8008 	ldr.w	r8, [r7, #8]
+ 43e:	68db      	ldr	r3, [r3, #12]
+ 440:	7959      	ldrb	r1, [r3, #5]
+ 442:	791a      	ldrb	r2, [r3, #4]
+ 444:	79d8      	ldrb	r0, [r3, #7]
+ 446:	ea42 2201 	orr.w	r2, r2, r1, lsl #8
+ 44a:	7999      	ldrb	r1, [r3, #6]
+ 44c:	ea42 4201 	orr.w	r2, r2, r1, lsl #16
+ 450:	ea42 6000 	orr.w	r0, r2, r0, lsl #24
+ 454:	f7ff fffe 	bl	0 <lwip_ntohl>
+ 458:	3001      	adds	r0, #1
+ 45a:	4580      	cmp	r8, r0
+ 45c:	d149      	bne.n	4f2 <tcp_input+0x4f2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:631
+      pcb->snd_buf++;
+ 45e:	f8b4 306e 	ldrh.w	r3, [r4, #110]	; 0x6e
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:640
+      pcb->snd_wnd = tcphdr->wnd;
+      pcb->snd_wl1 = seqno - 1; /* initialise to seqno - 1 to force window update */
+      pcb->state = ESTABLISHED;
+
+#if TCP_CALCULATE_EFF_SEND_MSS
+      pcb->mss = tcp_eff_send_mss(pcb->mss, &(pcb->remote_ip));
+ 462:	8f20      	ldrh	r0, [r4, #56]	; 0x38
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:631
+    LWIP_DEBUGF(TCP_INPUT_DEBUG, ("SYN-SENT: ackno %"U32_F" pcb->snd_nxt %"U32_F" unacked %"U32_F"\n", ackno,
+     pcb->snd_nxt, ntohl(pcb->unacked->tcphdr->seqno)));
+    /* received SYN ACK with expected sequence number? */
+    if ((flags & TCP_ACK) && (flags & TCP_SYN)
+        && ackno == ntohl(pcb->unacked->tcphdr->seqno) + 1) {
+      pcb->snd_buf++;
+ 464:	3301      	adds	r3, #1
+ 466:	f8a4 306e 	strh.w	r3, [r4, #110]	; 0x6e
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:632
+      pcb->rcv_nxt = seqno + 1;
+ 46a:	687b      	ldr	r3, [r7, #4]
+ 46c:	1c5a      	adds	r2, r3, #1
+ 46e:	6262      	str	r2, [r4, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:633
+      pcb->rcv_ann_right_edge = pcb->rcv_nxt;
+ 470:	62e2      	str	r2, [r4, #44]	; 0x2c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:634
+      pcb->lastack = ackno;
+ 472:	68ba      	ldr	r2, [r7, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:636
+      pcb->snd_wnd = tcphdr->wnd;
+      pcb->snd_wl1 = seqno - 1; /* initialise to seqno - 1 to force window update */
+ 474:	3b01      	subs	r3, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:634
+    if ((flags & TCP_ACK) && (flags & TCP_SYN)
+        && ackno == ntohl(pcb->unacked->tcphdr->seqno) + 1) {
+      pcb->snd_buf++;
+      pcb->rcv_nxt = seqno + 1;
+      pcb->rcv_ann_right_edge = pcb->rcv_nxt;
+      pcb->lastack = ackno;
+ 476:	64e2      	str	r2, [r4, #76]	; 0x4c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:635
+      pcb->snd_wnd = tcphdr->wnd;
+ 478:	68fa      	ldr	r2, [r7, #12]
+ 47a:	7b91      	ldrb	r1, [r2, #14]
+ 47c:	7bd2      	ldrb	r2, [r2, #15]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:636
+      pcb->snd_wl1 = seqno - 1; /* initialise to seqno - 1 to force window update */
+ 47e:	6623      	str	r3, [r4, #96]	; 0x60
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:635
+        && ackno == ntohl(pcb->unacked->tcphdr->seqno) + 1) {
+      pcb->snd_buf++;
+      pcb->rcv_nxt = seqno + 1;
+      pcb->rcv_ann_right_edge = pcb->rcv_nxt;
+      pcb->lastack = ackno;
+      pcb->snd_wnd = tcphdr->wnd;
+ 480:	ea41 2202 	orr.w	r2, r1, r2, lsl #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:637
+      pcb->snd_wl1 = seqno - 1; /* initialise to seqno - 1 to force window update */
+      pcb->state = ESTABLISHED;
+ 484:	2304      	movs	r3, #4
+ 486:	7423      	strb	r3, [r4, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:640
+
+#if TCP_CALCULATE_EFF_SEND_MSS
+      pcb->mss = tcp_eff_send_mss(pcb->mss, &(pcb->remote_ip));
+ 488:	18e1      	adds	r1, r4, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:635
+        && ackno == ntohl(pcb->unacked->tcphdr->seqno) + 1) {
+      pcb->snd_buf++;
+      pcb->rcv_nxt = seqno + 1;
+      pcb->rcv_ann_right_edge = pcb->rcv_nxt;
+      pcb->lastack = ackno;
+      pcb->snd_wnd = tcphdr->wnd;
+ 48a:	f8a4 205c 	strh.w	r2, [r4, #92]	; 0x5c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:640
+      pcb->snd_wl1 = seqno - 1; /* initialise to seqno - 1 to force window update */
+      pcb->state = ESTABLISHED;
+
+#if TCP_CALCULATE_EFF_SEND_MSS
+      pcb->mss = tcp_eff_send_mss(pcb->mss, &(pcb->remote_ip));
+ 48e:	f7ff fffe 	bl	0 <tcp_eff_send_mss>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:645
+#endif /* TCP_CALCULATE_EFF_SEND_MSS */
+
+      /* Set ssthresh again after changing pcb->mss (already set in tcp_connect
+       * but for the default value of pcb->mss) */
+      pcb->ssthresh = pcb->mss * 10;
+ 492:	230a      	movs	r3, #10
+ 494:	4343      	muls	r3, r0
+ 496:	f8a4 3054 	strh.w	r3, [r4, #84]	; 0x54
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:647
+
+      pcb->cwnd = ((pcb->cwnd == 1) ? (pcb->mss * 2) : pcb->mss);
+ 49a:	f8b4 3052 	ldrh.w	r3, [r4, #82]	; 0x52
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:640
+      pcb->snd_wnd = tcphdr->wnd;
+      pcb->snd_wl1 = seqno - 1; /* initialise to seqno - 1 to force window update */
+      pcb->state = ESTABLISHED;
+
+#if TCP_CALCULATE_EFF_SEND_MSS
+      pcb->mss = tcp_eff_send_mss(pcb->mss, &(pcb->remote_ip));
+ 49e:	8720      	strh	r0, [r4, #56]	; 0x38
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:647
+
+      /* Set ssthresh again after changing pcb->mss (already set in tcp_connect
+       * but for the default value of pcb->mss) */
+      pcb->ssthresh = pcb->mss * 10;
+
+      pcb->cwnd = ((pcb->cwnd == 1) ? (pcb->mss * 2) : pcb->mss);
+ 4a0:	2b01      	cmp	r3, #1
+ 4a2:	d101      	bne.n	4a8 <tcp_input+0x4a8>
+ 4a4:	0040      	lsls	r0, r0, #1
+ 4a6:	b280      	uxth	r0, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:649
+      LWIP_ASSERT("pcb->snd_queuelen > 0", (pcb->snd_queuelen > 0));
+      --pcb->snd_queuelen;
+ 4a8:	f8b4 3070 	ldrh.w	r3, [r4, #112]	; 0x70
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:647
+
+      /* Set ssthresh again after changing pcb->mss (already set in tcp_connect
+       * but for the default value of pcb->mss) */
+      pcb->ssthresh = pcb->mss * 10;
+
+      pcb->cwnd = ((pcb->cwnd == 1) ? (pcb->mss * 2) : pcb->mss);
+ 4ac:	f8a4 0052 	strh.w	r0, [r4, #82]	; 0x52
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:651
+      LWIP_ASSERT("pcb->snd_queuelen > 0", (pcb->snd_queuelen > 0));
+      --pcb->snd_queuelen;
+      LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_process: SYN-SENT --queuelen %"U16_F"\n", (u16_t)pcb->snd_queuelen));
+      rseg = pcb->unacked;
+ 4b0:	6fa0      	ldr	r0, [r4, #120]	; 0x78
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:649
+       * but for the default value of pcb->mss) */
+      pcb->ssthresh = pcb->mss * 10;
+
+      pcb->cwnd = ((pcb->cwnd == 1) ? (pcb->mss * 2) : pcb->mss);
+      LWIP_ASSERT("pcb->snd_queuelen > 0", (pcb->snd_queuelen > 0));
+      --pcb->snd_queuelen;
+ 4b2:	3b01      	subs	r3, #1
+ 4b4:	f8a4 3070 	strh.w	r3, [r4, #112]	; 0x70
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:652
+      LWIP_DEBUGF(TCP_QLEN_DEBUG, ("tcp_process: SYN-SENT --queuelen %"U16_F"\n", (u16_t)pcb->snd_queuelen));
+      rseg = pcb->unacked;
+      pcb->unacked = rseg->next;
+ 4b8:	6803      	ldr	r3, [r0, #0]
+ 4ba:	67a3      	str	r3, [r4, #120]	; 0x78
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:656
+
+      /* If there's nothing left to acknowledge, stop the retransmit
+         timer, otherwise reset it to start again */
+      if(pcb->unacked == NULL)
+ 4bc:	b91b      	cbnz	r3, 4c6 <tcp_input+0x4c6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:657
+        pcb->rtime = -1;
+ 4be:	f04f 33ff 	mov.w	r3, #4294967295
+ 4c2:	86e3      	strh	r3, [r4, #54]	; 0x36
+ 4c4:	e003      	b.n	4ce <tcp_input+0x4ce>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:659
+      else {
+        pcb->rtime = 0;
+ 4c6:	2300      	movs	r3, #0
+ 4c8:	86e3      	strh	r3, [r4, #54]	; 0x36
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:660
+        pcb->nrtx = 0;
+ 4ca:	f884 304a 	strb.w	r3, [r4, #74]	; 0x4a
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:663
+      }
+
+      tcp_seg_free(rseg);
+ 4ce:	f7ff fffe 	bl	0 <tcp_seg_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:667
+
+      /* Call the user specified function to call when sucessfully
+       * connected. */
+      TCP_EVENT_CONNECTED(pcb, ERR_OK, err);
+ 4d2:	f8d4 3088 	ldr.w	r3, [r4, #136]	; 0x88
+ 4d6:	b13b      	cbz	r3, 4e8 <tcp_input+0x4e8>
+ 4d8:	2200      	movs	r2, #0
+ 4da:	6960      	ldr	r0, [r4, #20]
+ 4dc:	4621      	mov	r1, r4
+ 4de:	4798      	blx	r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:668
+      if (err == ERR_ABRT) {
+ 4e0:	f110 0f0a 	cmn.w	r0, #10
+ 4e4:	f000 8191 	beq.w	80a <tcp_input+0x80a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:671
+        return ERR_ABRT;
+      }
+      tcp_ack_now(pcb);
+ 4e8:	f894 3020 	ldrb.w	r3, [r4, #32]
+ 4ec:	f043 0302 	orr.w	r3, r3, #2
+ 4f0:	e1c5      	b.n	87e <tcp_input+0x87e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:674
+    }
+    /* received ACK? possibly a half-open connection */
+    else if (flags & TCP_ACK) {
+ 4f2:	782b      	ldrb	r3, [r5, #0]
+ 4f4:	4a1c      	ldr	r2, [pc, #112]	; (568 <tcp_input+0x568>)
+ 4f6:	f013 0f10 	tst.w	r3, #16
+ 4fa:	f000 811a 	beq.w	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:677
+      /* send a RST to bring the other side in a non-synchronized state. */
+      tcp_rst(ackno, seqno + tcplen, ip_current_dest_addr(), ip_current_src_addr(),
+        tcphdr->dest, tcphdr->src);
+ 4fe:	68d0      	ldr	r0, [r2, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:676
+      tcp_ack_now(pcb);
+    }
+    /* received ACK? possibly a half-open connection */
+    else if (flags & TCP_ACK) {
+      /* send a RST to bring the other side in a non-synchronized state. */
+      tcp_rst(ackno, seqno + tcplen, ip_current_dest_addr(), ip_current_src_addr(),
+ 500:	8a11      	ldrh	r1, [r2, #16]
+ 502:	7887      	ldrb	r7, [r0, #2]
+ 504:	f890 e003 	ldrb.w	lr, [r0, #3]
+ 508:	6853      	ldr	r3, [r2, #4]
+ 50a:	ea47 270e 	orr.w	r7, r7, lr, lsl #8
+ 50e:	9700      	str	r7, [sp, #0]
+ 510:	7807      	ldrb	r7, [r0, #0]
+ 512:	7840      	ldrb	r0, [r0, #1]
+ 514:	ea47 2000 	orr.w	r0, r7, r0, lsl #8
+ 518:	9001      	str	r0, [sp, #4]
+ 51a:	6890      	ldr	r0, [r2, #8]
+ 51c:	e04b      	b.n	5b6 <tcp_input+0x5b6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:681
+        tcphdr->dest, tcphdr->src);
+    }
+    break;
+  case SYN_RCVD:
+    if (flags & TCP_ACK) {
+ 51e:	782a      	ldrb	r2, [r5, #0]
+ 520:	4b11      	ldr	r3, [pc, #68]	; (568 <tcp_input+0x568>)
+ 522:	f012 0f10 	tst.w	r2, #16
+ 526:	d04c      	beq.n	5c2 <tcp_input+0x5c2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:683
+      /* expected ACK number? */
+      if (TCP_SEQ_BETWEEN(ackno, pcb->lastack+1, pcb->snd_nxt)) {
+ 528:	6898      	ldr	r0, [r3, #8]
+ 52a:	6ce3      	ldr	r3, [r4, #76]	; 0x4c
+ 52c:	43db      	mvns	r3, r3
+ 52e:	42c3      	cmn	r3, r0
+ 530:	d433      	bmi.n	59a <tcp_input+0x59a>
+ 532:	6da3      	ldr	r3, [r4, #88]	; 0x58
+ 534:	1ac3      	subs	r3, r0, r3
+ 536:	2b00      	cmp	r3, #0
+ 538:	dc2f      	bgt.n	59a <tcp_input+0x59a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:685
+        u16_t old_cwnd;
+        pcb->state = ESTABLISHED;
+ 53a:	2304      	movs	r3, #4
+ 53c:	7423      	strb	r3, [r4, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:691
+        LWIP_DEBUGF(TCP_DEBUG, ("TCP connection established %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+#if LWIP_CALLBACK_API
+        LWIP_ASSERT("pcb->accept != NULL", pcb->accept != NULL);
+#endif
+        /* Call the accept function. */
+        TCP_EVENT_ACCEPT(pcb, ERR_OK, err);
+ 53e:	69a3      	ldr	r3, [r4, #24]
+ 540:	2b00      	cmp	r3, #0
+ 542:	f000 8125 	beq.w	790 <tcp_input+0x790>
+ 546:	6960      	ldr	r0, [r4, #20]
+ 548:	4621      	mov	r1, r4
+ 54a:	2200      	movs	r2, #0
+ 54c:	4798      	blx	r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:692
+        if (err != ERR_OK) {
+ 54e:	b178      	cbz	r0, 570 <tcp_input+0x570>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:696
+          /* If the accept function returns with an error, we abort
+           * the connection. */
+          /* Already aborted? */
+          if (err != ERR_ABRT) {
+ 550:	f110 0f0a 	cmn.w	r0, #10
+ 554:	f000 8159 	beq.w	80a <tcp_input+0x80a>
+ 558:	e11a      	b.n	790 <tcp_input+0x790>
+ 55a:	bf00      	nop
+	...
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:704
+          return ERR_ABRT;
+        }
+        old_cwnd = pcb->cwnd;
+        /* If there was any data contained within this ACK,
+         * we'd better pass it on to the application as well. */
+        tcp_receive(pcb);
+ 570:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:701
+          if (err != ERR_ABRT) {
+            tcp_abort(pcb);
+          }
+          return ERR_ABRT;
+        }
+        old_cwnd = pcb->cwnd;
+ 572:	f8b4 7052 	ldrh.w	r7, [r4, #82]	; 0x52
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:704
+        /* If there was any data contained within this ACK,
+         * we'd better pass it on to the application as well. */
+        tcp_receive(pcb);
+ 576:	f7ff fffe 	bl	0 <tcp_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:707
+
+        /* Prevent ACK for SYN to generate a sent event */
+        if (pcb->acked != 0) {
+ 57a:	f8b4 306c 	ldrh.w	r3, [r4, #108]	; 0x6c
+ 57e:	b113      	cbz	r3, 586 <tcp_input+0x586>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:708
+          pcb->acked--;
+ 580:	3b01      	subs	r3, #1
+ 582:	f8a4 306c 	strh.w	r3, [r4, #108]	; 0x6c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:711
+        }
+
+        pcb->cwnd = ((old_cwnd == 1) ? (pcb->mss * 2) : pcb->mss);
+ 586:	2f01      	cmp	r7, #1
+ 588:	d103      	bne.n	592 <tcp_input+0x592>
+ 58a:	8f23      	ldrh	r3, [r4, #56]	; 0x38
+ 58c:	005b      	lsls	r3, r3, #1
+ 58e:	b29b      	uxth	r3, r3
+ 590:	e000      	b.n	594 <tcp_input+0x594>
+ 592:	8f23      	ldrh	r3, [r4, #56]	; 0x38
+ 594:	f8a4 3052 	strh.w	r3, [r4, #82]	; 0x52
+ 598:	e024      	b.n	5e4 <tcp_input+0x5e4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:720
+          pcb->state = CLOSE_WAIT;
+        }
+      } else {
+        /* incorrect ACK number, send RST */
+        tcp_rst(ackno, seqno + tcplen, ip_current_dest_addr(), ip_current_src_addr(),
+                tcphdr->dest, tcphdr->src);
+ 59a:	68ea      	ldr	r2, [r5, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:719
+          tcp_ack_now(pcb);
+          pcb->state = CLOSE_WAIT;
+        }
+      } else {
+        /* incorrect ACK number, send RST */
+        tcp_rst(ackno, seqno + tcplen, ip_current_dest_addr(), ip_current_src_addr(),
+ 59c:	8a29      	ldrh	r1, [r5, #16]
+ 59e:	7897      	ldrb	r7, [r2, #2]
+ 5a0:	f892 e003 	ldrb.w	lr, [r2, #3]
+ 5a4:	686b      	ldr	r3, [r5, #4]
+ 5a6:	ea47 270e 	orr.w	r7, r7, lr, lsl #8
+ 5aa:	9700      	str	r7, [sp, #0]
+ 5ac:	7817      	ldrb	r7, [r2, #0]
+ 5ae:	7852      	ldrb	r2, [r2, #1]
+ 5b0:	ea47 2202 	orr.w	r2, r7, r2, lsl #8
+ 5b4:	9201      	str	r2, [sp, #4]
+ 5b6:	18c9      	adds	r1, r1, r3
+ 5b8:	4a99      	ldr	r2, [pc, #612]	; (820 <tcp_input+0x820>)
+ 5ba:	4b9a      	ldr	r3, [pc, #616]	; (824 <tcp_input+0x824>)
+ 5bc:	f7ff fffe 	bl	0 <tcp_rst>
+ 5c0:	e0b7      	b.n	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:722
+                tcphdr->dest, tcphdr->src);
+      }
+    } else if ((flags & TCP_SYN) && (seqno == pcb->rcv_nxt - 1)) {
+ 5c2:	f012 0f02 	tst.w	r2, #2
+ 5c6:	f000 80b4 	beq.w	732 <tcp_input+0x732>
+ 5ca:	6a62      	ldr	r2, [r4, #36]	; 0x24
+ 5cc:	685b      	ldr	r3, [r3, #4]
+ 5ce:	3a01      	subs	r2, #1
+ 5d0:	4293      	cmp	r3, r2
+ 5d2:	f040 80ae 	bne.w	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:724
+      /* Looks like another copy of the SYN - retransmit our SYN-ACK */
+      tcp_rexmit(pcb);
+ 5d6:	4620      	mov	r0, r4
+ 5d8:	f7ff fffe 	bl	0 <tcp_rexmit>
+ 5dc:	e0a9      	b.n	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:730
+    }
+    break;
+  case CLOSE_WAIT:
+    /* FALLTHROUGH */
+  case ESTABLISHED:
+    tcp_receive(pcb);
+ 5de:	4620      	mov	r0, r4
+ 5e0:	f7ff fffe 	bl	0 <tcp_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:731
+    if (recv_flags & TF_GOT_FIN) { /* passive close */
+ 5e4:	f895 3028 	ldrb.w	r3, [r5, #40]	; 0x28
+ 5e8:	f013 0f20 	tst.w	r3, #32
+ 5ec:	f000 80a1 	beq.w	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:732
+      tcp_ack_now(pcb);
+ 5f0:	f894 3020 	ldrb.w	r3, [r4, #32]
+ 5f4:	f043 0302 	orr.w	r3, r3, #2
+ 5f8:	f884 3020 	strb.w	r3, [r4, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:733
+      pcb->state = CLOSE_WAIT;
+ 5fc:	2307      	movs	r3, #7
+ 5fe:	e02e      	b.n	65e <tcp_input+0x65e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:737
+    }
+    break;
+  case FIN_WAIT_1:
+    tcp_receive(pcb);
+ 600:	4620      	mov	r0, r4
+ 602:	f7ff fffe 	bl	0 <tcp_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:738
+    if (recv_flags & TF_GOT_FIN) {
+ 606:	f895 2028 	ldrb.w	r2, [r5, #40]	; 0x28
+ 60a:	4b87      	ldr	r3, [pc, #540]	; (828 <tcp_input+0x828>)
+ 60c:	f012 0f20 	tst.w	r2, #32
+ 610:	782a      	ldrb	r2, [r5, #0]
+ 612:	d026      	beq.n	662 <tcp_input+0x662>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:739
+      if ((flags & TCP_ACK) && (ackno == pcb->snd_nxt)) {
+ 614:	f012 0f10 	tst.w	r2, #16
+ 618:	d01a      	beq.n	650 <tcp_input+0x650>
+ 61a:	689a      	ldr	r2, [r3, #8]
+ 61c:	6da3      	ldr	r3, [r4, #88]	; 0x58
+ 61e:	429a      	cmp	r2, r3
+ 620:	d116      	bne.n	650 <tcp_input+0x650>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:742
+        LWIP_DEBUGF(TCP_DEBUG,
+          ("TCP connection closed: FIN_WAIT_1 %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+        tcp_ack_now(pcb);
+ 622:	f894 3020 	ldrb.w	r3, [r4, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:743
+        tcp_pcb_purge(pcb);
+ 626:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:742
+    tcp_receive(pcb);
+    if (recv_flags & TF_GOT_FIN) {
+      if ((flags & TCP_ACK) && (ackno == pcb->snd_nxt)) {
+        LWIP_DEBUGF(TCP_DEBUG,
+          ("TCP connection closed: FIN_WAIT_1 %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+        tcp_ack_now(pcb);
+ 628:	f043 0302 	orr.w	r3, r3, #2
+ 62c:	f884 3020 	strb.w	r3, [r4, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:743
+        tcp_pcb_purge(pcb);
+ 630:	f7ff fffe 	bl	0 <tcp_pcb_purge>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:744
+        TCP_RMV(&tcp_active_pcbs, pcb);
+ 634:	f8d8 3000 	ldr.w	r3, [r8]
+ 638:	42a3      	cmp	r3, r4
+ 63a:	d04d      	beq.n	6d8 <tcp_input+0x6d8>
+ 63c:	4a7b      	ldr	r2, [pc, #492]	; (82c <tcp_input+0x82c>)
+ 63e:	6013      	str	r3, [r2, #0]
+ 640:	e003      	b.n	64a <tcp_input+0x64a>
+ 642:	68d9      	ldr	r1, [r3, #12]
+ 644:	42a1      	cmp	r1, r4
+ 646:	d051      	beq.n	6ec <tcp_input+0x6ec>
+ 648:	460b      	mov	r3, r1
+ 64a:	2b00      	cmp	r3, #0
+ 64c:	d1f9      	bne.n	642 <tcp_input+0x642>
+ 64e:	e054      	b.n	6fa <tcp_input+0x6fa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:748
+        pcb->state = TIME_WAIT;
+        TCP_REG(&tcp_tw_pcbs, pcb);
+      } else {
+        tcp_ack_now(pcb);
+ 650:	f894 3020 	ldrb.w	r3, [r4, #32]
+ 654:	f043 0302 	orr.w	r3, r3, #2
+ 658:	f884 3020 	strb.w	r3, [r4, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:749
+        pcb->state = CLOSING;
+ 65c:	2308      	movs	r3, #8
+ 65e:	7423      	strb	r3, [r4, #16]
+ 660:	e067      	b.n	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:751
+      }
+    } else if ((flags & TCP_ACK) && (ackno == pcb->snd_nxt)) {
+ 662:	f012 0f10 	tst.w	r2, #16
+ 666:	d064      	beq.n	732 <tcp_input+0x732>
+ 668:	689a      	ldr	r2, [r3, #8]
+ 66a:	6da3      	ldr	r3, [r4, #88]	; 0x58
+ 66c:	429a      	cmp	r2, r3
+ 66e:	d160      	bne.n	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:752
+      pcb->state = FIN_WAIT_2;
+ 670:	2306      	movs	r3, #6
+ 672:	e7f4      	b.n	65e <tcp_input+0x65e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:756
+    }
+    break;
+  case FIN_WAIT_2:
+    tcp_receive(pcb);
+ 674:	4620      	mov	r0, r4
+ 676:	f7ff fffe 	bl	0 <tcp_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:757
+    if (recv_flags & TF_GOT_FIN) {
+ 67a:	f895 3028 	ldrb.w	r3, [r5, #40]	; 0x28
+ 67e:	f013 0f20 	tst.w	r3, #32
+ 682:	d056      	beq.n	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:759
+      LWIP_DEBUGF(TCP_DEBUG, ("TCP connection closed: FIN_WAIT_2 %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+      tcp_ack_now(pcb);
+ 684:	f894 3020 	ldrb.w	r3, [r4, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:760
+      tcp_pcb_purge(pcb);
+ 688:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:759
+    break;
+  case FIN_WAIT_2:
+    tcp_receive(pcb);
+    if (recv_flags & TF_GOT_FIN) {
+      LWIP_DEBUGF(TCP_DEBUG, ("TCP connection closed: FIN_WAIT_2 %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+      tcp_ack_now(pcb);
+ 68a:	f043 0302 	orr.w	r3, r3, #2
+ 68e:	f884 3020 	strb.w	r3, [r4, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:760
+      tcp_pcb_purge(pcb);
+ 692:	f7ff fffe 	bl	0 <tcp_pcb_purge>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:761
+      TCP_RMV(&tcp_active_pcbs, pcb);
+ 696:	f8d8 3000 	ldr.w	r3, [r8]
+ 69a:	42a3      	cmp	r3, r4
+ 69c:	d01c      	beq.n	6d8 <tcp_input+0x6d8>
+ 69e:	4a63      	ldr	r2, [pc, #396]	; (82c <tcp_input+0x82c>)
+ 6a0:	6013      	str	r3, [r2, #0]
+ 6a2:	e003      	b.n	6ac <tcp_input+0x6ac>
+ 6a4:	68d9      	ldr	r1, [r3, #12]
+ 6a6:	42a1      	cmp	r1, r4
+ 6a8:	d020      	beq.n	6ec <tcp_input+0x6ec>
+ 6aa:	460b      	mov	r3, r1
+ 6ac:	2b00      	cmp	r3, #0
+ 6ae:	d1f9      	bne.n	6a4 <tcp_input+0x6a4>
+ 6b0:	e023      	b.n	6fa <tcp_input+0x6fa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:767
+      pcb->state = TIME_WAIT;
+      TCP_REG(&tcp_tw_pcbs, pcb);
+    }
+    break;
+  case CLOSING:
+    tcp_receive(pcb);
+ 6b2:	4620      	mov	r0, r4
+ 6b4:	f7ff fffe 	bl	0 <tcp_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:768
+    if (flags & TCP_ACK && ackno == pcb->snd_nxt) {
+ 6b8:	782b      	ldrb	r3, [r5, #0]
+ 6ba:	f013 0f10 	tst.w	r3, #16
+ 6be:	d038      	beq.n	732 <tcp_input+0x732>
+ 6c0:	4b59      	ldr	r3, [pc, #356]	; (828 <tcp_input+0x828>)
+ 6c2:	689a      	ldr	r2, [r3, #8]
+ 6c4:	6da3      	ldr	r3, [r4, #88]	; 0x58
+ 6c6:	429a      	cmp	r2, r3
+ 6c8:	d133      	bne.n	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:770
+      LWIP_DEBUGF(TCP_DEBUG, ("TCP connection closed: CLOSING %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+      tcp_pcb_purge(pcb);
+ 6ca:	4620      	mov	r0, r4
+ 6cc:	f7ff fffe 	bl	0 <tcp_pcb_purge>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:771
+      TCP_RMV(&tcp_active_pcbs, pcb);
+ 6d0:	f8d8 3000 	ldr.w	r3, [r8]
+ 6d4:	42a3      	cmp	r3, r4
+ 6d6:	d103      	bne.n	6e0 <tcp_input+0x6e0>
+ 6d8:	68e2      	ldr	r2, [r4, #12]
+ 6da:	4b55      	ldr	r3, [pc, #340]	; (830 <tcp_input+0x830>)
+ 6dc:	601a      	str	r2, [r3, #0]
+ 6de:	e00d      	b.n	6fc <tcp_input+0x6fc>
+ 6e0:	4a52      	ldr	r2, [pc, #328]	; (82c <tcp_input+0x82c>)
+ 6e2:	6013      	str	r3, [r2, #0]
+ 6e4:	e007      	b.n	6f6 <tcp_input+0x6f6>
+ 6e6:	68d9      	ldr	r1, [r3, #12]
+ 6e8:	42a1      	cmp	r1, r4
+ 6ea:	d103      	bne.n	6f4 <tcp_input+0x6f4>
+ 6ec:	6013      	str	r3, [r2, #0]
+ 6ee:	68e2      	ldr	r2, [r4, #12]
+ 6f0:	60da      	str	r2, [r3, #12]
+ 6f2:	e003      	b.n	6fc <tcp_input+0x6fc>
+ 6f4:	460b      	mov	r3, r1
+ 6f6:	2b00      	cmp	r3, #0
+ 6f8:	d1f5      	bne.n	6e6 <tcp_input+0x6e6>
+ 6fa:	6013      	str	r3, [r2, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:772
+      pcb->state = TIME_WAIT;
+ 6fc:	230a      	movs	r3, #10
+ 6fe:	7423      	strb	r3, [r4, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:773
+      TCP_REG(&tcp_tw_pcbs, pcb);
+ 700:	4b4c      	ldr	r3, [pc, #304]	; (834 <tcp_input+0x834>)
+ 702:	681a      	ldr	r2, [r3, #0]
+ 704:	601c      	str	r4, [r3, #0]
+ 706:	60e2      	str	r2, [r4, #12]
+ 708:	f7ff fffe 	bl	0 <tcp_timer_needed>
+ 70c:	e011      	b.n	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:777
+    }
+    break;
+  case LAST_ACK:
+    tcp_receive(pcb);
+ 70e:	4620      	mov	r0, r4
+ 710:	f7ff fffe 	bl	0 <tcp_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:778
+    if (flags & TCP_ACK && ackno == pcb->snd_nxt) {
+ 714:	782a      	ldrb	r2, [r5, #0]
+ 716:	4b44      	ldr	r3, [pc, #272]	; (828 <tcp_input+0x828>)
+ 718:	f012 0f10 	tst.w	r2, #16
+ 71c:	d009      	beq.n	732 <tcp_input+0x732>
+ 71e:	6899      	ldr	r1, [r3, #8]
+ 720:	6da2      	ldr	r2, [r4, #88]	; 0x58
+ 722:	4291      	cmp	r1, r2
+ 724:	d105      	bne.n	732 <tcp_input+0x732>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:781
+      LWIP_DEBUGF(TCP_DEBUG, ("TCP connection closed: LAST_ACK %"U16_F" -> %"U16_F".\n", inseg.tcphdr->src, inseg.tcphdr->dest));
+      /* bugfix #21699: don't set pcb->state to CLOSED here or we risk leaking segments */
+      recv_flags |= TF_CLOSED;
+ 726:	f893 2028 	ldrb.w	r2, [r3, #40]	; 0x28
+ 72a:	f042 0210 	orr.w	r2, r2, #16
+ 72e:	f883 2028 	strb.w	r2, [r3, #40]	; 0x28
+tcp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:323
+    tcp_input_pcb = pcb;
+    err = tcp_process(pcb);
+    /* A return value of ERR_ABRT means that tcp_abort() was called
+       and that the pcb has been freed. If so, we don't do anything. */
+    if (err != ERR_ABRT) {
+      if (recv_flags & TF_RESET) {
+ 732:	f895 3028 	ldrb.w	r3, [r5, #40]	; 0x28
+ 736:	f013 0f08 	tst.w	r3, #8
+ 73a:	d007      	beq.n	74c <tcp_input+0x74c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:328
+        /* TF_RESET means that the connection was reset by the other
+           end. We then call the error callback to inform the
+           application that the connection is dead before we
+           deallocate the PCB. */
+        TCP_EVENT_ERR(pcb->errf, pcb->callback_arg, ERR_RST);
+ 73c:	f8d4 3090 	ldr.w	r3, [r4, #144]	; 0x90
+ 740:	b13b      	cbz	r3, 752 <tcp_input+0x752>
+ 742:	6960      	ldr	r0, [r4, #20]
+ 744:	f06f 010a 	mvn.w	r1, #10
+ 748:	4798      	blx	r3
+ 74a:	e002      	b.n	752 <tcp_input+0x752>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:331
+        tcp_pcb_remove(&tcp_active_pcbs, pcb);
+        memp_free(MEMP_TCP_PCB, pcb);
+      } else if (recv_flags & TF_CLOSED) {
+ 74c:	f013 0f10 	tst.w	r3, #16
+ 750:	d008      	beq.n	764 <tcp_input+0x764>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:334
+        /* The connection has been closed and we will deallocate the
+           PCB. */
+        tcp_pcb_remove(&tcp_active_pcbs, pcb);
+ 752:	4621      	mov	r1, r4
+ 754:	4836      	ldr	r0, [pc, #216]	; (830 <tcp_input+0x830>)
+ 756:	f7ff fffe 	bl	0 <tcp_pcb_remove>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:335
+        memp_free(MEMP_TCP_PCB, pcb);
+ 75a:	2002      	movs	r0, #2
+ 75c:	4621      	mov	r1, r4
+ 75e:	f7ff fffe 	bl	0 <memp_free>
+ 762:	e052      	b.n	80a <tcp_input+0x80a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:341
+      } else {
+        err = ERR_OK;
+        /* If the application has registered a "sent" function to be
+           called when new send buffer space is available, we call it
+           now. */
+        if (pcb->acked > 0) {
+ 764:	f8b4 206c 	ldrh.w	r2, [r4, #108]	; 0x6c
+ 768:	b142      	cbz	r2, 77c <tcp_input+0x77c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:342
+          TCP_EVENT_SENT(pcb, pcb->acked, err);
+ 76a:	f8d4 3080 	ldr.w	r3, [r4, #128]	; 0x80
+ 76e:	b12b      	cbz	r3, 77c <tcp_input+0x77c>
+ 770:	6960      	ldr	r0, [r4, #20]
+ 772:	4621      	mov	r1, r4
+ 774:	4798      	blx	r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:343
+          if (err == ERR_ABRT) {
+ 776:	f110 0f0a 	cmn.w	r0, #10
+ 77a:	d046      	beq.n	80a <tcp_input+0x80a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:348
+            goto aborted;
+          }
+        }
+
+        if (recv_data != NULL) {
+ 77c:	6a6a      	ldr	r2, [r5, #36]	; 0x24
+ 77e:	b342      	cbz	r2, 7d2 <tcp_input+0x7d2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:350
+          LWIP_ASSERT("pcb->refused_data == NULL", pcb->refused_data == NULL);
+          if (pcb->flags & TF_RXCLOSED) {
+ 780:	f894 3020 	ldrb.w	r3, [r4, #32]
+ 784:	f013 0f10 	tst.w	r3, #16
+ 788:	d006      	beq.n	798 <tcp_input+0x798>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:353
+            /* received data although already closed -> abort (send RST) to
+               notify the remote host that not all data has been processed */
+            pbuf_free(recv_data);
+ 78a:	4610      	mov	r0, r2
+ 78c:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:354
+            tcp_abort(pcb);
+ 790:	4620      	mov	r0, r4
+ 792:	f7ff fffe 	bl	0 <tcp_abort>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:355
+            goto aborted;
+ 796:	e038      	b.n	80a <tcp_input+0x80a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:357
+          }
+          if (flags & TCP_PSH) {
+ 798:	4b23      	ldr	r3, [pc, #140]	; (828 <tcp_input+0x828>)
+ 79a:	781b      	ldrb	r3, [r3, #0]
+ 79c:	f013 0f08 	tst.w	r3, #8
+ 7a0:	d003      	beq.n	7aa <tcp_input+0x7aa>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:358
+            recv_data->flags |= PBUF_FLAG_PUSH;
+ 7a2:	7b53      	ldrb	r3, [r2, #13]
+ 7a4:	f043 0301 	orr.w	r3, r3, #1
+ 7a8:	7353      	strb	r3, [r2, #13]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:362
+          }
+
+          /* Notify application that data has been received. */
+          TCP_EVENT_RECV(pcb, recv_data, ERR_OK, err);
+ 7aa:	f8d4 7084 	ldr.w	r7, [r4, #132]	; 0x84
+ 7ae:	b127      	cbz	r7, 7ba <tcp_input+0x7ba>
+ 7b0:	6960      	ldr	r0, [r4, #20]
+ 7b2:	4621      	mov	r1, r4
+ 7b4:	2300      	movs	r3, #0
+ 7b6:	47b8      	blx	r7
+ 7b8:	e004      	b.n	7c4 <tcp_input+0x7c4>
+ 7ba:	4638      	mov	r0, r7
+ 7bc:	4621      	mov	r1, r4
+ 7be:	463b      	mov	r3, r7
+ 7c0:	f7ff fffe 	bl	0 <tcp_recv_null>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:363
+          if (err == ERR_ABRT) {
+ 7c4:	b243      	sxtb	r3, r0
+ 7c6:	f113 0f0a 	cmn.w	r3, #10
+ 7ca:	d01e      	beq.n	80a <tcp_input+0x80a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:368
+            goto aborted;
+          }
+
+          /* If the upper layer can't receive this data, store it */
+          if (err != ERR_OK) {
+ 7cc:	b108      	cbz	r0, 7d2 <tcp_input+0x7d2>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:369
+            pcb->refused_data = recv_data;
+ 7ce:	6a6b      	ldr	r3, [r5, #36]	; 0x24
+ 7d0:	67e3      	str	r3, [r4, #124]	; 0x7c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:376
+          }
+        }
+
+        /* If a FIN segment was received, we call the callback
+           function with a NULL buffer to indicate EOF. */
+        if (recv_flags & TF_GOT_FIN) {
+ 7d2:	f895 3028 	ldrb.w	r3, [r5, #40]	; 0x28
+ 7d6:	f013 0f20 	tst.w	r3, #32
+ 7da:	d011      	beq.n	800 <tcp_input+0x800>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:379
+          /* correct rcv_wnd as the application won't call tcp_recved()
+             for the FIN's seqno */
+          if (pcb->rcv_wnd != TCP_WND) {
+ 7dc:	8d23      	ldrh	r3, [r4, #40]	; 0x28
+ 7de:	f640 3268 	movw	r2, #2920	; 0xb68
+ 7e2:	4293      	cmp	r3, r2
+ 7e4:	d001      	beq.n	7ea <tcp_input+0x7ea>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:380
+            pcb->rcv_wnd++;
+ 7e6:	3301      	adds	r3, #1
+ 7e8:	8523      	strh	r3, [r4, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:382
+          }
+          TCP_EVENT_CLOSED(pcb, err);
+ 7ea:	f8d4 7084 	ldr.w	r7, [r4, #132]	; 0x84
+ 7ee:	b13f      	cbz	r7, 800 <tcp_input+0x800>
+ 7f0:	2200      	movs	r2, #0
+ 7f2:	6960      	ldr	r0, [r4, #20]
+ 7f4:	4621      	mov	r1, r4
+ 7f6:	4613      	mov	r3, r2
+ 7f8:	47b8      	blx	r7
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:383
+          if (err == ERR_ABRT) {
+ 7fa:	f110 0f0a 	cmn.w	r0, #10
+ 7fe:	d004      	beq.n	80a <tcp_input+0x80a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:388
+            goto aborted;
+          }
+        }
+
+        tcp_input_pcb = NULL;
+ 800:	2300      	movs	r3, #0
+ 802:	6033      	str	r3, [r6, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:390
+        /* Try to send something out. */
+        tcp_output(pcb);
+ 804:	4620      	mov	r0, r4
+ 806:	f7ff fffe 	bl	0 <tcp_output>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:405
+aborted:
+    tcp_input_pcb = NULL;
+    recv_data = NULL;
+
+    /* give up our reference to inseg.p */
+    if (inseg.p != NULL)
+ 80a:	69a8      	ldr	r0, [r5, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:401
+      }
+    }
+    /* Jump target if pcb has been aborted in a callback (by calling tcp_abort()).
+       Below this line, 'pcb' may not be dereferenced! */
+aborted:
+    tcp_input_pcb = NULL;
+ 80c:	2400      	movs	r4, #0
+ 80e:	6034      	str	r4, [r6, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:402
+    recv_data = NULL;
+ 810:	626c      	str	r4, [r5, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:405
+
+    /* give up our reference to inseg.p */
+    if (inseg.p != NULL)
+ 812:	2800      	cmp	r0, #0
+ 814:	d040      	beq.n	898 <tcp_input+0x898>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:407
+    {
+      pbuf_free(inseg.p);
+ 816:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:408
+      inseg.p = NULL;
+ 81a:	4b03      	ldr	r3, [pc, #12]	; (828 <tcp_input+0x828>)
+ 81c:	619c      	str	r4, [r3, #24]
+ 81e:	e03b      	b.n	898 <tcp_input+0x898>
+	...
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:420
+    if (!(TCPH_FLAGS(tcphdr) & TCP_RST)) {
+      TCP_STATS_INC(tcp.proterr);
+      TCP_STATS_INC(tcp.drop);
+      tcp_rst(ackno, seqno + tcplen,
+        ip_current_dest_addr(), ip_current_src_addr(),
+        tcphdr->dest, tcphdr->src);
+ 838:	68ea      	ldr	r2, [r5, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:418
+       sender. */
+    LWIP_DEBUGF(TCP_RST_DEBUG, ("tcp_input: no PCB match found, resetting.\n"));
+    if (!(TCPH_FLAGS(tcphdr) & TCP_RST)) {
+      TCP_STATS_INC(tcp.proterr);
+      TCP_STATS_INC(tcp.drop);
+      tcp_rst(ackno, seqno + tcplen,
+ 83a:	8a29      	ldrh	r1, [r5, #16]
+ 83c:	7890      	ldrb	r0, [r2, #2]
+ 83e:	78d4      	ldrb	r4, [r2, #3]
+ 840:	686b      	ldr	r3, [r5, #4]
+ 842:	ea40 2004 	orr.w	r0, r0, r4, lsl #8
+ 846:	9000      	str	r0, [sp, #0]
+ 848:	7810      	ldrb	r0, [r2, #0]
+ 84a:	7852      	ldrb	r2, [r2, #1]
+ 84c:	18c9      	adds	r1, r1, r3
+ 84e:	ea40 2202 	orr.w	r2, r0, r2, lsl #8
+ 852:	9201      	str	r2, [sp, #4]
+ 854:	68a8      	ldr	r0, [r5, #8]
+ 856:	4a12      	ldr	r2, [pc, #72]	; (8a0 <tcp_input+0x8a0>)
+ 858:	4b12      	ldr	r3, [pc, #72]	; (8a4 <tcp_input+0x8a4>)
+ 85a:	f7ff fffe 	bl	0 <tcp_rst>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:422
+        ip_current_dest_addr(), ip_current_src_addr(),
+        tcphdr->dest, tcphdr->src);
+    }
+    pbuf_free(p);
+ 85e:	4630      	mov	r0, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:427
+  }
+
+  LWIP_ASSERT("tcp_input: tcp_pcbs_sane()", tcp_pcbs_sane());
+  PERF_STOP("tcp_input");
+}
+ 860:	b007      	add	sp, #28
+ 862:	e8bd 4ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:422
+      TCP_STATS_INC(tcp.drop);
+      tcp_rst(ackno, seqno + tcplen,
+        ip_current_dest_addr(), ip_current_src_addr(),
+        tcphdr->dest, tcphdr->src);
+    }
+    pbuf_free(p);
+ 866:	f7ff bffe 	b.w	0 <pbuf_free>
+tcp_process():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:597
+    }
+
+    if (acceptable) {
+      LWIP_DEBUGF(TCP_INPUT_DEBUG, ("tcp_process: Connection RESET\n"));
+      LWIP_ASSERT("tcp_input: pcb->state != CLOSED", pcb->state != CLOSED);
+      recv_flags |= TF_RESET;
+ 86a:	f895 3028 	ldrb.w	r3, [r5, #40]	; 0x28
+ 86e:	f043 0308 	orr.w	r3, r3, #8
+ 872:	f885 3028 	strb.w	r3, [r5, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:598
+      pcb->flags &= ~TF_ACK_DELAY;
+ 876:	f894 3020 	ldrb.w	r3, [r4, #32]
+ 87a:	f023 0301 	bic.w	r3, r3, #1
+ 87e:	f884 3020 	strb.w	r3, [r4, #32]
+ 882:	e756      	b.n	732 <tcp_input+0x732>
+tcp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:415
+  } else {
+
+    /* If no matching PCB was found, send a TCP RST (reset) to the
+       sender. */
+    LWIP_DEBUGF(TCP_RST_DEBUG, ("tcp_input: no PCB match found, resetting.\n"));
+    if (!(TCPH_FLAGS(tcphdr) & TCP_RST)) {
+ 884:	7b13      	ldrb	r3, [r2, #12]
+ 886:	7b50      	ldrb	r0, [r2, #13]
+ 888:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+ 88c:	f7ff fffe 	bl	0 <lwip_ntohs>
+ 890:	f010 0f04 	tst.w	r0, #4
+ 894:	d1e3      	bne.n	85e <tcp_input+0x85e>
+ 896:	e7cf      	b.n	838 <tcp_input+0x838>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/tcp_in.c:427
+    pbuf_free(p);
+  }
+
+  LWIP_ASSERT("tcp_input: tcp_pcbs_sane()", tcp_pcbs_sane());
+  PERF_STOP("tcp_input");
+}
+ 898:	b007      	add	sp, #28
+ 89a:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 89e:	bf00      	nop
+	...

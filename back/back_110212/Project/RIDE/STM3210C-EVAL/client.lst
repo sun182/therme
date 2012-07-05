@@ -1,0 +1,312 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\client.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\client.o
+
+
+Disassembly of section .text.tcp_client_connected:
+
+00000000 <tcp_client_connected>:
+tcp_client_connected():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:150
+  LCD_SetTextColor(Yellow);
+  LCD_DrawRect(180, 150, 40, 60);
+  LCD_SetTextColor(Green);
+  LCD_DrawRect(180, 70, 40, 60);
+*/
+  TcpPCB = tpcb;
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <tcp_client_connected+0x8>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:152
+  return ERR_OK;
+}
+   2:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:150
+  LCD_SetTextColor(Yellow);
+  LCD_DrawRect(180, 150, 40, 60);
+  LCD_SetTextColor(Green);
+  LCD_DrawRect(180, 70, 40, 60);
+*/
+  TcpPCB = tpcb;
+   4:	6019      	str	r1, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:152
+  return ERR_OK;
+}
+   6:	4770      	bx	lr
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.udp_client_callback:
+
+00000000 <udp_client_callback>:
+udp_client_callback():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:97
+   * @param addr the remote IP address from which the packet was received
+   * @param port the remote port from which the packet was received
+  * @retval None
+  */
+void udp_client_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, struct ip_addr *addr, u16_t port)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	461c      	mov	r4, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:103
+  struct tcp_pcb *pcb;
+  __IO uint8_t iptab[4];
+  uint8_t iptxt[20];
+	
+  /* Read the Server's IP address */
+  iptab[0] = (uint8_t)((uint32_t)(addr->addr) >> 24);  
+   4:	681b      	ldr	r3, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:97
+   * @param addr the remote IP address from which the packet was received
+   * @param port the remote port from which the packet was received
+  * @retval None
+  */
+void udp_client_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, struct ip_addr *addr, u16_t port)
+{
+   6:	b088      	sub	sp, #32
+   8:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:103
+  struct tcp_pcb *pcb;
+  __IO uint8_t iptab[4];
+  uint8_t iptxt[20];
+	
+  /* Read the Server's IP address */
+  iptab[0] = (uint8_t)((uint32_t)(addr->addr) >> 24);  
+   a:	0e1a      	lsrs	r2, r3, #24
+   c:	f88d 201c 	strb.w	r2, [sp, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:104
+  iptab[1] = (uint8_t)((uint32_t)(addr->addr) >> 16);
+  10:	0c1a      	lsrs	r2, r3, #16
+  12:	b2d2      	uxtb	r2, r2
+  14:	f88d 201d 	strb.w	r2, [sp, #29]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:105
+  iptab[2] = (uint8_t)((uint32_t)(addr->addr) >> 8);
+  18:	0a1a      	lsrs	r2, r3, #8
+  1a:	b2d2      	uxtb	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:106
+  iptab[3] = (uint8_t)((uint32_t)(addr->addr));
+  1c:	b2db      	uxtb	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:105
+  uint8_t iptxt[20];
+	
+  /* Read the Server's IP address */
+  iptab[0] = (uint8_t)((uint32_t)(addr->addr) >> 24);  
+  iptab[1] = (uint8_t)((uint32_t)(addr->addr) >> 16);
+  iptab[2] = (uint8_t)((uint32_t)(addr->addr) >> 8);
+  1e:	f88d 201e 	strb.w	r2, [sp, #30]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:106
+  iptab[3] = (uint8_t)((uint32_t)(addr->addr));
+  22:	f88d 301f 	strb.w	r3, [sp, #31]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:108
+
+  sprintf((char*)iptxt, "is: %d.%d.%d.%d     ", iptab[3], iptab[2], iptab[1], iptab[0]);
+  26:	f89d 201f 	ldrb.w	r2, [sp, #31]
+  2a:	f89d 301e 	ldrb.w	r3, [sp, #30]
+  2e:	f89d 001d 	ldrb.w	r0, [sp, #29]
+  32:	f89d 101c 	ldrb.w	r1, [sp, #28]
+  36:	9000      	str	r0, [sp, #0]
+  38:	9101      	str	r1, [sp, #4]
+  3a:	a802      	add	r0, sp, #8
+  3c:	490b      	ldr	r1, [pc, #44]	; (6c <udp_client_callback+0x6c>)
+  3e:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:114
+	
+ // LCD_DisplayStringLine(Line3, "The server's IP add.");
+ // LCD_DisplayStringLine(Line4, iptxt);
+
+  /* Create a new TCP control block  */
+  pcb = tcp_new();
+  42:	f7ff fffe 	bl	0 <tcp_new>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:117
+
+  /* Assign to the new pcb a local IP address and a port number */
+  tcp_bind(pcb, IP_ADDR_ANY, TCP_PORT);
+  46:	490a      	ldr	r1, [pc, #40]	; (70 <udp_client_callback+0x70>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:114
+	
+ // LCD_DisplayStringLine(Line3, "The server's IP add.");
+ // LCD_DisplayStringLine(Line4, iptxt);
+
+  /* Create a new TCP control block  */
+  pcb = tcp_new();
+  48:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:117
+
+  /* Assign to the new pcb a local IP address and a port number */
+  tcp_bind(pcb, IP_ADDR_ANY, TCP_PORT);
+  4a:	f649 7261 	movw	r2, #40801	; 0x9f61
+  4e:	f7ff fffe 	bl	0 <tcp_bind>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:120
+
+  /* Connect to the server: send the SYN */
+  tcp_connect(pcb, addr, TCP_PORT, tcp_client_connected);
+  52:	4630      	mov	r0, r6
+  54:	4621      	mov	r1, r4
+  56:	f649 7261 	movw	r2, #40801	; 0x9f61
+  5a:	4b06      	ldr	r3, [pc, #24]	; (1c <tcp_connect+0x1c>)
+  5c:	f7ff fffe 	bl	0 <tcp_connect>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:123
+
+  /* Free the p buffer */
+  pbuf_free(p);
+  60:	4628      	mov	r0, r5
+  62:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:124
+}
+  66:	b008      	add	sp, #32
+  68:	bd70      	pop	{r4, r5, r6, pc}
+  6a:	bf00      	nop
+	...
+
+Disassembly of section .text.client_init:
+
+00000000 <client_init>:
+client_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:55
+  * @brief  Initialize the client application.
+  * @param  None
+  * @retval None
+  */
+void client_init(void)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:60
+   struct udp_pcb *upcb;
+   struct pbuf *p;
+                                  
+   /* Create a new UDP control block  */
+   upcb = udp_new();   
+   2:	f7ff fffe 	bl	0 <udp_new>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:64
+   
+   //IP_ADDR_BROADCAST , IP_ADDR_
+   /* Connect the upcb  */
+	udp_connect(upcb,IP_ADDR_BROADCAST, UDP_SERVER_PORT);
+   6:	4911      	ldr	r1, [pc, #68]	; (4c <client_init+0x4c>)
+   8:	f649 7260 	movw	r2, #40800	; 0x9f60
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:60
+{
+   struct udp_pcb *upcb;
+   struct pbuf *p;
+                                  
+   /* Create a new UDP control block  */
+   upcb = udp_new();   
+   c:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:64
+   
+   //IP_ADDR_BROADCAST , IP_ADDR_
+   /* Connect the upcb  */
+	udp_connect(upcb,IP_ADDR_BROADCAST, UDP_SERVER_PORT);
+   e:	f7ff fffe 	bl	0 <udp_connect>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:68
+   //udp_connect(upcb,((u32_t)0xc0a80102UL), UDP_SERVER_PORT);
+   
+
+   p = pbuf_alloc(PBUF_TRANSPORT, 0, PBUF_RAM);
+  12:	2000      	movs	r0, #0
+  14:	4602      	mov	r2, r0
+  16:	4601      	mov	r1, r0
+  18:	f7ff fffe 	bl	0 <pbuf_alloc>
+  1c:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:71
+
+   /* Send out an UDP datagram to inform the server that we have strated a client application */
+   udp_send(upcb, p);   
+  1e:	4629      	mov	r1, r5
+  20:	4620      	mov	r0, r4
+  22:	f7ff fffe 	bl	0 <udp_send>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:74
+
+   /* Reset the upcb */
+   udp_disconnect(upcb);
+  26:	4620      	mov	r0, r4
+  28:	f7ff fffe 	bl	0 <udp_disconnect>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:77
+   
+   /* Bind the upcb to any IP address and the UDP_PORT port*/
+   udp_bind(upcb, IP_ADDR_ANY, UDP_CLIENT_PORT);
+  2c:	4620      	mov	r0, r4
+  2e:	4908      	ldr	r1, [pc, #32]	; (50 <client_init+0x50>)
+  30:	f649 7261 	movw	r2, #40801	; 0x9f61
+  34:	f7ff fffe 	bl	0 <udp_bind>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:80
+   
+   /* Set a receive callback for the upcb */
+   udp_recv(upcb, udp_client_callback, NULL);
+  38:	4620      	mov	r0, r4
+  3a:	4906      	ldr	r1, [pc, #24]	; (54 <client_init+0x54>)
+  3c:	2200      	movs	r2, #0
+  3e:	f7ff fffe 	bl	0 <udp_recv>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:83
+
+   /* Free the p buffer */
+   pbuf_free(p);
+  42:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:85
+  
+}
+  44:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:83
+   
+   /* Set a receive callback for the upcb */
+   udp_recv(upcb, udp_client_callback, NULL);
+
+   /* Free the p buffer */
+   pbuf_free(p);
+  48:	f7ff bffe 	b.w	0 <pbuf_free>
+	...
+
+Disassembly of section .text.tcp_led_control:
+
+00000000 <tcp_led_control>:
+tcp_led_control():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:160
+  * @brief  Send to the server the led that should be toogled.
+  * @param  Led the led that should be toogled
+  * @retval None
+  */
+void tcp_led_control(out_TypeDef Led)
+{
+   0:	b513      	push	{r0, r1, r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:165
+  char ledstatus;
+
+  ledstatus = (char) Led;
+  
+  tcp_write(TcpPCB, &ledstatus, sizeof(ledstatus), 1);
+   2:	4c06      	ldr	r4, [pc, #24]	; (1c <tcp_led_control+0x1c>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:163
+  */
+void tcp_led_control(out_TypeDef Led)
+{
+  char ledstatus;
+
+  ledstatus = (char) Led;
+   4:	a902      	add	r1, sp, #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:165
+  
+  tcp_write(TcpPCB, &ledstatus, sizeof(ledstatus), 1);
+   6:	2201      	movs	r2, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:163
+  */
+void tcp_led_control(out_TypeDef Led)
+{
+  char ledstatus;
+
+  ledstatus = (char) Led;
+   8:	f801 0d01 	strb.w	r0, [r1, #-1]!
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:165
+  
+  tcp_write(TcpPCB, &ledstatus, sizeof(ledstatus), 1);
+   c:	4613      	mov	r3, r2
+   e:	6820      	ldr	r0, [r4, #0]
+  10:	f7ff fffe 	bl	0 <tcp_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:169
+
+  
+  /* send the data right now */
+  tcp_output(TcpPCB); 
+  14:	6820      	ldr	r0, [r4, #0]
+  16:	f7ff fffe 	bl	0 <tcp_output>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/client.c:170
+}
+  1a:	bd1c      	pop	{r2, r3, r4, pc}
+  1c:	00000000 	.word	0x00000000

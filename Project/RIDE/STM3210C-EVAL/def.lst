@@ -1,0 +1,62 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\def.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\def.o
+
+
+Disassembly of section .text.lwip_htons:
+
+00000000 <lwip_htons>:
+lwip_htons():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/def.c:66
+ * @return n in network byte order
+ */
+u16_t
+lwip_htons(u16_t n)
+{
+  return ((n & 0xff) << 8) | ((n & 0xff00) >> 8);
+   0:	0a03      	lsrs	r3, r0, #8
+   2:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/def.c:67
+}
+   6:	b280      	uxth	r0, r0
+   8:	4770      	bx	lr
+
+Disassembly of section .text.lwip_ntohs:
+
+00000000 <lwip_ntohs>:
+lwip_ntohs():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/def.c:78
+ * @return n in host byte order
+ */
+u16_t
+lwip_ntohs(u16_t n)
+{
+  return lwip_htons(n);
+   0:	f7ff bffe 	b.w	0 <lwip_ntohs>
+
+Disassembly of section .text.lwip_htonl:
+
+00000000 <lwip_htonl>:
+lwip_htonl():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/def.c:94
+{
+  return ((n & 0xff) << 24) |
+    ((n & 0xff00) << 8) |
+    ((n & 0xff0000UL) >> 8) |
+    ((n & 0xff000000UL) >> 24);
+}
+   0:	ba00      	rev	r0, r0
+   2:	4770      	bx	lr
+
+Disassembly of section .text.lwip_ntohl:
+
+00000000 <lwip_ntohl>:
+lwip_ntohl():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/def.c:105
+ * @return n in host byte order
+ */
+u32_t
+lwip_ntohl(u32_t n)
+{
+  return lwip_htonl(n);
+   0:	f7ff bffe 	b.w	0 <lwip_ntohl>

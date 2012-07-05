@@ -1,0 +1,222 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\extract.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\extract.o
+
+
+Disassembly of section .text.ex_getb16:
+
+00000000 <ex_getb16>:
+ex_getb16():
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:91
+
+
+
+euint16 ex_getb16(euint8* buf,euint32 offset)
+{
+	return(ltb_end16(((*(buf+offset+1))<<8) + ((*(buf+offset+0))<<0)));
+   0:	1843      	adds	r3, r0, r1
+   2:	785a      	ldrb	r2, [r3, #1]
+   4:	5c43      	ldrb	r3, [r0, r1]
+   6:	0212      	lsls	r2, r2, #8
+   8:	18d0      	adds	r0, r2, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:92
+}
+   a:	b280      	uxth	r0, r0
+   c:	4770      	bx	lr
+
+Disassembly of section .text.ex_getb32:
+
+00000000 <ex_getb32>:
+ex_getb32():
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:96
+/*****************************************************************************/
+
+euint32 ex_getb32(euint8* buf,euint32 offset)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:97
+	return(ltb_end32(((euint32)buf[offset+3]<<24)+
+   2:	1843      	adds	r3, r0, r1
+   4:	78dc      	ldrb	r4, [r3, #3]
+   6:	789a      	ldrb	r2, [r3, #2]
+   8:	0624      	lsls	r4, r4, #24
+   a:	0412      	lsls	r2, r2, #16
+   c:	18a4      	adds	r4, r4, r2
+   e:	785b      	ldrb	r3, [r3, #1]
+  10:	5c42      	ldrb	r2, [r0, r1]
+  12:	021b      	lsls	r3, r3, #8
+  14:	18a0      	adds	r0, r4, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:101
+	      ((euint32)buf[offset+2]<<16)+
+	      ((euint32)buf[offset+1]<<8)+
+	      ((euint32)buf[offset+0]<<0)));
+}
+  16:	18c0      	adds	r0, r0, r3
+  18:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.ex_setb16:
+
+00000000 <ex_setb16>:
+ex_setb16():
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:110
+{
+#ifdef BIG_ENDIAN
+	*(buf+offset+1) = data>>0;
+	*(buf+offset+0) = data>>8;
+#else
+	*(buf+offset+0) = data>>0;
+   0:	5442      	strb	r2, [r0, r1]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:111
+	*(buf+offset+1) = data>>8;
+   2:	1840      	adds	r0, r0, r1
+   4:	0a12      	lsrs	r2, r2, #8
+   6:	7042      	strb	r2, [r0, #1]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:113
+#endif
+}
+   8:	4770      	bx	lr
+
+Disassembly of section .text.ex_setb32:
+
+00000000 <ex_setb32>:
+ex_setb32():
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:124
+	*(buf+offset+3) = data>> 0;
+	*(buf+offset+2) = data>> 8;
+	*(buf+offset+1) = data>>16;
+	*(buf+offset+0) = data>>24;
+#else
+	*(buf+offset+0) = data>> 0;
+   0:	5442      	strb	r2, [r0, r1]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:125
+	*(buf+offset+1) = data>> 8;
+   2:	0a13      	lsrs	r3, r2, #8
+   4:	1840      	adds	r0, r0, r1
+   6:	7043      	strb	r3, [r0, #1]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:126
+	*(buf+offset+2) = data>>16;
+   8:	0c13      	lsrs	r3, r2, #16
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:127
+	*(buf+offset+3) = data>>24;
+   a:	0e12      	lsrs	r2, r2, #24
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:126
+	*(buf+offset+1) = data>>16;
+	*(buf+offset+0) = data>>24;
+#else
+	*(buf+offset+0) = data>> 0;
+	*(buf+offset+1) = data>> 8;
+	*(buf+offset+2) = data>>16;
+   c:	7083      	strb	r3, [r0, #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:127
+	*(buf+offset+3) = data>>24;
+   e:	70c2      	strb	r2, [r0, #3]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:129
+#endif
+}
+  10:	4770      	bx	lr
+
+Disassembly of section .text.ex_getPartitionField:
+
+00000000 <ex_getPartitionField>:
+ex_getPartitionField():
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:133
+/*****************************************************************************/
+
+void ex_getPartitionField(euint8* buf,PartitionField* pf, euint32 offset)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:134
+	pf->bootFlag       = *(buf + offset);
+   2:	5c83      	ldrb	r3, [r0, r2]
+   4:	1885      	adds	r5, r0, r2
+   6:	700b      	strb	r3, [r1, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:135
+	pf->CHS_begin[0]   = *(buf + offset + 1);
+   8:	786b      	ldrb	r3, [r5, #1]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:133
+#endif
+}
+/*****************************************************************************/
+
+void ex_getPartitionField(euint8* buf,PartitionField* pf, euint32 offset)
+{
+   a:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:135
+	pf->bootFlag       = *(buf + offset);
+	pf->CHS_begin[0]   = *(buf + offset + 1);
+   c:	704b      	strb	r3, [r1, #1]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:136
+	pf->CHS_begin[1]   = *(buf + offset + 2);
+   e:	78ab      	ldrb	r3, [r5, #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:142
+	pf->CHS_begin[2]   = *(buf + offset + 3);
+	pf->type           = *(buf + offset + 4);
+	pf->CHS_end[0]     = *(buf + offset + 5);
+	pf->CHS_end[1]     = *(buf + offset + 6);
+	pf->CHS_end[2]     = *(buf + offset + 7);
+	pf->LBA_begin      = ex_getb32(buf + offset,8);
+  10:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:136
+
+void ex_getPartitionField(euint8* buf,PartitionField* pf, euint32 offset)
+{
+	pf->bootFlag       = *(buf + offset);
+	pf->CHS_begin[0]   = *(buf + offset + 1);
+	pf->CHS_begin[1]   = *(buf + offset + 2);
+  12:	708b      	strb	r3, [r1, #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:137
+	pf->CHS_begin[2]   = *(buf + offset + 3);
+  14:	78eb      	ldrb	r3, [r5, #3]
+  16:	70cb      	strb	r3, [r1, #3]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:138
+	pf->type           = *(buf + offset + 4);
+  18:	792b      	ldrb	r3, [r5, #4]
+  1a:	710b      	strb	r3, [r1, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:139
+	pf->CHS_end[0]     = *(buf + offset + 5);
+  1c:	796b      	ldrb	r3, [r5, #5]
+  1e:	714b      	strb	r3, [r1, #5]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:140
+	pf->CHS_end[1]     = *(buf + offset + 6);
+  20:	79ab      	ldrb	r3, [r5, #6]
+  22:	718b      	strb	r3, [r1, #6]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:141
+	pf->CHS_end[2]     = *(buf + offset + 7);
+  24:	79eb      	ldrb	r3, [r5, #7]
+  26:	71cb      	strb	r3, [r1, #7]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:142
+	pf->LBA_begin      = ex_getb32(buf + offset,8);
+  28:	2108      	movs	r1, #8
+  2a:	f7ff fffe 	bl	0 <ex_getPartitionField>
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:143
+	pf->numSectors     = ex_getb32(buf + offset,12);
+  2e:	210c      	movs	r1, #12
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:142
+	pf->CHS_begin[2]   = *(buf + offset + 3);
+	pf->type           = *(buf + offset + 4);
+	pf->CHS_end[0]     = *(buf + offset + 5);
+	pf->CHS_end[1]     = *(buf + offset + 6);
+	pf->CHS_end[2]     = *(buf + offset + 7);
+	pf->LBA_begin      = ex_getb32(buf + offset,8);
+  30:	60a0      	str	r0, [r4, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:143
+	pf->numSectors     = ex_getb32(buf + offset,12);
+  32:	4628      	mov	r0, r5
+  34:	f7ff fffe 	bl	0 <ex_getPartitionField>
+  38:	60e0      	str	r0, [r4, #12]
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:144
+}
+  3a:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.ex_setPartitionField:
+
+00000000 <ex_setPartitionField>:
+ex_setPartitionField():
+D:\sunny\stm32\therme\Utilities\efsl\source/extract.c:150
+/*****************************************************************************/
+
+void ex_setPartitionField(euint8* buf,PartitionField* pf, euint32 offset)
+{
+
+}
+   0:	4770      	bx	lr

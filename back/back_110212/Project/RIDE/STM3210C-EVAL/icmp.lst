@@ -1,0 +1,546 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\icmp.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\icmp.o
+
+
+Disassembly of section .text.icmp_send_response.clone.0:
+
+00000000 <icmp_send_response.clone.0>:
+icmp_send_response():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:287
+ *          p->payload pointing to the IP header
+ * @param type Type of the ICMP header
+ * @param code Code of the ICMP header
+ */
+static void
+icmp_send_response(struct pbuf *p, u8_t type, u8_t code)
+   0:	e92d 43f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, lr}
+   4:	4680      	mov	r8, r0
+   6:	b085      	sub	sp, #20
+   8:	4689      	mov	r9, r1
+   a:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:296
+  /* we can use the echo header here */
+  struct icmp_echo_hdr *icmphdr;
+  ip_addr_t iphdr_src;
+
+  /* ICMP header + IP header + 8 bytes of data */
+  q = pbuf_alloc(PBUF_IP, sizeof(struct icmp_echo_hdr) + IP_HLEN + ICMP_DEST_UNREACH_DATASIZE,
+   c:	2001      	movs	r0, #1
+   e:	2124      	movs	r1, #36	; 0x24
+  10:	2200      	movs	r2, #0
+  12:	f7ff fffe 	bl	0 <pbuf_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:298
+                 PBUF_RAM);
+  if (q == NULL) {
+  16:	4604      	mov	r4, r0
+  18:	2800      	cmp	r0, #0
+  1a:	d032      	beq.n	82 <icmp_send_response.clone.0+0x82>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:312
+  ip_addr_debug_print(ICMP_DEBUG, &(iphdr->src));
+  LWIP_DEBUGF(ICMP_DEBUG, (" to "));
+  ip_addr_debug_print(ICMP_DEBUG, &(iphdr->dest));
+  LWIP_DEBUGF(ICMP_DEBUG, ("\n"));
+
+  icmphdr = (struct icmp_echo_hdr *)q->payload;
+  1c:	6845      	ldr	r5, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:305
+    return;
+  }
+  LWIP_ASSERT("check that first pbuf can hold icmp message",
+             (q->len >= (sizeof(struct icmp_echo_hdr) + IP_HLEN + ICMP_DEST_UNREACH_DATASIZE)));
+
+  iphdr = (struct ip_hdr *)p->payload;
+  1e:	f8d8 7000 	ldr.w	r7, [r8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:314
+  ip_addr_debug_print(ICMP_DEBUG, &(iphdr->dest));
+  LWIP_DEBUGF(ICMP_DEBUG, ("\n"));
+
+  icmphdr = (struct icmp_echo_hdr *)q->payload;
+  icmphdr->type = type;
+  icmphdr->code = code;
+  22:	706e      	strb	r6, [r5, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:315
+  icmphdr->id = 0;
+  24:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:313
+  LWIP_DEBUGF(ICMP_DEBUG, (" to "));
+  ip_addr_debug_print(ICMP_DEBUG, &(iphdr->dest));
+  LWIP_DEBUGF(ICMP_DEBUG, ("\n"));
+
+  icmphdr = (struct icmp_echo_hdr *)q->payload;
+  icmphdr->type = type;
+  26:	f885 9000 	strb.w	r9, [r5]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:315
+  icmphdr->code = code;
+  icmphdr->id = 0;
+  2a:	712e      	strb	r6, [r5, #4]
+  2c:	716e      	strb	r6, [r5, #5]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:316
+  icmphdr->seqno = 0;
+  2e:	71ae      	strb	r6, [r5, #6]
+  30:	71ee      	strb	r6, [r5, #7]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:319
+
+  /* copy fields from original packet */
+  SMEMCPY((u8_t *)q->payload + sizeof(struct icmp_echo_hdr), (u8_t *)p->payload,
+  32:	6840      	ldr	r0, [r0, #4]
+  34:	221c      	movs	r2, #28
+  36:	f8d8 1000 	ldr.w	r1, [r8]
+  3a:	3008      	adds	r0, #8
+  3c:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:323
+          IP_HLEN + ICMP_DEST_UNREACH_DATASIZE);
+
+  /* calculate checksum */
+  icmphdr->chksum = 0;
+  40:	70ae      	strb	r6, [r5, #2]
+  42:	70ee      	strb	r6, [r5, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:324
+  icmphdr->chksum = inet_chksum(icmphdr, q->len);
+  44:	8961      	ldrh	r1, [r4, #10]
+  46:	4628      	mov	r0, r5
+  48:	f7ff fffe 	bl	0 <inet_chksum>
+  4c:	70a8      	strb	r0, [r5, #2]
+  4e:	0a00      	lsrs	r0, r0, #8
+  50:	70e8      	strb	r0, [r5, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:330
+  ICMP_STATS_INC(icmp.xmit);
+  /* increase number of messages attempted to send */
+  snmp_inc_icmpoutmsgs();
+  /* increase number of destination unreachable messages attempted to send */
+  snmp_inc_icmpouttimeexcds();
+  ip_addr_copy(iphdr_src, iphdr->src);
+  52:	7b7a      	ldrb	r2, [r7, #13]
+  54:	7b3b      	ldrb	r3, [r7, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:331
+  ip_output(q, NULL, &iphdr_src, ICMP_TTL, 0, IP_PROTO_ICMP);
+  56:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:330
+  ICMP_STATS_INC(icmp.xmit);
+  /* increase number of messages attempted to send */
+  snmp_inc_icmpoutmsgs();
+  /* increase number of destination unreachable messages attempted to send */
+  snmp_inc_icmpouttimeexcds();
+  ip_addr_copy(iphdr_src, iphdr->src);
+  58:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+  5c:	7bba      	ldrb	r2, [r7, #14]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:331
+  ip_output(q, NULL, &iphdr_src, ICMP_TTL, 0, IP_PROTO_ICMP);
+  5e:	4631      	mov	r1, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:330
+  ICMP_STATS_INC(icmp.xmit);
+  /* increase number of messages attempted to send */
+  snmp_inc_icmpoutmsgs();
+  /* increase number of destination unreachable messages attempted to send */
+  snmp_inc_icmpouttimeexcds();
+  ip_addr_copy(iphdr_src, iphdr->src);
+  60:	ea43 4302 	orr.w	r3, r3, r2, lsl #16
+  64:	7bfa      	ldrb	r2, [r7, #15]
+  66:	ea43 6302 	orr.w	r3, r3, r2, lsl #24
+  6a:	aa04      	add	r2, sp, #16
+  6c:	f842 3d04 	str.w	r3, [r2, #-4]!
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:331
+  ip_output(q, NULL, &iphdr_src, ICMP_TTL, 0, IP_PROTO_ICMP);
+  70:	2301      	movs	r3, #1
+  72:	9301      	str	r3, [sp, #4]
+  74:	33fe      	adds	r3, #254	; 0xfe
+  76:	9600      	str	r6, [sp, #0]
+  78:	f7ff fffe 	bl	0 <ip_output>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:332
+  pbuf_free(q);
+  7c:	4620      	mov	r0, r4
+  7e:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:333
+}
+  82:	b005      	add	sp, #20
+  84:	e8bd 83f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, pc}
+
+Disassembly of section .text.icmp_input:
+
+00000000 <icmp_input>:
+icmp_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:78
+ * @param p the icmp echo request packet, p->payload pointing to the ip header
+ * @param inp the netif on which this packet was received
+ */
+void
+icmp_input(struct pbuf *p, struct netif *inp)
+{
+   0:	e92d 43f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:91
+
+  ICMP_STATS_INC(icmp.recv);
+  snmp_inc_icmpinmsgs();
+
+
+  iphdr = (struct ip_hdr *)p->payload;
+   4:	f8d0 8004 	ldr.w	r8, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:78
+ * @param p the icmp echo request packet, p->payload pointing to the ip header
+ * @param inp the netif on which this packet was received
+ */
+void
+icmp_input(struct pbuf *p, struct netif *inp)
+{
+   8:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:92
+  ICMP_STATS_INC(icmp.recv);
+  snmp_inc_icmpinmsgs();
+
+
+  iphdr = (struct ip_hdr *)p->payload;
+  hlen = IPH_HL(iphdr) * 4;
+   a:	f898 3000 	ldrb.w	r3, [r8]
+   e:	f898 0001 	ldrb.w	r0, [r8, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:78
+ * @param p the icmp echo request packet, p->payload pointing to the ip header
+ * @param inp the netif on which this packet was received
+ */
+void
+icmp_input(struct pbuf *p, struct netif *inp)
+{
+  12:	b085      	sub	sp, #20
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:92
+  ICMP_STATS_INC(icmp.recv);
+  snmp_inc_icmpinmsgs();
+
+
+  iphdr = (struct ip_hdr *)p->payload;
+  hlen = IPH_HL(iphdr) * 4;
+  14:	ea43 2000 	orr.w	r0, r3, r0, lsl #8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:78
+ * @param p the icmp echo request packet, p->payload pointing to the ip header
+ * @param inp the netif on which this packet was received
+ */
+void
+icmp_input(struct pbuf *p, struct netif *inp)
+{
+  18:	460f      	mov	r7, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:92
+  ICMP_STATS_INC(icmp.recv);
+  snmp_inc_icmpinmsgs();
+
+
+  iphdr = (struct ip_hdr *)p->payload;
+  hlen = IPH_HL(iphdr) * 4;
+  1a:	f7ff fffe 	bl	0 <lwip_ntohs>
+  1e:	0980      	lsrs	r0, r0, #6
+  20:	f000 053c 	and.w	r5, r0, #60	; 0x3c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:93
+  if (pbuf_header(p, -hlen) || (p->tot_len < sizeof(u16_t)*2)) {
+  24:	426e      	negs	r6, r5
+  26:	4620      	mov	r0, r4
+  28:	4631      	mov	r1, r6
+  2a:	f7ff fffe 	bl	0 <pbuf_header>
+  2e:	2800      	cmp	r0, #0
+  30:	d17c      	bne.n	12c <icmp_input+0x12c>
+  32:	8923      	ldrh	r3, [r4, #8]
+  34:	2b03      	cmp	r3, #3
+  36:	d979      	bls.n	12c <icmp_input+0x12c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:98
+    LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: short ICMP (%"U16_F" bytes) received\n", p->tot_len));
+    goto lenerr;
+  }
+
+  type = *((u8_t *)p->payload);
+  38:	6862      	ldr	r2, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:102
+#ifdef LWIP_DEBUG
+  code = *(((u8_t *)p->payload)+1);
+#endif /* LWIP_DEBUG */
+  switch (type) {
+  3a:	7812      	ldrb	r2, [r2, #0]
+  3c:	2a08      	cmp	r2, #8
+  3e:	d175      	bne.n	12c <icmp_input+0x12c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:133
+        return;
+      }
+    }
+#endif /* !LWIP_MULTICAST_PING || !LWIP_BROADCAST_PING */
+    LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: ping\n"));
+    if (p->tot_len < sizeof(struct icmp_echo_hdr)) {
+  40:	2b07      	cmp	r3, #7
+  42:	d973      	bls.n	12c <icmp_input+0x12c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:137
+      LWIP_DEBUGF(ICMP_DEBUG, ("icmp_input: bad ICMP echo received\n"));
+      goto lenerr;
+    }
+    if (inet_chksum_pbuf(p) != 0) {
+  44:	4620      	mov	r0, r4
+  46:	f7ff fffe 	bl	0 <inet_chksum_pbuf>
+  4a:	2800      	cmp	r0, #0
+  4c:	d16e      	bne.n	12c <icmp_input+0x12c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:145
+      ICMP_STATS_INC(icmp.chkerr);
+      snmp_inc_icmpinerrors();
+      return;
+    }
+#if LWIP_ICMP_ECHO_CHECK_INPUT_PBUF_LEN
+    if (pbuf_header(p, (PBUF_IP_HLEN + PBUF_LINK_HLEN))) {
+  4e:	4620      	mov	r0, r4
+  50:	2122      	movs	r1, #34	; 0x22
+  52:	f7ff fffe 	bl	0 <pbuf_header>
+  56:	b1f8      	cbz	r0, 98 <icmp_input+0x98>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:151
+      /* p is not big enough to contain link headers
+       * allocate a new one and copy p into it
+       */
+      struct pbuf *r;
+      /* switch p->payload to ip header */
+      if (pbuf_header(p, hlen)) {
+  58:	4620      	mov	r0, r4
+  5a:	4629      	mov	r1, r5
+  5c:	f7ff fffe 	bl	0 <pbuf_header>
+  60:	4602      	mov	r2, r0
+  62:	2800      	cmp	r0, #0
+  64:	d162      	bne.n	12c <icmp_input+0x12c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:156
+        LWIP_ASSERT("icmp_input: moving p->payload to ip header failed\n", 0);
+        goto memerr;
+      }
+      /* allocate new packet buffer with space for link headers */
+      r = pbuf_alloc(PBUF_LINK, p->tot_len, PBUF_RAM);
+  66:	2002      	movs	r0, #2
+  68:	8921      	ldrh	r1, [r4, #8]
+  6a:	f7ff fffe 	bl	0 <pbuf_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:157
+      if (r == NULL) {
+  6e:	4681      	mov	r9, r0
+  70:	2800      	cmp	r0, #0
+  72:	d05b      	beq.n	12c <icmp_input+0x12c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:164
+        goto memerr;
+      }
+      LWIP_ASSERT("check that first pbuf can hold struct the ICMP header",
+                  (r->len >= hlen + sizeof(struct icmp_echo_hdr)));
+      /* copy the whole packet including ip header */
+      if (pbuf_copy(r, p) != ERR_OK) {
+  74:	4621      	mov	r1, r4
+  76:	f7ff fffe 	bl	0 <pbuf_copy>
+  7a:	2800      	cmp	r0, #0
+  7c:	d156      	bne.n	12c <icmp_input+0x12c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:170
+        LWIP_ASSERT("icmp_input: copying to new pbuf failed\n", 0);
+        goto memerr;
+      }
+      iphdr = (struct ip_hdr *)r->payload;
+      /* switch r->payload back to icmp header */
+      if (pbuf_header(r, -hlen)) {
+  7e:	4648      	mov	r0, r9
+  80:	4631      	mov	r1, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:168
+      /* copy the whole packet including ip header */
+      if (pbuf_copy(r, p) != ERR_OK) {
+        LWIP_ASSERT("icmp_input: copying to new pbuf failed\n", 0);
+        goto memerr;
+      }
+      iphdr = (struct ip_hdr *)r->payload;
+  82:	f8d9 8004 	ldr.w	r8, [r9, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:170
+      /* switch r->payload back to icmp header */
+      if (pbuf_header(r, -hlen)) {
+  86:	f7ff fffe 	bl	0 <pbuf_header>
+  8a:	2800      	cmp	r0, #0
+  8c:	d14e      	bne.n	12c <icmp_input+0x12c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:175
+        LWIP_ASSERT("icmp_input: restoring original p->payload failed\n", 0);
+        goto memerr;
+      }
+      /* free the original p */
+      pbuf_free(p);
+  8e:	4620      	mov	r0, r4
+  90:	f7ff fffe 	bl	0 <pbuf_free>
+  94:	464c      	mov	r4, r9
+  96:	e006      	b.n	a6 <icmp_input+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:180
+      /* we now have an identical copy of p that has room for link headers */
+      p = r;
+    } else {
+      /* restore p->payload to point to icmp header */
+      if (pbuf_header(p, -(s16_t)(PBUF_IP_HLEN + PBUF_LINK_HLEN))) {
+  98:	4620      	mov	r0, r4
+  9a:	f06f 0121 	mvn.w	r1, #33	; 0x21
+  9e:	f7ff fffe 	bl	0 <pbuf_header>
+  a2:	2800      	cmp	r0, #0
+  a4:	d142      	bne.n	12c <icmp_input+0x12c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:190
+#endif /* LWIP_ICMP_ECHO_CHECK_INPUT_PBUF_LEN */
+    /* At this point, all checks are OK. */
+    /* We generate an answer by switching the dest and src ip addresses,
+     * setting the icmp type to ECHO_RESPONSE and updating the checksum. */
+    iecho = (struct icmp_echo_hdr *)p->payload;
+    ip_addr_copy(iphdr->src, *ip_current_dest_addr());
+  a6:	4a24      	ldr	r2, [pc, #144]	; (138 <icmp_input+0x138>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:189
+    }
+#endif /* LWIP_ICMP_ECHO_CHECK_INPUT_PBUF_LEN */
+    /* At this point, all checks are OK. */
+    /* We generate an answer by switching the dest and src ip addresses,
+     * setting the icmp type to ECHO_RESPONSE and updating the checksum. */
+    iecho = (struct icmp_echo_hdr *)p->payload;
+  a8:	6863      	ldr	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:190
+    ip_addr_copy(iphdr->src, *ip_current_dest_addr());
+  aa:	7811      	ldrb	r1, [r2, #0]
+  ac:	f888 100c 	strb.w	r1, [r8, #12]
+  b0:	7851      	ldrb	r1, [r2, #1]
+  b2:	f888 100d 	strb.w	r1, [r8, #13]
+  b6:	7891      	ldrb	r1, [r2, #2]
+  b8:	f888 100e 	strb.w	r1, [r8, #14]
+  bc:	78d2      	ldrb	r2, [r2, #3]
+  be:	f888 200f 	strb.w	r2, [r8, #15]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:191
+    ip_addr_copy(iphdr->dest, *ip_current_src_addr());
+  c2:	4a1e      	ldr	r2, [pc, #120]	; (13c <icmp_input+0x13c>)
+  c4:	7811      	ldrb	r1, [r2, #0]
+  c6:	f888 1010 	strb.w	r1, [r8, #16]
+  ca:	7851      	ldrb	r1, [r2, #1]
+  cc:	f888 1011 	strb.w	r1, [r8, #17]
+  d0:	7891      	ldrb	r1, [r2, #2]
+  d2:	f888 1012 	strb.w	r1, [r8, #18]
+  d6:	78d2      	ldrb	r2, [r2, #3]
+  d8:	f888 2013 	strb.w	r2, [r8, #19]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:192
+    ICMPH_TYPE_SET(iecho, ICMP_ER);
+  dc:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:194
+    /* adjust the checksum */
+    if (iecho->chksum >= PP_HTONS(0xffffU - (ICMP_ECHO << 8))) {
+  de:	78d9      	ldrb	r1, [r3, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:192
+    /* We generate an answer by switching the dest and src ip addresses,
+     * setting the icmp type to ECHO_RESPONSE and updating the checksum. */
+    iecho = (struct icmp_echo_hdr *)p->payload;
+    ip_addr_copy(iphdr->src, *ip_current_dest_addr());
+    ip_addr_copy(iphdr->dest, *ip_current_src_addr());
+    ICMPH_TYPE_SET(iecho, ICMP_ER);
+  e0:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:194
+    /* adjust the checksum */
+    if (iecho->chksum >= PP_HTONS(0xffffU - (ICMP_ECHO << 8))) {
+  e2:	789a      	ldrb	r2, [r3, #2]
+  e4:	ea42 2201 	orr.w	r2, r2, r1, lsl #8
+  e8:	f64f 71f6 	movw	r1, #65526	; 0xfff6
+  ec:	428a      	cmp	r2, r1
+  ee:	d901      	bls.n	f4 <icmp_input+0xf4>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:195
+      iecho->chksum += PP_HTONS(ICMP_ECHO << 8) + 1;
+  f0:	3209      	adds	r2, #9
+  f2:	e000      	b.n	f6 <icmp_input+0xf6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:197
+    } else {
+      iecho->chksum += PP_HTONS(ICMP_ECHO << 8);
+  f4:	3208      	adds	r2, #8
+  f6:	b292      	uxth	r2, r2
+  f8:	709a      	strb	r2, [r3, #2]
+  fa:	0a12      	lsrs	r2, r2, #8
+  fc:	70da      	strb	r2, [r3, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:201
+    }
+
+    /* Set the correct TTL and recalculate the header checksum. */
+    IPH_TTL_SET(iphdr, ICMP_TTL);
+  fe:	26ff      	movs	r6, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:202
+    IPH_CHKSUM_SET(iphdr, 0);
+ 100:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:201
+    } else {
+      iecho->chksum += PP_HTONS(ICMP_ECHO << 8);
+    }
+
+    /* Set the correct TTL and recalculate the header checksum. */
+    IPH_TTL_SET(iphdr, ICMP_TTL);
+ 102:	f888 6008 	strb.w	r6, [r8, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:202
+    IPH_CHKSUM_SET(iphdr, 0);
+ 106:	f888 300a 	strb.w	r3, [r8, #10]
+ 10a:	f888 300b 	strb.w	r3, [r8, #11]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:213
+    /* increase number of messages attempted to send */
+    snmp_inc_icmpoutmsgs();
+    /* increase number of echo replies attempted to send */
+    snmp_inc_icmpoutechoreps();
+
+    if(pbuf_header(p, hlen)) {
+ 10e:	4620      	mov	r0, r4
+ 110:	4629      	mov	r1, r5
+ 112:	f7ff fffe 	bl	0 <pbuf_header>
+ 116:	4602      	mov	r2, r0
+ 118:	b940      	cbnz	r0, 12c <icmp_input+0x12c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:218
+      LWIP_ASSERT("Can't move over header in packet", 0);
+    } else {
+      err_t ret;
+      /* send an ICMP packet, src addr is the dest addr of the curren packet */
+      ret = ip_output_if(p, ip_current_dest_addr(), IP_HDRINCL,
+ 11a:	2301      	movs	r3, #1
+ 11c:	9000      	str	r0, [sp, #0]
+ 11e:	9301      	str	r3, [sp, #4]
+ 120:	4620      	mov	r0, r4
+ 122:	4905      	ldr	r1, [pc, #20]	; (138 <icmp_input+0x138>)
+ 124:	4633      	mov	r3, r6
+ 126:	9702      	str	r7, [sp, #8]
+ 128:	f7ff fffe 	bl	0 <ip_output_if>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:240
+  ICMP_STATS_INC(icmp.lenerr);
+  snmp_inc_icmpinerrors();
+  return;
+#if LWIP_ICMP_ECHO_CHECK_INPUT_PBUF_LEN
+memerr:
+  pbuf_free(p);
+ 12c:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:245
+  ICMP_STATS_INC(icmp.err);
+  snmp_inc_icmpinerrors();
+  return;
+#endif /* LWIP_ICMP_ECHO_CHECK_INPUT_PBUF_LEN */
+}
+ 12e:	b005      	add	sp, #20
+ 130:	e8bd 43f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:240
+  ICMP_STATS_INC(icmp.lenerr);
+  snmp_inc_icmpinerrors();
+  return;
+#if LWIP_ICMP_ECHO_CHECK_INPUT_PBUF_LEN
+memerr:
+  pbuf_free(p);
+ 134:	f7ff bffe 	b.w	0 <pbuf_free>
+	...
+
+Disassembly of section .text.icmp_dest_unreach:
+
+00000000 <icmp_dest_unreach>:
+icmp_dest_unreach():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:258
+ *          p->payload pointing to the IP header
+ * @param t type of the 'unreachable' packet
+ */
+void
+icmp_dest_unreach(struct pbuf *p, enum icmp_dur_type t)
+{
+   0:	460a      	mov	r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:259
+  icmp_send_response(p, ICMP_DUR, t);
+   2:	3004      	adds	r0, #4
+   4:	2103      	movs	r1, #3
+   6:	f7ff bffe 	b.w	0 <icmp_dest_unreach>
+
+Disassembly of section .text.icmp_time_exceeded:
+
+00000000 <icmp_time_exceeded>:
+icmp_time_exceeded():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:272
+ *          p->payload pointing to the IP header
+ * @param t type of the 'time exceeded' packet
+ */
+void
+icmp_time_exceeded(struct pbuf *p, enum icmp_te_type t)
+{
+   0:	460a      	mov	r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core\ipv4/icmp.c:273
+  icmp_send_response(p, ICMP_TE, t);
+   2:	3004      	adds	r0, #4
+   4:	210b      	movs	r1, #11
+   6:	f7ff bffe 	b.w	0 <icmp_time_exceeded>

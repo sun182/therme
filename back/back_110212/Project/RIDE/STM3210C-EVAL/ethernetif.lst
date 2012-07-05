@@ -1,0 +1,843 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\ethernetif.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\ethernetif.o
+
+
+Disassembly of section .text.Set_MAC_Address:
+
+00000000 <Set_MAC_Address>:
+Set_MAC_Address():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:119
+ * @param netif the already initialized lwip network interface structure
+ *        for this ethernetif
+ */
+void Set_MAC_Address(uint8_t* macadd)
+{
+  MACaddr[0] = macadd[0];
+   0:	7802      	ldrb	r2, [r0, #0]
+   2:	4b08      	ldr	r3, [pc, #32]	; (24 <Set_MAC_Address+0x24>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:118
+ *
+ * @param netif the already initialized lwip network interface structure
+ *        for this ethernetif
+ */
+void Set_MAC_Address(uint8_t* macadd)
+{
+   4:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:119
+  MACaddr[0] = macadd[0];
+   6:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:120
+  MACaddr[1] = macadd[1];
+   8:	7842      	ldrb	r2, [r0, #1]
+   a:	705a      	strb	r2, [r3, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:121
+  MACaddr[2] = macadd[2];
+   c:	7882      	ldrb	r2, [r0, #2]
+   e:	709a      	strb	r2, [r3, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:122
+  MACaddr[3] = macadd[3];
+  10:	78c2      	ldrb	r2, [r0, #3]
+  12:	70da      	strb	r2, [r3, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:123
+  MACaddr[4] = macadd[4];
+  14:	7902      	ldrb	r2, [r0, #4]
+  16:	711a      	strb	r2, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:124
+  MACaddr[5] = macadd[5];
+  18:	7942      	ldrb	r2, [r0, #5]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:126
+  
+  ETH_MACAddressConfig(ETH_MAC_Address0, macadd);  
+  1a:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:124
+  MACaddr[0] = macadd[0];
+  MACaddr[1] = macadd[1];
+  MACaddr[2] = macadd[2];
+  MACaddr[3] = macadd[3];
+  MACaddr[4] = macadd[4];
+  MACaddr[5] = macadd[5];
+  1c:	715a      	strb	r2, [r3, #5]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:126
+  
+  ETH_MACAddressConfig(ETH_MAC_Address0, macadd);  
+  1e:	f7ff bffe 	b.w	0 <ETH_MACAddressConfig>
+  22:	bf00      	nop
+  24:	00000000 	.word	0x00000000
+
+Disassembly of section .text.ethernetif_init:
+
+00000000 <ethernetif_init>:
+ethernetif_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:320
+ *         ERR_MEM if private data couldn't be allocated
+ *         any other err_t on error
+ */
+err_t
+ethernetif_init(struct netif *netif)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:325
+  struct ethernetif *ethernetif;
+
+  LWIP_ASSERT("netif != NULL", (netif != NULL));
+
+  ethernetif = mem_malloc(sizeof(struct ethernetif));
+   4:	2008      	movs	r0, #8
+   6:	f7ff fffe 	bl	0 <mem_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:326
+  if (ethernetif == NULL)
+   a:	2800      	cmp	r0, #0
+   c:	d04b      	beq.n	a6 <ethernetif_init+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:345
+   * of bits per second.
+   */
+  NETIF_INIT_SNMP(netif, snmp_ifType_ethernet_csmacd, 100000000);
+
+  netif->state = ethernetif;
+  netif->name[0] = IFNAME0;
+   e:	2373      	movs	r3, #115	; 0x73
+  10:	f884 302a 	strb.w	r3, [r4, #42]	; 0x2a
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:346
+  netif->name[1] = IFNAME1;
+  14:	3301      	adds	r3, #1
+  16:	f884 302b 	strb.w	r3, [r4, #43]	; 0x2b
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:351
+  /* We directly use etharp_output() here to save a function call.
+   * You can instead declare your own function an call etharp_output()
+   * from it if you have to do some checks before sending (e.g. if link
+   * is available...) */
+  netif->output = etharp_output;
+  1a:	4b24      	ldr	r3, [pc, #144]	; (ac <ethernetif_init+0xac>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:344
+   * The last argument should be replaced with your link speed, in units
+   * of bits per second.
+   */
+  NETIF_INIT_SNMP(netif, snmp_ifType_ethernet_csmacd, 100000000);
+
+  netif->state = ethernetif;
+  1c:	61e0      	str	r0, [r4, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:351
+  netif->name[1] = IFNAME1;
+  /* We directly use etharp_output() here to save a function call.
+   * You can instead declare your own function an call etharp_output()
+   * from it if you have to do some checks before sending (e.g. if link
+   * is available...) */
+  netif->output = etharp_output;
+  1e:	6163      	str	r3, [r4, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:352
+  netif->linkoutput = low_level_output;
+  20:	4b23      	ldr	r3, [pc, #140]	; (b0 <ethernetif_init+0xb0>)
+low_level_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:159
+  /* device capabilities */
+  /* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
+  netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_LINK_UP;
+
+  /* Initialize Tx Descriptors list: Chain Mode */
+  ETH_DMATxDescChainInit(DMATxDscrTab, &Tx_Buff[0][0], ETH_TXBUFNB);
+  22:	4924      	ldr	r1, [pc, #144]	; (b4 <ethernetif_init+0xb4>)
+ethernetif_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:352
+  /* We directly use etharp_output() here to save a function call.
+   * You can instead declare your own function an call etharp_output()
+   * from it if you have to do some checks before sending (e.g. if link
+   * is available...) */
+  netif->output = etharp_output;
+  netif->linkoutput = low_level_output;
+  24:	61a3      	str	r3, [r4, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:354
+
+  ethernetif->ethaddr = (struct eth_addr *)&(netif->hwaddr[0]);
+  26:	f104 0323 	add.w	r3, r4, #35	; 0x23
+  2a:	6003      	str	r3, [r0, #0]
+low_level_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:141
+ */
+static void
+low_level_init(struct netif *netif)
+{
+  /* set MAC hardware address length */
+  netif->hwaddr_len = ETHARP_HWADDR_LEN;
+  2c:	2306      	movs	r3, #6
+  2e:	f884 3022 	strb.w	r3, [r4, #34]	; 0x22
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:144
+
+  /* set MAC hardware address */
+  netif->hwaddr[0] =  MACaddr[0];
+  32:	4b21      	ldr	r3, [pc, #132]	; (b8 <ethernetif_init+0xb8>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:159
+  /* device capabilities */
+  /* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
+  netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_LINK_UP;
+
+  /* Initialize Tx Descriptors list: Chain Mode */
+  ETH_DMATxDescChainInit(DMATxDscrTab, &Tx_Buff[0][0], ETH_TXBUFNB);
+  34:	4821      	ldr	r0, [pc, #132]	; (bc <ethernetif_init+0xbc>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:144
+{
+  /* set MAC hardware address length */
+  netif->hwaddr_len = ETHARP_HWADDR_LEN;
+
+  /* set MAC hardware address */
+  netif->hwaddr[0] =  MACaddr[0];
+  36:	781a      	ldrb	r2, [r3, #0]
+  38:	f884 2023 	strb.w	r2, [r4, #35]	; 0x23
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:145
+  netif->hwaddr[1] =  MACaddr[1];
+  3c:	785a      	ldrb	r2, [r3, #1]
+  3e:	f884 2024 	strb.w	r2, [r4, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:146
+  netif->hwaddr[2] =  MACaddr[2];
+  42:	789a      	ldrb	r2, [r3, #2]
+  44:	f884 2025 	strb.w	r2, [r4, #37]	; 0x25
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:147
+  netif->hwaddr[3] =  MACaddr[3];
+  48:	78da      	ldrb	r2, [r3, #3]
+  4a:	f884 2026 	strb.w	r2, [r4, #38]	; 0x26
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:148
+  netif->hwaddr[4] =  MACaddr[4];
+  4e:	791a      	ldrb	r2, [r3, #4]
+  50:	f884 2027 	strb.w	r2, [r4, #39]	; 0x27
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:149
+  netif->hwaddr[5] =  MACaddr[5];
+  54:	795b      	ldrb	r3, [r3, #5]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:159
+  /* device capabilities */
+  /* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
+  netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_LINK_UP;
+
+  /* Initialize Tx Descriptors list: Chain Mode */
+  ETH_DMATxDescChainInit(DMATxDscrTab, &Tx_Buff[0][0], ETH_TXBUFNB);
+  56:	2202      	movs	r2, #2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:149
+  netif->hwaddr[0] =  MACaddr[0];
+  netif->hwaddr[1] =  MACaddr[1];
+  netif->hwaddr[2] =  MACaddr[2];
+  netif->hwaddr[3] =  MACaddr[3];
+  netif->hwaddr[4] =  MACaddr[4];
+  netif->hwaddr[5] =  MACaddr[5];
+  58:	f884 3028 	strb.w	r3, [r4, #40]	; 0x28
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:152
+
+  /* maximum transfer unit */
+  netif->mtu = 1500;
+  5c:	f240 53dc 	movw	r3, #1500	; 0x5dc
+  60:	8423      	strh	r3, [r4, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:156
+
+  /* device capabilities */
+  /* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
+  netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_LINK_UP;
+  62:	2332      	movs	r3, #50	; 0x32
+  64:	f884 3029 	strb.w	r3, [r4, #41]	; 0x29
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:159
+
+  /* Initialize Tx Descriptors list: Chain Mode */
+  ETH_DMATxDescChainInit(DMATxDscrTab, &Tx_Buff[0][0], ETH_TXBUFNB);
+  68:	f7ff fffe 	bl	0 <ETH_DMATxDescChainInit>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:161
+  /* Initialize Rx Descriptors list: Chain Mode  */
+  ETH_DMARxDescChainInit(DMARxDscrTab, &Rx_Buff[0][0], ETH_RXBUFNB);
+  6c:	4814      	ldr	r0, [pc, #80]	; (c0 <ethernetif_init+0xc0>)
+  6e:	4915      	ldr	r1, [pc, #84]	; (c4 <ethernetif_init+0xc4>)
+  70:	2204      	movs	r2, #4
+  72:	f7ff fffe 	bl	0 <ETH_DMARxDescChainInit>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:165
+
+  /* Enable Ethernet Rx interrrupt */
+  { int i;
+    for(i=0; i<ETH_RXBUFNB; i++)
+  76:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:167
+    {
+      ETH_DMARxDescReceiveITConfig(&DMARxDscrTab[i], ENABLE);
+  78:	4811      	ldr	r0, [pc, #68]	; (c0 <ethernetif_init+0xc0>)
+  7a:	2101      	movs	r1, #1
+  7c:	eb00 1004 	add.w	r0, r0, r4, lsl #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:165
+  /* Initialize Rx Descriptors list: Chain Mode  */
+  ETH_DMARxDescChainInit(DMARxDscrTab, &Rx_Buff[0][0], ETH_RXBUFNB);
+
+  /* Enable Ethernet Rx interrrupt */
+  { int i;
+    for(i=0; i<ETH_RXBUFNB; i++)
+  80:	3401      	adds	r4, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:167
+    {
+      ETH_DMARxDescReceiveITConfig(&DMARxDscrTab[i], ENABLE);
+  82:	f7ff fffe 	bl	0 <ETH_DMARxDescReceiveITConfig>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:165
+  /* Initialize Rx Descriptors list: Chain Mode  */
+  ETH_DMARxDescChainInit(DMARxDscrTab, &Rx_Buff[0][0], ETH_RXBUFNB);
+
+  /* Enable Ethernet Rx interrrupt */
+  { int i;
+    for(i=0; i<ETH_RXBUFNB; i++)
+  86:	2c04      	cmp	r4, #4
+  88:	d1f6      	bne.n	78 <ethernetif_init+0x78>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:176
+#ifdef CHECKSUM_BY_HARDWARE
+  /* Enable the checksum insertion for the Tx frames */
+  { int i;
+    for(i=0; i<ETH_TXBUFNB; i++)
+    {
+      ETH_DMATxDescChecksumInsertionConfig(&DMATxDscrTab[i], ETH_DMATxDesc_ChecksumTCPUDPICMPFull);
+  8a:	480c      	ldr	r0, [pc, #48]	; (bc <ethernetif_init+0xbc>)
+  8c:	f44f 0140 	mov.w	r1, #12582912	; 0xc00000
+  90:	f7ff fffe 	bl	0 <ETH_DMATxDescChecksumInsertionConfig>
+  94:	480c      	ldr	r0, [pc, #48]	; (c8 <ethernetif_init+0xc8>)
+  96:	f44f 0140 	mov.w	r1, #12582912	; 0xc00000
+  9a:	f7ff fffe 	bl	0 <ETH_DMATxDescChecksumInsertionConfig>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:182
+    }
+  }
+#endif
+
+  /* Enable MAC and DMA transmission and reception */
+  ETH_Start();
+  9e:	f7ff fffe 	bl	0 <ETH_Start>
+ethernetif_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:359
+  ethernetif->ethaddr = (struct eth_addr *)&(netif->hwaddr[0]);
+
+  /* initialize the hardware */
+  low_level_init(netif);
+
+  return ERR_OK;
+  a2:	2000      	movs	r0, #0
+  a4:	e000      	b.n	a8 <ethernetif_init+0xa8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:329
+
+  ethernetif = mem_malloc(sizeof(struct ethernetif));
+  if (ethernetif == NULL)
+  {
+    LWIP_DEBUGF(NETIF_DEBUG, ("ethernetif_init: out of memory\n"));
+    return ERR_MEM;
+  a6:	20ff      	movs	r0, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:360
+
+  /* initialize the hardware */
+  low_level_init(netif);
+
+  return ERR_OK;
+}
+  a8:	b240      	sxtb	r0, r0
+  aa:	bd10      	pop	{r4, pc}
+	...
+  c8:	00000010 	.word	0x00000010
+
+Disassembly of section .text.ETH_RxPkt_ChainMode:
+
+00000000 <ETH_RxPkt_ChainMode>:
+ETH_RxPkt_ChainMode():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:375
+{ 
+  u32 framelength = 0;
+  FrameTypeDef frame = {0,0}; 
+
+  /* Check if the descriptor is owned by the ETHERNET DMA (when set) or CPU (when reset) */
+  if((DMARxDescToGet->Status & ETH_DMARxDesc_OWN) != (u32)RESET)
+   0:	b5304a14 	.word	0xb5304a14
+   4:	6813      	ldr	r3, [r2, #0]
+   6:	4614      	mov	r4, r2
+   8:	6819      	ldr	r1, [r3, #0]
+   a:	2900      	cmp	r1, #0
+   c:	da0e      	bge.n	2c <ETH_RxPkt_ChainMode+0x2c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:379
+  {	
+	frame.length = ETH_ERROR;
+
+    if ((ETH->DMASR & ETH_DMASR_RBUS) != (u32)RESET)  
+   e:	4b12      	ldr	r3, [pc, #72]	; (58 <ETH_RxPkt_ChainMode+0x58>)
+  10:	681a      	ldr	r2, [r3, #0]
+  12:	f012 0f80 	tst.w	r2, #128	; 0x80
+  16:	d004      	beq.n	22 <ETH_RxPkt_ChainMode+0x22>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:382
+    {
+      /* Clear RBUS ETHERNET DMA flag */
+      ETH->DMASR = ETH_DMASR_RBUS;
+  18:	2280      	movs	r2, #128	; 0x80
+  1a:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:384
+      /* Resume DMA reception */
+      ETH->DMARPDR = 0;
+  1c:	3a80      	subs	r2, #128	; 0x80
+  1e:	f843 2c0c 	str.w	r2, [r3, #-12]
+  22:	2300      	movs	r3, #0
+  24:	6003      	str	r3, [r0, #0]
+  26:	6043      	str	r3, [r0, #4]
+  28:	6083      	str	r3, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:388
+    }
+
+	/* Return error: OWN bit set */
+    return frame; 
+  2a:	bd30      	pop	{r4, r5, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:392
+  }
+  
+  if(((DMARxDescToGet->Status & ETH_DMARxDesc_ES) == (u32)RESET) && 
+     ((DMARxDescToGet->Status & ETH_DMARxDesc_LS) != (u32)RESET) &&  
+  2c:	f401 4203 	and.w	r2, r1, #33536	; 0x8300
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:391
+
+	/* Return error: OWN bit set */
+    return frame; 
+  }
+  
+  if(((DMARxDescToGet->Status & ETH_DMARxDesc_ES) == (u32)RESET) && 
+  30:	f5b2 7f40 	cmp.w	r2, #768	; 0x300
+  34:	d106      	bne.n	44 <ETH_RxPkt_ChainMode+0x44>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:396
+     ((DMARxDescToGet->Status & ETH_DMARxDesc_LS) != (u32)RESET) &&  
+     ((DMARxDescToGet->Status & ETH_DMARxDesc_FS) != (u32)RESET))  
+  {      
+    /* Get the Frame Length of the received packet: substruct 4 bytes of the CRC */
+    framelength = ((DMARxDescToGet->Status & ETH_DMARxDesc_FL) >> ETH_DMARxDesc_FrameLengthShift) - 4;
+  36:	4a09      	ldr	r2, [pc, #36]	; (5c <ETH_RxPkt_ChainMode+0x5c>)
+  38:	ea01 0202 	and.w	r2, r1, r2
+  3c:	0c12      	lsrs	r2, r2, #16
+  3e:	1f11      	subs	r1, r2, #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:399
+	
+	/* Get the addrees of the actual buffer */
+	frame.buffer = DMARxDescToGet->Buffer1Addr;	
+  40:	689a      	ldr	r2, [r3, #8]
+  42:	e001      	b.n	48 <ETH_RxPkt_ChainMode+0x48>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:391
+
+	/* Return error: OWN bit set */
+    return frame; 
+  }
+  
+  if(((DMARxDescToGet->Status & ETH_DMARxDesc_ES) == (u32)RESET) && 
+  44:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:404
+	frame.buffer = DMARxDescToGet->Buffer1Addr;	
+  }
+  else
+  {
+    /* Return ERROR */
+    framelength = ETH_ERROR;
+  46:	4611      	mov	r1, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:415
+  frame.descriptor = DMARxDescToGet;
+  
+  /* Update the ETHERNET DMA global Rx descriptor with next Rx decriptor */      
+  /* Chained Mode */    
+  /* Selects the next DMA Rx descriptor list for next buffer to read */ 
+  DMARxDescToGet = (ETH_DMADESCTypeDef*) (DMARxDescToGet->Buffer2NextDescAddr);    
+  48:	68dd      	ldr	r5, [r3, #12]
+  4a:	6001      	str	r1, [r0, #0]
+  4c:	6025      	str	r5, [r4, #0]
+  4e:	6042      	str	r2, [r0, #4]
+  50:	6083      	str	r3, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:419
+  
+  /* Return Frame */
+  return (frame);  
+}
+  52:	bd30      	pop	{r4, r5, pc}
+  54:	00000000 	.word	0x00000000
+  58:	40029014 	.word	0x40029014
+  5c:	3fff0000 	.word	0x3fff0000
+
+Disassembly of section .text.ethernetif_input:
+
+00000000 <ethernetif_input>:
+ethernetif_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:285
+ *
+ * @param netif the lwip network interface structure for this ethernetif
+ */
+err_t
+ethernetif_input(struct netif *netif)
+{
+   0:	e92d 43f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, lr}
+   4:	b085      	sub	sp, #20
+   6:	4607      	mov	r7, r0
+low_level_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:238
+  int l =0;
+  FrameTypeDef frame;
+  u8 *buffer;
+  
+  p = NULL;
+  frame = ETH_RxPkt_ChainMode();
+   8:	a801      	add	r0, sp, #4
+   a:	f7ff fffe 	bl	0 <ethernetif_input>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:246
+  len = frame.length;
+  
+  buffer = (u8 *)frame.buffer;
+
+  /* We allocate a pbuf chain of pbufs from the pool. */
+  p = pbuf_alloc(PBUF_RAW, len, PBUF_POOL);
+   e:	2003      	movs	r0, #3
+  10:	f8bd 1004 	ldrh.w	r1, [sp, #4]
+  14:	4602      	mov	r2, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:238
+  int l =0;
+  FrameTypeDef frame;
+  u8 *buffer;
+  
+  p = NULL;
+  frame = ETH_RxPkt_ChainMode();
+  16:	f8dd 800c 	ldr.w	r8, [sp, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:243
+  /* Obtain the size of the packet and put it into the "len"
+     variable. */
+  len = frame.length;
+  
+  buffer = (u8 *)frame.buffer;
+  1a:	f8dd 9008 	ldr.w	r9, [sp, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:246
+
+  /* We allocate a pbuf chain of pbufs from the pool. */
+  p = pbuf_alloc(PBUF_RAW, len, PBUF_POOL);
+  1e:	f7ff fffe 	bl	0 <pbuf_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:248
+
+  if (p != NULL)
+  22:	4605      	mov	r5, r0
+  24:	b160      	cbz	r0, 40 <ethernetif_input+0x40>
+  26:	4604      	mov	r4, r0
+  28:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:252
+  {
+    for (q = p; q != NULL; q = q->next)
+    {
+	  memcpy((u8_t*)q->payload, (u8_t*)&buffer[l], q->len);
+  2a:	6860      	ldr	r0, [r4, #4]
+  2c:	eb09 0106 	add.w	r1, r9, r6
+  30:	8962      	ldrh	r2, [r4, #10]
+  32:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:253
+      l = l + q->len;
+  36:	8963      	ldrh	r3, [r4, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:250
+  /* We allocate a pbuf chain of pbufs from the pool. */
+  p = pbuf_alloc(PBUF_RAW, len, PBUF_POOL);
+
+  if (p != NULL)
+  {
+    for (q = p; q != NULL; q = q->next)
+  38:	6824      	ldr	r4, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:253
+    {
+	  memcpy((u8_t*)q->payload, (u8_t*)&buffer[l], q->len);
+      l = l + q->len;
+  3a:	18f6      	adds	r6, r6, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:250
+  /* We allocate a pbuf chain of pbufs from the pool. */
+  p = pbuf_alloc(PBUF_RAW, len, PBUF_POOL);
+
+  if (p != NULL)
+  {
+    for (q = p; q != NULL; q = q->next)
+  3c:	2c00      	cmp	r4, #0
+  3e:	d1f4      	bne.n	2a <ethernetif_input+0x2a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:259
+    }    
+  }
+
+
+  /* Set Own bit of the Rx descriptor Status: gives the buffer back to ETHERNET DMA */
+  frame.descriptor->Status = ETH_DMARxDesc_OWN; 
+  40:	f04f 4300 	mov.w	r3, #2147483648	; 0x80000000
+  44:	f8c8 3000 	str.w	r3, [r8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:262
+ 
+  /* When Rx Buffer unavailable flag is set: clear it and resume reception */
+  if ((ETH->DMASR & ETH_DMASR_RBUS) != (u32)RESET)  
+  48:	4b0c      	ldr	r3, [pc, #48]	; (7c <ethernetif_input+0x7c>)
+  4a:	681a      	ldr	r2, [r3, #0]
+  4c:	f012 0f80 	tst.w	r2, #128	; 0x80
+  50:	d004      	beq.n	5c <ethernetif_input+0x5c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:265
+  {
+    /* Clear RBUS ETHERNET DMA flag */
+    ETH->DMASR = ETH_DMASR_RBUS;
+  52:	2280      	movs	r2, #128	; 0x80
+  54:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:267
+    /* Resume DMA reception */
+    ETH->DMARPDR = 0;
+  56:	3a80      	subs	r2, #128	; 0x80
+  58:	f843 2c0c 	str.w	r2, [r3, #-12]
+ethernetif_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:293
+
+  /* move received packet into a new pbuf */
+  p = low_level_input(netif);
+
+  /* no packet could be read, silently ignore this */
+  if (p == NULL) return ERR_MEM;
+  5c:	b14d      	cbz	r5, 72 <ethernetif_input+0x72>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:295
+
+  err = netif->input(p, netif);
+  5e:	693b      	ldr	r3, [r7, #16]
+  60:	4628      	mov	r0, r5
+  62:	4639      	mov	r1, r7
+  64:	4798      	blx	r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:296
+  if (err != ERR_OK)
+  66:	4604      	mov	r4, r0
+  68:	b120      	cbz	r0, 74 <ethernetif_input+0x74>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:299
+  {
+    LWIP_DEBUGF(NETIF_DEBUG, ("ethernetif_input: IP input error\n"));
+    pbuf_free(p);
+  6a:	4628      	mov	r0, r5
+  6c:	f7ff fffe 	bl	0 <pbuf_free>
+  70:	e000      	b.n	74 <ethernetif_input+0x74>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:293
+
+  /* move received packet into a new pbuf */
+  p = low_level_input(netif);
+
+  /* no packet could be read, silently ignore this */
+  if (p == NULL) return ERR_MEM;
+  72:	24ff      	movs	r4, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:304
+    pbuf_free(p);
+    p = NULL;
+  }
+
+  return err;
+}
+  74:	b260      	sxtb	r0, r4
+  76:	b005      	add	sp, #20
+  78:	e8bd 83f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, pc}
+  7c:	40029014 	.word	0x40029014
+
+Disassembly of section .text.ETH_TxPkt_ChainMode:
+
+00000000 <ETH_TxPkt_ChainMode>:
+ETH_TxPkt_ChainMode():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:432
+*                  ETH_SUCCESS: for correct transmission
+*******************************************************************************/
+u32 ETH_TxPkt_ChainMode(u16 FrameLength)
+{   
+  /* Check if the descriptor is owned by the ETHERNET DMA (when set) or CPU (when reset) */
+  if((DMATxDescToSet->Status & ETH_DMATxDesc_OWN) != (u32)RESET)
+   0:	680b490d 	.word	0x680b490d
+   4:	681a      	ldr	r2, [r3, #0]
+   6:	2a00      	cmp	r2, #0
+   8:	db13      	blt.n	32 <ETH_TxPkt_ChainMode+0x32>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:439
+	/* Return ERROR: OWN bit set */
+    return ETH_ERROR;
+  }
+        
+  /* Setting the Frame Length: bits[12:0] */
+  DMATxDescToSet->ControlBufferSize = (FrameLength & ETH_DMATxDesc_TBS1);
+   a:	04c0      	lsls	r0, r0, #19
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:445
+
+  /* Setting the last segment and first segment bits (in this case a frame is transmitted in one descriptor) */    
+  DMATxDescToSet->Status |= ETH_DMATxDesc_LS | ETH_DMATxDesc_FS;
+
+  /* Set Own bit of the Tx descriptor Status: gives the buffer back to ETHERNET DMA */
+  DMATxDescToSet->Status |= ETH_DMATxDesc_OWN;
+   c:	f042 4230 	orr.w	r2, r2, #2952790016	; 0xb0000000
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:439
+	/* Return ERROR: OWN bit set */
+    return ETH_ERROR;
+  }
+        
+  /* Setting the Frame Length: bits[12:0] */
+  DMATxDescToSet->ControlBufferSize = (FrameLength & ETH_DMATxDesc_TBS1);
+  10:	0cc0      	lsrs	r0, r0, #19
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:445
+
+  /* Setting the last segment and first segment bits (in this case a frame is transmitted in one descriptor) */    
+  DMATxDescToSet->Status |= ETH_DMATxDesc_LS | ETH_DMATxDesc_FS;
+
+  /* Set Own bit of the Tx descriptor Status: gives the buffer back to ETHERNET DMA */
+  DMATxDescToSet->Status |= ETH_DMATxDesc_OWN;
+  12:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:448
+
+  /* When Tx Buffer unavailable flag is set: clear it and resume transmission */
+  if ((ETH->DMASR & ETH_DMASR_TBUS) != (u32)RESET)
+  14:	4a09      	ldr	r2, [pc, #36]	; (3c <ETH_TxPkt_ChainMode+0x3c>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:439
+	/* Return ERROR: OWN bit set */
+    return ETH_ERROR;
+  }
+        
+  /* Setting the Frame Length: bits[12:0] */
+  DMATxDescToSet->ControlBufferSize = (FrameLength & ETH_DMATxDesc_TBS1);
+  16:	6058      	str	r0, [r3, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:448
+
+  /* Set Own bit of the Tx descriptor Status: gives the buffer back to ETHERNET DMA */
+  DMATxDescToSet->Status |= ETH_DMATxDesc_OWN;
+
+  /* When Tx Buffer unavailable flag is set: clear it and resume transmission */
+  if ((ETH->DMASR & ETH_DMASR_TBUS) != (u32)RESET)
+  18:	6810      	ldr	r0, [r2, #0]
+  1a:	f010 0f04 	tst.w	r0, #4
+  1e:	d004      	beq.n	2a <ETH_TxPkt_ChainMode+0x2a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:451
+  {
+    /* Clear TBUS ETHERNET DMA flag */
+    ETH->DMASR = ETH_DMASR_TBUS;
+  20:	2004      	movs	r0, #4
+  22:	6010      	str	r0, [r2, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:453
+    /* Resume DMA transmission*/
+    ETH->DMATPDR = 0;
+  24:	3804      	subs	r0, #4
+  26:	f842 0c10 	str.w	r0, [r2, #-16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:459
+  }
+  
+  /* Update the ETHERNET DMA global Tx descriptor with next Tx decriptor */  
+  /* Chained Mode */
+  /* Selects the next DMA Tx descriptor list for next buffer to send */ 
+  DMATxDescToSet = (ETH_DMADESCTypeDef*) (DMATxDescToSet->Buffer2NextDescAddr);    
+  2a:	68db      	ldr	r3, [r3, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:463
+
+
+  /* Return SUCCESS */
+  return ETH_SUCCESS;   
+  2c:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:459
+  }
+  
+  /* Update the ETHERNET DMA global Tx descriptor with next Tx decriptor */  
+  /* Chained Mode */
+  /* Selects the next DMA Tx descriptor list for next buffer to send */ 
+  DMATxDescToSet = (ETH_DMADESCTypeDef*) (DMATxDescToSet->Buffer2NextDescAddr);    
+  2e:	600b      	str	r3, [r1, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:463
+
+
+  /* Return SUCCESS */
+  return ETH_SUCCESS;   
+  30:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:435
+{   
+  /* Check if the descriptor is owned by the ETHERNET DMA (when set) or CPU (when reset) */
+  if((DMATxDescToSet->Status & ETH_DMATxDesc_OWN) != (u32)RESET)
+  {  
+	/* Return ERROR: OWN bit set */
+    return ETH_ERROR;
+  32:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:464
+  DMATxDescToSet = (ETH_DMADESCTypeDef*) (DMATxDescToSet->Buffer2NextDescAddr);    
+
+
+  /* Return SUCCESS */
+  return ETH_SUCCESS;   
+}
+  34:	4770      	bx	lr
+  36:	bf00      	nop
+  38:	00000000 	.word	0x00000000
+  3c:	40029014 	.word	0x40029014
+
+Disassembly of section .text.ETH_GetCurrentTxBuffer:
+
+00000000 <ETH_GetCurrentTxBuffer>:
+ETH_GetCurrentTxBuffer():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:477
+* Return         : Buffer address
+*******************************************************************************/
+u32 ETH_GetCurrentTxBuffer(void)
+{ 
+  /* Return Buffer address */
+  return (DMATxDescToSet->Buffer1Addr);   
+   0:	681b4b01 	.word	0x681b4b01
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:478
+}
+   4:	6898      	ldr	r0, [r3, #8]
+   6:	4770      	bx	lr
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.low_level_output:
+
+00000000 <low_level_output>:
+low_level_output():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:204
+ *       dropped because of memory failure (except for the TCP timers).
+ */
+
+static err_t
+low_level_output(struct netif *netif, struct pbuf *p)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:207
+  struct pbuf *q;
+  int l = 0;
+  u8 *buffer =  (u8 *)ETH_GetCurrentTxBuffer();
+   4:	f7ff fffe 	bl	0 <low_level_output>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:206
+
+static err_t
+low_level_output(struct netif *netif, struct pbuf *p)
+{
+  struct pbuf *q;
+  int l = 0;
+   8:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:207
+  u8 *buffer =  (u8 *)ETH_GetCurrentTxBuffer();
+   a:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:209
+  
+  for(q = p; q != NULL; q = q->next) 
+   c:	e007      	b.n	1e <low_level_output+0x1e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:211
+  {
+    memcpy((u8_t*)&buffer[l], q->payload, q->len);
+   e:	1970      	adds	r0, r6, r5
+  10:	6861      	ldr	r1, [r4, #4]
+  12:	8962      	ldrh	r2, [r4, #10]
+  14:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:212
+	l = l + q->len;
+  18:	8963      	ldrh	r3, [r4, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:209
+{
+  struct pbuf *q;
+  int l = 0;
+  u8 *buffer =  (u8 *)ETH_GetCurrentTxBuffer();
+  
+  for(q = p; q != NULL; q = q->next) 
+  1a:	6824      	ldr	r4, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:212
+  {
+    memcpy((u8_t*)&buffer[l], q->payload, q->len);
+	l = l + q->len;
+  1c:	18ed      	adds	r5, r5, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:209
+{
+  struct pbuf *q;
+  int l = 0;
+  u8 *buffer =  (u8 *)ETH_GetCurrentTxBuffer();
+  
+  for(q = p; q != NULL; q = q->next) 
+  1e:	2c00      	cmp	r4, #0
+  20:	d1f5      	bne.n	e <low_level_output+0xe>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:215
+  {
+    memcpy((u8_t*)&buffer[l], q->payload, q->len);
+	l = l + q->len;
+  }
+
+  ETH_TxPkt_ChainMode(l);
+  22:	b2a8      	uxth	r0, r5
+  24:	f7ff fffe 	bl	0 <low_level_output>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/ethernetif.c:218
+
+  return ERR_OK;
+}
+  28:	4620      	mov	r0, r4
+  2a:	bd70      	pop	{r4, r5, r6, pc}

@@ -1,0 +1,1425 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\tftpserver.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\tftpserver.o
+
+
+Disassembly of section .text.tftp_send_message:
+
+00000000 <tftp_send_message>:
+tftp_send_message():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:72
+
+void recv_callback_tftp(void *arg, struct udp_pcb *upcb, struct pbuf *pkt_buf, struct ip_addr *addr, u16_t port);
+
+
+err_t tftp_send_message(struct udp_pcb *upcb, struct ip_addr *to_ip, int to_port, char *buf, int buflen)
+{
+   0:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+   4:	f8dd 8020 	ldr.w	r8, [sp, #32]
+   8:	4607      	mov	r7, r0
+   a:	460e      	mov	r6, r1
+   c:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:78
+
+  err_t err;
+  struct pbuf *pkt_buf; /* Chain of pbuf's to be sent */
+
+  /* PBUF_TRANSPORT - specifies the transport layer */
+  pkt_buf = pbuf_alloc(PBUF_TRANSPORT, buflen, PBUF_POOL);
+   e:	2000      	movs	r0, #0
+  10:	fa1f f188 	uxth.w	r1, r8
+  14:	2203      	movs	r2, #3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:72
+
+void recv_callback_tftp(void *arg, struct udp_pcb *upcb, struct pbuf *pkt_buf, struct ip_addr *addr, u16_t port);
+
+
+err_t tftp_send_message(struct udp_pcb *upcb, struct ip_addr *to_ip, int to_port, char *buf, int buflen)
+{
+  16:	4699      	mov	r9, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:78
+
+  err_t err;
+  struct pbuf *pkt_buf; /* Chain of pbuf's to be sent */
+
+  /* PBUF_TRANSPORT - specifies the transport layer */
+  pkt_buf = pbuf_alloc(PBUF_TRANSPORT, buflen, PBUF_POOL);
+  18:	f7ff fffe 	bl	0 <pbuf_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:80
+
+  if (!pkt_buf)      /*if the packet pbuf == NULL exit and EndTransfertransmission */
+  1c:	4604      	mov	r4, r0
+  1e:	b178      	cbz	r0, 40 <tftp_send_message+0x40>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:84
+    return ERR_MEM;
+
+  /* Copy the original data buffer over to the packet buffer's payload */
+  memcpy(pkt_buf->payload, buf, buflen);
+  20:	4649      	mov	r1, r9
+  22:	4642      	mov	r2, r8
+  24:	6840      	ldr	r0, [r0, #4]
+  26:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:87
+
+  /* Sending packet by UDP protocol */
+  err = udp_sendto(upcb, pkt_buf, to_ip, to_port);
+  2a:	b2ab      	uxth	r3, r5
+  2c:	4638      	mov	r0, r7
+  2e:	4621      	mov	r1, r4
+  30:	4632      	mov	r2, r6
+  32:	f7ff fffe 	bl	0 <udp_sendto>
+  36:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:90
+
+  /* free the buffer pbuf */
+  pbuf_free(pkt_buf);
+  38:	4620      	mov	r0, r4
+  3a:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:92
+
+  return err;
+  3e:	e000      	b.n	42 <tftp_send_message+0x42>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:81
+
+  /* PBUF_TRANSPORT - specifies the transport layer */
+  pkt_buf = pbuf_alloc(PBUF_TRANSPORT, buflen, PBUF_POOL);
+
+  if (!pkt_buf)      /*if the packet pbuf == NULL exit and EndTransfertransmission */
+    return ERR_MEM;
+  40:	25ff      	movs	r5, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:93
+
+  /* free the buffer pbuf */
+  pbuf_free(pkt_buf);
+
+  return err;
+}
+  42:	b268      	sxtb	r0, r5
+  44:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+
+Disassembly of section .text.tftp_construct_error_message:
+
+00000000 <tftp_construct_error_message>:
+tftp_construct_error_message():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:98
+
+
+/* construct an error message into buf using err as the error code */
+int tftp_construct_error_message(char *buf, tftp_errorcode err)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	460c      	mov	r4, r1
+   4:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:102
+
+  int errorlen;
+  /* Set the opcode in the 2 first bytes */
+  tftp_set_opcode(buf, TFTP_ERROR);
+   6:	2105      	movs	r1, #5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:106
+  /* Set the errorcode in the 2 second bytes  */
+  tftp_set_errorcode(buf, err);
+  /* Set the error message in the last bytes */
+  tftp_set_errormsg(buf, tftp_errorcode_string[err]);
+   8:	4d08      	ldr	r5, [pc, #32]	; (2c <tftp_construct_error_message+0x2c>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:102
+int tftp_construct_error_message(char *buf, tftp_errorcode err)
+{
+
+  int errorlen;
+  /* Set the opcode in the 2 first bytes */
+  tftp_set_opcode(buf, TFTP_ERROR);
+   a:	f7ff fffe 	bl	0 <tftp_set_opcode>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:104
+  /* Set the errorcode in the 2 second bytes  */
+  tftp_set_errorcode(buf, err);
+   e:	4630      	mov	r0, r6
+  10:	4621      	mov	r1, r4
+  12:	f7ff fffe 	bl	0 <tftp_set_errorcode>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:106
+  /* Set the error message in the last bytes */
+  tftp_set_errormsg(buf, tftp_errorcode_string[err]);
+  16:	4630      	mov	r0, r6
+  18:	f855 1024 	ldr.w	r1, [r5, r4, lsl #2]
+  1c:	f7ff fffe 	bl	0 <tftp_set_errormsg>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:108
+  /* Set the length of the error message  */
+  errorlen = strlen(tftp_errorcode_string[err]);
+  20:	f855 0024 	ldr.w	r0, [r5, r4, lsl #2]
+  24:	f7ff fffe 	bl	0 <strlen>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:112
+
+  /* return message size */
+  return 4 + errorlen + 1;
+}
+  28:	3005      	adds	r0, #5
+  2a:	bd70      	pop	{r4, r5, r6, pc}
+  2c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.tftp_send_error_message:
+
+00000000 <tftp_send_error_message>:
+tftp_send_error_message():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:116
+
+/* construct and send an error message back to client */
+int tftp_send_error_message(struct udp_pcb *upcb, struct ip_addr *to, int to_port, tftp_errorcode err)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	f5ad 7d02 	sub.w	sp, sp, #520	; 0x208
+   6:	4605      	mov	r5, r0
+   8:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:121
+  char buf[512];
+  int error_len;
+
+  /* construct error */
+  error_len = tftp_construct_error_message(buf, err);
+   a:	a802      	add	r0, sp, #8
+   c:	4619      	mov	r1, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:116
+  return 4 + errorlen + 1;
+}
+
+/* construct and send an error message back to client */
+int tftp_send_error_message(struct udp_pcb *upcb, struct ip_addr *to, int to_port, tftp_errorcode err)
+{
+   e:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:121
+  char buf[512];
+  int error_len;
+
+  /* construct error */
+  error_len = tftp_construct_error_message(buf, err);
+  10:	f7ff fffe 	bl	0 <tftp_send_error_message>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:123
+  /* sEndTransfererror  */
+  return tftp_send_message(upcb, to, to_port, buf, error_len);
+  14:	4621      	mov	r1, r4
+  16:	9000      	str	r0, [sp, #0]
+  18:	4632      	mov	r2, r6
+  1a:	4628      	mov	r0, r5
+  1c:	ab02      	add	r3, sp, #8
+  1e:	f7ff fffe 	bl	0 <tftp_send_error_message>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:124
+}
+  22:	f50d 7d02 	add.w	sp, sp, #520	; 0x208
+  26:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.tftp_send_data_packet:
+
+00000000 <tftp_send_data_packet>:
+tftp_send_data_packet():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:129
+
+/* construct and send a data packet */
+int tftp_send_data_packet(struct udp_pcb *upcb, struct ip_addr *to, int to_port, int block,
+                          char *buf, int buflen)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	f5ad 7d04 	sub.w	sp, sp, #528	; 0x210
+   8:	4698      	mov	r8, r3
+   a:	9f8b      	ldr	r7, [sp, #556]	; 0x22c
+   c:	4606      	mov	r6, r0
+   e:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:133
+  char packet[TFTP_DATA_PKT_LEN_MAX]; /* (512+4) bytes */
+
+  /* Set the opcode 3 in the 2 first bytes */
+  tftp_set_opcode(packet, TFTP_DATA);
+  10:	a803      	add	r0, sp, #12
+  12:	2103      	movs	r1, #3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:129
+}
+
+/* construct and send a data packet */
+int tftp_send_data_packet(struct udp_pcb *upcb, struct ip_addr *to, int to_port, int block,
+                          char *buf, int buflen)
+{
+  14:	4614      	mov	r4, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:133
+  char packet[TFTP_DATA_PKT_LEN_MAX]; /* (512+4) bytes */
+
+  /* Set the opcode 3 in the 2 first bytes */
+  tftp_set_opcode(packet, TFTP_DATA);
+  16:	f7ff fffe 	bl	0 <tftp_set_opcode>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:135
+  /* Set the block numero in the 2 second bytes */
+  tftp_set_block(packet, block);
+  1a:	a803      	add	r0, sp, #12
+  1c:	fa1f f188 	uxth.w	r1, r8
+  20:	f7ff fffe 	bl	0 <tftp_set_block>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:137
+  /* Set the data message in the n last bytes */
+  tftp_set_data_message(packet, buf, buflen);
+  24:	a803      	add	r0, sp, #12
+  26:	998a      	ldr	r1, [sp, #552]	; 0x228
+  28:	463a      	mov	r2, r7
+  2a:	f7ff fffe 	bl	0 <tftp_set_data_message>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:139
+  /* SEndTransferthe DATA packet */
+  return tftp_send_message(upcb, to, to_port, packet, buflen + 4);
+  2e:	3704      	adds	r7, #4
+  30:	4630      	mov	r0, r6
+  32:	4629      	mov	r1, r5
+  34:	4622      	mov	r2, r4
+  36:	ab03      	add	r3, sp, #12
+  38:	9700      	str	r7, [sp, #0]
+  3a:	f7ff fffe 	bl	0 <tftp_send_data_packet>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:140
+}
+  3e:	f50d 7d04 	add.w	sp, sp, #528	; 0x210
+  42:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.tftp_send_ack_packet:
+
+00000000 <tftp_send_ack_packet>:
+tftp_send_ack_packet():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:143
+
+int tftp_send_ack_packet(struct udp_pcb *upcb, struct ip_addr *to, int to_port, int block)
+{
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+   2:	b085      	sub	sp, #20
+   4:	461f      	mov	r7, r3
+   6:	4605      	mov	r5, r0
+   8:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:149
+
+  /* create the maximum possible size packet that a TFTP ACK packet can be */
+  char packet[TFTP_ACK_PKT_LEN];
+
+  /* define the first two bytes of the packet */
+  tftp_set_opcode(packet, TFTP_ACK);
+   a:	a803      	add	r0, sp, #12
+   c:	2104      	movs	r1, #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:143
+  /* SEndTransferthe DATA packet */
+  return tftp_send_message(upcb, to, to_port, packet, buflen + 4);
+}
+
+int tftp_send_ack_packet(struct udp_pcb *upcb, struct ip_addr *to, int to_port, int block)
+{
+   e:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:149
+
+  /* create the maximum possible size packet that a TFTP ACK packet can be */
+  char packet[TFTP_ACK_PKT_LEN];
+
+  /* define the first two bytes of the packet */
+  tftp_set_opcode(packet, TFTP_ACK);
+  10:	f7ff fffe 	bl	0 <tftp_set_opcode>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:157
+   * If we are ACK'ing a DATA pkt then the block number echoes that of the DATA pkt being ACK'd (duh)
+   * If we are ACK'ing a WRQ pkt then the block number is always 0
+   * RRQ packets are never sent ACK pkts by the server, instead the server sends DATA pkts to the
+   * host which are, obviously, used as the "acknowledgement".  This saves from having to sEndTransferboth
+   * an ACK packet and a DATA packet for RRQs - see RFC1350 for more info.  */
+  tftp_set_block(packet, block);
+  14:	a803      	add	r0, sp, #12
+  16:	b2b9      	uxth	r1, r7
+  18:	f7ff fffe 	bl	0 <tftp_set_block>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:159
+
+  return tftp_send_message(upcb, to, to_port, packet, TFTP_ACK_PKT_LEN);
+  1c:	2304      	movs	r3, #4
+  1e:	9300      	str	r3, [sp, #0]
+  20:	4628      	mov	r0, r5
+  22:	4621      	mov	r1, r4
+  24:	4632      	mov	r2, r6
+  26:	ab03      	add	r3, sp, #12
+  28:	f7ff fffe 	bl	0 <tftp_send_ack_packet>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:160
+}
+  2c:	b005      	add	sp, #20
+  2e:	bdf0      	pop	{r4, r5, r6, r7, pc}
+
+Disassembly of section .text.tftp_cleanup_rd:
+
+00000000 <tftp_cleanup_rd>:
+tftp_cleanup_rd():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:164
+
+/* close the file sent, disconnect and close the connection */
+void tftp_cleanup_rd(struct udp_pcb *upcb, tftp_connection_args *args)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:166
+  /* close the filesystem */
+  file_fclose(&file_SD);
+   4:	480b      	ldr	r0, [pc, #44]	; (34 <tftp_cleanup_rd+0x34>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:164
+  return tftp_send_message(upcb, to, to_port, packet, TFTP_ACK_PKT_LEN);
+}
+
+/* close the file sent, disconnect and close the connection */
+void tftp_cleanup_rd(struct udp_pcb *upcb, tftp_connection_args *args)
+{
+   6:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:166
+  /* close the filesystem */
+  file_fclose(&file_SD);
+   8:	f7ff fffe 	bl	0 <file_fclose>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:167
+  fs_umount(&efs1.myFs);
+   c:	480a      	ldr	r0, [pc, #40]	; (2c <fs_umount+0x2c>)
+   e:	f7ff fffe 	bl	0 <fs_umount>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:169
+  /* Free the tftp_connection_args structure reserverd for */
+  mem_free(args);
+  12:	4628      	mov	r0, r5
+  14:	f7ff fffe 	bl	0 <mem_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:172
+
+  /* Disconnect the udp_pcb*/
+  udp_disconnect(upcb);
+  18:	4620      	mov	r0, r4
+  1a:	f7ff fffe 	bl	0 <udp_disconnect>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:175
+
+  /* close the connection */
+  udp_remove(upcb);
+  1e:	4620      	mov	r0, r4
+  20:	f7ff fffe 	bl	0 <udp_remove>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:177
+
+  udp_recv(UDPpcb, recv_callback_tftp, NULL);
+  24:	4b05      	ldr	r3, [pc, #20]	; (3c <tftp_cleanup_rd+0x3c>)
+  26:	4906      	ldr	r1, [pc, #24]	; (40 <tftp_cleanup_rd+0x40>)
+  28:	6818      	ldr	r0, [r3, #0]
+  2a:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:178
+}
+  2c:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:177
+  udp_disconnect(upcb);
+
+  /* close the connection */
+  udp_remove(upcb);
+
+  udp_recv(UDPpcb, recv_callback_tftp, NULL);
+  30:	f7ff bffe 	b.w	0 <udp_recv>
+  34:	00000000 	.word	0x00000000
+  38:	00000274 	.word	0x00000274
+	...
+
+Disassembly of section .text.tftp_cleanup_wr:
+
+00000000 <tftp_cleanup_wr>:
+tftp_cleanup_wr():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:182
+}
+
+/* close the file writen, disconnect and close the connection */
+void tftp_cleanup_wr(struct udp_pcb *upcb, tftp_connection_args *args)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:184
+  /* close the filesystem */
+  file_fclose(&file_CR);
+   4:	480b      	ldr	r0, [pc, #44]	; (34 <tftp_cleanup_wr+0x34>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:182
+  udp_recv(UDPpcb, recv_callback_tftp, NULL);
+}
+
+/* close the file writen, disconnect and close the connection */
+void tftp_cleanup_wr(struct udp_pcb *upcb, tftp_connection_args *args)
+{
+   6:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:184
+  /* close the filesystem */
+  file_fclose(&file_CR);
+   8:	f7ff fffe 	bl	0 <file_fclose>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:185
+  fs_umount(&efs2.myFs);
+   c:	480a      	ldr	r0, [pc, #40]	; (2c <fs_umount+0x2c>)
+   e:	f7ff fffe 	bl	0 <fs_umount>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:187
+  /* Free the tftp_connection_args structure reserverd for */
+  mem_free(args);
+  12:	4628      	mov	r0, r5
+  14:	f7ff fffe 	bl	0 <mem_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:190
+
+  /* Disconnect the udp_pcb*/
+  udp_disconnect(upcb);
+  18:	4620      	mov	r0, r4
+  1a:	f7ff fffe 	bl	0 <udp_disconnect>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:193
+
+  /* close the connection */
+  udp_remove(upcb);
+  1e:	4620      	mov	r0, r4
+  20:	f7ff fffe 	bl	0 <udp_remove>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:196
+
+  /* reset the callback function */
+  udp_recv(UDPpcb, recv_callback_tftp, NULL);
+  24:	4b05      	ldr	r3, [pc, #20]	; (3c <tftp_cleanup_wr+0x3c>)
+  26:	4906      	ldr	r1, [pc, #24]	; (40 <tftp_cleanup_wr+0x40>)
+  28:	6818      	ldr	r0, [r3, #0]
+  2a:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:197
+}
+  2c:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:196
+
+  /* close the connection */
+  udp_remove(upcb);
+
+  /* reset the callback function */
+  udp_recv(UDPpcb, recv_callback_tftp, NULL);
+  30:	f7ff bffe 	b.w	0 <udp_recv>
+  34:	00000000 	.word	0x00000000
+  38:	00000274 	.word	0x00000274
+	...
+
+Disassembly of section .text.wrq_recv_callback:
+
+00000000 <wrq_recv_callback>:
+wrq_recv_callback():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:310
+
+  return 1;
+}
+
+void wrq_recv_callback(void *_args, struct udp_pcb *upcb, struct pbuf *pkt_buf, struct ip_addr *addr, u16_t port)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4614      	mov	r4, r2
+   6:	461f      	mov	r7, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:314
+  tftp_connection_args *args = (tftp_connection_args *)_args;
+  int n = 0;
+
+  if (pkt_buf->len != pkt_buf->tot_len)
+   8:	8952      	ldrh	r2, [r2, #10]
+   a:	8923      	ldrh	r3, [r4, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:310
+
+  return 1;
+}
+
+void wrq_recv_callback(void *_args, struct udp_pcb *upcb, struct pbuf *pkt_buf, struct ip_addr *addr, u16_t port)
+{
+   c:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:314
+  tftp_connection_args *args = (tftp_connection_args *)_args;
+  int n = 0;
+
+  if (pkt_buf->len != pkt_buf->tot_len)
+   e:	4293      	cmp	r3, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:310
+
+  return 1;
+}
+
+void wrq_recv_callback(void *_args, struct udp_pcb *upcb, struct pbuf *pkt_buf, struct ip_addr *addr, u16_t port)
+{
+  10:	460e      	mov	r6, r1
+  12:	f8bd 8018 	ldrh.w	r8, [sp, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:314
+  tftp_connection_args *args = (tftp_connection_args *)_args;
+  int n = 0;
+
+  if (pkt_buf->len != pkt_buf->tot_len)
+  16:	d147      	bne.n	a8 <wrq_recv_callback+0xa8>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:320
+  {
+    return;
+  }
+
+  /* Does this packet have any valid data to write? */
+  if ((pkt_buf->len > TFTP_DATA_PKT_HDR_LEN) &&
+  18:	2b04      	cmp	r3, #4
+  1a:	d927      	bls.n	6c <wrq_recv_callback+0x6c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:321
+      (tftp_extract_block(pkt_buf->payload) == (args->block + 1)))
+  1c:	6860      	ldr	r0, [r4, #4]
+  1e:	f7ff fffe 	bl	0 <tftp_extract_block>
+  22:	f8d5 3214 	ldr.w	r3, [r5, #532]	; 0x214
+  26:	3301      	adds	r3, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:320
+  {
+    return;
+  }
+
+  /* Does this packet have any valid data to write? */
+  if ((pkt_buf->len > TFTP_DATA_PKT_HDR_LEN) &&
+  28:	4298      	cmp	r0, r3
+  2a:	d11f      	bne.n	6c <wrq_recv_callback+0x6c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:325
+      (tftp_extract_block(pkt_buf->payload) == (args->block + 1)))
+  {
+    /* write the received data to the file */
+    n = file_write(&file_CR,
+                   pkt_buf->len - TFTP_DATA_PKT_HDR_LEN,
+  2c:	8961      	ldrh	r1, [r4, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:324
+  /* Does this packet have any valid data to write? */
+  if ((pkt_buf->len > TFTP_DATA_PKT_HDR_LEN) &&
+      (tftp_extract_block(pkt_buf->payload) == (args->block + 1)))
+  {
+    /* write the received data to the file */
+    n = file_write(&file_CR,
+  2e:	6862      	ldr	r2, [r4, #4]
+  30:	3904      	subs	r1, #4
+  32:	3204      	adds	r2, #4
+  34:	481d      	ldr	r0, [pc, #116]	; (ac <wrq_recv_callback+0xac>)
+  36:	f7ff fffe 	bl	0 <file_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:328
+                   pkt_buf->len - TFTP_DATA_PKT_HDR_LEN,
+                   (euint8*)pkt_buf->payload + TFTP_DATA_PKT_HDR_LEN);
+
+    if (n <= 0)
+  3a:	2800      	cmp	r0, #0
+  3c:	dc09      	bgt.n	52 <wrq_recv_callback+0x52>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:330
+    {
+      tftp_send_error_message(upcb, addr, port, TFTP_ERR_FILE_NOT_FOUND);
+  3e:	4639      	mov	r1, r7
+  40:	4630      	mov	r0, r6
+  42:	4642      	mov	r2, r8
+  44:	2301      	movs	r3, #1
+  46:	f7ff fffe 	bl	0 <wrq_recv_callback>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:332
+      /* close the connection */
+      tftp_cleanup_wr(upcb, args); /* close the connection */
+  4a:	4630      	mov	r0, r6
+  4c:	4629      	mov	r1, r5
+  4e:	f7ff fffe 	bl	0 <wrq_recv_callback>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:336
+    }
+
+    /* update our block number to match the block number just received */
+    args->block++;
+  52:	f8d5 3214 	ldr.w	r3, [r5, #532]	; 0x214
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:338
+    /* update total bytes  */
+    (args->tot_bytes) += (pkt_buf->len - TFTP_DATA_PKT_HDR_LEN);
+  56:	8962      	ldrh	r2, [r4, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:336
+      /* close the connection */
+      tftp_cleanup_wr(upcb, args); /* close the connection */
+    }
+
+    /* update our block number to match the block number just received */
+    args->block++;
+  58:	3301      	adds	r3, #1
+  5a:	f8c5 3214 	str.w	r3, [r5, #532]	; 0x214
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:338
+    /* update total bytes  */
+    (args->tot_bytes) += (pkt_buf->len - TFTP_DATA_PKT_HDR_LEN);
+  5e:	f8d5 3218 	ldr.w	r3, [r5, #536]	; 0x218
+  62:	3b04      	subs	r3, #4
+  64:	189b      	adds	r3, r3, r2
+  66:	f8c5 3218 	str.w	r3, [r5, #536]	; 0x218
+  6a:	e009      	b.n	80 <wrq_recv_callback+0x80>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:344
+
+    /* This is a valid pkt but it has no data.  This would occur if the file being
+       written is an exact multiple of 512 bytes.  In this case, the args->block
+       value must still be updated, but we can skip everything else.    */
+  }
+  else if (tftp_extract_block(pkt_buf->payload) == (args->block + 1))
+  6c:	6860      	ldr	r0, [r4, #4]
+  6e:	f7ff fffe 	bl	0 <tftp_extract_block>
+  72:	f8d5 3214 	ldr.w	r3, [r5, #532]	; 0x214
+  76:	3301      	adds	r3, #1
+  78:	4298      	cmp	r0, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:347
+  {
+    /* update our block number to match the block number just received  */
+    args->block++;
+  7a:	bf08      	it	eq
+  7c:	f8c5 0214 	streq.w	r0, [r5, #532]	; 0x214
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:357
+   * NOTE!: If the DATA pkt we received did not have the appropriate block
+   * number, then the args->block (our block number) is never updated and
+   * we simply sEndTransfera "duplicate ACK" which has the same block number as the
+   * last ACK pkt we sent.  This lets the host know that we are still waiting
+   * on block number args->block+1. */
+  tftp_send_ack_packet(upcb, addr, port, args->block);
+  80:	f8d5 3214 	ldr.w	r3, [r5, #532]	; 0x214
+  84:	4630      	mov	r0, r6
+  86:	4639      	mov	r1, r7
+  88:	4642      	mov	r2, r8
+  8a:	f7ff fffe 	bl	0 <wrq_recv_callback>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:363
+
+  /* If the last write returned less than the maximum TFTP data pkt length,
+   * then we've received the whole file and so we can quit (this is how TFTP
+   * signals the EndTransferof a transfer!)
+   */
+  if (pkt_buf->len < TFTP_DATA_PKT_LEN_MAX)
+  8e:	8963      	ldrh	r3, [r4, #10]
+  90:	f5b3 7f01 	cmp.w	r3, #516	; 0x204
+  94:	d203      	bcs.n	9e <wrq_recv_callback+0x9e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:365
+  {
+    tftp_cleanup_wr(upcb, args);
+  96:	4630      	mov	r0, r6
+  98:	4629      	mov	r1, r5
+  9a:	f7ff fffe 	bl	0 <wrq_recv_callback>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:370
+    pbuf_free(pkt_buf);
+  }
+  else
+  {
+    pbuf_free(pkt_buf);
+  9e:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:374
+    return;
+  }
+
+}
+  a0:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:370
+    tftp_cleanup_wr(upcb, args);
+    pbuf_free(pkt_buf);
+  }
+  else
+  {
+    pbuf_free(pkt_buf);
+  a4:	f7ff bffe 	b.w	0 <pbuf_free>
+  a8:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+  ac:	00000000 	.word	0x00000000
+
+Disassembly of section .text.tftp_send_next_block:
+
+00000000 <tftp_send_next_block>:
+tftp_send_next_block():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:201
+  udp_recv(UDPpcb, recv_callback_tftp, NULL);
+}
+
+void tftp_send_next_block(struct udp_pcb *upcb, tftp_connection_args *args,
+                          struct ip_addr *to_ip, u16_t to_port)
+{
+   0:	41f3e92d 	.word	0x41f3e92d
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:204
+  /* Function to read 512 bytes from the file to sEndTransfer(file_SD), put them
+   * in "args->data" and return the number of bytes read */
+  args->data_len = file_read(&file_SD, TFTP_DATA_LEN_MAX, (euint8*)args->data);
+   4:	1d0f      	adds	r7, r1, #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:201
+  udp_recv(UDPpcb, recv_callback_tftp, NULL);
+}
+
+void tftp_send_next_block(struct udp_pcb *upcb, tftp_connection_args *args,
+                          struct ip_addr *to_ip, u16_t to_port)
+{
+   6:	460c      	mov	r4, r1
+   8:	4606      	mov	r6, r0
+   a:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:204
+  /* Function to read 512 bytes from the file to sEndTransfer(file_SD), put them
+   * in "args->data" and return the number of bytes read */
+  args->data_len = file_read(&file_SD, TFTP_DATA_LEN_MAX, (euint8*)args->data);
+   c:	f44f 7100 	mov.w	r1, #512	; 0x200
+  10:	463a      	mov	r2, r7
+  12:	4808      	ldr	r0, [pc, #32]	; (34 <tftp_send_next_block+0x34>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:201
+  udp_recv(UDPpcb, recv_callback_tftp, NULL);
+}
+
+void tftp_send_next_block(struct udp_pcb *upcb, tftp_connection_args *args,
+                          struct ip_addr *to_ip, u16_t to_port)
+{
+  14:	4698      	mov	r8, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:204
+  /* Function to read 512 bytes from the file to sEndTransfer(file_SD), put them
+   * in "args->data" and return the number of bytes read */
+  args->data_len = file_read(&file_SD, TFTP_DATA_LEN_MAX, (euint8*)args->data);
+  16:	f7ff fffe 	bl	0 <file_read>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:219
+     4) Therefore, we must sEndTransferanother data message of length 0 to complete
+        the transfer.                */
+
+
+  /* sEndTransferthe data */
+  tftp_send_data_packet(upcb, to_ip, to_port, args->block, args->data, args->data_len);
+  1a:	4629      	mov	r1, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:204
+void tftp_send_next_block(struct udp_pcb *upcb, tftp_connection_args *args,
+                          struct ip_addr *to_ip, u16_t to_port)
+{
+  /* Function to read 512 bytes from the file to sEndTransfer(file_SD), put them
+   * in "args->data" and return the number of bytes read */
+  args->data_len = file_read(&file_SD, TFTP_DATA_LEN_MAX, (euint8*)args->data);
+  1c:	f8c4 0208 	str.w	r0, [r4, #520]	; 0x208
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:219
+     4) Therefore, we must sEndTransferanother data message of length 0 to complete
+        the transfer.                */
+
+
+  /* sEndTransferthe data */
+  tftp_send_data_packet(upcb, to_ip, to_port, args->block, args->data, args->data_len);
+  20:	9001      	str	r0, [sp, #4]
+  22:	4642      	mov	r2, r8
+  24:	4630      	mov	r0, r6
+  26:	f8d4 3214 	ldr.w	r3, [r4, #532]	; 0x214
+  2a:	9700      	str	r7, [sp, #0]
+  2c:	f7ff fffe 	bl	0 <tftp_send_next_block>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:221
+
+}
+  30:	e8bd 81fc 	ldmia.w	sp!, {r2, r3, r4, r5, r6, r7, r8, pc}
+  34:	00000000 	.word	0x00000000
+
+Disassembly of section .text.rrq_recv_callback:
+
+00000000 <rrq_recv_callback>:
+rrq_recv_callback():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:225
+
+void rrq_recv_callback(void *_args, struct udp_pcb *upcb, struct pbuf *p,
+                       struct ip_addr *addr, u16_t port)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4604      	mov	r4, r0
+   6:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:229
+  /* Get our connection state  */
+  tftp_connection_args *args = (tftp_connection_args *)_args;
+
+  if (tftp_is_correct_ack(p->payload, args->block))
+   8:	6850      	ldr	r0, [r2, #4]
+   a:	f8d4 1214 	ldr.w	r1, [r4, #532]	; 0x214
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:225
+
+}
+
+void rrq_recv_callback(void *_args, struct udp_pcb *upcb, struct pbuf *p,
+                       struct ip_addr *addr, u16_t port)
+{
+   e:	4615      	mov	r5, r2
+  10:	4698      	mov	r8, r3
+  12:	f8bd 7018 	ldrh.w	r7, [sp, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:229
+  /* Get our connection state  */
+  tftp_connection_args *args = (tftp_connection_args *)_args;
+
+  if (tftp_is_correct_ack(p->payload, args->block))
+  16:	f7ff fffe 	bl	0 <tftp_is_correct_ack>
+  1a:	b120      	cbz	r0, 26 <rrq_recv_callback+0x26>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:232
+  {
+    /* increment block # */
+    args->block++;
+  1c:	f8d4 3214 	ldr.w	r3, [r4, #532]	; 0x214
+  20:	3301      	adds	r3, #1
+  22:	f8c4 3214 	str.w	r3, [r4, #532]	; 0x214
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:243
+  }
+
+  /* if the last read returned less than the requested number of bytes
+   * (i.e. TFTP_DATA_LEN_MAX), then we've sent the whole file and we can quit
+   */
+  if (args->data_len < TFTP_DATA_LEN_MAX)
+  26:	f8d4 3208 	ldr.w	r3, [r4, #520]	; 0x208
+  2a:	f5b3 7f00 	cmp.w	r3, #512	; 0x200
+  2e:	da06      	bge.n	3e <rrq_recv_callback+0x3e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:246
+  {
+    /* Clean the connection*/
+    tftp_cleanup_rd(upcb, args);
+  30:	4630      	mov	r0, r6
+  32:	4621      	mov	r1, r4
+  34:	f7ff fffe 	bl	0 <rrq_recv_callback>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:248
+
+    pbuf_free(p);
+  38:	4628      	mov	r0, r5
+  3a:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:252
+  }
+
+  /* if the whole file has not yet been sent then continue  */
+  tftp_send_next_block(upcb, args, addr, port);
+  3e:	4630      	mov	r0, r6
+  40:	4621      	mov	r1, r4
+  42:	4642      	mov	r2, r8
+  44:	463b      	mov	r3, r7
+  46:	f7ff fffe 	bl	0 <rrq_recv_callback>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:254
+
+  pbuf_free(p);
+  4a:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:256
+
+}
+  4c:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:254
+  }
+
+  /* if the whole file has not yet been sent then continue  */
+  tftp_send_next_block(upcb, args, addr, port);
+
+  pbuf_free(p);
+  50:	f7ff bffe 	b.w	0 <pbuf_free>
+
+Disassembly of section .text.tftp_process_read:
+
+00000000 <tftp_process_read>:
+tftp_process_read():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:259
+
+}
+
+int tftp_process_read(struct udp_pcb *upcb, struct ip_addr *to, int to_port, char* FileName)
+{
+   0:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+   4:	4605      	mov	r5, r0
+   6:	460f      	mov	r7, r1
+   8:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:263
+  tftp_connection_args *args = NULL;
+
+  /* If Could not open the file which will be transmitted  */
+  if (file_fopen(&file_SD, &efs1.myFs, FileName, 'r') != 0)
+   a:	4821      	ldr	r0, [pc, #132]	; (90 <tftp_process_read+0x90>)
+   c:	461a      	mov	r2, r3
+   e:	4921      	ldr	r1, [pc, #132]	; (94 <tftp_process_read+0x94>)
+  10:	2372      	movs	r3, #114	; 0x72
+  12:	f7ff fffe 	bl	0 <file_fopen>
+  16:	4681      	mov	r9, r0
+  18:	b160      	cbz	r0, 34 <tftp_process_read+0x34>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:265
+  {
+    tftp_send_error_message(upcb, to, to_port, TFTP_ERR_FILE_NOT_FOUND);
+  1a:	4639      	mov	r1, r7
+  1c:	4632      	mov	r2, r6
+  1e:	2301      	movs	r3, #1
+  20:	4628      	mov	r0, r5
+  22:	f7ff fffe 	bl	0 <tftp_process_read>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:267
+
+    tftp_cleanup_rd(upcb, args);
+  26:	4628      	mov	r0, r5
+  28:	2100      	movs	r1, #0
+  2a:	f7ff fffe 	bl	0 <tftp_process_read>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:269
+
+    return 0;
+  2e:	2000      	movs	r0, #0
+  30:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:276
+
+  /* This function is called from a callback,
+   * therefore, interrupts are disabled,
+   * therefore, we can use regular malloc. */
+
+  args = mem_malloc(sizeof *args);
+  34:	f44f 700a 	mov.w	r0, #552	; 0x228
+  38:	f7ff fffe 	bl	0 <mem_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:278
+  /* If we aren't able to allocate memory for a "tftp_connection_args" */
+  if (!args)
+  3c:	4604      	mov	r4, r0
+  3e:	b960      	cbnz	r0, 5a <tftp_process_read+0x5a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:281
+  {
+    /* unable to allocate memory for tftp args  */
+    tftp_send_error_message(upcb, to, to_port, TFTP_ERR_NOTDEFINED);
+  40:	4639      	mov	r1, r7
+  42:	4632      	mov	r2, r6
+  44:	4623      	mov	r3, r4
+  46:	4628      	mov	r0, r5
+  48:	f7ff fffe 	bl	0 <tftp_process_read>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:284
+
+    /* no need to use tftp_cleanup_rd because no "tftp_connection_args" struct has been malloc'd   */
+    tftp_cleanup_rd(upcb, args);
+  4c:	4628      	mov	r0, r5
+  4e:	4621      	mov	r1, r4
+  50:	f7ff fffe 	bl	0 <tftp_process_read>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:286
+
+    return 0;
+  54:	4620      	mov	r0, r4
+  56:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:291
+  }
+
+  /* initialize connection structure  */
+  args->op = TFTP_RRQ;
+  args->to_ip.addr = to->addr;
+  5a:	683b      	ldr	r3, [r7, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:290
+
+    return 0;
+  }
+
+  /* initialize connection structure  */
+  args->op = TFTP_RRQ;
+  5c:	f04f 0801 	mov.w	r8, #1
+  60:	f8c0 8000 	str.w	r8, [r0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:291
+  args->to_ip.addr = to->addr;
+  64:	f8c0 320c 	str.w	r3, [r0, #524]	; 0x20c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:292
+  args->to_port = to_port;
+  68:	f8c0 6210 	str.w	r6, [r0, #528]	; 0x210
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:293
+  args->block = 1; /* block number starts at 1 (not 0) according to RFC1350  */
+  6c:	f8c0 8214 	str.w	r8, [r0, #532]	; 0x214
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:294
+  args->tot_bytes = 0;
+  70:	f8c0 9218 	str.w	r9, [r0, #536]	; 0x218
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:298
+
+
+  /* set callback for receives on this UDP PCB (Protocol Control Block) */
+  udp_recv(upcb, rrq_recv_callback, args);
+  74:	4622      	mov	r2, r4
+  76:	4628      	mov	r0, r5
+  78:	4907      	ldr	r1, [pc, #28]	; (98 <tftp_process_read+0x98>)
+  7a:	f7ff fffe 	bl	0 <udp_recv>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:304
+
+  /* initiate the transaction by sending the first block of data
+   * further blocks will be sent when ACKs are received
+   *   - the receive callbacks need to get the proper state    */
+
+  tftp_send_next_block(upcb, args, to, to_port);
+  7e:	4628      	mov	r0, r5
+  80:	4621      	mov	r1, r4
+  82:	463a      	mov	r2, r7
+  84:	b2b3      	uxth	r3, r6
+  86:	f7ff fffe 	bl	0 <tftp_process_read>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:306
+
+  return 1;
+  8a:	4640      	mov	r0, r8
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:307
+}
+  8c:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+  90:	00000000 	.word	0x00000000
+  94:	00000274 	.word	0x00000274
+  98:	00000000 	.word	0x00000000
+
+Disassembly of section .text.tftp_process_write:
+
+00000000 <tftp_process_write>:
+tftp_process_write():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:377
+  }
+
+}
+
+int tftp_process_write(struct udp_pcb *upcb, struct ip_addr *to, int to_port, char *FileName)
+{
+   0:	41f0e92d 	.word	0x41f0e92d
+   4:	4605      	mov	r5, r0
+   6:	460f      	mov	r7, r1
+   8:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:381
+  tftp_connection_args *args = NULL;
+
+  /* If Could not open the file which will be transmitted  */
+  if (file_fopen(&file_CR, &efs2.myFs, FileName, 'w') != 0)
+   a:	481e      	ldr	r0, [pc, #120]	; (84 <tftp_process_write+0x84>)
+   c:	461a      	mov	r2, r3
+   e:	491e      	ldr	r1, [pc, #120]	; (88 <tftp_process_write+0x88>)
+  10:	2377      	movs	r3, #119	; 0x77
+  12:	f7ff fffe 	bl	0 <file_fopen>
+  16:	4680      	mov	r8, r0
+  18:	b140      	cbz	r0, 2c <tftp_process_write+0x2c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:383
+  {
+    tftp_send_error_message(upcb, to, to_port, TFTP_ERR_FILE_ALREADY_EXISTS);
+  1a:	4639      	mov	r1, r7
+  1c:	4628      	mov	r0, r5
+  1e:	4632      	mov	r2, r6
+  20:	2306      	movs	r3, #6
+  22:	f7ff fffe 	bl	0 <tftp_process_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:385
+
+    tftp_cleanup_wr(upcb, args);
+  26:	4628      	mov	r0, r5
+  28:	2100      	movs	r1, #0
+  2a:	e00d      	b.n	48 <tftp_process_write+0x48>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:393
+  }
+
+  /* This function is called from a callback,
+   * therefore interrupts are disabled,
+   * therefore we can use regular malloc   */
+  args = mem_malloc(sizeof *args);
+  2c:	f44f 700a 	mov.w	r0, #552	; 0x228
+  30:	f7ff fffe 	bl	0 <mem_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:394
+  if (!args)
+  34:	4604      	mov	r4, r0
+  36:	b950      	cbnz	r0, 4e <tftp_process_write+0x4e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:396
+  {
+    tftp_send_error_message(upcb, to, to_port, TFTP_ERR_NOTDEFINED);
+  38:	4639      	mov	r1, r7
+  3a:	4628      	mov	r0, r5
+  3c:	4632      	mov	r2, r6
+  3e:	4623      	mov	r3, r4
+  40:	f7ff fffe 	bl	0 <tftp_process_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:398
+
+    tftp_cleanup_wr(upcb, args);
+  44:	4628      	mov	r0, r5
+  46:	4621      	mov	r1, r4
+  48:	f7ff fffe 	bl	0 <tftp_process_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:400
+
+    return 0;
+  4c:	e016      	b.n	7c <tftp_process_write+0x7c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:403
+  }
+
+  args->op = TFTP_WRQ;
+  4e:	2302      	movs	r3, #2
+  50:	6003      	str	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:404
+  args->to_ip.addr = to->addr;
+  52:	683b      	ldr	r3, [r7, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:411
+  /* the block # used as a positive response to a WRQ is _always_ 0!!! (see RFC1350)  */
+  args->block = 0;
+  args->tot_bytes = 0;
+
+  /* set callback for receives on this UDP PCB (Protocol Control Block) */
+  udp_recv(upcb, wrq_recv_callback, args);
+  54:	490d      	ldr	r1, [pc, #52]	; (8c <tftp_process_write+0x8c>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:404
+
+    return 0;
+  }
+
+  args->op = TFTP_WRQ;
+  args->to_ip.addr = to->addr;
+  56:	f8c0 320c 	str.w	r3, [r0, #524]	; 0x20c
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:405
+  args->to_port = to_port;
+  5a:	f8c0 6210 	str.w	r6, [r0, #528]	; 0x210
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:407
+  /* the block # used as a positive response to a WRQ is _always_ 0!!! (see RFC1350)  */
+  args->block = 0;
+  5e:	f8c0 8214 	str.w	r8, [r0, #532]	; 0x214
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:408
+  args->tot_bytes = 0;
+  62:	f8c0 8218 	str.w	r8, [r0, #536]	; 0x218
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:411
+
+  /* set callback for receives on this UDP PCB (Protocol Control Block) */
+  udp_recv(upcb, wrq_recv_callback, args);
+  66:	4622      	mov	r2, r4
+  68:	4628      	mov	r0, r5
+  6a:	f7ff fffe 	bl	0 <udp_recv>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:414
+
+  /* initiate the write transaction by sending the first ack */
+  tftp_send_ack_packet(upcb, to, to_port, args->block);
+  6e:	4628      	mov	r0, r5
+  70:	4639      	mov	r1, r7
+  72:	4632      	mov	r2, r6
+  74:	f8d4 3214 	ldr.w	r3, [r4, #532]	; 0x214
+  78:	f7ff fffe 	bl	0 <tftp_process_write>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:417
+
+  return 0;
+}
+  7c:	2000      	movs	r0, #0
+  7e:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+  82:	bf00      	nop
+  84:	00000000 	.word	0x00000000
+  88:	00000274 	.word	0x00000274
+  8c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.process_tftp_request:
+
+00000000 <process_tftp_request>:
+process_tftp_request():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:424
+/* for each new request (data in p->payload) from addr:port,
+ * create a new port to serve the response, and start the response
+ * process
+ */
+void process_tftp_request(struct pbuf *pkt_buf, struct ip_addr *addr, u16_t port)
+{
+   0:	e92d 43f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, lr}
+   4:	4607      	mov	r7, r0
+   6:	b089      	sub	sp, #36	; 0x24
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:425
+  tftp_opcode op = tftp_decode_op(pkt_buf->payload);
+   8:	6840      	ldr	r0, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:424
+/* for each new request (data in p->payload) from addr:port,
+ * create a new port to serve the response, and start the response
+ * process
+ */
+void process_tftp_request(struct pbuf *pkt_buf, struct ip_addr *addr, u16_t port)
+{
+   a:	460e      	mov	r6, r1
+   c:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:425
+  tftp_opcode op = tftp_decode_op(pkt_buf->payload);
+   e:	f7ff fffe 	bl	0 <tftp_decode_op>
+  12:	4680      	mov	r8, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:431
+  char FileName[30];
+  struct udp_pcb *upcb;
+  err_t err;
+
+  /* create new UDP PCB structure */
+  upcb = udp_new();
+  14:	f7ff fffe 	bl	0 <udp_new>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:432
+  if (!upcb)
+  18:	4604      	mov	r4, r0
+  1a:	2800      	cmp	r0, #0
+  1c:	d043      	beq.n	a6 <process_tftp_request+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:441
+
+  /* bind to port 0 to receive next available free port */
+  /* NOTE:  This is how TFTP works.  There is a UDP PCB for the standard port
+   * 69 which al transactions begin communication on, however, _all_ subsequent
+   * transactions for a given "stream" occur on another port!  */
+  err = udp_bind(upcb, IP_ADDR_ANY, 0);
+  1e:	4923      	ldr	r1, [pc, #140]	; (ac <process_tftp_request+0xac>)
+  20:	2200      	movs	r2, #0
+  22:	f7ff fffe 	bl	0 <udp_bind>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:442
+  if (err != ERR_OK)
+  26:	4681      	mov	r9, r0
+  28:	2800      	cmp	r0, #0
+  2a:	d13c      	bne.n	a6 <process_tftp_request+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:448
+  {    /* Unable to bind to port   */
+    return;
+  }
+
+
+  switch (op)
+  2c:	f1b8 0f01 	cmp.w	r8, #1
+  30:	d003      	beq.n	3a <process_tftp_request+0x3a>
+  32:	f1b8 0f02 	cmp.w	r8, #2
+  36:	d12d      	bne.n	94 <process_tftp_request+0x94>
+  38:	e016      	b.n	68 <process_tftp_request+0x68>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:453
+  {
+
+    case TFTP_RRQ:    /* TFTP RRQ (read request)  */
+      /* Read the name of the file asked by the client to be sent from the SD card */
+      tftp_extract_filename(FileName, pkt_buf->payload);
+  3a:	4668      	mov	r0, sp
+  3c:	6879      	ldr	r1, [r7, #4]
+  3e:	f7ff fffe 	bl	0 <tftp_extract_filename>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:456
+
+      /* If Could not open filesystem */
+      if (efs_init(&efs1, 0) != 0)
+  42:	481b      	ldr	r0, [pc, #108]	; (b0 <process_tftp_request+0xb0>)
+  44:	4649      	mov	r1, r9
+  46:	f7ff fffe 	bl	0 <efs_init>
+  4a:	2800      	cmp	r0, #0
+  4c:	d12b      	bne.n	a6 <process_tftp_request+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:461
+      {
+        return;
+      }
+      /* If Could not open the selected directory */
+      if (ls_openDir(&list1, &(efs1.myFs), "/") != 0)
+  4e:	4819      	ldr	r0, [pc, #100]	; (b4 <process_tftp_request+0xb4>)
+  50:	4919      	ldr	r1, [pc, #100]	; (b8 <process_tftp_request+0xb8>)
+  52:	4a1a      	ldr	r2, [pc, #104]	; (bc <process_tftp_request+0xbc>)
+  54:	f7ff fffe 	bl	0 <ls_openDir>
+  58:	bb28      	cbnz	r0, a6 <process_tftp_request+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:466
+      {
+        return;
+      }
+      /* Start the TFTP read mode*/
+      tftp_process_read(upcb, addr, port, FileName);
+  5a:	4620      	mov	r0, r4
+  5c:	4631      	mov	r1, r6
+  5e:	462a      	mov	r2, r5
+  60:	466b      	mov	r3, sp
+  62:	f7ff fffe 	bl	0 <process_tftp_request>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:467
+      break;
+  66:	e01e      	b.n	a6 <process_tftp_request+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:471
+
+    case TFTP_WRQ:    /* TFTP WRQ (write request)   */
+      /* Read the name of the file asked by the client to received and writen in the SD card */
+      tftp_extract_filename(FileName, pkt_buf->payload);
+  68:	4668      	mov	r0, sp
+  6a:	6879      	ldr	r1, [r7, #4]
+  6c:	f7ff fffe 	bl	0 <tftp_extract_filename>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:474
+
+      /* If Could not open filesystem */
+      if (efs_init(&efs2, 0) != 0)
+  70:	4813      	ldr	r0, [pc, #76]	; (c0 <process_tftp_request+0xc0>)
+  72:	4649      	mov	r1, r9
+  74:	f7ff fffe 	bl	0 <efs_init>
+  78:	b9a8      	cbnz	r0, a6 <process_tftp_request+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:479
+      {
+        return;
+      }
+      /* If Could not open the selected directory */
+      if (ls_openDir(&list2, &(efs2.myFs), "/") != 0)
+  7a:	4812      	ldr	r0, [pc, #72]	; (c4 <process_tftp_request+0xc4>)
+  7c:	4912      	ldr	r1, [pc, #72]	; (c8 <process_tftp_request+0xc8>)
+  7e:	4a0f      	ldr	r2, [pc, #60]	; (bc <process_tftp_request+0xbc>)
+  80:	f7ff fffe 	bl	0 <ls_openDir>
+  84:	b978      	cbnz	r0, a6 <process_tftp_request+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:485
+      {
+        return;
+      }
+
+      /* Start the TFTP write mode*/
+      tftp_process_write(upcb, addr, port, FileName);
+  86:	4620      	mov	r0, r4
+  88:	4631      	mov	r1, r6
+  8a:	462a      	mov	r2, r5
+  8c:	466b      	mov	r3, sp
+  8e:	f7ff fffe 	bl	0 <process_tftp_request>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:486
+      break;
+  92:	e008      	b.n	a6 <process_tftp_request+0xa6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:490
+
+    default:
+      /* sEndTransfera generic access violation message */
+      tftp_send_error_message(upcb, addr, port, TFTP_ERR_ACCESS_VIOLATION);
+  94:	4620      	mov	r0, r4
+  96:	4631      	mov	r1, r6
+  98:	462a      	mov	r2, r5
+  9a:	2302      	movs	r3, #2
+  9c:	f7ff fffe 	bl	0 <process_tftp_request>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:493
+      /* TFTP unknown request op */
+      /* no need to use tftp_cleanup_wr because no "tftp_connection_args" struct has been malloc'd   */
+      udp_remove(upcb);
+  a0:	4620      	mov	r0, r4
+  a2:	f7ff fffe 	bl	0 <udp_remove>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:497
+
+      break;
+  }
+}
+  a6:	b009      	add	sp, #36	; 0x24
+  a8:	e8bd 83f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, pc}
+	...
+  b8:	00000274 	.word	0x00000274
+	...
+  c8:	00000274 	.word	0x00000274
+
+Disassembly of section .text.recv_callback_tftp:
+
+00000000 <recv_callback_tftp>:
+recv_callback_tftp():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:504
+/* the recv_callback function is called when there is a packet received
+ * on the main tftp server port (69)
+ */
+void recv_callback_tftp(void *arg, struct udp_pcb *upcb, struct pbuf *pkt_buf,
+                        struct ip_addr *addr, u16_t port)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:506
+  /* process new connection request */
+  process_tftp_request(pkt_buf, addr, port);
+   2:	4610      	mov	r0, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:504
+/* the recv_callback function is called when there is a packet received
+ * on the main tftp server port (69)
+ */
+void recv_callback_tftp(void *arg, struct udp_pcb *upcb, struct pbuf *pkt_buf,
+                        struct ip_addr *addr, u16_t port)
+{
+   4:	4614      	mov	r4, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:506
+  /* process new connection request */
+  process_tftp_request(pkt_buf, addr, port);
+   6:	4619      	mov	r1, r3
+   8:	f8bd 2008 	ldrh.w	r2, [sp, #8]
+   c:	f7ff fffe 	bl	0 <recv_callback_tftp>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:508
+
+  pbuf_free(pkt_buf);
+  10:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:509
+}
+  12:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:508
+                        struct ip_addr *addr, u16_t port)
+{
+  /* process new connection request */
+  process_tftp_request(pkt_buf, addr, port);
+
+  pbuf_free(pkt_buf);
+  16:	f7ff bffe 	b.w	0 <pbuf_free>
+
+Disassembly of section .text.tftpd_init:
+
+00000000 <tftpd_init>:
+tftpd_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:512
+}
+
+void tftpd_init(void)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:517
+  err_t err;
+  unsigned port = 69;
+
+  /* create a new UDP PCB structure  */
+  UDPpcb = udp_new();
+   2:	f7ff fffe 	bl	0 <udp_new>
+   6:	4c08      	ldr	r4, [pc, #32]	; (28 <tftpd_init+0x28>)
+   8:	6020      	str	r0, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:518
+  if (!UDPpcb)
+   a:	b158      	cbz	r0, 24 <tftpd_init+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:524
+  {  /* Error creating PCB. Out of Memory  */
+    return;
+  }
+
+  /* Bind this PCB to port 69  */
+  err = udp_bind(UDPpcb, IP_ADDR_ANY, port);
+   c:	2245      	movs	r2, #69	; 0x45
+   e:	4907      	ldr	r1, [pc, #28]	; (2c <tftpd_init+0x2c>)
+  10:	f7ff fffe 	bl	0 <udp_bind>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:525
+  if (err != ERR_OK)
+  14:	4602      	mov	r2, r0
+  16:	b928      	cbnz	r0, 24 <tftpd_init+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:531
+  {    /* Unable to bind to port  */
+    return;
+  }
+
+  /* TFTP server start  */
+  udp_recv(UDPpcb, recv_callback_tftp, NULL);
+  18:	6820      	ldr	r0, [r4, #0]
+  1a:	4905      	ldr	r1, [pc, #20]	; (30 <tftpd_init+0x30>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:532
+}
+  1c:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftpserver.c:531
+  {    /* Unable to bind to port  */
+    return;
+  }
+
+  /* TFTP server start  */
+  udp_recv(UDPpcb, recv_callback_tftp, NULL);
+  20:	f7ff bffe 	b.w	0 <udp_recv>
+  24:	bd10      	pop	{r4, pc}
+  26:	bf00      	nop
+	...

@@ -1,0 +1,5580 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\main.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\main.o
+
+
+Disassembly of section .text.int_mcp:
+
+00000000 <int_mcp>:
+int_mcp():
+D:\sunny\stm32\therme\Project\src/main.c:365
+  }
+  return(0);
+}
+void int_mcp(unsigned char add)
+{
+	write_to_MCP(add, IPOL0, 0x00, 0x00); // NonInvert all input polarities if active low.
+   0:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Project\src/main.c:364
+	/* Periodic tasks */
+  }
+  return(0);
+}
+void int_mcp(unsigned char add)
+{
+   2:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Project\src/main.c:365
+	write_to_MCP(add, IPOL0, 0x00, 0x00); // NonInvert all input polarities if active low.
+   4:	2104      	movs	r1, #4
+   6:	4613      	mov	r3, r2
+D:\sunny\stm32\therme\Project\src/main.c:364
+	/* Periodic tasks */
+  }
+  return(0);
+}
+void int_mcp(unsigned char add)
+{
+   8:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Project\src/main.c:365
+	write_to_MCP(add, IPOL0, 0x00, 0x00); // NonInvert all input polarities if active low.
+   a:	f7ff fffe 	bl	0 <write_to_MCP>
+D:\sunny\stm32\therme\Project\src/main.c:366
+	write_to_MCP(add, IPOL1, 0x00, 0x00); // NonInvert all input polarities if active low.
+   e:	2200      	movs	r2, #0
+  10:	4620      	mov	r0, r4
+  12:	2105      	movs	r1, #5
+  14:	4613      	mov	r3, r2
+  16:	f7ff fffe 	bl	0 <write_to_MCP>
+D:\sunny\stm32\therme\Project\src/main.c:367
+	write_to_MCP(add, IOCON0, 0x01, 0x01); // IARES(1) to max. activity detection time.
+  1a:	2201      	movs	r2, #1
+  1c:	4620      	mov	r0, r4
+  1e:	210a      	movs	r1, #10
+  20:	4613      	mov	r3, r2
+  22:	f7ff fffe 	bl	0 <write_to_MCP>
+D:\sunny\stm32\therme\Project\src/main.c:368
+	write_to_MCP(add, IOCON1, 0x01, 0x01); // IARES(1) to max. activity detection time.
+  26:	2201      	movs	r2, #1
+  28:	4620      	mov	r0, r4
+  2a:	210b      	movs	r1, #11
+  2c:	4613      	mov	r3, r2
+  2e:	f7ff fffe 	bl	0 <write_to_MCP>
+D:\sunny\stm32\therme\Project\src/main.c:369
+	write_to_MCP(add, OLAT0, 0xFF, 0xFF); // Update o/p latch that controls the output.
+  32:	22ff      	movs	r2, #255	; 0xff
+  34:	4620      	mov	r0, r4
+  36:	2102      	movs	r1, #2
+  38:	4613      	mov	r3, r2
+  3a:	f7ff fffe 	bl	0 <write_to_MCP>
+D:\sunny\stm32\therme\Project\src/main.c:370
+	write_to_MCP(add, OLAT1, 0xFF, 0xFF); // Update o/p latch that controls the output.
+  3e:	22ff      	movs	r2, #255	; 0xff
+  40:	4620      	mov	r0, r4
+  42:	2103      	movs	r1, #3
+  44:	4613      	mov	r3, r2
+D:\sunny\stm32\therme\Project\src/main.c:373
+
+
+}
+  46:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Project\src/main.c:370
+	write_to_MCP(add, IPOL0, 0x00, 0x00); // NonInvert all input polarities if active low.
+	write_to_MCP(add, IPOL1, 0x00, 0x00); // NonInvert all input polarities if active low.
+	write_to_MCP(add, IOCON0, 0x01, 0x01); // IARES(1) to max. activity detection time.
+	write_to_MCP(add, IOCON1, 0x01, 0x01); // IARES(1) to max. activity detection time.
+	write_to_MCP(add, OLAT0, 0xFF, 0xFF); // Update o/p latch that controls the output.
+	write_to_MCP(add, OLAT1, 0xFF, 0xFF); // Update o/p latch that controls the output.
+  4a:	f7ff bffe 	b.w	0 <write_to_MCP>
+
+Disassembly of section .text.set_ebuff:
+
+00000000 <set_ebuff>:
+set_ebuff():
+D:\sunny\stm32\therme\Project\src/main.c:376
+
+
+}
+
+void set_ebuff(char* eb)
+{
+   0:	b537      	push	{r0, r1, r2, r4, r5, lr}
+   2:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Project\src/main.c:386
+ai=0;
+
+	for(i=0;i<5;i++)
+	{
+		for(iss=0;iss<8;iss++)
+		ebb[iss]=0;
+   4:	2400      	movs	r4, #0
+   6:	e011      	b.n	2c <set_ebuff+0x2c>
+D:\sunny\stm32\therme\Project\src/main.c:389
+
+		for(iss=0;iss<8;iss++)
+		ebb[iss] = eb[iss+(ai)];
+   8:	5cab      	ldrb	r3, [r5, r2]
+   a:	f80d 3002 	strb.w	r3, [sp, r2]
+   e:	3201      	adds	r2, #1
+D:\sunny\stm32\therme\Project\src/main.c:388
+	for(i=0;i<5;i++)
+	{
+		for(iss=0;iss<8;iss++)
+		ebb[iss]=0;
+
+		for(iss=0;iss<8;iss++)
+  10:	2a08      	cmp	r2, #8
+  12:	d1f9      	bne.n	8 <set_ebuff+0x8>
+D:\sunny\stm32\therme\Project\src/main.c:391
+		ebb[iss] = eb[iss+(ai)];
+
+		I2C_EE_BufferWrite(ebb,issa,8);
+  14:	0123      	lsls	r3, r4, #4
+  16:	f64f 71f0 	movw	r1, #65520	; 0xfff0
+  1a:	4668      	mov	r0, sp
+  1c:	ea03 0101 	and.w	r1, r3, r1
+  20:	3401      	adds	r4, #1
+  22:	f7ff fffe 	bl	0 <I2C_EE_BufferWrite>
+  26:	3508      	adds	r5, #8
+D:\sunny\stm32\therme\Project\src/main.c:383
+char ebb[8];
+unsigned char iss,issa,ai,i;
+issa=0;
+ai=0;
+
+	for(i=0;i<5;i++)
+  28:	2c05      	cmp	r4, #5
+  2a:	d011      	beq.n	50 <set_ebuff+0x50>
+D:\sunny\stm32\therme\Project\src/main.c:386
+	{
+		for(iss=0;iss<8;iss++)
+		ebb[iss]=0;
+  2c:	2200      	movs	r2, #0
+  2e:	f88d 2000 	strb.w	r2, [sp]
+  32:	f88d 2001 	strb.w	r2, [sp, #1]
+  36:	f88d 2002 	strb.w	r2, [sp, #2]
+  3a:	f88d 2003 	strb.w	r2, [sp, #3]
+  3e:	f88d 2004 	strb.w	r2, [sp, #4]
+  42:	f88d 2005 	strb.w	r2, [sp, #5]
+  46:	f88d 2006 	strb.w	r2, [sp, #6]
+  4a:	f88d 2007 	strb.w	r2, [sp, #7]
+  4e:	e7db      	b.n	8 <set_ebuff+0x8>
+D:\sunny\stm32\therme\Project\src/main.c:399
+
+
+	}
+
+
+}
+  50:	bd3e      	pop	{r1, r2, r3, r4, r5, pc}
+
+Disassembly of section .text.read_ebuff:
+
+00000000 <read_ebuff>:
+read_ebuff():
+D:\sunny\stm32\therme\Project\src/main.c:401
+void read_ebuff(char* eb)
+{
+   0:	b573      	push	{r0, r1, r4, r5, r6, lr}
+   2:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Project\src/main.c:414
+	  for(i=0;i<5;i++)
+		{
+			for(iss=0;iss<8;iss++)
+			ebb[iss]=0;
+
+			I2C_EE_BufferRead(ebb,issa,8);
+   4:	2500      	movs	r5, #0
+   6:	e009      	b.n	1c <read_ebuff+0x1c>
+D:\sunny\stm32\therme\Project\src/main.c:417
+
+			for(iss=0;iss<8;iss++)
+			*(eb+(iss+ai)) = ebb[iss];
+   8:	f81d 3004 	ldrb.w	r3, [sp, r4]
+   c:	5533      	strb	r3, [r6, r4]
+   e:	3401      	adds	r4, #1
+D:\sunny\stm32\therme\Project\src/main.c:416
+			for(iss=0;iss<8;iss++)
+			ebb[iss]=0;
+
+			I2C_EE_BufferRead(ebb,issa,8);
+
+			for(iss=0;iss<8;iss++)
+  10:	2c08      	cmp	r4, #8
+  12:	d1f9      	bne.n	8 <read_ebuff+0x8>
+  14:	3501      	adds	r5, #1
+  16:	3608      	adds	r6, #8
+D:\sunny\stm32\therme\Project\src/main.c:409
+	unsigned char iss,issa,ai,i;
+
+
+		issa=0;
+		ai=0;
+	  for(i=0;i<5;i++)
+  18:	2d05      	cmp	r5, #5
+  1a:	d01a      	beq.n	52 <read_ebuff+0x52>
+D:\sunny\stm32\therme\Project\src/main.c:414
+		{
+			for(iss=0;iss<8;iss++)
+			ebb[iss]=0;
+
+			I2C_EE_BufferRead(ebb,issa,8);
+  1c:	012b      	lsls	r3, r5, #4
+  1e:	f64f 71f0 	movw	r1, #65520	; 0xfff0
+D:\sunny\stm32\therme\Project\src/main.c:412
+		issa=0;
+		ai=0;
+	  for(i=0;i<5;i++)
+		{
+			for(iss=0;iss<8;iss++)
+			ebb[iss]=0;
+  22:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Project\src/main.c:414
+
+			I2C_EE_BufferRead(ebb,issa,8);
+  24:	4668      	mov	r0, sp
+  26:	ea03 0101 	and.w	r1, r3, r1
+  2a:	2208      	movs	r2, #8
+D:\sunny\stm32\therme\Project\src/main.c:412
+		issa=0;
+		ai=0;
+	  for(i=0;i<5;i++)
+		{
+			for(iss=0;iss<8;iss++)
+			ebb[iss]=0;
+  2c:	f88d 4000 	strb.w	r4, [sp]
+  30:	f88d 4001 	strb.w	r4, [sp, #1]
+  34:	f88d 4002 	strb.w	r4, [sp, #2]
+  38:	f88d 4003 	strb.w	r4, [sp, #3]
+  3c:	f88d 4004 	strb.w	r4, [sp, #4]
+  40:	f88d 4005 	strb.w	r4, [sp, #5]
+  44:	f88d 4006 	strb.w	r4, [sp, #6]
+  48:	f88d 4007 	strb.w	r4, [sp, #7]
+D:\sunny\stm32\therme\Project\src/main.c:414
+
+			I2C_EE_BufferRead(ebb,issa,8);
+  4c:	f7ff fffe 	bl	0 <I2C_EE_BufferRead>
+  50:	e7da      	b.n	8 <read_ebuff+0x8>
+D:\sunny\stm32\therme\Project\src/main.c:425
+			issa+=0x10;
+		}
+
+
+
+}
+  52:	bd7c      	pop	{r2, r3, r4, r5, r6, pc}
+
+Disassembly of section .text.tempc_read:
+
+00000000 <tempc_read>:
+tempc_read():
+D:\sunny\stm32\therme\Project\src/main.c:429
+
+void tempc_read(char* t1,char* t2)
+{
+	*t1 = *tempc1;
+   0:	4b03      	ldr	r3, [pc, #12]	; (10 <tempc_read+0x10>)
+   2:	781b      	ldrb	r3, [r3, #0]
+   4:	7003      	strb	r3, [r0, #0]
+D:\sunny\stm32\therme\Project\src/main.c:430
+	*t2 = *tempc2;
+   6:	4b03      	ldr	r3, [pc, #12]	; (14 <tempc_read+0x14>)
+   8:	781b      	ldrb	r3, [r3, #0]
+   a:	700b      	strb	r3, [r1, #0]
+D:\sunny\stm32\therme\Project\src/main.c:431
+}
+   c:	4770      	bx	lr
+   e:	bf00      	nop
+	...
+
+Disassembly of section .text.leds_set:
+
+00000000 <leds_set>:
+leds_set():
+D:\sunny\stm32\therme\Project\src/main.c:434
+void leds_set(unsigned char add,unsigned char val)
+{
+	leds[add] = val;
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <leds_set+0x8>)
+   2:	5419      	strb	r1, [r3, r0]
+D:\sunny\stm32\therme\Project\src/main.c:436
+
+}
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.delay_read:
+
+00000000 <delay_read>:
+delay_read():
+D:\sunny\stm32\therme\Project\src/main.c:438
+void delay_read(char* d_f,char* d_h,char* d_m,char* d_s)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Project\src/main.c:441
+	//while (*d_f != '\0')
+//	{
+	*d_f = *delay_fin;
+   2:	4c08      	ldr	r4, [pc, #32]	; (24 <delay_read+0x24>)
+   4:	6824      	ldr	r4, [r4, #0]
+   6:	7824      	ldrb	r4, [r4, #0]
+   8:	7004      	strb	r4, [r0, #0]
+D:\sunny\stm32\therme\Project\src/main.c:442
+	*d_h = *delh;
+   a:	4807      	ldr	r0, [pc, #28]	; (28 <delay_read+0x28>)
+   c:	6800      	ldr	r0, [r0, #0]
+   e:	7800      	ldrb	r0, [r0, #0]
+  10:	7008      	strb	r0, [r1, #0]
+D:\sunny\stm32\therme\Project\src/main.c:443
+	*d_m = *delm;
+  12:	4906      	ldr	r1, [pc, #24]	; (2c <delay_read+0x2c>)
+  14:	6809      	ldr	r1, [r1, #0]
+  16:	7809      	ldrb	r1, [r1, #0]
+  18:	7011      	strb	r1, [r2, #0]
+D:\sunny\stm32\therme\Project\src/main.c:444
+	*d_s = *dels;
+  1a:	4a05      	ldr	r2, [pc, #20]	; (30 <delay_read+0x30>)
+  1c:	6812      	ldr	r2, [r2, #0]
+  1e:	7812      	ldrb	r2, [r2, #0]
+  20:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:447
+	//d_f++;d_h++;d_m++;d_s++;delay_fin++;delh++;delm++;dels++;
+	//}
+}
+  22:	bd10      	pop	{r4, pc}
+	...
+
+Disassembly of section .text.set_start:
+
+00000000 <set_start>:
+set_start():
+D:\sunny\stm32\therme\Project\src/main.c:450
+void set_start(unsigned char s)
+{
+		start = s;
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <set_start+0x8>)
+   2:	7018      	strb	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:451
+}
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.chk_start:
+
+00000000 <chk_start>:
+chk_start():
+D:\sunny\stm32\therme\Project\src/main.c:454
+unsigned char chk_start(void)
+{
+	return start;
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <chk_start+0x8>)
+   2:	7818      	ldrb	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:455
+}
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.set_sdoor:
+
+00000000 <set_sdoor>:
+set_sdoor():
+D:\sunny\stm32\therme\Project\src/main.c:459
+
+void set_sdoor(unsigned char sd)
+{
+	sdoor = sd;
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <set_sdoor+0x8>)
+   2:	7018      	strb	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:460
+}
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.chk_sdoor:
+
+00000000 <chk_sdoor>:
+chk_sdoor():
+D:\sunny\stm32\therme\Project\src/main.c:464
+unsigned char chk_sdoor(void)
+{
+	return sdoor;
+}
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <chk_sdoor+0x8>)
+   2:	7818      	ldrb	r0, [r3, #0]
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.setmodes:
+
+00000000 <setmodes>:
+setmodes():
+D:\sunny\stm32\therme\Project\src/main.c:468
+
+void setmodes(unsigned char m)
+{
+	modes = m;
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <setmodes+0x8>)
+   2:	7018      	strb	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:469
+}
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.chk_modes:
+
+00000000 <chk_modes>:
+chk_modes():
+D:\sunny\stm32\therme\Project\src/main.c:473
+unsigned char chk_modes(void)
+{
+	return modes;
+}
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <chk_modes+0x8>)
+   2:	7818      	ldrb	r0, [r3, #0]
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.i2c_rr:
+
+00000000 <i2c_rr>:
+i2c_rr():
+D:\sunny\stm32\therme\Project\src/main.c:533
+	ebuff[i++] =  0;	// 39
+	*/
+
+//set_ebuff(ebuff);
+
+	read_ebuff(ebuff);
+   0:	4801      	ldr	r0, [pc, #4]	; (8 <i2c_rr+0x8>)
+   2:	f7ff bffe 	b.w	0 <i2c_rr>
+   6:	bf00      	nop
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.GetADC1Channel:
+
+00000000 <GetADC1Channel>:
+GetADC1Channel():
+D:\sunny\stm32\therme\Project\src/main.c:556
+
+
+}
+
+void GetADC1Channel(unsigned char chanel)
+{
+   0:	4601      	mov	r1, r0
+   2:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Project\src/main.c:557
+   ADC_RegularChannelConfig(ADC1, chanel,1, ADC_SampleTime_55Cycles5); // Configure channel
+   4:	4807      	ldr	r0, [pc, #28]	; (24 <GetADC1Channel+0x24>)
+   6:	2201      	movs	r2, #1
+   8:	2305      	movs	r3, #5
+   a:	f7ff fffe 	bl	0 <ADC_RegularChannelConfig>
+D:\sunny\stm32\therme\Project\src/main.c:558
+   ADC_SoftwareStartConvCmd(ADC1, ENABLE);// Start the conversion
+   e:	4805      	ldr	r0, [pc, #20]	; (24 <GetADC1Channel+0x24>)
+  10:	2101      	movs	r1, #1
+  12:	f7ff fffe 	bl	0 <ADC_SoftwareStartConvCmd>
+D:\sunny\stm32\therme\Project\src/main.c:559
+   while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);// Wait until conversion completion
+  16:	4803      	ldr	r0, [pc, #12]	; (24 <GetADC1Channel+0x24>)
+  18:	2102      	movs	r1, #2
+  1a:	f7ff fffe 	bl	0 <ADC_GetFlagStatus>
+  1e:	2800      	cmp	r0, #0
+  20:	d0f9      	beq.n	16 <GetADC1Channel+0x16>
+D:\sunny\stm32\therme\Project\src/main.c:561
+//   return ADC_GetConversionValue(ADC1);// Get the conversion value
+}
+  22:	bd08      	pop	{r3, pc}
+  24:	40012400 	.word	0x40012400
+
+Disassembly of section .text.check_temp:
+
+00000000 <check_temp>:
+check_temp():
+D:\sunny\stm32\therme\Project\src/main.c:563
+void check_temp()
+{
+   0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Project\src/main.c:572
+int cal;
+unsigned int ADCVal = 0;
+
+
+uint32_t adcs1,adcs2;
+adcs1=0;adcs2=0;
+   4:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Project\src/main.c:563
+   ADC_SoftwareStartConvCmd(ADC1, ENABLE);// Start the conversion
+   while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);// Wait until conversion completion
+//   return ADC_GetConversionValue(ADC1);// Get the conversion value
+}
+void check_temp()
+{
+   6:	b085      	sub	sp, #20
+D:\sunny\stm32\therme\Project\src/main.c:572
+int cal;
+unsigned int ADCVal = 0;
+
+
+uint32_t adcs1,adcs2;
+adcs1=0;adcs2=0;
+   8:	462e      	mov	r6, r5
+D:\sunny\stm32\therme\Project\src/main.c:574
+
+for(fa=0;fa<100;fa++){
+   a:	462c      	mov	r4, r5
+D:\sunny\stm32\therme\Project\src/main.c:575
+        GetADC1Channel(ADC_Channel_4);
+   c:	2004      	movs	r0, #4
+   e:	f7ff fffe 	bl	0 <check_temp>
+D:\sunny\stm32\therme\Project\src/main.c:576
+        ADCVal = ADC_GetConversionValue(ADC1);
+  12:	4881      	ldr	r0, [pc, #516]	; (208 <ADC_GetConversionValue+0x208>)
+  14:	f7ff fffe 	bl	0 <ADC_GetConversionValue>
+D:\sunny\stm32\therme\Project\src/main.c:577
+        adcs1 += ADCVal;
+  18:	1836      	adds	r6, r6, r0
+D:\sunny\stm32\therme\Project\src/main.c:579
+
+        GetADC1Channel(ADC_Channel_6);
+  1a:	2006      	movs	r0, #6
+  1c:	f7ff fffe 	bl	0 <check_temp>
+D:\sunny\stm32\therme\Project\src/main.c:580
+        ADCVal = ADC_GetConversionValue(ADC1);
+  20:	487d      	ldr	r0, [pc, #500]	; (1f8 <ADC_GetConversionValue+0x1f8>)
+  22:	f7ff fffe 	bl	0 <ADC_GetConversionValue>
+D:\sunny\stm32\therme\Project\src/main.c:574
+
+
+uint32_t adcs1,adcs2;
+adcs1=0;adcs2=0;
+
+for(fa=0;fa<100;fa++){
+  26:	3401      	adds	r4, #1
+  28:	2c64      	cmp	r4, #100	; 0x64
+D:\sunny\stm32\therme\Project\src/main.c:581
+        ADCVal = ADC_GetConversionValue(ADC1);
+        adcs1 += ADCVal;
+
+        GetADC1Channel(ADC_Channel_6);
+        ADCVal = ADC_GetConversionValue(ADC1);
+        adcs2 += ADCVal;
+  2a:	4405      	add	r5, r0
+D:\sunny\stm32\therme\Project\src/main.c:574
+
+
+uint32_t adcs1,adcs2;
+adcs1=0;adcs2=0;
+
+for(fa=0;fa<100;fa++){
+  2c:	d1ee      	bne.n	c <check_temp+0xc>
+D:\sunny\stm32\therme\Project\src/main.c:584
+        GetADC1Channel(ADC_Channel_6);
+        ADCVal = ADC_GetConversionValue(ADC1);
+        adcs2 += ADCVal;
+	}
+
+adc_p1 = adcs1/100;
+  2e:	fbb6 f3f4 	udiv	r3, r6, r4
+D:\sunny\stm32\therme\Project\src/main.c:585
+adc_p2 = adcs2/100;
+  32:	4e7a      	ldr	r6, [pc, #488]	; (21c <check_temp+0x21c>)
+  34:	fbb5 f4f4 	udiv	r4, r5, r4
+D:\sunny\stm32\therme\Project\src/main.c:584
+        GetADC1Channel(ADC_Channel_6);
+        ADCVal = ADC_GetConversionValue(ADC1);
+        adcs2 += ADCVal;
+	}
+
+adc_p1 = adcs1/100;
+  38:	4a79      	ldr	r2, [pc, #484]	; (220 <check_temp+0x220>)
+D:\sunny\stm32\therme\Project\src/main.c:585
+adc_p2 = adcs2/100;
+  3a:	6034      	str	r4, [r6, #0]
+  3c:	4c79      	ldr	r4, [pc, #484]	; (224 <check_temp+0x224>)
+D:\sunny\stm32\therme\Project\src/main.c:584
+        GetADC1Channel(ADC_Channel_6);
+        ADCVal = ADC_GetConversionValue(ADC1);
+        adcs2 += ADCVal;
+	}
+
+adc_p1 = adcs1/100;
+  3e:	6013      	str	r3, [r2, #0]
+D:\sunny\stm32\therme\Project\src/main.c:585
+adc_p2 = adcs2/100;
+  40:	4621      	mov	r1, r4
+D:\sunny\stm32\therme\Project\src/main.c:587
+
+    for(i=0;i<161;i++)
+  42:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Project\src/main.c:589
+        {
+           if(adc_p1 <= temp_adcs[i])
+  44:	f851 2f04 	ldr.w	r2, [r1, #4]!
+  48:	4293      	cmp	r3, r2
+  4a:	d816      	bhi.n	7a <check_temp+0x7a>
+D:\sunny\stm32\therme\Project\src/main.c:591
+               {
+                   if((temp_adcs[i] - adc_p1) > (adc_p1 - temp_adcs[i-1]))
+  4c:	4976      	ldr	r1, [pc, #472]	; (228 <check_temp+0x228>)
+  4e:	1e45      	subs	r5, r0, #1
+  50:	f851 1025 	ldr.w	r1, [r1, r5, lsl #2]
+  54:	1ad2      	subs	r2, r2, r3
+  56:	1a5b      	subs	r3, r3, r1
+  58:	429a      	cmp	r2, r3
+  5a:	4d74      	ldr	r5, [pc, #464]	; (22c <check_temp+0x22c>)
+  5c:	d907      	bls.n	6e <check_temp+0x6e>
+D:\sunny\stm32\therme\Project\src/main.c:593
+                       {
+                        temp_p1 = i-49.5;
+  5e:	f7ff fffe 	bl	0 <__aeabi_i2d>
+  62:	a36b      	add	r3, pc, #428	; (adr r3, 210 <check_temp+0x210>)
+  64:	e9d3 2300 	ldrd	r2, r3, [r3]
+  68:	f7ff fffe 	bl	0 <__aeabi_dsub>
+  6c:	e002      	b.n	74 <check_temp+0x74>
+D:\sunny\stm32\therme\Project\src/main.c:596
+						break;
+                       }
+                   temp_p1 = i-50;
+  6e:	3832      	subs	r0, #50	; 0x32
+  70:	f7ff fffe 	bl	0 <__aeabi_i2d>
+  74:	e9c5 0100 	strd	r0, r1, [r5]
+D:\sunny\stm32\therme\Project\src/main.c:597
+                   break;
+  78:	e002      	b.n	80 <check_temp+0x80>
+D:\sunny\stm32\therme\Project\src/main.c:587
+	}
+
+adc_p1 = adcs1/100;
+adc_p2 = adcs2/100;
+
+    for(i=0;i<161;i++)
+  7a:	3001      	adds	r0, #1
+  7c:	28a1      	cmp	r0, #161	; 0xa1
+  7e:	d1e1      	bne.n	44 <check_temp+0x44>
+D:\sunny\stm32\therme\Project\src/main.c:605
+
+        }
+
+    for(i=0;i<161;i++)
+        {
+			if(adc_p2 <= temp_adcs[i])
+  80:	6833      	ldr	r3, [r6, #0]
+D:\sunny\stm32\therme\Project\src/main.c:603
+
+               }
+
+        }
+
+    for(i=0;i<161;i++)
+  82:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Project\src/main.c:605
+        {
+			if(adc_p2 <= temp_adcs[i])
+  84:	f854 2f04 	ldr.w	r2, [r4, #4]!
+  88:	4293      	cmp	r3, r2
+  8a:	d816      	bhi.n	ba <check_temp+0xba>
+D:\sunny\stm32\therme\Project\src/main.c:607
+			{
+				if((temp_adcs[i] - adc_p2) > (adc_p2 - temp_adcs[i-1]))
+  8c:	4966      	ldr	r1, [pc, #408]	; (228 <check_temp+0x228>)
+  8e:	1e44      	subs	r4, r0, #1
+  90:	f851 1024 	ldr.w	r1, [r1, r4, lsl #2]
+  94:	1ad2      	subs	r2, r2, r3
+  96:	1a5b      	subs	r3, r3, r1
+  98:	429a      	cmp	r2, r3
+  9a:	4c65      	ldr	r4, [pc, #404]	; (230 <check_temp+0x230>)
+  9c:	d907      	bls.n	ae <check_temp+0xae>
+D:\sunny\stm32\therme\Project\src/main.c:609
+				{
+					temp_p2 = i-49.5;
+  9e:	f7ff fffe 	bl	0 <__aeabi_i2d>
+  a2:	a35b      	add	r3, pc, #364	; (adr r3, 210 <check_temp+0x210>)
+  a4:	e9d3 2300 	ldrd	r2, r3, [r3]
+  a8:	f7ff fffe 	bl	0 <__aeabi_dsub>
+  ac:	e002      	b.n	b4 <check_temp+0xb4>
+D:\sunny\stm32\therme\Project\src/main.c:612
+					break;
+				}
+				temp_p2 = i-50;
+  ae:	3832      	subs	r0, #50	; 0x32
+  b0:	f7ff fffe 	bl	0 <__aeabi_i2d>
+  b4:	e9c4 0100 	strd	r0, r1, [r4]
+D:\sunny\stm32\therme\Project\src/main.c:613
+				break;
+  b8:	e002      	b.n	c0 <check_temp+0xc0>
+D:\sunny\stm32\therme\Project\src/main.c:603
+
+               }
+
+        }
+
+    for(i=0;i<161;i++)
+  ba:	3001      	adds	r0, #1
+  bc:	28a1      	cmp	r0, #161	; 0xa1
+  be:	d1e1      	bne.n	84 <check_temp+0x84>
+D:\sunny\stm32\therme\Project\src/main.c:617
+				temp_p2 = i-50;
+				break;
+			}
+        }
+
+		cal = ebuff[33] /2;
+  c0:	4c5c      	ldr	r4, [pc, #368]	; (234 <check_temp+0x234>)
+D:\sunny\stm32\therme\Project\src/main.c:618
+		temp_p1 += cal;
+  c2:	4d5a      	ldr	r5, [pc, #360]	; (22c <check_temp+0x22c>)
+D:\sunny\stm32\therme\Project\src/main.c:617
+				temp_p2 = i-50;
+				break;
+			}
+        }
+
+		cal = ebuff[33] /2;
+  c4:	f994 0021 	ldrsb.w	r0, [r4, #33]	; 0x21
+D:\sunny\stm32\therme\Project\src/main.c:620
+		temp_p1 += cal;
+		cal = ebuff[34] /2;
+		temp_p2 += cal;
+  c8:	4f59      	ldr	r7, [pc, #356]	; (230 <check_temp+0x230>)
+D:\sunny\stm32\therme\Project\src/main.c:617
+				temp_p2 = i-50;
+				break;
+			}
+        }
+
+		cal = ebuff[33] /2;
+  ca:	eb00 70d0 	add.w	r0, r0, r0, lsr #31
+D:\sunny\stm32\therme\Project\src/main.c:618
+		temp_p1 += cal;
+  ce:	1040      	asrs	r0, r0, #1
+  d0:	f7ff fffe 	bl	0 <__aeabi_i2d>
+  d4:	e9d5 2300 	ldrd	r2, r3, [r5]
+  d8:	f7ff fffe 	bl	0 <__aeabi_dadd>
+  dc:	4682      	mov	sl, r0
+D:\sunny\stm32\therme\Project\src/main.c:619
+		cal = ebuff[34] /2;
+  de:	f994 0022 	ldrsb.w	r0, [r4, #34]	; 0x22
+D:\sunny\stm32\therme\Project\src/main.c:618
+				break;
+			}
+        }
+
+		cal = ebuff[33] /2;
+		temp_p1 += cal;
+  e2:	468b      	mov	fp, r1
+D:\sunny\stm32\therme\Project\src/main.c:619
+		cal = ebuff[34] /2;
+  e4:	eb00 70d0 	add.w	r0, r0, r0, lsr #31
+D:\sunny\stm32\therme\Project\src/main.c:620
+		temp_p2 += cal;
+  e8:	1040      	asrs	r0, r0, #1
+  ea:	f7ff fffe 	bl	0 <__aeabi_i2d>
+  ee:	4602      	mov	r2, r0
+  f0:	460b      	mov	r3, r1
+  f2:	e9d7 0100 	ldrd	r0, r1, [r7]
+  f6:	f7ff fffe 	bl	0 <__aeabi_dadd>
+D:\sunny\stm32\therme\Project\src/main.c:622
+
+		if((temp_tp1 - temp_p1)>0.5) temp_tp1 -= 0.5;
+  fa:	4c4f      	ldr	r4, [pc, #316]	; (238 <check_temp+0x238>)
+D:\sunny\stm32\therme\Project\src/main.c:620
+        }
+
+		cal = ebuff[33] /2;
+		temp_p1 += cal;
+		cal = ebuff[34] /2;
+		temp_p2 += cal;
+  fc:	e9c7 0100 	strd	r0, r1, [r7]
+D:\sunny\stm32\therme\Project\src/main.c:622
+
+		if((temp_tp1 - temp_p1)>0.5) temp_tp1 -= 0.5;
+ 100:	e9d4 8900 	ldrd	r8, r9, [r4]
+ 104:	4652      	mov	r2, sl
+ 106:	465b      	mov	r3, fp
+ 108:	4640      	mov	r0, r8
+ 10a:	4649      	mov	r1, r9
+ 10c:	f7ff fffe 	bl	0 <__aeabi_dsub>
+ 110:	2200      	movs	r2, #0
+ 112:	4b4a      	ldr	r3, [pc, #296]	; (23c <check_temp+0x23c>)
+ 114:	e9cd 0102 	strd	r0, r1, [sp, #8]
+ 118:	f7ff fffe 	bl	0 <__aeabi_dcmpgt>
+ 11c:	b130      	cbz	r0, 12c <check_temp+0x12c>
+ 11e:	4640      	mov	r0, r8
+ 120:	4649      	mov	r1, r9
+ 122:	2200      	movs	r2, #0
+ 124:	4b45      	ldr	r3, [pc, #276]	; (23c <check_temp+0x23c>)
+ 126:	f7ff fffe 	bl	0 <__aeabi_dsub>
+ 12a:	e00c      	b.n	146 <check_temp+0x146>
+D:\sunny\stm32\therme\Project\src/main.c:623
+		else if((temp_tp1 - temp_p1)< -0.5) temp_tp1+= 0.5;
+ 12c:	e9dd 0102 	ldrd	r0, r1, [sp, #8]
+ 130:	2200      	movs	r2, #0
+ 132:	4b43      	ldr	r3, [pc, #268]	; (240 <check_temp+0x240>)
+ 134:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
+ 138:	b140      	cbz	r0, 14c <check_temp+0x14c>
+ 13a:	4640      	mov	r0, r8
+ 13c:	4649      	mov	r1, r9
+ 13e:	2200      	movs	r2, #0
+ 140:	4b3e      	ldr	r3, [pc, #248]	; (23c <check_temp+0x23c>)
+ 142:	f7ff fffe 	bl	0 <__aeabi_dadd>
+ 146:	e9c4 0100 	strd	r0, r1, [r4]
+ 14a:	e001      	b.n	150 <check_temp+0x150>
+D:\sunny\stm32\therme\Project\src/main.c:624
+		else temp_tp1 = temp_p1;
+ 14c:	e9c4 ab00 	strd	sl, fp, [r4]
+D:\sunny\stm32\therme\Project\src/main.c:626
+
+		if((temp_tp2 - temp_p2)>0.5) temp_tp2-=0.5;
+ 150:	4e3c      	ldr	r6, [pc, #240]	; (244 <check_temp+0x244>)
+ 152:	e9d7 ab00 	ldrd	sl, fp, [r7]
+ 156:	e9d6 8900 	ldrd	r8, r9, [r6]
+ 15a:	4652      	mov	r2, sl
+ 15c:	465b      	mov	r3, fp
+ 15e:	4640      	mov	r0, r8
+ 160:	4649      	mov	r1, r9
+ 162:	f7ff fffe 	bl	0 <__aeabi_dsub>
+ 166:	2200      	movs	r2, #0
+ 168:	4b34      	ldr	r3, [pc, #208]	; (23c <check_temp+0x23c>)
+ 16a:	e9cd 0102 	strd	r0, r1, [sp, #8]
+ 16e:	f7ff fffe 	bl	0 <__aeabi_dcmpgt>
+ 172:	b130      	cbz	r0, 182 <check_temp+0x182>
+ 174:	4640      	mov	r0, r8
+ 176:	4649      	mov	r1, r9
+ 178:	2200      	movs	r2, #0
+ 17a:	4b30      	ldr	r3, [pc, #192]	; (23c <check_temp+0x23c>)
+ 17c:	f7ff fffe 	bl	0 <__aeabi_dsub>
+ 180:	e00c      	b.n	19c <check_temp+0x19c>
+D:\sunny\stm32\therme\Project\src/main.c:627
+		else if((temp_tp2 - temp_p2)< -0.5) temp_tp2+=0.5;
+ 182:	e9dd 0102 	ldrd	r0, r1, [sp, #8]
+ 186:	2200      	movs	r2, #0
+ 188:	4b2d      	ldr	r3, [pc, #180]	; (240 <check_temp+0x240>)
+ 18a:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
+ 18e:	b140      	cbz	r0, 1a2 <check_temp+0x1a2>
+ 190:	4640      	mov	r0, r8
+ 192:	4649      	mov	r1, r9
+ 194:	2200      	movs	r2, #0
+ 196:	4b29      	ldr	r3, [pc, #164]	; (23c <check_temp+0x23c>)
+ 198:	f7ff fffe 	bl	0 <__aeabi_dadd>
+ 19c:	e9c6 0100 	strd	r0, r1, [r6]
+ 1a0:	e001      	b.n	1a6 <check_temp+0x1a6>
+D:\sunny\stm32\therme\Project\src/main.c:628
+		else temp_tp2 = temp_p2;
+ 1a2:	e9c6 ab00 	strd	sl, fp, [r6]
+D:\sunny\stm32\therme\Project\src/main.c:630
+
+		temp_p1 = temp_tp1;
+ 1a6:	4b21      	ldr	r3, [pc, #132]	; (22c <check_temp+0x22c>)
+ 1a8:	cc30      	ldmia	r4, {r4, r5}
+ 1aa:	e9c3 4500 	strd	r4, r5, [r3]
+D:\sunny\stm32\therme\Project\src/main.c:631
+		temp_p2 = temp_tp2;
+ 1ae:	e9d6 2300 	ldrd	r2, r3, [r6]
+D:\sunny\stm32\therme\Project\src/main.c:633
+
+		tem = temp_p1*10;
+ 1b2:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Project\src/main.c:631
+		if((temp_tp2 - temp_p2)>0.5) temp_tp2-=0.5;
+		else if((temp_tp2 - temp_p2)< -0.5) temp_tp2+=0.5;
+		else temp_tp2 = temp_p2;
+
+		temp_p1 = temp_tp1;
+		temp_p2 = temp_tp2;
+ 1b4:	e9c7 2300 	strd	r2, r3, [r7]
+D:\sunny\stm32\therme\Project\src/main.c:633
+
+		tem = temp_p1*10;
+ 1b8:	4629      	mov	r1, r5
+ 1ba:	2200      	movs	r2, #0
+ 1bc:	4b22      	ldr	r3, [pc, #136]	; (248 <check_temp+0x248>)
+ 1be:	f7ff fffe 	bl	0 <__aeabi_dmul>
+ 1c2:	f7ff fffe 	bl	0 <__aeabi_d2iz>
+D:\sunny\stm32\therme\Project\src/main.c:635
+
+        if(temp_p1<0)
+ 1c6:	4629      	mov	r1, r5
+ 1c8:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Project\src/main.c:633
+		else temp_tp2 = temp_p2;
+
+		temp_p1 = temp_tp1;
+		temp_p2 = temp_tp2;
+
+		tem = temp_p1*10;
+ 1ca:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Project\src/main.c:635
+
+        if(temp_p1<0)
+ 1cc:	2300      	movs	r3, #0
+ 1ce:	4620      	mov	r0, r4
+ 1d0:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
+ 1d4:	4c14      	ldr	r4, [pc, #80]	; (228 <check_temp+0x228>)
+ 1d6:	2264      	movs	r2, #100	; 0x64
+ 1d8:	250a      	movs	r5, #10
+ 1da:	2800      	cmp	r0, #0
+ 1dc:	d03a      	beq.n	254 <check_temp+0x254>
+D:\sunny\stm32\therme\Project\src/main.c:637
+        {
+            tem *=-1;
+ 1de:	4276      	negs	r6, r6
+D:\sunny\stm32\therme\Project\src/main.c:638
+            sprintf(tempc1,"-%d%d.%d",tem/100,(tem/10)%10,(tem%10));
+ 1e0:	fb96 f3f5 	sdiv	r3, r6, r5
+ 1e4:	fb05 6113 	mls	r1, r5, r3, r6
+ 1e8:	fb93 fef5 	sdiv	lr, r3, r5
+ 1ec:	9100      	str	r1, [sp, #0]
+ 1ee:	fb05 331e 	mls	r3, r5, lr, r3
+ 1f2:	4816      	ldr	r0, [pc, #88]	; (24c <check_temp+0x24c>)
+ 1f4:	4916      	ldr	r1, [pc, #88]	; (250 <check_temp+0x250>)
+ 1f6:	fb96 f2f2 	sdiv	r2, r6, r2
+ 1fa:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Project\src/main.c:639
+			if(locks==1) temp_[0]=17;
+ 1fe:	f894 3284 	ldrb.w	r3, [r4, #644]	; 0x284
+ 202:	2b01      	cmp	r3, #1
+ 204:	d13c      	bne.n	280 <check_temp+0x280>
+ 206:	2211      	movs	r2, #17
+ 208:	e038      	b.n	27c <check_temp+0x27c>
+ 20a:	bf00      	nop
+ 20c:	f3af 8000 	nop.w
+ 210:	00000000 	.word	0x00000000
+ 214:	4048c000 	.word	0x4048c000
+ 218:	40012400 	.word	0x40012400
+	...
+ 224:	fffffffc 	.word	0xfffffffc
+	...
+ 23c:	3fe00000 	.word	0x3fe00000
+ 240:	bfe00000 	.word	0xbfe00000
+ 244:	00000000 	.word	0x00000000
+ 248:	40240000 	.word	0x40240000
+	...
+D:\sunny\stm32\therme\Project\src/main.c:643
+        }
+        else
+        {
+            sprintf(tempc1," %d%d.%d",tem/100,(tem/10)%10,(tem%10));
+ 254:	fb96 f3f5 	sdiv	r3, r6, r5
+ 258:	fb05 6113 	mls	r1, r5, r3, r6
+ 25c:	fb93 fef5 	sdiv	lr, r3, r5
+ 260:	9100      	str	r1, [sp, #0]
+ 262:	fb05 331e 	mls	r3, r5, lr, r3
+ 266:	4839      	ldr	r0, [pc, #228]	; (34c <check_temp+0x34c>)
+ 268:	4939      	ldr	r1, [pc, #228]	; (350 <check_temp+0x350>)
+ 26a:	fb96 f2f2 	sdiv	r2, r6, r2
+ 26e:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Project\src/main.c:644
+			if(locks==1) temp_[0]=19;
+ 272:	f894 3284 	ldrb.w	r3, [r4, #644]	; 0x284
+ 276:	2b01      	cmp	r3, #1
+ 278:	d102      	bne.n	280 <check_temp+0x280>
+ 27a:	2213      	movs	r2, #19
+ 27c:	4b35      	ldr	r3, [pc, #212]	; (354 <check_temp+0x354>)
+ 27e:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:647
+        }
+
+		if(locks==1) temp_[1]=(tem/10)%10;
+ 280:	f894 3284 	ldrb.w	r3, [r4, #644]	; 0x284
+ 284:	2b01      	cmp	r3, #1
+ 286:	d10c      	bne.n	2a2 <check_temp+0x2a2>
+ 288:	3309      	adds	r3, #9
+ 28a:	fb96 f1f3 	sdiv	r1, r6, r3
+ 28e:	fb91 f0f3 	sdiv	r0, r1, r3
+ 292:	fb03 1310 	mls	r3, r3, r0, r1
+ 296:	4a2f      	ldr	r2, [pc, #188]	; (354 <check_temp+0x354>)
+ 298:	7053      	strb	r3, [r2, #1]
+D:\sunny\stm32\therme\Project\src/main.c:648
+		if(locks==1) temp_[2]=tem/100;
+ 29a:	2364      	movs	r3, #100	; 0x64
+ 29c:	fb96 f6f3 	sdiv	r6, r6, r3
+ 2a0:	7096      	strb	r6, [r2, #2]
+D:\sunny\stm32\therme\Project\src/main.c:650
+
+		tem = temp_p2*10;
+ 2a2:	e9d7 6700 	ldrd	r6, r7, [r7]
+ 2a6:	2200      	movs	r2, #0
+ 2a8:	4b2b      	ldr	r3, [pc, #172]	; (358 <check_temp+0x358>)
+ 2aa:	4630      	mov	r0, r6
+ 2ac:	4639      	mov	r1, r7
+ 2ae:	f7ff fffe 	bl	0 <__aeabi_dmul>
+ 2b2:	f7ff fffe 	bl	0 <__aeabi_d2iz>
+D:\sunny\stm32\therme\Project\src/main.c:651
+        if(temp_p2<0)
+ 2b6:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Project\src/main.c:650
+        }
+
+		if(locks==1) temp_[1]=(tem/10)%10;
+		if(locks==1) temp_[2]=tem/100;
+
+		tem = temp_p2*10;
+ 2b8:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Project\src/main.c:651
+        if(temp_p2<0)
+ 2ba:	4639      	mov	r1, r7
+ 2bc:	4630      	mov	r0, r6
+ 2be:	2300      	movs	r3, #0
+ 2c0:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
+ 2c4:	260a      	movs	r6, #10
+ 2c6:	2264      	movs	r2, #100	; 0x64
+ 2c8:	b1a8      	cbz	r0, 2f6 <check_temp+0x2f6>
+D:\sunny\stm32\therme\Project\src/main.c:653
+        {
+            tem*=-1;
+ 2ca:	426d      	negs	r5, r5
+D:\sunny\stm32\therme\Project\src/main.c:654
+            sprintf(tempc2,"-%d%d.%d",tem/100,(tem/10)%10,(tem%10));
+ 2cc:	fb95 f3f6 	sdiv	r3, r5, r6
+ 2d0:	fb06 5113 	mls	r1, r6, r3, r5
+ 2d4:	fb93 f7f6 	sdiv	r7, r3, r6
+ 2d8:	9100      	str	r1, [sp, #0]
+ 2da:	fb06 3317 	mls	r3, r6, r7, r3
+ 2de:	481f      	ldr	r0, [pc, #124]	; (35c <check_temp+0x35c>)
+ 2e0:	491f      	ldr	r1, [pc, #124]	; (360 <check_temp+0x360>)
+ 2e2:	fb95 f2f2 	sdiv	r2, r5, r2
+ 2e6:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Project\src/main.c:655
+			if(locks==1) temp_1[0]=17;
+ 2ea:	f894 3284 	ldrb.w	r3, [r4, #644]	; 0x284
+ 2ee:	2b01      	cmp	r3, #1
+ 2f0:	d117      	bne.n	322 <check_temp+0x322>
+ 2f2:	2211      	movs	r2, #17
+ 2f4:	e013      	b.n	31e <check_temp+0x31e>
+D:\sunny\stm32\therme\Project\src/main.c:659
+        }
+        else
+        {
+            sprintf(tempc2," %d%d.%d",tem/100,(tem/10)%10,(tem%10));
+ 2f6:	fb95 f3f6 	sdiv	r3, r5, r6
+ 2fa:	fb06 5113 	mls	r1, r6, r3, r5
+ 2fe:	fb93 f7f6 	sdiv	r7, r3, r6
+ 302:	9100      	str	r1, [sp, #0]
+ 304:	fb06 3317 	mls	r3, r6, r7, r3
+ 308:	4814      	ldr	r0, [pc, #80]	; (35c <check_temp+0x35c>)
+ 30a:	4911      	ldr	r1, [pc, #68]	; (350 <check_temp+0x350>)
+ 30c:	fb95 f2f2 	sdiv	r2, r5, r2
+ 310:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Project\src/main.c:660
+			if(locks==1) temp_1[0]=19;
+ 314:	f894 3284 	ldrb.w	r3, [r4, #644]	; 0x284
+ 318:	2b01      	cmp	r3, #1
+ 31a:	d102      	bne.n	322 <check_temp+0x322>
+ 31c:	2213      	movs	r2, #19
+ 31e:	4b11      	ldr	r3, [pc, #68]	; (364 <check_temp+0x364>)
+ 320:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:662
+        }
+		if(locks==1) temp_1[1]=(tem/10)%10;
+ 322:	f894 3284 	ldrb.w	r3, [r4, #644]	; 0x284
+ 326:	2b01      	cmp	r3, #1
+ 328:	d10c      	bne.n	344 <check_temp+0x344>
+ 32a:	3309      	adds	r3, #9
+ 32c:	fb95 f1f3 	sdiv	r1, r5, r3
+ 330:	fb91 f0f3 	sdiv	r0, r1, r3
+ 334:	fb03 1310 	mls	r3, r3, r0, r1
+ 338:	4a0a      	ldr	r2, [pc, #40]	; (364 <check_temp+0x364>)
+ 33a:	7053      	strb	r3, [r2, #1]
+D:\sunny\stm32\therme\Project\src/main.c:663
+		if(locks==1) temp_1[2]=tem/100;
+ 33c:	2364      	movs	r3, #100	; 0x64
+ 33e:	fb95 f5f3 	sdiv	r5, r5, r3
+ 342:	7095      	strb	r5, [r2, #2]
+D:\sunny\stm32\therme\Project\src/main.c:665
+
+}
+ 344:	b005      	add	sp, #20
+ 346:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 34a:	bf00      	nop
+ 34c:	00000000 	.word	0x00000000
+ 350:	00000009 	.word	0x00000009
+ 354:	00000000 	.word	0x00000000
+ 358:	40240000 	.word	0x40240000
+	...
+
+Disassembly of section .text.set_led_off:
+
+00000000 <set_led_off>:
+set_led_off():
+D:\sunny\stm32\therme\Project\src/main.c:708
+	show_seg1(temp_);
+
+}
+void set_led_off(char tsi)
+{
+	tsi = 1<<tsi;
+   0:	40832301 	.word	0x40832301
+D:\sunny\stm32\therme\Project\src/main.c:709
+	led_ |= tsi;
+   4:	4a07      	ldr	r2, [pc, #28]	; (24 <set_led_off+0x24>)
+D:\sunny\stm32\therme\Project\src/main.c:711
+
+write_to_MCP(mcp1, OLAT0, num_digi7[temp_[0]], led_);
+   6:	2048      	movs	r0, #72	; 0x48
+D:\sunny\stm32\therme\Project\src/main.c:709
+
+}
+void set_led_off(char tsi)
+{
+	tsi = 1<<tsi;
+	led_ |= tsi;
+   8:	7811      	ldrb	r1, [r2, #0]
+   a:	430b      	orrs	r3, r1
+   c:	b2db      	uxtb	r3, r3
+   e:	7013      	strb	r3, [r2, #0]
+D:\sunny\stm32\therme\Project\src/main.c:711
+
+write_to_MCP(mcp1, OLAT0, num_digi7[temp_[0]], led_);
+  10:	4a05      	ldr	r2, [pc, #20]	; (28 <set_led_off+0x28>)
+  12:	4906      	ldr	r1, [pc, #24]	; (2c <set_led_off+0x2c>)
+  14:	7812      	ldrb	r2, [r2, #0]
+  16:	188a      	adds	r2, r1, r2
+  18:	f892 2285 	ldrb.w	r2, [r2, #645]	; 0x285
+  1c:	2102      	movs	r1, #2
+  1e:	f7ff bffe 	b.w	0 <write_to_MCP>
+  22:	bf00      	nop
+	...
+
+Disassembly of section .text.set_led_on:
+
+00000000 <set_led_on>:
+set_led_on():
+D:\sunny\stm32\therme\Project\src/main.c:718
+
+}
+
+void set_led_on(char tsi)
+{
+	tsi = 1<<tsi;
+   0:	2301      	movs	r3, #1
+   2:	4083      	lsls	r3, r0
+D:\sunny\stm32\therme\Project\src/main.c:719
+	led_ &= ~tsi;
+   4:	4a07      	ldr	r2, [pc, #28]	; (24 <set_led_on+0x24>)
+D:\sunny\stm32\therme\Project\src/main.c:720
+write_to_MCP(mcp1, OLAT0, num_digi7[temp_[0]], led_);
+   6:	2048      	movs	r0, #72	; 0x48
+D:\sunny\stm32\therme\Project\src/main.c:719
+}
+
+void set_led_on(char tsi)
+{
+	tsi = 1<<tsi;
+	led_ &= ~tsi;
+   8:	7811      	ldrb	r1, [r2, #0]
+   a:	ea21 0303 	bic.w	r3, r1, r3
+   e:	7013      	strb	r3, [r2, #0]
+D:\sunny\stm32\therme\Project\src/main.c:720
+write_to_MCP(mcp1, OLAT0, num_digi7[temp_[0]], led_);
+  10:	4a05      	ldr	r2, [pc, #20]	; (28 <set_led_on+0x28>)
+  12:	4906      	ldr	r1, [pc, #24]	; (2c <set_led_on+0x2c>)
+  14:	7812      	ldrb	r2, [r2, #0]
+  16:	188a      	adds	r2, r1, r2
+  18:	f892 2285 	ldrb.w	r2, [r2, #645]	; 0x285
+  1c:	2102      	movs	r1, #2
+  1e:	f7ff bffe 	b.w	0 <write_to_MCP>
+  22:	bf00      	nop
+	...
+
+Disassembly of section .text.show_seg1:
+
+00000000 <show_seg1>:
+show_seg1():
+D:\sunny\stm32\therme\Project\src/main.c:725
+//write_to_MCP(mcp3, OLAT0, num_digi7[temp_1[0]], led_);
+}
+
+void show_seg1(unsigned char *pbuf)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Project\src/main.c:727
+	unsigned char i;
+	write_to_MCP(mcp1, OLAT0, (num_digi7[pbuf[0]]), ( led_));
+   2:	4c18      	ldr	r4, [pc, #96]	; (64 <show_seg1+0x64>)
+   4:	7803      	ldrb	r3, [r0, #0]
+D:\sunny\stm32\therme\Project\src/main.c:725
+write_to_MCP(mcp1, OLAT0, num_digi7[temp_[0]], led_);
+//write_to_MCP(mcp3, OLAT0, num_digi7[temp_1[0]], led_);
+}
+
+void show_seg1(unsigned char *pbuf)
+{
+   6:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Project\src/main.c:727
+	unsigned char i;
+	write_to_MCP(mcp1, OLAT0, (num_digi7[pbuf[0]]), ( led_));
+   8:	18e3      	adds	r3, r4, r3
+   a:	f893 2285 	ldrb.w	r2, [r3, #645]	; 0x285
+   e:	4b16      	ldr	r3, [pc, #88]	; (68 <show_seg1+0x68>)
+  10:	2048      	movs	r0, #72	; 0x48
+  12:	2102      	movs	r1, #2
+  14:	781b      	ldrb	r3, [r3, #0]
+  16:	f7ff fffe 	bl	0 <write_to_MCP>
+D:\sunny\stm32\therme\Project\src/main.c:728
+	write_to_MCP(mcp2, OLAT0,(num_digi7[pbuf[1]]),(num_digi7[pbuf[2]]));
+  1a:	78aa      	ldrb	r2, [r5, #2]
+  1c:	786b      	ldrb	r3, [r5, #1]
+  1e:	204c      	movs	r0, #76	; 0x4c
+  20:	18e3      	adds	r3, r4, r3
+  22:	18a4      	adds	r4, r4, r2
+  24:	2102      	movs	r1, #2
+  26:	f893 2285 	ldrb.w	r2, [r3, #645]	; 0x285
+  2a:	f894 3285 	ldrb.w	r3, [r4, #645]	; 0x285
+  2e:	f7ff fffe 	bl	0 <write_to_MCP>
+  32:	4d0e      	ldr	r5, [pc, #56]	; (6c <show_seg1+0x6c>)
+D:\sunny\stm32\therme\Project\src/main.c:732
+	//write_to_MCP(mcp3, OLAT0, (num_digi7[temp_1[0]]), ( led_));
+	//write_to_MCP(mcp4, OLAT0,(num_digi7[temp_1[1]]),(num_digi7[temp_1[2]]));
+
+	for(i=0;i<4;i++)
+  34:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Project\src/main.c:734
+	{
+		if(leds[i]==1)
+  36:	f915 3b01 	ldrsb.w	r3, [r5], #1
+  3a:	2b01      	cmp	r3, #1
+  3c:	d104      	bne.n	48 <show_seg1+0x48>
+D:\sunny\stm32\therme\Project\src/main.c:736
+		{
+			set_led_on(i);
+  3e:	b260      	sxtb	r0, r4
+  40:	f7ff fffe 	bl	0 <show_seg1>
+D:\sunny\stm32\therme\Project\src/main.c:737
+			leds[i]=3;
+  44:	2303      	movs	r3, #3
+  46:	e005      	b.n	54 <show_seg1+0x54>
+D:\sunny\stm32\therme\Project\src/main.c:739
+		}
+		else if(leds[i]==2)
+  48:	2b02      	cmp	r3, #2
+  4a:	d105      	bne.n	58 <show_seg1+0x58>
+D:\sunny\stm32\therme\Project\src/main.c:741
+		{
+			set_led_off(i);
+  4c:	b260      	sxtb	r0, r4
+  4e:	f7ff fffe 	bl	0 <show_seg1>
+D:\sunny\stm32\therme\Project\src/main.c:742
+			leds[i]=0;
+  52:	2300      	movs	r3, #0
+  54:	f805 3c01 	strb.w	r3, [r5, #-1]
+D:\sunny\stm32\therme\Project\src/main.c:732
+	write_to_MCP(mcp1, OLAT0, (num_digi7[pbuf[0]]), ( led_));
+	write_to_MCP(mcp2, OLAT0,(num_digi7[pbuf[1]]),(num_digi7[pbuf[2]]));
+	//write_to_MCP(mcp3, OLAT0, (num_digi7[temp_1[0]]), ( led_));
+	//write_to_MCP(mcp4, OLAT0,(num_digi7[temp_1[1]]),(num_digi7[temp_1[2]]));
+
+	for(i=0;i<4;i++)
+  58:	3401      	adds	r4, #1
+  5a:	b2e4      	uxtb	r4, r4
+  5c:	2c04      	cmp	r4, #4
+  5e:	d1ea      	bne.n	36 <show_seg1+0x36>
+D:\sunny\stm32\therme\Project\src/main.c:745
+		{
+			set_led_off(i);
+			leds[i]=0;
+		}
+	}
+}
+  60:	bd38      	pop	{r3, r4, r5, pc}
+  62:	bf00      	nop
+	...
+
+Disassembly of section .text.set_temp:
+
+00000000 <set_temp>:
+set_temp():
+D:\sunny\stm32\therme\Project\src/main.c:683
+}
+
+void set_temp(int tsi)
+{
+
+	if(tsi<0)
+   0:	2800      	cmp	r0, #0
+   2:	4b0e      	ldr	r3, [pc, #56]	; (3c <set_temp+0x3c>)
+   4:	da03      	bge.n	e <set_temp+0xe>
+D:\sunny\stm32\therme\Project\src/main.c:685
+	{
+		temp_[0]=17;
+   6:	2211      	movs	r2, #17
+   8:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:686
+    tsi = tsi*-1;
+   a:	4240      	negs	r0, r0
+   c:	e001      	b.n	12 <set_temp+0x12>
+D:\sunny\stm32\therme\Project\src/main.c:690
+	}
+	else
+	{
+		temp_[0]=19;
+   e:	2213      	movs	r2, #19
+  10:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:693
+	}
+
+	if(tsi>9)
+  12:	2809      	cmp	r0, #9
+  14:	f04f 020a 	mov.w	r2, #10
+  18:	dd06      	ble.n	28 <set_temp+0x28>
+D:\sunny\stm32\therme\Project\src/main.c:695
+	{
+		temp_[1]=tsi%10;
+  1a:	fb90 f1f2 	sdiv	r1, r0, r2
+  1e:	fb02 0011 	mls	r0, r2, r1, r0
+D:\sunny\stm32\therme\Project\src/main.c:696
+		temp_[2]=tsi/10;
+  22:	7099      	strb	r1, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:695
+		temp_[0]=19;
+	}
+
+	if(tsi>9)
+	{
+		temp_[1]=tsi%10;
+  24:	7058      	strb	r0, [r3, #1]
+  26:	e006      	b.n	36 <set_temp+0x36>
+D:\sunny\stm32\therme\Project\src/main.c:700
+		temp_[2]=tsi/10;
+    }
+    else
+        {
+        temp_[1]=tsi%10;
+  28:	fb90 f1f2 	sdiv	r1, r0, r2
+  2c:	fb02 0011 	mls	r0, r2, r1, r0
+D:\sunny\stm32\therme\Project\src/main.c:701
+		temp_[2]=19;
+  30:	2213      	movs	r2, #19
+D:\sunny\stm32\therme\Project\src/main.c:700
+		temp_[1]=tsi%10;
+		temp_[2]=tsi/10;
+    }
+    else
+        {
+        temp_[1]=tsi%10;
+  32:	7058      	strb	r0, [r3, #1]
+D:\sunny\stm32\therme\Project\src/main.c:701
+		temp_[2]=19;
+  34:	709a      	strb	r2, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:703
+        }
+	show_seg1(temp_);
+  36:	4801      	ldr	r0, [pc, #4]	; (3c <set_temp+0x3c>)
+  38:	f7ff bffe 	b.w	0 <set_temp>
+  3c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.show_rtc:
+
+00000000 <show_rtc>:
+show_rtc():
+D:\sunny\stm32\therme\Project\src/main.c:747
+			leds[i]=0;
+		}
+	}
+}
+void show_rtc()
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Project\src/main.c:748
+	sprintf(uart_buf,"%d-%d-%d %d:%d:%d day %d\r\n",rtc[3],rtc[4],rtc[6],rtc[2],rtc[1],rtc[0],rtc[5]);
+   2:	490e      	ldr	r1, [pc, #56]	; (3c <show_rtc+0x3c>)
+D:\sunny\stm32\therme\Project\src/main.c:747
+			leds[i]=0;
+		}
+	}
+}
+void show_rtc()
+{
+   4:	b086      	sub	sp, #24
+D:\sunny\stm32\therme\Project\src/main.c:748
+	sprintf(uart_buf,"%d-%d-%d %d:%d:%d day %d\r\n",rtc[3],rtc[4],rtc[6],rtc[2],rtc[1],rtc[0],rtc[5]);
+   6:	7988      	ldrb	r0, [r1, #6]
+   8:	78ca      	ldrb	r2, [r1, #3]
+   a:	790b      	ldrb	r3, [r1, #4]
+   c:	9000      	str	r0, [sp, #0]
+   e:	7888      	ldrb	r0, [r1, #2]
+D:\sunny\stm32\therme\Project\src/main.c:749
+	printUART1((unsigned int *)uart_buf);
+  10:	4c0b      	ldr	r4, [pc, #44]	; (40 <show_rtc+0x40>)
+D:\sunny\stm32\therme\Project\src/main.c:748
+		}
+	}
+}
+void show_rtc()
+{
+	sprintf(uart_buf,"%d-%d-%d %d:%d:%d day %d\r\n",rtc[3],rtc[4],rtc[6],rtc[2],rtc[1],rtc[0],rtc[5]);
+  12:	9001      	str	r0, [sp, #4]
+  14:	7848      	ldrb	r0, [r1, #1]
+  16:	9002      	str	r0, [sp, #8]
+  18:	7808      	ldrb	r0, [r1, #0]
+  1a:	9003      	str	r0, [sp, #12]
+  1c:	7949      	ldrb	r1, [r1, #5]
+  1e:	4808      	ldr	r0, [pc, #32]	; (40 <show_rtc+0x40>)
+  20:	9104      	str	r1, [sp, #16]
+  22:	4908      	ldr	r1, [pc, #32]	; (44 <show_rtc+0x44>)
+  24:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Project\src/main.c:749
+	printUART1((unsigned int *)uart_buf);
+  28:	4620      	mov	r0, r4
+  2a:	f7ff fffe 	bl	0 <printUART1>
+D:\sunny\stm32\therme\Project\src/main.c:750
+	printUART2((unsigned int *)uart_buf);
+  2e:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Project\src/main.c:752
+
+}
+  30:	b006      	add	sp, #24
+  32:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Project\src/main.c:750
+}
+void show_rtc()
+{
+	sprintf(uart_buf,"%d-%d-%d %d:%d:%d day %d\r\n",rtc[3],rtc[4],rtc[6],rtc[2],rtc[1],rtc[0],rtc[5]);
+	printUART1((unsigned int *)uart_buf);
+	printUART2((unsigned int *)uart_buf);
+  36:	f7ff bffe 	b.w	0 <printUART2>
+  3a:	bf00      	nop
+	...
+  44:	00000012 	.word	0x00000012
+
+Disassembly of section .text.printU:
+
+00000000 <printU>:
+printU():
+D:\sunny\stm32\therme\Project\src/main.c:779
+  * @param  nCount: number of 10ms periods to wait for.
+  * @retval None
+  */
+
+void printU(unsigned char chh)
+{
+   0:	4c07b510 	.word	0x4c07b510
+   4:	4602      	mov	r2, r0
+D:\sunny\stm32\therme\Project\src/main.c:780
+	sprintf(uart_buf,"%d\r\n",chh);
+   6:	4907      	ldr	r1, [pc, #28]	; (24 <printU+0x24>)
+   8:	4805      	ldr	r0, [pc, #20]	; (20 <printU+0x20>)
+   a:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Project\src/main.c:781
+	printUART1((unsigned int *)uart_buf);
+   e:	4620      	mov	r0, r4
+  10:	f7ff fffe 	bl	0 <printUART1>
+D:\sunny\stm32\therme\Project\src/main.c:782
+	printUART2((unsigned int *)uart_buf);
+  14:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Project\src/main.c:783
+}
+  16:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Project\src/main.c:782
+
+void printU(unsigned char chh)
+{
+	sprintf(uart_buf,"%d\r\n",chh);
+	printUART1((unsigned int *)uart_buf);
+	printUART2((unsigned int *)uart_buf);
+  1a:	f7ff bffe 	b.w	0 <printUART2>
+  1e:	bf00      	nop
+  20:	00000000 	.word	0x00000000
+  24:	0000002d 	.word	0x0000002d
+
+Disassembly of section .text.printsU:
+
+00000000 <printsU>:
+printsU():
+D:\sunny\stm32\therme\Project\src/main.c:785
+}
+void printsU(int* chh,u8 ii)
+{
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+   2:	4604      	mov	r4, r0
+   4:	b087      	sub	sp, #28
+   6:	460f      	mov	r7, r1
+D:\sunny\stm32\therme\Project\src/main.c:787
+	int i;
+	for(i=0;i<ii;i++)
+   8:	4606      	mov	r6, r0
+   a:	2500      	movs	r5, #0
+   c:	e009      	b.n	22 <printsU+0x22>
+D:\sunny\stm32\therme\Project\src/main.c:789
+	{
+		sprintf(uart_buf,"%d:",chh[i]);
+   e:	4912      	ldr	r1, [pc, #72]	; (58 <printsU+0x58>)
+  10:	f856 2b04 	ldr.w	r2, [r6], #4
+  14:	4811      	ldr	r0, [pc, #68]	; (48 <sprintf+0x48>)
+  16:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Project\src/main.c:790
+		printUART2((unsigned int *)uart_buf);
+  1a:	4810      	ldr	r0, [pc, #64]	; (44 <printUART2+0x44>)
+  1c:	f7ff fffe 	bl	0 <printUART2>
+D:\sunny\stm32\therme\Project\src/main.c:787
+	printUART2((unsigned int *)uart_buf);
+}
+void printsU(int* chh,u8 ii)
+{
+	int i;
+	for(i=0;i<ii;i++)
+  20:	3501      	adds	r5, #1
+  22:	42bd      	cmp	r5, r7
+  24:	dbf3      	blt.n	e <printsU+0xe>
+D:\sunny\stm32\therme\Project\src/main.c:793
+	{
+		sprintf(uart_buf,"%d:",chh[i]);
+		printUART2((unsigned int *)uart_buf);
+
+	}
+	sprintf(uart_buf,"\r\n");
+  26:	490e      	ldr	r1, [pc, #56]	; (60 <printsU+0x60>)
+  28:	480c      	ldr	r0, [pc, #48]	; (5c <printsU+0x5c>)
+  2a:	f7ff fffe 	bl	0 <strcpy>
+D:\sunny\stm32\therme\Project\src/main.c:796
+	//printUART2((unsigned int *)uart_buf);
+
+	sprintf(ubuff1,"%i:%i:%i:%i:%i:%i:%i:%i:\r\n",chh[0],chh[1],chh[2],chh[3],chh[4],chh[5],chh[6],chh[7]);
+  2e:	68a3      	ldr	r3, [r4, #8]
+  30:	490c      	ldr	r1, [pc, #48]	; (64 <printsU+0x64>)
+  32:	9300      	str	r3, [sp, #0]
+  34:	68e3      	ldr	r3, [r4, #12]
+  36:	6822      	ldr	r2, [r4, #0]
+  38:	9301      	str	r3, [sp, #4]
+  3a:	6923      	ldr	r3, [r4, #16]
+  3c:	480a      	ldr	r0, [pc, #40]	; (68 <printsU+0x68>)
+  3e:	9302      	str	r3, [sp, #8]
+  40:	6963      	ldr	r3, [r4, #20]
+  42:	9303      	str	r3, [sp, #12]
+  44:	69a3      	ldr	r3, [r4, #24]
+  46:	9304      	str	r3, [sp, #16]
+  48:	69e3      	ldr	r3, [r4, #28]
+  4a:	9305      	str	r3, [sp, #20]
+  4c:	6863      	ldr	r3, [r4, #4]
+  4e:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Project\src/main.c:798
+
+}
+  52:	b007      	add	sp, #28
+  54:	bdf0      	pop	{r4, r5, r6, r7, pc}
+  56:	bf00      	nop
+  58:	00000032 	.word	0x00000032
+  5c:	00000000 	.word	0x00000000
+  60:	00000036 	.word	0x00000036
+  64:	00000039 	.word	0x00000039
+  68:	00000000 	.word	0x00000000
+
+Disassembly of section .text.Delay1:
+
+00000000 <Delay1>:
+Delay1():
+D:\sunny\stm32\therme\Project\src/main.c:802
+void Delay1(uint32_t nTime)
+{
+  /* Capture the current local time */
+ocalTime1 =0;
+   0:	22004b03 	.word	0x22004b03
+   4:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:805
+
+  /* wait until the desired delay finish */
+  while(ocalTime1 < nTime)
+   6:	681a      	ldr	r2, [r3, #0]
+   8:	4282      	cmp	r2, r0
+   a:	d3fc      	bcc.n	6 <Delay1+0x6>
+D:\sunny\stm32\therme\Project\src/main.c:810
+  {
+
+  }
+
+}
+   c:	4770      	bx	lr
+   e:	bf00      	nop
+  10:	00000000 	.word	0x00000000
+
+Disassembly of section .text.Delay:
+
+00000000 <Delay>:
+Delay():
+D:\sunny\stm32\therme\Project\src/main.c:816
+
+
+void Delay(uint32_t nCount)
+{
+  /* Capture the current local time */
+  timingdelay = ocalTime + nCount;
+   0:	4b04      	ldr	r3, [pc, #16]	; (14 <Delay+0x14>)
+   2:	4905      	ldr	r1, [pc, #20]	; (18 <Delay+0x18>)
+   4:	685a      	ldr	r2, [r3, #4]
+   6:	1882      	adds	r2, r0, r2
+   8:	600a      	str	r2, [r1, #0]
+D:\sunny\stm32\therme\Project\src/main.c:819
+
+  /* wait until the desired delay finish */
+  while(timingdelay > ocalTime)
+   a:	6859      	ldr	r1, [r3, #4]
+   c:	428a      	cmp	r2, r1
+   e:	d8fc      	bhi.n	a <Delay+0xa>
+D:\sunny\stm32\therme\Project\src/main.c:823
+  {
+
+  }
+}
+  10:	4770      	bx	lr
+  12:	bf00      	nop
+	...
+
+Disassembly of section .text.Time_Update:
+
+00000000 <Time_Update>:
+Time_Update():
+D:\sunny\stm32\therme\Project\src/main.c:832
+  * @param  None
+  * @retval None
+  */
+void Time_Update(void)
+{
+	ocalTime += SYSTEMTICK_PERIOD_MS;
+   0:	4b07      	ldr	r3, [pc, #28]	; (20 <Time_Update+0x20>)
+   2:	685a      	ldr	r2, [r3, #4]
+   4:	320a      	adds	r2, #10
+   6:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Project\src/main.c:833
+	ocalTime1 += SYSTEMTICK_PERIOD_MS;
+   8:	681a      	ldr	r2, [r3, #0]
+   a:	320a      	adds	r2, #10
+   c:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:834
+    octime++;
+   e:	689a      	ldr	r2, [r3, #8]
+  10:	3201      	adds	r2, #1
+  12:	609a      	str	r2, [r3, #8]
+D:\sunny\stm32\therme\Project\src/main.c:835
+	del_ds++;
+  14:	4b03      	ldr	r3, [pc, #12]	; (24 <Time_Update+0x24>)
+  16:	881a      	ldrh	r2, [r3, #0]
+  18:	3201      	adds	r2, #1
+  1a:	801a      	strh	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:836
+}
+  1c:	4770      	bx	lr
+  1e:	bf00      	nop
+	...
+
+Disassembly of section .text.time_cal:
+
+00000000 <time_cal>:
+time_cal():
+D:\sunny\stm32\therme\Project\src/main.c:840
+void time_cal(void)
+{
+int i;
+if(octime>120)//120
+   0:	4a5a      	ldr	r2, [pc, #360]	; (16c <time_cal+0x16c>)
+D:\sunny\stm32\therme\Project\src/main.c:838
+	ocalTime1 += SYSTEMTICK_PERIOD_MS;
+    octime++;
+	del_ds++;
+}
+void time_cal(void)
+{
+   2:	b5f0      	push	{r4, r5, r6, r7, lr}
+D:\sunny\stm32\therme\Project\src/main.c:840
+int i;
+if(octime>120)//120
+   4:	6893      	ldr	r3, [r2, #8]
+   6:	2b78      	cmp	r3, #120	; 0x78
+   8:	f240 80af 	bls.w	16a <time_cal+0x16a>
+D:\sunny\stm32\therme\Project\src/main.c:842
+{
+	octime=0;
+   c:	2300      	movs	r3, #0
+   e:	6093      	str	r3, [r2, #8]
+D:\sunny\stm32\therme\Project\src/main.c:845
+	for(i=0;i<5;i++)
+	{
+		if(delay_fin[i]==2)
+  10:	4957      	ldr	r1, [pc, #348]	; (170 <time_cal+0x170>)
+  12:	680a      	ldr	r2, [r1, #0]
+  14:	5cd2      	ldrb	r2, [r2, r3]
+  16:	2a02      	cmp	r2, #2
+  18:	f040 80a3 	bne.w	162 <time_cal+0x162>
+D:\sunny\stm32\therme\Project\src/main.c:847
+        {
+			if(dels[i]>0)
+  1c:	4a55      	ldr	r2, [pc, #340]	; (174 <time_cal+0x174>)
+  1e:	4c56      	ldr	r4, [pc, #344]	; (178 <time_cal+0x178>)
+  20:	6810      	ldr	r0, [r2, #0]
+  22:	5cc5      	ldrb	r5, [r0, r3]
+  24:	2d00      	cmp	r5, #0
+  26:	d042      	beq.n	ae <time_cal+0xae>
+D:\sunny\stm32\therme\Project\src/main.c:849
+			{
+				dels[i]--;
+  28:	3d01      	subs	r5, #1
+  2a:	54c5      	strb	r5, [r0, r3]
+D:\sunny\stm32\therme\Project\src/main.c:850
+				if(delm[i] > 0 && dels[i] <= 0)
+  2c:	4d53      	ldr	r5, [pc, #332]	; (17c <time_cal+0x17c>)
+  2e:	6828      	ldr	r0, [r5, #0]
+  30:	18c6      	adds	r6, r0, r3
+  32:	5cc0      	ldrb	r0, [r0, r3]
+  34:	b140      	cbz	r0, 48 <time_cal+0x48>
+  36:	6817      	ldr	r7, [r2, #0]
+  38:	5cff      	ldrb	r7, [r7, r3]
+  3a:	b92f      	cbnz	r7, 48 <time_cal+0x48>
+D:\sunny\stm32\therme\Project\src/main.c:852
+				{
+					delm[i]--;
+  3c:	3801      	subs	r0, #1
+  3e:	7030      	strb	r0, [r6, #0]
+D:\sunny\stm32\therme\Project\src/main.c:853
+					dels[i] = 59;
+  40:	6811      	ldr	r1, [r2, #0]
+  42:	203b      	movs	r0, #59	; 0x3b
+  44:	54c8      	strb	r0, [r1, r3]
+  46:	e032      	b.n	ae <time_cal+0xae>
+D:\sunny\stm32\therme\Project\src/main.c:855
+				}
+				else if(delh[i]> 0 && delm[i] <= 0)
+  48:	4e4d      	ldr	r6, [pc, #308]	; (180 <time_cal+0x180>)
+  4a:	6836      	ldr	r6, [r6, #0]
+  4c:	18f7      	adds	r7, r6, r3
+  4e:	5cf6      	ldrb	r6, [r6, r3]
+  50:	b14e      	cbz	r6, 66 <time_cal+0x66>
+  52:	2800      	cmp	r0, #0
+  54:	d12b      	bne.n	ae <time_cal+0xae>
+D:\sunny\stm32\therme\Project\src/main.c:857
+					{
+						delh[i]--;
+  56:	3e01      	subs	r6, #1
+  58:	703e      	strb	r6, [r7, #0]
+D:\sunny\stm32\therme\Project\src/main.c:858
+						delm[i] = 59;
+  5a:	6828      	ldr	r0, [r5, #0]
+  5c:	213b      	movs	r1, #59	; 0x3b
+  5e:	54c1      	strb	r1, [r0, r3]
+D:\sunny\stm32\therme\Project\src/main.c:859
+						dels[i] = 59;
+  60:	6810      	ldr	r0, [r2, #0]
+  62:	54c1      	strb	r1, [r0, r3]
+  64:	e023      	b.n	ae <time_cal+0xae>
+D:\sunny\stm32\therme\Project\src/main.c:861
+					}
+				else if(delh[i]<=0&&delm[i]<=0&&dels[i]<=0)
+  66:	bb10      	cbnz	r0, ae <time_cal+0xae>
+  68:	6815      	ldr	r5, [r2, #0]
+  6a:	5ced      	ldrb	r5, [r5, r3]
+  6c:	b9fd      	cbnz	r5, ae <time_cal+0xae>
+D:\sunny\stm32\therme\Project\src/main.c:863
+				{
+					if(i==1) delay_fin[i] = 0;
+  6e:	2b01      	cmp	r3, #1
+  70:	d101      	bne.n	76 <time_cal+0x76>
+  72:	6809      	ldr	r1, [r1, #0]
+  74:	e017      	b.n	a6 <time_cal+0xa6>
+D:\sunny\stm32\therme\Project\src/main.c:864
+					else if(i==2)
+  76:	2b02      	cmp	r3, #2
+  78:	d10e      	bne.n	98 <time_cal+0x98>
+D:\sunny\stm32\therme\Project\src/main.c:866
+					{
+						delay_fin[i] = 3;
+  7a:	6809      	ldr	r1, [r1, #0]
+  7c:	2003      	movs	r0, #3
+  7e:	54c8      	strb	r0, [r1, r3]
+D:\sunny\stm32\therme\Project\src/main.c:867
+						if(sdoor == 8 || sdoor==11)
+  80:	7821      	ldrb	r1, [r4, #0]
+  82:	2908      	cmp	r1, #8
+  84:	d001      	beq.n	8a <time_cal+0x8a>
+  86:	290b      	cmp	r1, #11
+  88:	d10e      	bne.n	a8 <time_cal+0xa8>
+D:\sunny\stm32\therme\Project\src/main.c:869
+						{
+							sdoor = 9;
+  8a:	2109      	movs	r1, #9
+  8c:	7021      	strb	r1, [r4, #0]
+D:\sunny\stm32\therme\Project\src/main.c:870
+							buz_off;
+  8e:	493d      	ldr	r1, [pc, #244]	; (184 <time_cal+0x184>)
+  90:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+  94:	6148      	str	r0, [r1, #20]
+  96:	e007      	b.n	a8 <time_cal+0xa8>
+D:\sunny\stm32\therme\Project\src/main.c:873
+						}
+					}
+					else if(i==3)
+  98:	2b03      	cmp	r3, #3
+  9a:	d102      	bne.n	a2 <time_cal+0xa2>
+D:\sunny\stm32\therme\Project\src/main.c:875
+					{
+						delay_fin[i] = 3;
+  9c:	6809      	ldr	r1, [r1, #0]
+  9e:	54cb      	strb	r3, [r1, r3]
+  a0:	e002      	b.n	a8 <time_cal+0xa8>
+D:\sunny\stm32\therme\Project\src/main.c:879
+					}
+					else
+					{
+						delay_fin[i] = 1;
+  a2:	6809      	ldr	r1, [r1, #0]
+  a4:	2001      	movs	r0, #1
+  a6:	54c8      	strb	r0, [r1, r3]
+D:\sunny\stm32\therme\Project\src/main.c:883
+					}
+
+
+					def=0;
+  a8:	4937      	ldr	r1, [pc, #220]	; (188 <time_cal+0x188>)
+  aa:	2000      	movs	r0, #0
+  ac:	7008      	strb	r0, [r1, #0]
+D:\sunny\stm32\therme\Project\src/main.c:890
+				}
+
+
+			}
+
+			if(sdoor>=9 && i == 2)
+  ae:	7821      	ldrb	r1, [r4, #0]
+  b0:	2908      	cmp	r1, #8
+  b2:	d956      	bls.n	162 <time_cal+0x162>
+  b4:	2b02      	cmp	r3, #2
+  b6:	d154      	bne.n	162 <time_cal+0x162>
+D:\sunny\stm32\therme\Project\src/main.c:892
+				{
+					if(dels[i]==55) buz_on;
+  b8:	6812      	ldr	r2, [r2, #0]
+  ba:	7891      	ldrb	r1, [r2, #2]
+  bc:	2937      	cmp	r1, #55	; 0x37
+  be:	d103      	bne.n	c8 <time_cal+0xc8>
+  c0:	4930      	ldr	r1, [pc, #192]	; (184 <time_cal+0x184>)
+  c2:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+  c6:	6108      	str	r0, [r1, #16]
+D:\sunny\stm32\therme\Project\src/main.c:893
+					if(dels[i]==54) buz_off;
+  c8:	7891      	ldrb	r1, [r2, #2]
+  ca:	2936      	cmp	r1, #54	; 0x36
+  cc:	d103      	bne.n	d6 <time_cal+0xd6>
+  ce:	492d      	ldr	r1, [pc, #180]	; (184 <time_cal+0x184>)
+  d0:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+  d4:	6148      	str	r0, [r1, #20]
+D:\sunny\stm32\therme\Project\src/main.c:895
+
+					if(dels[i]==45) buz_on;
+  d6:	7891      	ldrb	r1, [r2, #2]
+  d8:	292d      	cmp	r1, #45	; 0x2d
+  da:	d103      	bne.n	e4 <time_cal+0xe4>
+  dc:	4929      	ldr	r1, [pc, #164]	; (184 <time_cal+0x184>)
+  de:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+  e2:	6108      	str	r0, [r1, #16]
+D:\sunny\stm32\therme\Project\src/main.c:896
+					if(dels[i]==44) buz_off;
+  e4:	7891      	ldrb	r1, [r2, #2]
+  e6:	292c      	cmp	r1, #44	; 0x2c
+  e8:	d103      	bne.n	f2 <time_cal+0xf2>
+  ea:	4926      	ldr	r1, [pc, #152]	; (184 <time_cal+0x184>)
+  ec:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+  f0:	6148      	str	r0, [r1, #20]
+D:\sunny\stm32\therme\Project\src/main.c:898
+
+					if(dels[i]==35) buz_on;
+  f2:	7891      	ldrb	r1, [r2, #2]
+  f4:	2923      	cmp	r1, #35	; 0x23
+  f6:	d103      	bne.n	100 <time_cal+0x100>
+  f8:	4922      	ldr	r1, [pc, #136]	; (184 <time_cal+0x184>)
+  fa:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+  fe:	6108      	str	r0, [r1, #16]
+D:\sunny\stm32\therme\Project\src/main.c:899
+					if(dels[i]==34) buz_off;
+ 100:	7891      	ldrb	r1, [r2, #2]
+ 102:	2922      	cmp	r1, #34	; 0x22
+ 104:	d103      	bne.n	10e <time_cal+0x10e>
+ 106:	491f      	ldr	r1, [pc, #124]	; (184 <time_cal+0x184>)
+ 108:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+ 10c:	6148      	str	r0, [r1, #20]
+D:\sunny\stm32\therme\Project\src/main.c:901
+
+					if(dels[i]==25) buz_on;
+ 10e:	7891      	ldrb	r1, [r2, #2]
+ 110:	2919      	cmp	r1, #25
+ 112:	d103      	bne.n	11c <time_cal+0x11c>
+ 114:	491b      	ldr	r1, [pc, #108]	; (184 <time_cal+0x184>)
+ 116:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+ 11a:	6108      	str	r0, [r1, #16]
+D:\sunny\stm32\therme\Project\src/main.c:902
+					if(dels[i]==24) buz_off;
+ 11c:	7891      	ldrb	r1, [r2, #2]
+ 11e:	2918      	cmp	r1, #24
+ 120:	d103      	bne.n	12a <time_cal+0x12a>
+ 122:	4918      	ldr	r1, [pc, #96]	; (184 <time_cal+0x184>)
+ 124:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+ 128:	6148      	str	r0, [r1, #20]
+D:\sunny\stm32\therme\Project\src/main.c:904
+
+					if(dels[i]==15) buz_on;
+ 12a:	7891      	ldrb	r1, [r2, #2]
+ 12c:	290f      	cmp	r1, #15
+ 12e:	d103      	bne.n	138 <time_cal+0x138>
+ 130:	4914      	ldr	r1, [pc, #80]	; (184 <time_cal+0x184>)
+ 132:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+ 136:	6108      	str	r0, [r1, #16]
+D:\sunny\stm32\therme\Project\src/main.c:905
+					if(dels[i]==14) buz_off;
+ 138:	7891      	ldrb	r1, [r2, #2]
+ 13a:	290e      	cmp	r1, #14
+ 13c:	d103      	bne.n	146 <time_cal+0x146>
+ 13e:	4911      	ldr	r1, [pc, #68]	; (184 <time_cal+0x184>)
+ 140:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+ 144:	6148      	str	r0, [r1, #20]
+D:\sunny\stm32\therme\Project\src/main.c:907
+
+					if(dels[i]==5) buz_on;
+ 146:	7891      	ldrb	r1, [r2, #2]
+ 148:	2905      	cmp	r1, #5
+ 14a:	d103      	bne.n	154 <time_cal+0x154>
+ 14c:	490d      	ldr	r1, [pc, #52]	; (184 <time_cal+0x184>)
+ 14e:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+ 152:	6108      	str	r0, [r1, #16]
+D:\sunny\stm32\therme\Project\src/main.c:908
+					if(dels[i]==4) buz_off;
+ 154:	7892      	ldrb	r2, [r2, #2]
+ 156:	2a04      	cmp	r2, #4
+ 158:	d103      	bne.n	162 <time_cal+0x162>
+ 15a:	4a0a      	ldr	r2, [pc, #40]	; (184 <time_cal+0x184>)
+ 15c:	f44f 4100 	mov.w	r1, #32768	; 0x8000
+ 160:	6151      	str	r1, [r2, #20]
+D:\sunny\stm32\therme\Project\src/main.c:843
+{
+int i;
+if(octime>120)//120
+{
+	octime=0;
+	for(i=0;i<5;i++)
+ 162:	3301      	adds	r3, #1
+ 164:	2b05      	cmp	r3, #5
+ 166:	f47f af53 	bne.w	10 <time_cal+0x10>
+ 16a:	bdf0      	pop	{r4, r5, r6, r7, pc}
+	...
+ 184:	40011800 	.word	0x40011800
+ 188:	00000000 	.word	0x00000000
+
+Disassembly of section .text.System_Periodic_Handle:
+
+00000000 <System_Periodic_Handle>:
+System_Periodic_Handle():
+D:\sunny\stm32\therme\Project\src/main.c:924
+  * @param  None
+  * @retval None
+  */
+
+void System_Periodic_Handle(void)
+{
+   0:	4c04b510 	.word	0x4c04b510
+D:\sunny\stm32\therme\Project\src/main.c:927
+  /* Update the LCD display and the LEDs status */
+  /* Manage the IP address setting */
+  Display_Periodic_Handle(ocalTime);
+   4:	6860      	ldr	r0, [r4, #4]
+   6:	f7ff fffe 	bl	0 <Display_Periodic_Handle>
+D:\sunny\stm32\therme\Project\src/main.c:930
+
+  /* LwIP periodic services are done here */
+  LwIP_Periodic_Handle(ocalTime);
+   a:	6860      	ldr	r0, [r4, #4]
+D:\sunny\stm32\therme\Project\src/main.c:932
+
+}
+   c:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Project\src/main.c:930
+  /* Update the LCD display and the LEDs status */
+  /* Manage the IP address setting */
+  Display_Periodic_Handle(ocalTime);
+
+  /* LwIP periodic services are done here */
+  LwIP_Periodic_Handle(ocalTime);
+  10:	f7ff bffe 	b.w	0 <LwIP_Periodic_Handle>
+  14:	00000000 	.word	0x00000000
+
+Disassembly of section .text.melloc_ar:
+
+00000000 <melloc_ar>:
+melloc_ar():
+D:\sunny\stm32\therme\Project\src/main.c:934
+
+}
+void melloc_ar(void)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Project\src/main.c:936
+
+delay_fin = (unsigned char*)malloc(10 * sizeof(unsigned char) );
+   2:	200a      	movs	r0, #10
+   4:	f7ff fffe 	bl	0 <malloc>
+   8:	4b08      	ldr	r3, [pc, #32]	; (2c <melloc_ar+0x2c>)
+   a:	6018      	str	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:937
+delh = (unsigned char*)malloc(10 * sizeof(unsigned char) );
+   c:	200a      	movs	r0, #10
+   e:	f7ff fffe 	bl	0 <malloc>
+  12:	4b07      	ldr	r3, [pc, #28]	; (30 <melloc_ar+0x30>)
+  14:	6018      	str	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:938
+delm = (unsigned char*)malloc(10 * sizeof(unsigned char) );
+  16:	200a      	movs	r0, #10
+  18:	f7ff fffe 	bl	0 <malloc>
+  1c:	4b05      	ldr	r3, [pc, #20]	; (34 <melloc_ar+0x34>)
+  1e:	6018      	str	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:939
+dels = (unsigned char*)malloc(10 * sizeof(unsigned char) );
+  20:	200a      	movs	r0, #10
+  22:	f7ff fffe 	bl	0 <malloc>
+  26:	4b04      	ldr	r3, [pc, #16]	; (38 <melloc_ar+0x38>)
+  28:	6018      	str	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:941
+
+}
+  2a:	bd08      	pop	{r3, pc}
+	...
+
+Disassembly of section .text.clear_delayfn:
+
+00000000 <clear_delayfn>:
+clear_delayfn():
+D:\sunny\stm32\therme\Project\src/main.c:943
+void clear_delayfn(void)
+{
+   0:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Project\src/main.c:947
+	u8 i;
+	for(i=0;i<10;i++)
+	{
+		delay_fin[i]=0;
+   2:	4a09      	ldr	r2, [pc, #36]	; (28 <clear_delayfn+0x28>)
+   4:	6811      	ldr	r1, [r2, #0]
+   6:	2200      	movs	r2, #0
+   8:	54ca      	strb	r2, [r1, r3]
+D:\sunny\stm32\therme\Project\src/main.c:948
+		delh[i] = 0;
+   a:	4908      	ldr	r1, [pc, #32]	; (2c <clear_delayfn+0x2c>)
+   c:	6809      	ldr	r1, [r1, #0]
+   e:	54ca      	strb	r2, [r1, r3]
+D:\sunny\stm32\therme\Project\src/main.c:949
+		delm[i] = 0;
+  10:	4907      	ldr	r1, [pc, #28]	; (30 <clear_delayfn+0x30>)
+  12:	6809      	ldr	r1, [r1, #0]
+  14:	54ca      	strb	r2, [r1, r3]
+D:\sunny\stm32\therme\Project\src/main.c:950
+		dels[i] = 0;
+  16:	4907      	ldr	r1, [pc, #28]	; (34 <clear_delayfn+0x34>)
+  18:	6809      	ldr	r1, [r1, #0]
+  1a:	54ca      	strb	r2, [r1, r3]
+  1c:	3301      	adds	r3, #1
+D:\sunny\stm32\therme\Project\src/main.c:945
+
+}
+void clear_delayfn(void)
+{
+	u8 i;
+	for(i=0;i<10;i++)
+  1e:	2b0a      	cmp	r3, #10
+  20:	d1ef      	bne.n	2 <clear_delayfn+0x2>
+D:\sunny\stm32\therme\Project\src/main.c:953
+		delh[i] = 0;
+		delm[i] = 0;
+		dels[i] = 0;
+	}
+
+	modes =0;
+  22:	4b05      	ldr	r3, [pc, #20]	; (38 <clear_delayfn+0x38>)
+  24:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:955
+
+}
+  26:	4770      	bx	lr
+	...
+
+Disassembly of section .text.eemode:
+
+00000000 <eemode>:
+eemode():
+D:\sunny\stm32\therme\Project\src/main.c:1254
+
+}
+void eemode(unsigned char mods)
+{
+	//I2C_EE_BufferRead(eep_b,mods,40);
+}
+   0:	4770      	bx	lr
+
+Disassembly of section .text.set_dat_o:
+
+00000000 <set_dat_o>:
+set_dat_o():
+D:\sunny\stm32\therme\Project\src/main.c:1256
+void set_dat_o(unsigned char i)
+{
+   0:	b507      	push	{r0, r1, r2, lr}
+D:\sunny\stm32\therme\Project\src/main.c:1257
+	ds1302Port->BSRR = ds1302Dat;
+   2:	4a0a      	ldr	r2, [pc, #40]	; (2c <set_dat_o+0x2c>)
+   4:	f44f 4380 	mov.w	r3, #16384	; 0x4000
+   8:	6113      	str	r3, [r2, #16]
+D:\sunny\stm32\therme\Project\src/main.c:1260
+
+	 GPIO_InitTypeDef GPIO_InitStructure;
+	 GPIO_InitStructure.GPIO_Pin = ds1302Dat;
+   a:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/main.c:1261
+	 GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+   e:	2303      	movs	r3, #3
+D:\sunny\stm32\therme\Project\src/main.c:1263
+
+	if(i==1)
+  10:	2801      	cmp	r0, #1
+D:\sunny\stm32\therme\Project\src/main.c:1261
+{
+	ds1302Port->BSRR = ds1302Dat;
+
+	 GPIO_InitTypeDef GPIO_InitStructure;
+	 GPIO_InitStructure.GPIO_Pin = ds1302Dat;
+	 GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  12:	f88d 3006 	strb.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Project\src/main.c:1263
+
+	if(i==1)
+  16:	d101      	bne.n	1c <set_dat_o+0x1c>
+D:\sunny\stm32\therme\Project\src/main.c:1264
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  18:	3301      	adds	r3, #1
+  1a:	e000      	b.n	1e <set_dat_o+0x1e>
+D:\sunny\stm32\therme\Project\src/main.c:1266
+	else
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  1c:	2310      	movs	r3, #16
+D:\sunny\stm32\therme\Project\src/main.c:1268
+
+		GPIO_Init(ds1302Port, &GPIO_InitStructure);
+  1e:	4803      	ldr	r0, [pc, #12]	; (2c <set_dat_o+0x2c>)
+  20:	a901      	add	r1, sp, #4
+D:\sunny\stm32\therme\Project\src/main.c:1266
+	 GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+
+	if(i==1)
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+	else
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  22:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Project\src/main.c:1268
+
+		GPIO_Init(ds1302Port, &GPIO_InitStructure);
+  26:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/main.c:1269
+}
+  2a:	bd0e      	pop	{r1, r2, r3, pc}
+  2c:	40011400 	.word	0x40011400
+
+Disassembly of section .text.SendDat_1302:
+
+00000000 <SendDat_1302>:
+SendDat_1302():
+D:\sunny\stm32\therme\Project\src/main.c:1273
+
+
+void SendDat_1302(u8 Dat)
+{ u8 i;
+   0:	b510      	push	{r4, lr}
+   2:	2208      	movs	r2, #8
+D:\sunny\stm32\therme\Project\src/main.c:1278
+ u8 cTmp;
+//printU(Dat);
+ for(i=0;i<8;i++)
+ {
+	 ds1302Port->BRR = ds1302Clk;
+   4:	4b09      	ldr	r3, [pc, #36]	; (2c <SendDat_1302+0x2c>)
+   6:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+   a:	6159      	str	r1, [r3, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1285
+
+
+	cTmp=Dat&0x01;
+
+
+	if(cTmp == 0x01)    //1
+   c:	f010 0f01 	tst.w	r0, #1
+  10:	460c      	mov	r4, r1
+  12:	f44f 4180 	mov.w	r1, #16384	; 0x4000
+D:\sunny\stm32\therme\Project\src/main.c:1286
+		ds1302Port->BSRR = ds1302Dat;
+  16:	bf14      	ite	ne
+  18:	6119      	strne	r1, [r3, #16]
+D:\sunny\stm32\therme\Project\src/main.c:1288
+	else
+	ds1302Port->BRR = ds1302Dat;
+  1a:	6159      	streq	r1, [r3, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1293
+
+	Dat>>=1;
+	uDelay(1);
+
+	ds1302Port->BSRR = ds1302Clk;
+  1c:	3a01      	subs	r2, #1
+  1e:	b2d2      	uxtb	r2, r2
+  20:	611c      	str	r4, [r3, #16]
+D:\sunny\stm32\therme\Project\src/main.c:1276
+
+void SendDat_1302(u8 Dat)
+{ u8 i;
+ u8 cTmp;
+//printU(Dat);
+ for(i=0;i<8;i++)
+  22:	b10a      	cbz	r2, 28 <SendDat_1302+0x28>
+D:\sunny\stm32\therme\Project\src/main.c:1290
+	if(cTmp == 0x01)    //1
+		ds1302Port->BSRR = ds1302Dat;
+	else
+	ds1302Port->BRR = ds1302Dat;
+
+	Dat>>=1;
+  24:	0840      	lsrs	r0, r0, #1
+  26:	e7ed      	b.n	4 <SendDat_1302+0x4>
+  28:	bd10      	pop	{r4, pc}
+  2a:	bf00      	nop
+  2c:	40011400 	.word	0x40011400
+
+Disassembly of section .text.WriteByte_1302:
+
+00000000 <WriteByte_1302>:
+WriteByte_1302():
+D:\sunny\stm32\therme\Project\src/main.c:1299
+	uDelay(1);
+ }
+}
+
+void WriteByte_1302(u8 CmdDat,u8 Num,u8 *pSend)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Project\src/main.c:1301
+ u8 i=0;
+	ds1302Port->BRR = ds1302Rst;
+   4:	4e12      	ldr	r6, [pc, #72]	; (50 <WriteByte_1302+0x50>)
+D:\sunny\stm32\therme\Project\src/main.c:1302
+	ds1302Port->BRR = ds1302Clk;
+   6:	f44f 5300 	mov.w	r3, #8192	; 0x2000
+D:\sunny\stm32\therme\Project\src/main.c:1301
+}
+
+void WriteByte_1302(u8 CmdDat,u8 Num,u8 *pSend)
+{
+ u8 i=0;
+	ds1302Port->BRR = ds1302Rst;
+   a:	f44f 4700 	mov.w	r7, #32768	; 0x8000
+D:\sunny\stm32\therme\Project\src/main.c:1299
+	uDelay(1);
+ }
+}
+
+void WriteByte_1302(u8 CmdDat,u8 Num,u8 *pSend)
+{
+   e:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Project\src/main.c:1301
+ u8 i=0;
+	ds1302Port->BRR = ds1302Rst;
+  10:	6177      	str	r7, [r6, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1304
+	ds1302Port->BRR = ds1302Clk;
+
+	 set_dat_o(0);
+  12:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Project\src/main.c:1302
+
+void WriteByte_1302(u8 CmdDat,u8 Num,u8 *pSend)
+{
+ u8 i=0;
+	ds1302Port->BRR = ds1302Rst;
+	ds1302Port->BRR = ds1302Clk;
+  14:	6173      	str	r3, [r6, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1299
+	uDelay(1);
+ }
+}
+
+void WriteByte_1302(u8 CmdDat,u8 Num,u8 *pSend)
+{
+  16:	4690      	mov	r8, r2
+  18:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Project\src/main.c:1304
+ u8 i=0;
+	ds1302Port->BRR = ds1302Rst;
+	ds1302Port->BRR = ds1302Clk;
+
+	 set_dat_o(0);
+  1a:	f7ff fffe 	bl	0 <WriteByte_1302>
+D:\sunny\stm32\therme\Project\src/main.c:1307
+	uDelay(1);
+	//printU(100);
+	ds1302Port->BSRR = ds1302Rst;
+  1e:	6137      	str	r7, [r6, #16]
+D:\sunny\stm32\therme\Project\src/main.c:1309
+	uDelay(1);
+	SendDat_1302(CmdDat);
+  20:	4620      	mov	r0, r4
+  22:	f7ff fffe 	bl	0 <WriteByte_1302>
+  26:	4646      	mov	r6, r8
+D:\sunny\stm32\therme\Project\src/main.c:1310
+	for(i=0;i<Num;i++)
+  28:	2400      	movs	r4, #0
+  2a:	e005      	b.n	38 <WriteByte_1302+0x38>
+D:\sunny\stm32\therme\Project\src/main.c:1312
+	{
+		SendDat_1302(*(pSend+i));
+  2c:	f816 0b01 	ldrb.w	r0, [r6], #1
+  30:	f7ff fffe 	bl	0 <WriteByte_1302>
+D:\sunny\stm32\therme\Project\src/main.c:1310
+	uDelay(1);
+	//printU(100);
+	ds1302Port->BSRR = ds1302Rst;
+	uDelay(1);
+	SendDat_1302(CmdDat);
+	for(i=0;i<Num;i++)
+  34:	3401      	adds	r4, #1
+  36:	b2e4      	uxtb	r4, r4
+  38:	42ac      	cmp	r4, r5
+  3a:	d3f7      	bcc.n	2c <WriteByte_1302+0x2c>
+D:\sunny\stm32\therme\Project\src/main.c:1315
+	{
+		SendDat_1302(*(pSend+i));
+	}
+	uDelay(1);
+	ds1302Port->BRR = ds1302Rst;
+  3c:	4b04      	ldr	r3, [pc, #16]	; (50 <WriteByte_1302+0x50>)
+  3e:	f44f 4200 	mov.w	r2, #32768	; 0x8000
+  42:	615a      	str	r2, [r3, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1317
+	uDelay(1);
+	ds1302Port->BRR = ds1302Clk;
+  44:	f44f 5200 	mov.w	r2, #8192	; 0x2000
+  48:	615a      	str	r2, [r3, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1318
+}
+  4a:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+  4e:	bf00      	nop
+  50:	40011400 	.word	0x40011400
+
+Disassembly of section .text.set_date:
+
+00000000 <set_date>:
+set_date():
+D:\sunny\stm32\therme\Project\src/main.c:754
+	printUART1((unsigned int *)uart_buf);
+	printUART2((unsigned int *)uart_buf);
+
+}
+void set_date(unsigned char *te)
+{
+   0:	b530      	push	{r4, r5, lr}
+   2:	4602      	mov	r2, r0
+   4:	4603      	mov	r3, r0
+D:\sunny\stm32\therme\Project\src/main.c:753
+	sprintf(uart_buf,"%d-%d-%d %d:%d:%d day %d\r\n",rtc[3],rtc[4],rtc[6],rtc[2],rtc[1],rtc[0],rtc[5]);
+	printUART1((unsigned int *)uart_buf);
+	printUART2((unsigned int *)uart_buf);
+
+}
+void set_date(unsigned char *te)
+   6:	1dc5      	adds	r5, r0, #7
+D:\sunny\stm32\therme\Project\src/main.c:763
+						//te[i]=((te[i]/10)<<4)|(te[i]%10);
+
+
+			for(i=0;i<7;i++)
+			{
+				temp=te[i]/10;
+   8:	781c      	ldrb	r4, [r3, #0]
+   a:	200a      	movs	r0, #10
+   c:	fbb4 f1f0 	udiv	r1, r4, r0
+D:\sunny\stm32\therme\Project\src/main.c:764
+				te[i]=te[i]%10+temp*16;
+  10:	fb00 4011 	mls	r0, r0, r1, r4
+  14:	eb00 1101 	add.w	r1, r0, r1, lsl #4
+  18:	f803 1b01 	strb.w	r1, [r3], #1
+D:\sunny\stm32\therme\Project\src/main.c:761
+
+			u8 temp;
+						//te[i]=((te[i]/10)<<4)|(te[i]%10);
+
+
+			for(i=0;i<7;i++)
+  1c:	42ab      	cmp	r3, r5
+  1e:	d1f3      	bne.n	8 <set_date+0x8>
+D:\sunny\stm32\therme\Project\src/main.c:768
+				temp=te[i]/10;
+				te[i]=te[i]%10+temp*16;
+			}
+
+
+			 WriteByte_1302(WrMulti,8,te);
+  20:	20be      	movs	r0, #190	; 0xbe
+  22:	2108      	movs	r1, #8
+D:\sunny\stm32\therme\Project\src/main.c:770
+
+}
+  24:	e8bd 4030 	ldmia.w	sp!, {r4, r5, lr}
+D:\sunny\stm32\therme\Project\src/main.c:768
+				temp=te[i]/10;
+				te[i]=te[i]%10+temp*16;
+			}
+
+
+			 WriteByte_1302(WrMulti,8,te);
+  28:	f7ff bffe 	b.w	0 <set_date>
+
+Disassembly of section .text.RecByte_1302:
+
+00000000 <RecByte_1302>:
+RecByte_1302():
+D:\sunny\stm32\therme\Project\src/main.c:1324
+
+
+void RecByte_1302(u8 CmdDat,u8 Num,u8 *pRec)
+{
+	u8 i,j,tmp,cTmp;
+	ds1302Port->BRR = ds1302Rst;
+   0:	4b1d      	ldr	r3, [pc, #116]	; (78 <RecByte_1302+0x78>)
+D:\sunny\stm32\therme\Project\src/main.c:1322
+	ds1302Port->BRR = ds1302Clk;
+}
+
+
+void RecByte_1302(u8 CmdDat,u8 Num,u8 *pRec)
+{
+   2:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+   6:	460c      	mov	r4, r1
+   8:	4691      	mov	r9, r2
+D:\sunny\stm32\therme\Project\src/main.c:1325
+	u8 i,j,tmp,cTmp;
+	ds1302Port->BRR = ds1302Rst;
+	ds1302Port->BRR = ds1302Clk;
+   a:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+D:\sunny\stm32\therme\Project\src/main.c:1324
+
+
+void RecByte_1302(u8 CmdDat,u8 Num,u8 *pRec)
+{
+	u8 i,j,tmp,cTmp;
+	ds1302Port->BRR = ds1302Rst;
+   e:	f44f 4200 	mov.w	r2, #32768	; 0x8000
+  12:	615a      	str	r2, [r3, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1325
+	ds1302Port->BRR = ds1302Clk;
+  14:	6159      	str	r1, [r3, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1328
+	uDelay(1);
+	//printU(200);
+	ds1302Port->BSRR = ds1302Rst;
+  16:	611a      	str	r2, [r3, #16]
+D:\sunny\stm32\therme\Project\src/main.c:1330
+	uDelay(1);
+	SendDat_1302(CmdDat); //????
+  18:	f7ff fffe 	bl	0 <RecByte_1302>
+D:\sunny\stm32\therme\Project\src/main.c:1331
+	set_dat_o(1);
+  1c:	2001      	movs	r0, #1
+  1e:	f7ff fffe 	bl	0 <RecByte_1302>
+D:\sunny\stm32\therme\Project\src/main.c:1332
+	for(i=0;i<Num;i++)
+  22:	2500      	movs	r5, #0
+  24:	e01a      	b.n	5c <RecByte_1302+0x5c>
+  26:	2708      	movs	r7, #8
+  28:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Project\src/main.c:1337
+	{
+		tmp=0x00;
+		for(j=0;j<8;j++)
+		{
+			ds1302Port->BRR = ds1302Clk;
+  2a:	f8df 804c 	ldr.w	r8, [pc, #76]	; 78 <RecByte_1302+0x78>
+  2e:	f44f 5a00 	mov.w	sl, #8192	; 0x2000
+  32:	f8c8 a014 	str.w	sl, [r8, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1340
+			uDelay(1);
+
+			cTmp=GPIO_ReadInputDataBit(ds1302Port,ds1302Dat);
+  36:	4640      	mov	r0, r8
+  38:	f44f 4180 	mov.w	r1, #16384	; 0x4000
+  3c:	f7ff fffe 	bl	0 <GPIO_ReadInputDataBit>
+D:\sunny\stm32\therme\Project\src/main.c:1342
+
+			tmp=(cTmp<<7)|(tmp>>1);
+  40:	0876      	lsrs	r6, r6, #1
+D:\sunny\stm32\therme\Project\src/main.c:1344
+
+			ds1302Port->BSRR = ds1302Clk;
+  42:	3f01      	subs	r7, #1
+D:\sunny\stm32\therme\Project\src/main.c:1342
+			ds1302Port->BRR = ds1302Clk;
+			uDelay(1);
+
+			cTmp=GPIO_ReadInputDataBit(ds1302Port,ds1302Dat);
+
+			tmp=(cTmp<<7)|(tmp>>1);
+  44:	ea46 16c0 	orr.w	r6, r6, r0, lsl #7
+D:\sunny\stm32\therme\Project\src/main.c:1344
+
+			ds1302Port->BSRR = ds1302Clk;
+  48:	b2ff      	uxtb	r7, r7
+D:\sunny\stm32\therme\Project\src/main.c:1342
+			ds1302Port->BRR = ds1302Clk;
+			uDelay(1);
+
+			cTmp=GPIO_ReadInputDataBit(ds1302Port,ds1302Dat);
+
+			tmp=(cTmp<<7)|(tmp>>1);
+  4a:	b2f6      	uxtb	r6, r6
+D:\sunny\stm32\therme\Project\src/main.c:1344
+
+			ds1302Port->BSRR = ds1302Clk;
+  4c:	f8c8 a010 	str.w	sl, [r8, #16]
+D:\sunny\stm32\therme\Project\src/main.c:1335
+	SendDat_1302(CmdDat); //????
+	set_dat_o(1);
+	for(i=0;i<Num;i++)
+	{
+		tmp=0x00;
+		for(j=0;j<8;j++)
+  50:	2f00      	cmp	r7, #0
+  52:	d1ea      	bne.n	2a <RecByte_1302+0x2a>
+D:\sunny\stm32\therme\Project\src/main.c:1332
+	//printU(200);
+	ds1302Port->BSRR = ds1302Rst;
+	uDelay(1);
+	SendDat_1302(CmdDat); //????
+	set_dat_o(1);
+	for(i=0;i<Num;i++)
+  54:	3501      	adds	r5, #1
+D:\sunny\stm32\therme\Project\src/main.c:1347
+			tmp=(cTmp<<7)|(tmp>>1);
+
+			ds1302Port->BSRR = ds1302Clk;
+			uDelay(1);
+		}
+	*(pRec+i)=tmp;
+  56:	f809 6b01 	strb.w	r6, [r9], #1
+D:\sunny\stm32\therme\Project\src/main.c:1332
+	//printU(200);
+	ds1302Port->BSRR = ds1302Rst;
+	uDelay(1);
+	SendDat_1302(CmdDat); //????
+	set_dat_o(1);
+	for(i=0;i<Num;i++)
+  5a:	b2ed      	uxtb	r5, r5
+  5c:	42a5      	cmp	r5, r4
+  5e:	d3e2      	bcc.n	26 <RecByte_1302+0x26>
+D:\sunny\stm32\therme\Project\src/main.c:1351
+		}
+	*(pRec+i)=tmp;
+	//	printU(tmp);
+	}
+	uDelay(1);
+	ds1302Port->BRR = ds1302Rst;
+  60:	4b05      	ldr	r3, [pc, #20]	; (78 <RecByte_1302+0x78>)
+  62:	f44f 4200 	mov.w	r2, #32768	; 0x8000
+  66:	615a      	str	r2, [r3, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1354
+	uDelay(1);
+	ds1302Port->BRR = ds1302Clk;
+	set_dat_o(0);
+  68:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Project\src/main.c:1353
+	//	printU(tmp);
+	}
+	uDelay(1);
+	ds1302Port->BRR = ds1302Rst;
+	uDelay(1);
+	ds1302Port->BRR = ds1302Clk;
+  6a:	f44f 5200 	mov.w	r2, #8192	; 0x2000
+  6e:	615a      	str	r2, [r3, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1355
+	set_dat_o(0);
+}
+  70:	e8bd 47f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+D:\sunny\stm32\therme\Project\src/main.c:1354
+	}
+	uDelay(1);
+	ds1302Port->BRR = ds1302Rst;
+	uDelay(1);
+	ds1302Port->BRR = ds1302Clk;
+	set_dat_o(0);
+  74:	f7ff bffe 	b.w	0 <RecByte_1302>
+  78:	40011400 	.word	0x40011400
+
+Disassembly of section .text.Read_RTC:
+
+00000000 <Read_RTC>:
+Read_RTC():
+D:\sunny\stm32\therme\Project\src/main.c:668
+		if(locks==1) temp_1[2]=tem/100;
+
+}
+
+void Read_RTC(void)
+{
+   0:	20bfb530 	.word	0x20bfb530
+D:\sunny\stm32\therme\Project\src/main.c:671
+	u8 i;
+	//DS1307_Read(rtc);
+	RecByte_1302(RdMulti,8,rtc);
+   4:	2108      	movs	r1, #8
+D:\sunny\stm32\therme\Project\src/main.c:668
+		if(locks==1) temp_1[2]=tem/100;
+
+}
+
+void Read_RTC(void)
+{
+   6:	b089      	sub	sp, #36	; 0x24
+D:\sunny\stm32\therme\Project\src/main.c:671
+	u8 i;
+	//DS1307_Read(rtc);
+	RecByte_1302(RdMulti,8,rtc);
+   8:	4a14      	ldr	r2, [pc, #80]	; (5c <Read_RTC+0x5c>)
+   a:	f7ff fffe 	bl	0 <Read_RTC>
+   e:	4b13      	ldr	r3, [pc, #76]	; (5c <Read_RTC+0x5c>)
+D:\sunny\stm32\therme\Project\src/main.c:667
+		if(locks==1) temp_1[1]=(tem/10)%10;
+		if(locks==1) temp_1[2]=tem/100;
+
+}
+
+void Read_RTC(void)
+  10:	1dd8      	adds	r0, r3, #7
+  12:	4619      	mov	r1, r3
+D:\sunny\stm32\therme\Project\src/main.c:674
+	u8 i;
+	//DS1307_Read(rtc);
+	RecByte_1302(RdMulti,8,rtc);
+
+	for(i=0;i<7;i++)
+	rtc[i]= (rtc[i]/16)*10+rtc[i]%16;
+  14:	781a      	ldrb	r2, [r3, #0]
+  16:	0915      	lsrs	r5, r2, #4
+  18:	f002 040f 	and.w	r4, r2, #15
+  1c:	220a      	movs	r2, #10
+  1e:	fb02 4205 	mla	r2, r2, r5, r4
+  22:	f803 2b01 	strb.w	r2, [r3], #1
+D:\sunny\stm32\therme\Project\src/main.c:673
+{
+	u8 i;
+	//DS1307_Read(rtc);
+	RecByte_1302(RdMulti,8,rtc);
+
+	for(i=0;i<7;i++)
+  26:	4283      	cmp	r3, r0
+  28:	d1f4      	bne.n	14 <Read_RTC+0x14>
+D:\sunny\stm32\therme\Project\src/main.c:676
+	rtc[i]= (rtc[i]/16)*10+rtc[i]%16;
+
+		sprintf(ubuff,"%02d-%02d-%02d %02d:%02d:%02d - %d:%d:%d:%d",rtc[3],rtc[4],rtc[6],rtc[2],rtc[1],rtc[0],butt[0],butt[1],butt[2],butt[3]);
+  2a:	7988      	ldrb	r0, [r1, #6]
+  2c:	78ca      	ldrb	r2, [r1, #3]
+  2e:	790b      	ldrb	r3, [r1, #4]
+  30:	9000      	str	r0, [sp, #0]
+  32:	7888      	ldrb	r0, [r1, #2]
+  34:	9001      	str	r0, [sp, #4]
+  36:	7848      	ldrb	r0, [r1, #1]
+  38:	9002      	str	r0, [sp, #8]
+  3a:	7809      	ldrb	r1, [r1, #0]
+  3c:	9103      	str	r1, [sp, #12]
+  3e:	4908      	ldr	r1, [pc, #32]	; (60 <Read_RTC+0x60>)
+  40:	6808      	ldr	r0, [r1, #0]
+  42:	9004      	str	r0, [sp, #16]
+  44:	6848      	ldr	r0, [r1, #4]
+  46:	9005      	str	r0, [sp, #20]
+  48:	6888      	ldr	r0, [r1, #8]
+  4a:	9006      	str	r0, [sp, #24]
+  4c:	68c9      	ldr	r1, [r1, #12]
+  4e:	4805      	ldr	r0, [pc, #20]	; (64 <Read_RTC+0x64>)
+  50:	9107      	str	r1, [sp, #28]
+  52:	4905      	ldr	r1, [pc, #20]	; (68 <Read_RTC+0x68>)
+  54:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Project\src/main.c:678
+
+}
+  58:	b009      	add	sp, #36	; 0x24
+  5a:	bd30      	pop	{r4, r5, pc}
+	...
+  68:	00000054 	.word	0x00000054
+
+Disassembly of section .text.WrCmd:
+
+00000000 <WrCmd>:
+WrCmd():
+D:\sunny\stm32\therme\Project\src/main.c:1359
+	set_dat_o(0);
+}
+
+
+void WrCmd(u8 CmdDat,u8 CmdWord)
+{
+   0:	b507      	push	{r0, r1, r2, lr}
+D:\sunny\stm32\therme\Project\src/main.c:1361
+	u8 CmdBuf[2];
+	CmdBuf[0]=CmdWord;
+   2:	aa02      	add	r2, sp, #8
+   4:	f802 1d04 	strb.w	r1, [r2, #-4]!
+D:\sunny\stm32\therme\Project\src/main.c:1362
+	WriteByte_1302(CmdDat,1,CmdBuf);
+   8:	2101      	movs	r1, #1
+   a:	f7ff fffe 	bl	0 <WrCmd>
+D:\sunny\stm32\therme\Project\src/main.c:1363
+}
+   e:	bd0e      	pop	{r1, r2, r3, pc}
+
+Disassembly of section .text.Ds1302_int:
+
+00000000 <Ds1302_int>:
+Ds1302_int():
+D:\sunny\stm32\therme\Project\src/main.c:1366
+
+void Ds1302_int()
+{
+   0:	b530      	push	{r4, r5, lr}
+   2:	b085      	sub	sp, #20
+D:\sunny\stm32\therme\Project\src/main.c:1371
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	GPIO_InitStructure.GPIO_Pin =  ds1302Clk | ds1302Rst ;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+   4:	2403      	movs	r4, #3
+D:\sunny\stm32\therme\Project\src/main.c:1370
+void Ds1302_int()
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	GPIO_InitStructure.GPIO_Pin =  ds1302Clk | ds1302Rst ;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+   6:	2510      	movs	r5, #16
+D:\sunny\stm32\therme\Project\src/main.c:1369
+
+void Ds1302_int()
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	GPIO_InitStructure.GPIO_Pin =  ds1302Clk | ds1302Rst ;
+   8:	f24a 0300 	movw	r3, #40960	; 0xa000
+D:\sunny\stm32\therme\Project\src/main.c:1372
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(ds1302Port, &GPIO_InitStructure);
+   c:	a903      	add	r1, sp, #12
+   e:	4822      	ldr	r0, [pc, #136]	; (98 <Ds1302_int+0x98>)
+D:\sunny\stm32\therme\Project\src/main.c:1369
+
+void Ds1302_int()
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	GPIO_InitStructure.GPIO_Pin =  ds1302Clk | ds1302Rst ;
+  10:	f8ad 300c 	strh.w	r3, [sp, #12]
+D:\sunny\stm32\therme\Project\src/main.c:1371
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  14:	f88d 400e 	strb.w	r4, [sp, #14]
+D:\sunny\stm32\therme\Project\src/main.c:1370
+void Ds1302_int()
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	GPIO_InitStructure.GPIO_Pin =  ds1302Clk | ds1302Rst ;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  18:	f88d 500f 	strb.w	r5, [sp, #15]
+D:\sunny\stm32\therme\Project\src/main.c:1372
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(ds1302Port, &GPIO_InitStructure);
+  1c:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/main.c:1375
+
+
+	GPIO_InitStructure.GPIO_Pin =  ds1302Dat;
+  20:	f44f 4380 	mov.w	r3, #16384	; 0x4000
+D:\sunny\stm32\therme\Project\src/main.c:1378
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(ds1302Port, &GPIO_InitStructure);
+  24:	a903      	add	r1, sp, #12
+  26:	481c      	ldr	r0, [pc, #112]	; (98 <Ds1302_int+0x98>)
+D:\sunny\stm32\therme\Project\src/main.c:1375
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(ds1302Port, &GPIO_InitStructure);
+
+
+	GPIO_InitStructure.GPIO_Pin =  ds1302Dat;
+  28:	f8ad 300c 	strh.w	r3, [sp, #12]
+D:\sunny\stm32\therme\Project\src/main.c:1377
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  2c:	f88d 400e 	strb.w	r4, [sp, #14]
+D:\sunny\stm32\therme\Project\src/main.c:1376
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(ds1302Port, &GPIO_InitStructure);
+
+
+	GPIO_InitStructure.GPIO_Pin =  ds1302Dat;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  30:	f88d 500f 	strb.w	r5, [sp, #15]
+D:\sunny\stm32\therme\Project\src/main.c:1378
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(ds1302Port, &GPIO_InitStructure);
+  34:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/main.c:1380
+
+	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_15;
+  38:	f248 0300 	movw	r3, #32768	; 0x8000
+D:\sunny\stm32\therme\Project\src/main.c:1382
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  3c:	f88d 400e 	strb.w	r4, [sp, #14]
+D:\sunny\stm32\therme\Project\src/main.c:1383
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
+  40:	a903      	add	r1, sp, #12
+D:\sunny\stm32\therme\Project\src/main.c:1385
+
+	u8 Ds1302SendBuf[8]={0x30,0x32,0x01,0x10,0x01,0x01,0x08,33};
+  42:	3405      	adds	r4, #5
+D:\sunny\stm32\therme\Project\src/main.c:1383
+	GPIO_Init(ds1302Port, &GPIO_InitStructure);
+
+	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_15;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
+  44:	4815      	ldr	r0, [pc, #84]	; (9c <Ds1302_int+0x9c>)
+D:\sunny\stm32\therme\Project\src/main.c:1380
+	GPIO_InitStructure.GPIO_Pin =  ds1302Dat;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(ds1302Port, &GPIO_InitStructure);
+
+	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_15;
+  46:	f8ad 300c 	strh.w	r3, [sp, #12]
+D:\sunny\stm32\therme\Project\src/main.c:1381
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  4a:	f88d 500f 	strb.w	r5, [sp, #15]
+D:\sunny\stm32\therme\Project\src/main.c:1383
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
+  4e:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/main.c:1385
+
+	u8 Ds1302SendBuf[8]={0x30,0x32,0x01,0x10,0x01,0x01,0x08,33};
+  52:	4622      	mov	r2, r4
+  54:	a801      	add	r0, sp, #4
+  56:	4912      	ldr	r1, [pc, #72]	; (a0 <Ds1302_int+0xa0>)
+  58:	f7ff fffe 	bl	0 <memcpy>
+D:\sunny\stm32\therme\Project\src/main.c:1392
+	//printU(2);
+	//WrCmd(WrEnDisCmd,WrEnDat);  //???
+	//printU(3);
+	//WrCmd(OscEnDisCmd,OscEnDat); //?????
+	//printU(4);
+	Ds1302SendBuf[0] = 0;
+  5c:	2300      	movs	r3, #0
+  5e:	f88d 3004 	strb.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/main.c:1394
+	Ds1302SendBuf[1] = 8;
+	Ds1302SendBuf[2] = 15;
+  62:	330f      	adds	r3, #15
+  64:	f88d 3006 	strb.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Project\src/main.c:1395
+	Ds1302SendBuf[3] = 14;
+  68:	3b01      	subs	r3, #1
+D:\sunny\stm32\therme\Project\src/main.c:1397
+	Ds1302SendBuf[4] = 10;
+	Ds1302SendBuf[5] = 7;
+  6a:	2207      	movs	r2, #7
+D:\sunny\stm32\therme\Project\src/main.c:1395
+	//WrCmd(OscEnDisCmd,OscEnDat); //?????
+	//printU(4);
+	Ds1302SendBuf[0] = 0;
+	Ds1302SendBuf[1] = 8;
+	Ds1302SendBuf[2] = 15;
+	Ds1302SendBuf[3] = 14;
+  6c:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Project\src/main.c:1396
+	Ds1302SendBuf[4] = 10;
+  70:	3b04      	subs	r3, #4
+  72:	f88d 3008 	strb.w	r3, [sp, #8]
+D:\sunny\stm32\therme\Project\src/main.c:1397
+	Ds1302SendBuf[5] = 7;
+  76:	f88d 2009 	strb.w	r2, [sp, #9]
+D:\sunny\stm32\therme\Project\src/main.c:1398
+	Ds1302SendBuf[6] = 10;
+  7a:	f88d 300a 	strb.w	r3, [sp, #10]
+D:\sunny\stm32\therme\Project\src/main.c:1400
+	Ds1302SendBuf[7] = 33;
+ WriteByte_1302(WrMulti,8,Ds1302SendBuf);
+  7e:	20be      	movs	r0, #190	; 0xbe
+D:\sunny\stm32\therme\Project\src/main.c:1399
+	Ds1302SendBuf[2] = 15;
+	Ds1302SendBuf[3] = 14;
+	Ds1302SendBuf[4] = 10;
+	Ds1302SendBuf[5] = 7;
+	Ds1302SendBuf[6] = 10;
+	Ds1302SendBuf[7] = 33;
+  80:	3317      	adds	r3, #23
+D:\sunny\stm32\therme\Project\src/main.c:1400
+ WriteByte_1302(WrMulti,8,Ds1302SendBuf);
+  82:	4621      	mov	r1, r4
+  84:	aa01      	add	r2, sp, #4
+D:\sunny\stm32\therme\Project\src/main.c:1393
+	//WrCmd(WrEnDisCmd,WrEnDat);  //???
+	//printU(3);
+	//WrCmd(OscEnDisCmd,OscEnDat); //?????
+	//printU(4);
+	Ds1302SendBuf[0] = 0;
+	Ds1302SendBuf[1] = 8;
+  86:	f88d 4005 	strb.w	r4, [sp, #5]
+D:\sunny\stm32\therme\Project\src/main.c:1399
+	Ds1302SendBuf[2] = 15;
+	Ds1302SendBuf[3] = 14;
+	Ds1302SendBuf[4] = 10;
+	Ds1302SendBuf[5] = 7;
+	Ds1302SendBuf[6] = 10;
+	Ds1302SendBuf[7] = 33;
+  8a:	f88d 300b 	strb.w	r3, [sp, #11]
+D:\sunny\stm32\therme\Project\src/main.c:1400
+ WriteByte_1302(WrMulti,8,Ds1302SendBuf);
+  8e:	f7ff fffe 	bl	0 <Ds1302_int>
+D:\sunny\stm32\therme\Project\src/main.c:1405
+	//set_date(Ds1302SendBuf);
+ //WriteByte_1302(WrMulti,8,Ds1302SendBuf);//??????DS1302?
+  // ?????,
+
+}
+  92:	b005      	add	sp, #20
+  94:	bd30      	pop	{r4, r5, pc}
+  96:	bf00      	nop
+  98:	40011400 	.word	0x40011400
+  9c:	40011800 	.word	0x40011800
+  a0:	00000000 	.word	0x00000000
+
+Disassembly of section .text.uDelay:
+
+00000000 <uDelay>:
+uDelay():
+D:\sunny\stm32\therme\Project\src/main.c:1415
+	dd=0;
+		while(10000>dd)
+		{
+			dd++;
+		}
+}
+   0:	4770      	bx	lr
+
+Disassembly of section .text.out_toggle_s:
+
+00000000 <out_toggle_s>:
+out_toggle_s():
+D:\sunny\stm32\therme\Project\src/main.c:1417
+void out_toggle_s(out_TypeDef out)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Project\src/main.c:1421
+	unsigned char uii;
+	uii = 1;
+	unsigned char ii;
+	ii = read_inp(out);
+   4:	f7ff fffe 	bl	0 <read_inp>
+D:\sunny\stm32\therme\Project\src/main.c:1422
+if(start==0)
+   8:	4b16      	ldr	r3, [pc, #88]	; (64 <out_toggle_s+0x64>)
+   a:	781b      	ldrb	r3, [r3, #0]
+   c:	2b00      	cmp	r3, #0
+   e:	d127      	bne.n	60 <out_toggle_s+0x60>
+D:\sunny\stm32\therme\Project\src/main.c:1421
+void out_toggle_s(out_TypeDef out)
+{
+	unsigned char uii;
+	uii = 1;
+	unsigned char ii;
+	ii = read_inp(out);
+  10:	b2c0      	uxtb	r0, r0
+D:\sunny\stm32\therme\Project\src/main.c:1424
+if(start==0)
+{
+	if(out == 0)
+  12:	b97c      	cbnz	r4, 34 <out_toggle_s+0x34>
+  14:	4b14      	ldr	r3, [pc, #80]	; (68 <out_toggle_s+0x68>)
+D:\sunny\stm32\therme\Project\src/main.c:1426
+	{
+		if(ii)
+  16:	b128      	cbz	r0, 24 <out_toggle_s+0x24>
+D:\sunny\stm32\therme\Project\src/main.c:1428
+		{
+			leds[2] = 2;
+  18:	4a14      	ldr	r2, [pc, #80]	; (6c <out_toggle_s+0x6c>)
+  1a:	2102      	movs	r1, #2
+  1c:	7091      	strb	r1, [r2, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1429
+			delay_fin[1] = 1;
+  1e:	681b      	ldr	r3, [r3, #0]
+  20:	2201      	movs	r2, #1
+  22:	e00c      	b.n	3e <out_toggle_s+0x3e>
+D:\sunny\stm32\therme\Project\src/main.c:1433
+		}
+		else
+		{
+			if(delay_fin[1] == 2) uii = 2;
+  24:	681b      	ldr	r3, [r3, #0]
+  26:	785b      	ldrb	r3, [r3, #1]
+  28:	2b02      	cmp	r3, #2
+  2a:	d019      	beq.n	60 <out_toggle_s+0x60>
+D:\sunny\stm32\therme\Project\src/main.c:1436
+			else
+			{
+				leds[2] = 1;
+  2c:	4b0f      	ldr	r3, [pc, #60]	; (6c <out_toggle_s+0x6c>)
+  2e:	2201      	movs	r2, #1
+  30:	709a      	strb	r2, [r3, #2]
+  32:	e010      	b.n	56 <out_toggle_s+0x56>
+D:\sunny\stm32\therme\Project\src/main.c:1441
+			}
+		}
+	}
+
+	if(out == 1)
+  34:	2c01      	cmp	r4, #1
+  36:	d106      	bne.n	46 <out_toggle_s+0x46>
+  38:	4b0c      	ldr	r3, [pc, #48]	; (6c <out_toggle_s+0x6c>)
+D:\sunny\stm32\therme\Project\src/main.c:1443
+	{
+		if(ii) leds[1] = 2;
+  3a:	b110      	cbz	r0, 42 <out_toggle_s+0x42>
+  3c:	2202      	movs	r2, #2
+  3e:	705a      	strb	r2, [r3, #1]
+  40:	e009      	b.n	56 <out_toggle_s+0x56>
+D:\sunny\stm32\therme\Project\src/main.c:1444
+		else leds[1] = 1;
+  42:	705c      	strb	r4, [r3, #1]
+  44:	e007      	b.n	56 <out_toggle_s+0x56>
+D:\sunny\stm32\therme\Project\src/main.c:1447
+	}
+
+	if(out == 2)
+  46:	2c02      	cmp	r4, #2
+  48:	d105      	bne.n	56 <out_toggle_s+0x56>
+  4a:	4b08      	ldr	r3, [pc, #32]	; (6c <out_toggle_s+0x6c>)
+D:\sunny\stm32\therme\Project\src/main.c:1449
+	{
+		if(ii) leds[3] = 2;
+  4c:	b108      	cbz	r0, 52 <out_toggle_s+0x52>
+  4e:	70dc      	strb	r4, [r3, #3]
+  50:	e001      	b.n	56 <out_toggle_s+0x56>
+D:\sunny\stm32\therme\Project\src/main.c:1450
+		else leds[3] = 1;
+  52:	2201      	movs	r2, #1
+  54:	70da      	strb	r2, [r3, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1460
+		uii = 0;
+	}
+	}*/
+	if(uii==1)
+	{
+		out_toggle(out);
+  56:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Project\src/main.c:1463
+	}
+}
+}
+  58:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Project\src/main.c:1460
+		uii = 0;
+	}
+	}*/
+	if(uii==1)
+	{
+		out_toggle(out);
+  5c:	f7ff bffe 	b.w	0 <out_toggle>
+  60:	bd10      	pop	{r4, pc}
+  62:	bf00      	nop
+	...
+
+Disassembly of section .text.outpp:
+
+00000000 <outpp>:
+outpp():
+D:\sunny\stm32\therme\Project\src/main.c:1465
+	}
+}
+}
+void outpp(unsigned char val)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Project\src/main.c:1467
+
+	if(sdoor==1)
+   2:	4b26      	ldr	r3, [pc, #152]	; (9c <outpp+0x9c>)
+D:\sunny\stm32\therme\Project\src/main.c:1465
+		out_toggle(out);
+	}
+}
+}
+void outpp(unsigned char val)
+{
+   4:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Project\src/main.c:1467
+
+	if(sdoor==1)
+   6:	781b      	ldrb	r3, [r3, #0]
+   8:	2b01      	cmp	r3, #1
+   a:	d102      	bne.n	12 <outpp+0x12>
+D:\sunny\stm32\therme\Project\src/main.c:1469
+	{
+		val &= ebuff[29]; // 26
+   c:	4b24      	ldr	r3, [pc, #144]	; (a0 <outpp+0xa0>)
+   e:	7f5b      	ldrb	r3, [r3, #29]
+  10:	e007      	b.n	22 <outpp+0x22>
+D:\sunny\stm32\therme\Project\src/main.c:1471
+	}
+	else if(sdoor==8)
+  12:	2b08      	cmp	r3, #8
+  14:	d102      	bne.n	1c <outpp+0x1c>
+D:\sunny\stm32\therme\Project\src/main.c:1473
+	{
+		val &= ebuff[30]; // 27
+  16:	4b22      	ldr	r3, [pc, #136]	; (a0 <outpp+0xa0>)
+  18:	7f9b      	ldrb	r3, [r3, #30]
+  1a:	e002      	b.n	22 <outpp+0x22>
+D:\sunny\stm32\therme\Project\src/main.c:1475
+	}
+	else if(sdoor>=9)
+  1c:	d902      	bls.n	24 <outpp+0x24>
+D:\sunny\stm32\therme\Project\src/main.c:1477
+	{
+		val &= ebuff[31]; // 28
+  1e:	4b20      	ldr	r3, [pc, #128]	; (a0 <outpp+0xa0>)
+  20:	7fdb      	ldrb	r3, [r3, #31]
+  22:	401c      	ands	r4, r3
+D:\sunny\stm32\therme\Project\src/main.c:1480
+	}
+
+	if(read_inp(k0))
+  24:	2000      	movs	r0, #0
+  26:	f7ff fffe 	bl	0 <read_inp>
+  2a:	f004 0301 	and.w	r3, r4, #1
+  2e:	4a1d      	ldr	r2, [pc, #116]	; (a4 <outpp+0xa4>)
+  30:	491d      	ldr	r1, [pc, #116]	; (a8 <outpp+0xa8>)
+  32:	b140      	cbz	r0, 46 <outpp+0x46>
+  34:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Project\src/main.c:1482
+	{
+		if((val & 0x01)==0x01)
+  36:	b11b      	cbz	r3, 40 <outpp+0x40>
+D:\sunny\stm32\therme\Project\src/main.c:1485
+		{
+			leds[2] = 1;
+			delay_fin[3] = 1;
+  38:	680b      	ldr	r3, [r1, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1484
+
+	if(read_inp(k0))
+	{
+		if((val & 0x01)==0x01)
+		{
+			leds[2] = 1;
+  3a:	7090      	strb	r0, [r2, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1485
+			delay_fin[3] = 1;
+  3c:	70d8      	strb	r0, [r3, #3]
+  3e:	e01a      	b.n	76 <outpp+0x76>
+D:\sunny\stm32\therme\Project\src/main.c:1489
+		}
+		else
+		{
+			delay_fin[1] = 1;
+  40:	680d      	ldr	r5, [r1, #0]
+  42:	7068      	strb	r0, [r5, #1]
+  44:	e00a      	b.n	5c <outpp+0x5c>
+D:\sunny\stm32\therme\Project\src/main.c:1499
+				dels[3] = 0;
+		}
+	}
+	else
+	{
+		if((val & 0x01)==0x01)
+  46:	b14b      	cbz	r3, 5c <outpp+0x5c>
+D:\sunny\stm32\therme\Project\src/main.c:1501
+		{
+			if(delay_fin[1] == 2) val &= 0xfe;
+  48:	680b      	ldr	r3, [r1, #0]
+  4a:	785b      	ldrb	r3, [r3, #1]
+  4c:	2b02      	cmp	r3, #2
+  4e:	d102      	bne.n	56 <outpp+0x56>
+  50:	f004 04fe 	and.w	r4, r4, #254	; 0xfe
+  54:	e00f      	b.n	76 <outpp+0x76>
+D:\sunny\stm32\therme\Project\src/main.c:1504
+			else
+			{
+				leds[2] = 1;
+  56:	2301      	movs	r3, #1
+  58:	7093      	strb	r3, [r2, #2]
+  5a:	e00c      	b.n	76 <outpp+0x76>
+D:\sunny\stm32\therme\Project\src/main.c:1510
+			}
+		}
+		else
+		{
+			leds[2] = 2;
+			delay_fin[3] = 0;
+  5c:	6809      	ldr	r1, [r1, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1509
+				leds[2] = 1;
+			}
+		}
+		else
+		{
+			leds[2] = 2;
+  5e:	2002      	movs	r0, #2
+  60:	7090      	strb	r0, [r2, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1510
+			delay_fin[3] = 0;
+  62:	70cb      	strb	r3, [r1, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1511
+				delh[3] = 0;
+  64:	4911      	ldr	r1, [pc, #68]	; (ac <outpp+0xac>)
+  66:	6809      	ldr	r1, [r1, #0]
+  68:	70cb      	strb	r3, [r1, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1512
+				delm[3] = 0;
+  6a:	4911      	ldr	r1, [pc, #68]	; (b0 <outpp+0xb0>)
+  6c:	6809      	ldr	r1, [r1, #0]
+  6e:	70cb      	strb	r3, [r1, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1513
+				dels[3] = 0;
+  70:	4910      	ldr	r1, [pc, #64]	; (b4 <outpp+0xb4>)
+  72:	6809      	ldr	r1, [r1, #0]
+  74:	70cb      	strb	r3, [r1, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1517
+		}
+	}
+
+	if((val & 0x02)==0x02) leds[1] = 1;
+  76:	f014 0f02 	tst.w	r4, #2
+  7a:	d001      	beq.n	80 <outpp+0x80>
+  7c:	2301      	movs	r3, #1
+  7e:	e000      	b.n	82 <outpp+0x82>
+D:\sunny\stm32\therme\Project\src/main.c:1518
+	else leds[1] = 2;
+  80:	2302      	movs	r3, #2
+D:\sunny\stm32\therme\Project\src/main.c:1520
+
+	if((val & 0x04)==0x04) leds[3] = 1;
+  82:	f014 0f04 	tst.w	r4, #4
+D:\sunny\stm32\therme\Project\src/main.c:1518
+				dels[3] = 0;
+		}
+	}
+
+	if((val & 0x02)==0x02) leds[1] = 1;
+	else leds[1] = 2;
+  86:	7053      	strb	r3, [r2, #1]
+D:\sunny\stm32\therme\Project\src/main.c:1520
+
+	if((val & 0x04)==0x04) leds[3] = 1;
+  88:	d001      	beq.n	8e <outpp+0x8e>
+  8a:	2301      	movs	r3, #1
+  8c:	e000      	b.n	90 <outpp+0x90>
+D:\sunny\stm32\therme\Project\src/main.c:1521
+	else leds[3] = 2;
+  8e:	2302      	movs	r3, #2
+D:\sunny\stm32\therme\Project\src/main.c:1548
+		val &= door_c;
+
+	}
+	 */
+
+	 out_write(val);
+  90:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Project\src/main.c:1521
+
+	if((val & 0x02)==0x02) leds[1] = 1;
+	else leds[1] = 2;
+
+	if((val & 0x04)==0x04) leds[3] = 1;
+	else leds[3] = 2;
+  92:	70d3      	strb	r3, [r2, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1550
+	}
+	 */
+
+	 out_write(val);
+
+}
+  94:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Project\src/main.c:1548
+		val &= door_c;
+
+	}
+	 */
+
+	 out_write(val);
+  98:	f7ff bffe 	b.w	0 <out_write>
+	...
+
+Disassembly of section .text.func_chk:
+
+00000000 <func_chk>:
+func_chk():
+D:\sunny\stm32\therme\Project\src/main.c:958
+	modes =0;
+
+}
+/* Check modes and status */
+void func_chk(unsigned char mod)
+{
+   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+D:\sunny\stm32\therme\Project\src/main.c:965
+	mi=0;
+	unsigned char em,ep;
+	unsigned char dat[7];
+
+	/*  start  ******************************************************/
+	if(start==1)
+   4:	4d88      	ldr	r5, [pc, #544]	; (228 <func_chk+0x228>)
+   6:	4c89      	ldr	r4, [pc, #548]	; (22c <func_chk+0x22c>)
+   8:	782b      	ldrb	r3, [r5, #0]
+   a:	46aa      	mov	sl, r5
+   c:	2b01      	cmp	r3, #1
+   e:	4e88      	ldr	r6, [pc, #544]	; (230 <func_chk+0x230>)
+  10:	f040 8188 	bne.w	324 <func_chk+0x324>
+D:\sunny\stm32\therme\Project\src/main.c:967
+	{
+		if(delay_fin[0]==1) // main recipe
+  14:	6823      	ldr	r3, [r4, #0]
+  16:	4d87      	ldr	r5, [pc, #540]	; (234 <func_chk+0x234>)
+  18:	781b      	ldrb	r3, [r3, #0]
+  1a:	2b01      	cmp	r3, #1
+  1c:	d145      	bne.n	aa <func_chk+0xaa>
+D:\sunny\stm32\therme\Project\src/main.c:969
+		{
+				if(modes>=4)modes=1;
+  1e:	782a      	ldrb	r2, [r5, #0]
+D:\sunny\stm32\therme\Project\src/main.c:974
+				em = modes*2;
+				//printU(em);
+				if(em>=8) em=0;
+
+			delh[0] = ebuff[em];
+  20:	4885      	ldr	r0, [pc, #532]	; (238 <func_chk+0x238>)
+D:\sunny\stm32\therme\Project\src/main.c:969
+	/*  start  ******************************************************/
+	if(start==1)
+	{
+		if(delay_fin[0]==1) // main recipe
+		{
+				if(modes>=4)modes=1;
+  22:	2a03      	cmp	r2, #3
+  24:	bf88      	it	hi
+  26:	702b      	strbhi	r3, [r5, #0]
+D:\sunny\stm32\therme\Project\src/main.c:970
+				em = modes*2;
+  28:	782b      	ldrb	r3, [r5, #0]
+D:\sunny\stm32\therme\Project\src/main.c:974
+				//printU(em);
+				if(em>=8) em=0;
+
+			delh[0] = ebuff[em];
+  2a:	4f84      	ldr	r7, [pc, #528]	; (23c <func_chk+0x23c>)
+D:\sunny\stm32\therme\Project\src/main.c:970
+	if(start==1)
+	{
+		if(delay_fin[0]==1) // main recipe
+		{
+				if(modes>=4)modes=1;
+				em = modes*2;
+  2c:	005b      	lsls	r3, r3, #1
+  2e:	b2db      	uxtb	r3, r3
+D:\sunny\stm32\therme\Project\src/main.c:972
+				//printU(em);
+				if(em>=8) em=0;
+  30:	2b07      	cmp	r3, #7
+  32:	bf88      	it	hi
+  34:	2300      	movhi	r3, #0
+D:\sunny\stm32\therme\Project\src/main.c:974
+
+			delh[0] = ebuff[em];
+  36:	5cf9      	ldrb	r1, [r7, r3]
+  38:	6802      	ldr	r2, [r0, #0]
+D:\sunny\stm32\therme\Project\src/main.c:975
+			delm[0] = ebuff[em+1];
+  3a:	18fb      	adds	r3, r7, r3
+D:\sunny\stm32\therme\Project\src/main.c:974
+				if(modes>=4)modes=1;
+				em = modes*2;
+				//printU(em);
+				if(em>=8) em=0;
+
+			delh[0] = ebuff[em];
+  3c:	7011      	strb	r1, [r2, #0]
+D:\sunny\stm32\therme\Project\src/main.c:975
+			delm[0] = ebuff[em+1];
+  3e:	4980      	ldr	r1, [pc, #512]	; (240 <func_chk+0x240>)
+  40:	785b      	ldrb	r3, [r3, #1]
+  42:	680a      	ldr	r2, [r1, #0]
+  44:	4680      	mov	r8, r0
+  46:	7013      	strb	r3, [r2, #0]
+D:\sunny\stm32\therme\Project\src/main.c:978
+
+
+			if(delm[0] == 0 && delh[0]>0)
+  48:	f8d1 e000 	ldr.w	lr, [r1]
+  4c:	4b7d      	ldr	r3, [pc, #500]	; (244 <func_chk+0x244>)
+  4e:	f89e 2000 	ldrb.w	r2, [lr]
+  52:	b972      	cbnz	r2, 72 <func_chk+0x72>
+  54:	6800      	ldr	r0, [r0, #0]
+  56:	f890 c000 	ldrb.w	ip, [r0]
+  5a:	f1bc 0f00 	cmp.w	ip, #0
+  5e:	d008      	beq.n	72 <func_chk+0x72>
+D:\sunny\stm32\therme\Project\src/main.c:980
+			{
+				delh[0]--;
+  60:	f10c 3cff 	add.w	ip, ip, #4294967295
+  64:	f880 c000 	strb.w	ip, [r0]
+D:\sunny\stm32\therme\Project\src/main.c:981
+				delm[0] = 59;
+  68:	6809      	ldr	r1, [r1, #0]
+  6a:	323b      	adds	r2, #59	; 0x3b
+  6c:	700a      	strb	r2, [r1, #0]
+D:\sunny\stm32\therme\Project\src/main.c:982
+				dels[0] = 59;
+  6e:	681b      	ldr	r3, [r3, #0]
+  70:	e00f      	b.n	92 <func_chk+0x92>
+D:\sunny\stm32\therme\Project\src/main.c:985
+				delay_fin[0] = 2;
+			}
+			else if(delh[0]<=0 && delm[0]<=0 )
+  72:	f8d8 1000 	ldr.w	r1, [r8]
+  76:	7809      	ldrb	r1, [r1, #0]
+  78:	b931      	cbnz	r1, 88 <func_chk+0x88>
+  7a:	b92a      	cbnz	r2, 88 <func_chk+0x88>
+D:\sunny\stm32\therme\Project\src/main.c:987
+			{
+				dels[0]= 1;
+  7c:	681a      	ldr	r2, [r3, #0]
+  7e:	2301      	movs	r3, #1
+  80:	7013      	strb	r3, [r2, #0]
+D:\sunny\stm32\therme\Project\src/main.c:988
+				delay_fin[0] = 1;
+  82:	6822      	ldr	r2, [r4, #0]
+  84:	7013      	strb	r3, [r2, #0]
+  86:	e008      	b.n	9a <func_chk+0x9a>
+D:\sunny\stm32\therme\Project\src/main.c:992
+			}
+			else
+			{
+				delm[0]--;
+  88:	3a01      	subs	r2, #1
+  8a:	f88e 2000 	strb.w	r2, [lr]
+D:\sunny\stm32\therme\Project\src/main.c:993
+				dels[0] = 59;
+  8e:	681b      	ldr	r3, [r3, #0]
+  90:	223b      	movs	r2, #59	; 0x3b
+  92:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:994
+				delay_fin[0] = 2;
+  94:	6823      	ldr	r3, [r4, #0]
+  96:	3a39      	subs	r2, #57	; 0x39
+  98:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:998
+			}
+
+
+			outpp(ebuff[(modes+23)]); // 22
+  9a:	782b      	ldrb	r3, [r5, #0]
+  9c:	18ff      	adds	r7, r7, r3
+  9e:	7df8      	ldrb	r0, [r7, #23]
+  a0:	f7ff fffe 	bl	0 <func_chk>
+D:\sunny\stm32\therme\Project\src/main.c:999
+			modes++;
+  a4:	782b      	ldrb	r3, [r5, #0]
+  a6:	3301      	adds	r3, #1
+  a8:	702b      	strb	r3, [r5, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1008
+		{
+
+			//chk_ru(mod);
+		}
+
+		if(modes==2)		 // recipe 1 check temp
+  aa:	782b      	ldrb	r3, [r5, #0]
+  ac:	2b02      	cmp	r3, #2
+  ae:	d123      	bne.n	f8 <func_chk+0xf8>
+D:\sunny\stm32\therme\Project\src/main.c:1010
+		{
+			buf_port = GPIO_ReadInputData(GPIOE);
+  b0:	4865      	ldr	r0, [pc, #404]	; (248 <func_chk+0x248>)
+  b2:	f7ff fffe 	bl	0 <GPIO_ReadInputData>
+  b6:	4b65      	ldr	r3, [pc, #404]	; (24c <func_chk+0x24c>)
+D:\sunny\stm32\therme\Project\src/main.c:1011
+			if(temp_p1 < ebuff[8])
+  b8:	4f60      	ldr	r7, [pc, #384]	; (23c <func_chk+0x23c>)
+D:\sunny\stm32\therme\Project\src/main.c:1010
+			//chk_ru(mod);
+		}
+
+		if(modes==2)		 // recipe 1 check temp
+		{
+			buf_port = GPIO_ReadInputData(GPIOE);
+  ba:	8018      	strh	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1011
+			if(temp_p1 < ebuff[8])
+  bc:	4b64      	ldr	r3, [pc, #400]	; (250 <func_chk+0x250>)
+  be:	f997 0008 	ldrsb.w	r0, [r7, #8]
+  c2:	e9d3 8900 	ldrd	r8, r9, [r3]
+  c6:	f7ff fffe 	bl	0 <__aeabi_i2d>
+  ca:	4602      	mov	r2, r0
+  cc:	460b      	mov	r3, r1
+  ce:	4640      	mov	r0, r8
+  d0:	4649      	mov	r1, r9
+  d2:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
+  d6:	b108      	cbz	r0, dc <func_chk+0xdc>
+D:\sunny\stm32\therme\Project\src/main.c:1013
+			{
+				outpp(ebuff[27]);
+  d8:	7ef8      	ldrb	r0, [r7, #27]
+  da:	e00b      	b.n	f4 <func_chk+0xf4>
+D:\sunny\stm32\therme\Project\src/main.c:1015
+			}
+			else if(temp_p1 > ebuff[9])
+  dc:	f997 0009 	ldrsb.w	r0, [r7, #9]
+  e0:	f7ff fffe 	bl	0 <__aeabi_i2d>
+  e4:	4602      	mov	r2, r0
+  e6:	460b      	mov	r3, r1
+  e8:	4640      	mov	r0, r8
+  ea:	4649      	mov	r1, r9
+  ec:	f7ff fffe 	bl	0 <__aeabi_dcmpgt>
+  f0:	b110      	cbz	r0, f8 <func_chk+0xf8>
+D:\sunny\stm32\therme\Project\src/main.c:1017
+			{
+				outpp(ebuff[28]);
+  f2:	7f38      	ldrb	r0, [r7, #28]
+  f4:	f7ff fffe 	bl	0 <func_chk>
+D:\sunny\stm32\therme\Project\src/main.c:1020
+			}
+		}
+		if(modes==3)					// defrost check temp
+  f8:	782b      	ldrb	r3, [r5, #0]
+  fa:	2b03      	cmp	r3, #3
+  fc:	d144      	bne.n	188 <func_chk+0x188>
+D:\sunny\stm32\therme\Project\src/main.c:1022
+		{
+			if(def == 0)
+  fe:	4f55      	ldr	r7, [pc, #340]	; (254 <func_chk+0x254>)
+ 100:	4d4e      	ldr	r5, [pc, #312]	; (23c <func_chk+0x23c>)
+ 102:	783b      	ldrb	r3, [r7, #0]
+ 104:	f8df 8154 	ldr.w	r8, [pc, #340]	; 25c <func_chk+0x25c>
+ 108:	b973      	cbnz	r3, 128 <func_chk+0x128>
+D:\sunny\stm32\therme\Project\src/main.c:1024
+			{
+				if(temp_p2 > ebuff[10])
+ 10a:	f995 000a 	ldrsb.w	r0, [r5, #10]
+ 10e:	f7ff fffe 	bl	0 <__aeabi_i2d>
+ 112:	4602      	mov	r2, r0
+ 114:	460b      	mov	r3, r1
+ 116:	e9d8 0100 	ldrd	r0, r1, [r8]
+ 11a:	f7ff fffe 	bl	0 <__aeabi_dcmpgt>
+ 11e:	b198      	cbz	r0, 148 <func_chk+0x148>
+D:\sunny\stm32\therme\Project\src/main.c:1026
+				{
+					delay_fin[0]=1;
+ 120:	6823      	ldr	r3, [r4, #0]
+ 122:	2201      	movs	r2, #1
+ 124:	701a      	strb	r2, [r3, #0]
+ 126:	e00f      	b.n	148 <func_chk+0x148>
+D:\sunny\stm32\therme\Project\src/main.c:1031
+				}
+			}
+			else
+			{
+				if(temp_p2 > ebuff[17])
+ 128:	f995 0011 	ldrsb.w	r0, [r5, #17]
+ 12c:	f7ff fffe 	bl	0 <__aeabi_i2d>
+ 130:	4602      	mov	r2, r0
+ 132:	460b      	mov	r3, r1
+ 134:	e9d8 0100 	ldrd	r0, r1, [r8]
+ 138:	f7ff fffe 	bl	0 <__aeabi_dcmpgt>
+ 13c:	b120      	cbz	r0, 148 <func_chk+0x148>
+D:\sunny\stm32\therme\Project\src/main.c:1033
+				{
+					delay_fin[0]=1;
+ 13e:	6823      	ldr	r3, [r4, #0]
+ 140:	2201      	movs	r2, #1
+ 142:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1034
+					def=0;
+ 144:	2300      	movs	r3, #0
+ 146:	703b      	strb	r3, [r7, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1039
+
+				}
+			}
+
+			if(temp_p1 > ebuff[18])
+ 148:	4b41      	ldr	r3, [pc, #260]	; (250 <func_chk+0x250>)
+ 14a:	f995 0012 	ldrsb.w	r0, [r5, #18]
+ 14e:	e9d3 8900 	ldrd	r8, r9, [r3]
+ 152:	f7ff fffe 	bl	0 <__aeabi_i2d>
+ 156:	4602      	mov	r2, r0
+ 158:	460b      	mov	r3, r1
+ 15a:	4640      	mov	r0, r8
+ 15c:	4649      	mov	r1, r9
+ 15e:	f7ff fffe 	bl	0 <__aeabi_dcmpgt>
+ 162:	b108      	cbz	r0, 168 <func_chk+0x168>
+D:\sunny\stm32\therme\Project\src/main.c:1041
+			{
+				locks = 5;
+ 164:	2205      	movs	r2, #5
+ 166:	e00c      	b.n	182 <func_chk+0x182>
+D:\sunny\stm32\therme\Project\src/main.c:1043
+			}
+			else if(temp_p1 < ebuff[19])
+ 168:	4b34      	ldr	r3, [pc, #208]	; (23c <func_chk+0x23c>)
+ 16a:	f993 0013 	ldrsb.w	r0, [r3, #19]
+ 16e:	f7ff fffe 	bl	0 <__aeabi_i2d>
+ 172:	4602      	mov	r2, r0
+ 174:	460b      	mov	r3, r1
+ 176:	4640      	mov	r0, r8
+ 178:	4649      	mov	r1, r9
+ 17a:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
+ 17e:	b118      	cbz	r0, 188 <func_chk+0x188>
+D:\sunny\stm32\therme\Project\src/main.c:1045
+			{
+				locks = 1;
+ 180:	2201      	movs	r2, #1
+ 182:	4b35      	ldr	r3, [pc, #212]	; (258 <func_chk+0x258>)
+ 184:	f883 2284 	strb.w	r2, [r3, #644]	; 0x284
+D:\sunny\stm32\therme\Project\src/main.c:1050
+			}
+
+		}
+
+		if(delay_fin[2]==1 || delay_fin[2]==3 ) // Door open delay
+ 188:	6823      	ldr	r3, [r4, #0]
+ 18a:	789b      	ldrb	r3, [r3, #2]
+ 18c:	2b01      	cmp	r3, #1
+ 18e:	d001      	beq.n	194 <func_chk+0x194>
+ 190:	2b03      	cmp	r3, #3
+ 192:	d16f      	bne.n	274 <func_chk+0x274>
+D:\sunny\stm32\therme\Project\src/main.c:1052
+		{
+			delh[2] = 0;
+ 194:	4a28      	ldr	r2, [pc, #160]	; (238 <func_chk+0x238>)
+ 196:	2100      	movs	r1, #0
+ 198:	6813      	ldr	r3, [r2, #0]
+ 19a:	4693      	mov	fp, r2
+ 19c:	7099      	strb	r1, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1054
+
+			if(delay_fin[2]==1)	delm[2] = ebuff[11];
+ 19e:	6823      	ldr	r3, [r4, #0]
+ 1a0:	4d27      	ldr	r5, [pc, #156]	; (240 <func_chk+0x240>)
+ 1a2:	789b      	ldrb	r3, [r3, #2]
+ 1a4:	2b01      	cmp	r3, #1
+ 1a6:	d103      	bne.n	1b0 <func_chk+0x1b0>
+ 1a8:	4a24      	ldr	r2, [pc, #144]	; (23c <func_chk+0x23c>)
+ 1aa:	682b      	ldr	r3, [r5, #0]
+ 1ac:	7ad2      	ldrb	r2, [r2, #11]
+ 1ae:	e017      	b.n	1e0 <func_chk+0x1e0>
+D:\sunny\stm32\therme\Project\src/main.c:1055
+			else if (delay_fin[2]==3)
+ 1b0:	2b03      	cmp	r3, #3
+ 1b2:	d129      	bne.n	208 <func_chk+0x208>
+D:\sunny\stm32\therme\Project\src/main.c:1057
+			{
+				if(sdoor == 9)
+ 1b4:	7833      	ldrb	r3, [r6, #0]
+ 1b6:	4f21      	ldr	r7, [pc, #132]	; (23c <func_chk+0x23c>)
+ 1b8:	2b09      	cmp	r3, #9
+ 1ba:	f8df 9090 	ldr.w	r9, [pc, #144]	; 24c <func_chk+0x24c>
+ 1be:	f8df 80a0 	ldr.w	r8, [pc, #160]	; 260 <func_chk+0x260>
+ 1c2:	d10f      	bne.n	1e4 <func_chk+0x1e4>
+D:\sunny\stm32\therme\Project\src/main.c:1061
+				{
+					sdoor == 11;
+					//locks = 0;
+					buf_port = GPIO_ReadInputData(GPIOE);
+ 1c4:	4820      	ldr	r0, [pc, #128]	; (248 <func_chk+0x248>)
+ 1c6:	f7ff fffe 	bl	0 <GPIO_ReadInputData>
+D:\sunny\stm32\therme\Project\src/main.c:1062
+					out_p  = ebuff[31]&(buf_port>>9);
+ 1ca:	7ffb      	ldrb	r3, [r7, #31]
+D:\sunny\stm32\therme\Project\src/main.c:1061
+			{
+				if(sdoor == 9)
+				{
+					sdoor == 11;
+					//locks = 0;
+					buf_port = GPIO_ReadInputData(GPIOE);
+ 1cc:	f8a9 0000 	strh.w	r0, [r9]
+D:\sunny\stm32\therme\Project\src/main.c:1062
+					out_p  = ebuff[31]&(buf_port>>9);
+ 1d0:	ea03 2050 	and.w	r0, r3, r0, lsr #9
+ 1d4:	f888 0000 	strb.w	r0, [r8]
+D:\sunny\stm32\therme\Project\src/main.c:1064
+
+					outpp(out_p);
+ 1d8:	f7ff fffe 	bl	0 <func_chk>
+D:\sunny\stm32\therme\Project\src/main.c:1065
+					delm[2] = 1;
+ 1dc:	682b      	ldr	r3, [r5, #0]
+ 1de:	2201      	movs	r2, #1
+ 1e0:	709a      	strb	r2, [r3, #2]
+ 1e2:	e011      	b.n	208 <func_chk+0x208>
+D:\sunny\stm32\therme\Project\src/main.c:1070
+
+				}
+				else
+				{
+					delm[2] = ebuff[12];
+ 1e4:	7b3a      	ldrb	r2, [r7, #12]
+ 1e6:	682b      	ldr	r3, [r5, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1071
+					buf_port = GPIO_ReadInputData(GPIOE);
+ 1e8:	4817      	ldr	r0, [pc, #92]	; (248 <func_chk+0x248>)
+D:\sunny\stm32\therme\Project\src/main.c:1070
+					delm[2] = 1;
+
+				}
+				else
+				{
+					delm[2] = ebuff[12];
+ 1ea:	709a      	strb	r2, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1071
+					buf_port = GPIO_ReadInputData(GPIOE);
+ 1ec:	f7ff fffe 	bl	0 <GPIO_ReadInputData>
+D:\sunny\stm32\therme\Project\src/main.c:1072
+					out_p  = ebuff[30]&(buf_port>>9);
+ 1f0:	7fbb      	ldrb	r3, [r7, #30]
+D:\sunny\stm32\therme\Project\src/main.c:1071
+
+				}
+				else
+				{
+					delm[2] = ebuff[12];
+					buf_port = GPIO_ReadInputData(GPIOE);
+ 1f2:	f8a9 0000 	strh.w	r0, [r9]
+D:\sunny\stm32\therme\Project\src/main.c:1072
+					out_p  = ebuff[30]&(buf_port>>9);
+ 1f6:	ea03 2050 	and.w	r0, r3, r0, lsr #9
+ 1fa:	f888 0000 	strb.w	r0, [r8]
+D:\sunny\stm32\therme\Project\src/main.c:1073
+					outpp(out_p);
+ 1fe:	f7ff fffe 	bl	0 <func_chk>
+D:\sunny\stm32\therme\Project\src/main.c:1075
+
+					sdoor = 8;
+ 202:	4b0b      	ldr	r3, [pc, #44]	; (230 <func_chk+0x230>)
+ 204:	2208      	movs	r2, #8
+ 206:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1079
+				}
+			}
+
+			if(delm[2] == 0 && delh[2]>0)
+ 208:	682a      	ldr	r2, [r5, #0]
+ 20a:	4b0e      	ldr	r3, [pc, #56]	; (244 <func_chk+0x244>)
+ 20c:	7891      	ldrb	r1, [r2, #2]
+ 20e:	bb49      	cbnz	r1, 264 <func_chk+0x264>
+ 210:	f8db 0000 	ldr.w	r0, [fp]
+ 214:	7885      	ldrb	r5, [r0, #2]
+ 216:	b32d      	cbz	r5, 264 <func_chk+0x264>
+D:\sunny\stm32\therme\Project\src/main.c:1082
+			{
+				delh[2]--;
+				delm[2] = 59;
+ 218:	4a09      	ldr	r2, [pc, #36]	; (240 <func_chk+0x240>)
+D:\sunny\stm32\therme\Project\src/main.c:1081
+				}
+			}
+
+			if(delm[2] == 0 && delh[2]>0)
+			{
+				delh[2]--;
+ 21a:	3d01      	subs	r5, #1
+ 21c:	7085      	strb	r5, [r0, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1082
+				delm[2] = 59;
+ 21e:	6811      	ldr	r1, [r2, #0]
+ 220:	223b      	movs	r2, #59	; 0x3b
+ 222:	708a      	strb	r2, [r1, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1083
+				dels[2] = 59;
+ 224:	681b      	ldr	r3, [r3, #0]
+ 226:	e021      	b.n	26c <func_chk+0x26c>
+	...
+ 248:	40011800 	.word	0x40011800
+	...
+D:\sunny\stm32\therme\Project\src/main.c:1087
+			}
+			else
+			{
+				delm[2]--;
+ 264:	3901      	subs	r1, #1
+ 266:	7091      	strb	r1, [r2, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1088
+				dels[2] = 59;
+ 268:	681b      	ldr	r3, [r3, #0]
+ 26a:	223b      	movs	r2, #59	; 0x3b
+ 26c:	709a      	strb	r2, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1090
+			}
+			delay_fin[2]=2;
+ 26e:	6823      	ldr	r3, [r4, #0]
+ 270:	2202      	movs	r2, #2
+ 272:	709a      	strb	r2, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1094
+		//	outpp(eep_b[mod+29]);
+		}
+
+		if(sdoor == 1)	// door open
+ 274:	7835      	ldrb	r5, [r6, #0]
+ 276:	2d01      	cmp	r5, #1
+ 278:	d114      	bne.n	2a4 <func_chk+0x2a4>
+D:\sunny\stm32\therme\Project\src/main.c:1096
+		{
+			if(delay_fin[2]==0)
+ 27a:	6823      	ldr	r3, [r4, #0]
+ 27c:	789b      	ldrb	r3, [r3, #2]
+ 27e:	b98b      	cbnz	r3, 2a4 <func_chk+0x2a4>
+D:\sunny\stm32\therme\Project\src/main.c:1098
+			{
+				buf_port = GPIO_ReadInputData(GPIOE);
+ 280:	4859      	ldr	r0, [pc, #356]	; (3e8 <func_chk+0x3e8>)
+ 282:	f7ff fffe 	bl	0 <GPIO_ReadInputData>
+ 286:	4b59      	ldr	r3, [pc, #356]	; (3ec <func_chk+0x3ec>)
+ 288:	8018      	strh	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1099
+				out_p  = ebuff[29]&(buf_port>>9);
+ 28a:	4b59      	ldr	r3, [pc, #356]	; (3f0 <func_chk+0x3f0>)
+ 28c:	7f5b      	ldrb	r3, [r3, #29]
+ 28e:	ea03 2050 	and.w	r0, r3, r0, lsr #9
+ 292:	4b58      	ldr	r3, [pc, #352]	; (3f4 <func_chk+0x3f4>)
+ 294:	7018      	strb	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1100
+				outpp(out_p);
+ 296:	f7ff fffe 	bl	0 <func_chk>
+D:\sunny\stm32\therme\Project\src/main.c:1101
+				locks_d = 1;
+ 29a:	4b57      	ldr	r3, [pc, #348]	; (3f8 <func_chk+0x3f8>)
+ 29c:	701d      	strb	r5, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1103
+				//locks = 0;
+				delay_fin[2]=1;
+ 29e:	4b57      	ldr	r3, [pc, #348]	; (3fc <func_chk+0x3fc>)
+ 2a0:	681b      	ldr	r3, [r3, #0]
+ 2a2:	709d      	strb	r5, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1142
+			modes=3;
+		}
+	 }
+	 }     */
+
+		if(delay_fin[3]==1)
+ 2a4:	6823      	ldr	r3, [r4, #0]
+ 2a6:	78da      	ldrb	r2, [r3, #3]
+ 2a8:	2a01      	cmp	r2, #1
+ 2aa:	d11d      	bne.n	2e8 <func_chk+0x2e8>
+D:\sunny\stm32\therme\Project\src/main.c:1144
+		{
+			delh[3] = 0;
+ 2ac:	4d54      	ldr	r5, [pc, #336]	; (400 <func_chk+0x400>)
+ 2ae:	2100      	movs	r1, #0
+ 2b0:	682b      	ldr	r3, [r5, #0]
+ 2b2:	70d9      	strb	r1, [r3, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1145
+			delm[3] = 1;
+ 2b4:	4b53      	ldr	r3, [pc, #332]	; (404 <func_chk+0x404>)
+ 2b6:	6819      	ldr	r1, [r3, #0]
+ 2b8:	70ca      	strb	r2, [r1, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1146
+			if(delm[3] == 0 && delh[3]>0)
+ 2ba:	6819      	ldr	r1, [r3, #0]
+ 2bc:	4a52      	ldr	r2, [pc, #328]	; (408 <func_chk+0x408>)
+ 2be:	78c8      	ldrb	r0, [r1, #3]
+ 2c0:	b950      	cbnz	r0, 2d8 <func_chk+0x2d8>
+ 2c2:	682d      	ldr	r5, [r5, #0]
+ 2c4:	78ef      	ldrb	r7, [r5, #3]
+ 2c6:	b13f      	cbz	r7, 2d8 <func_chk+0x2d8>
+D:\sunny\stm32\therme\Project\src/main.c:1148
+			{
+				delh[3]--;
+ 2c8:	3f01      	subs	r7, #1
+ 2ca:	70ef      	strb	r7, [r5, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1149
+				delm[3] = 59;
+ 2cc:	6819      	ldr	r1, [r3, #0]
+ 2ce:	233b      	movs	r3, #59	; 0x3b
+ 2d0:	70cb      	strb	r3, [r1, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1150
+				dels[3] = 59;
+ 2d2:	6812      	ldr	r2, [r2, #0]
+ 2d4:	70d3      	strb	r3, [r2, #3]
+ 2d6:	e004      	b.n	2e2 <func_chk+0x2e2>
+D:\sunny\stm32\therme\Project\src/main.c:1154
+			}
+			else
+			{
+				delm[3]--;
+ 2d8:	3801      	subs	r0, #1
+ 2da:	70c8      	strb	r0, [r1, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1155
+				dels[3] = 59;
+ 2dc:	6813      	ldr	r3, [r2, #0]
+ 2de:	223b      	movs	r2, #59	; 0x3b
+ 2e0:	70da      	strb	r2, [r3, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1157
+			}
+			delay_fin[3]=2;
+ 2e2:	6823      	ldr	r3, [r4, #0]
+ 2e4:	2202      	movs	r2, #2
+ 2e6:	70da      	strb	r2, [r3, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1160
+		//	outpp(eep_b[mod+19]);
+		}
+		if(delay_fin[3]==2)
+ 2e8:	6825      	ldr	r5, [r4, #0]
+ 2ea:	78eb      	ldrb	r3, [r5, #3]
+ 2ec:	2b02      	cmp	r3, #2
+ 2ee:	d112      	bne.n	316 <func_chk+0x316>
+D:\sunny\stm32\therme\Project\src/main.c:1162
+		{
+			if(temp_p1 < 22)
+ 2f0:	4b46      	ldr	r3, [pc, #280]	; (40c <func_chk+0x40c>)
+ 2f2:	2200      	movs	r2, #0
+ 2f4:	e9d3 0100 	ldrd	r0, r1, [r3]
+ 2f8:	4b45      	ldr	r3, [pc, #276]	; (118 <__aeabi_dcmplt+0x118>)
+ 2fa:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
+ 2fe:	b150      	cbz	r0, 316 <func_chk+0x316>
+D:\sunny\stm32\therme\Project\src/main.c:1164
+			{
+				delay_fin[3] = 0;
+ 300:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Project\src/main.c:1165
+				delh[3] = 0;
+ 302:	4a3f      	ldr	r2, [pc, #252]	; (400 <func_chk+0x400>)
+D:\sunny\stm32\therme\Project\src/main.c:1164
+		}
+		if(delay_fin[3]==2)
+		{
+			if(temp_p1 < 22)
+			{
+				delay_fin[3] = 0;
+ 304:	70eb      	strb	r3, [r5, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1165
+				delh[3] = 0;
+ 306:	6812      	ldr	r2, [r2, #0]
+ 308:	70d3      	strb	r3, [r2, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1166
+				delm[3] = 0;
+ 30a:	4a3e      	ldr	r2, [pc, #248]	; (404 <func_chk+0x404>)
+ 30c:	6812      	ldr	r2, [r2, #0]
+ 30e:	70d3      	strb	r3, [r2, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1167
+				dels[3] = 0;
+ 310:	4a3d      	ldr	r2, [pc, #244]	; (408 <func_chk+0x408>)
+ 312:	6812      	ldr	r2, [r2, #0]
+ 314:	70d3      	strb	r3, [r2, #3]
+D:\sunny\stm32\therme\Project\src/main.c:1171
+			}
+
+		}
+		if(delay_fin[3]==3)					// delay com on
+ 316:	6823      	ldr	r3, [r4, #0]
+ 318:	78db      	ldrb	r3, [r3, #3]
+ 31a:	2b03      	cmp	r3, #3
+ 31c:	d11b      	bne.n	356 <func_chk+0x356>
+D:\sunny\stm32\therme\Project\src/main.c:1174
+		{
+
+			start = 3;
+ 31e:	f88a 3000 	strb.w	r3, [sl]
+ 322:	e018      	b.n	356 <func_chk+0x356>
+D:\sunny\stm32\therme\Project\src/main.c:1181
+
+	}
+
+	/*e  start  ******************************************************/
+
+	else if(start == 3) // stop
+ 324:	782b      	ldrb	r3, [r5, #0]
+ 326:	2b03      	cmp	r3, #3
+ 328:	d109      	bne.n	33e <func_chk+0x33e>
+D:\sunny\stm32\therme\Project\src/main.c:1183
+	{
+		clear_delayfn();
+ 32a:	f7ff fffe 	bl	0 <func_chk>
+D:\sunny\stm32\therme\Project\src/main.c:1185
+		start=0;
+		modes=0;
+ 32e:	4b39      	ldr	r3, [pc, #228]	; (414 <func_chk+0x414>)
+D:\sunny\stm32\therme\Project\src/main.c:1184
+	/*e  start  ******************************************************/
+
+	else if(start == 3) // stop
+	{
+		clear_delayfn();
+		start=0;
+ 330:	2000      	movs	r0, #0
+ 332:	7028      	strb	r0, [r5, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1185
+		modes=0;
+ 334:	7018      	strb	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1186
+		sdoor = 0;
+ 336:	7030      	strb	r0, [r6, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1195
+			delh[i] = 0;
+			delm[i] = 0;
+			dels[i] = 0;
+
+		}*/
+		outpp(0);
+ 338:	f7ff fffe 	bl	0 <func_chk>
+ 33c:	e00b      	b.n	356 <func_chk+0x356>
+D:\sunny\stm32\therme\Project\src/main.c:1197
+	}
+	else if(start == 5)
+ 33e:	782b      	ldrb	r3, [r5, #0]
+ 340:	2b05      	cmp	r3, #5
+ 342:	d108      	bne.n	356 <func_chk+0x356>
+D:\sunny\stm32\therme\Project\src/main.c:1199
+	{
+			clear_delayfn();
+ 344:	f7ff fffe 	bl	0 <func_chk>
+D:\sunny\stm32\therme\Project\src/main.c:1200
+			modes=0;
+ 348:	4b32      	ldr	r3, [pc, #200]	; (414 <func_chk+0x414>)
+ 34a:	2200      	movs	r2, #0
+ 34c:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1201
+			delay_fin[0]=1;
+ 34e:	6822      	ldr	r2, [r4, #0]
+ 350:	2301      	movs	r3, #1
+ 352:	7013      	strb	r3, [r2, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1202
+			start =1;
+ 354:	702b      	strb	r3, [r5, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1205
+	}
+
+		if(delay_fin[1]==1) // delay com off
+ 356:	6823      	ldr	r3, [r4, #0]
+ 358:	785a      	ldrb	r2, [r3, #1]
+ 35a:	2a01      	cmp	r2, #1
+ 35c:	d11d      	bne.n	39a <func_chk+0x39a>
+D:\sunny\stm32\therme\Project\src/main.c:1207
+		{
+			delh[1] = 0;
+ 35e:	4828      	ldr	r0, [pc, #160]	; (400 <func_chk+0x400>)
+ 360:	2100      	movs	r1, #0
+ 362:	6803      	ldr	r3, [r0, #0]
+ 364:	7059      	strb	r1, [r3, #1]
+D:\sunny\stm32\therme\Project\src/main.c:1208
+			delm[1] = 1;
+ 366:	4b27      	ldr	r3, [pc, #156]	; (404 <func_chk+0x404>)
+ 368:	6819      	ldr	r1, [r3, #0]
+ 36a:	704a      	strb	r2, [r1, #1]
+D:\sunny\stm32\therme\Project\src/main.c:1209
+			if(delm[1] == 0 && delh[1]>0)
+ 36c:	6819      	ldr	r1, [r3, #0]
+ 36e:	4a26      	ldr	r2, [pc, #152]	; (408 <func_chk+0x408>)
+ 370:	784d      	ldrb	r5, [r1, #1]
+ 372:	b955      	cbnz	r5, 38a <func_chk+0x38a>
+ 374:	6800      	ldr	r0, [r0, #0]
+ 376:	7845      	ldrb	r5, [r0, #1]
+ 378:	b13d      	cbz	r5, 38a <func_chk+0x38a>
+D:\sunny\stm32\therme\Project\src/main.c:1211
+			{
+				delh[1]--;
+ 37a:	3d01      	subs	r5, #1
+ 37c:	7045      	strb	r5, [r0, #1]
+D:\sunny\stm32\therme\Project\src/main.c:1212
+				delm[1] = 59;
+ 37e:	6819      	ldr	r1, [r3, #0]
+ 380:	233b      	movs	r3, #59	; 0x3b
+ 382:	704b      	strb	r3, [r1, #1]
+D:\sunny\stm32\therme\Project\src/main.c:1213
+				dels[1] = 59;
+ 384:	6812      	ldr	r2, [r2, #0]
+ 386:	7053      	strb	r3, [r2, #1]
+ 388:	e004      	b.n	394 <func_chk+0x394>
+D:\sunny\stm32\therme\Project\src/main.c:1217
+			}
+			else
+			{
+				delm[1] = 2;
+ 38a:	2302      	movs	r3, #2
+ 38c:	704b      	strb	r3, [r1, #1]
+D:\sunny\stm32\therme\Project\src/main.c:1218
+				dels[1] = 59;
+ 38e:	6813      	ldr	r3, [r2, #0]
+ 390:	223b      	movs	r2, #59	; 0x3b
+ 392:	705a      	strb	r2, [r3, #1]
+D:\sunny\stm32\therme\Project\src/main.c:1220
+			}
+			delay_fin[1]=2;
+ 394:	6823      	ldr	r3, [r4, #0]
+ 396:	2202      	movs	r2, #2
+ 398:	705a      	strb	r2, [r3, #1]
+D:\sunny\stm32\therme\Project\src/main.c:1224
+		//	outpp(eep_b[mod+19]);
+		}
+
+		if(sdoor == 1)	// door open
+ 39a:	7835      	ldrb	r5, [r6, #0]
+ 39c:	2d01      	cmp	r5, #1
+ 39e:	d116      	bne.n	3ce <func_chk+0x3ce>
+D:\sunny\stm32\therme\Project\src/main.c:1228
+		{
+
+
+			if(delay_fin[2]==0)
+ 3a0:	6823      	ldr	r3, [r4, #0]
+ 3a2:	789b      	ldrb	r3, [r3, #2]
+ 3a4:	b9eb      	cbnz	r3, 3e2 <func_chk+0x3e2>
+D:\sunny\stm32\therme\Project\src/main.c:1230
+			{
+				buf_port = GPIO_ReadInputData(GPIOE);
+ 3a6:	4810      	ldr	r0, [pc, #64]	; (3e8 <func_chk+0x3e8>)
+ 3a8:	f7ff fffe 	bl	0 <GPIO_ReadInputData>
+ 3ac:	4b0f      	ldr	r3, [pc, #60]	; (3ec <func_chk+0x3ec>)
+ 3ae:	8018      	strh	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1231
+				out_p  = ebuff[26]&(buf_port>>9);
+ 3b0:	4b0f      	ldr	r3, [pc, #60]	; (3f0 <func_chk+0x3f0>)
+ 3b2:	7e9b      	ldrb	r3, [r3, #26]
+ 3b4:	ea03 2050 	and.w	r0, r3, r0, lsr #9
+ 3b8:	4b0e      	ldr	r3, [pc, #56]	; (3f4 <func_chk+0x3f4>)
+ 3ba:	7018      	strb	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1232
+				outpp(out_p);
+ 3bc:	f7ff fffe 	bl	0 <func_chk>
+D:\sunny\stm32\therme\Project\src/main.c:1233
+				locks_d = 1;
+ 3c0:	4b0d      	ldr	r3, [pc, #52]	; (3f8 <func_chk+0x3f8>)
+ 3c2:	701d      	strb	r5, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1235
+				//locks = 0;
+				delay_fin[2]=1;
+ 3c4:	4b0d      	ldr	r3, [pc, #52]	; (3fc <func_chk+0x3fc>)
+ 3c6:	681b      	ldr	r3, [r3, #0]
+ 3c8:	709d      	strb	r5, [r3, #2]
+ 3ca:	e8bd 8ff8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+D:\sunny\stm32\therme\Project\src/main.c:1241
+
+			}
+
+			//out_on(k5);
+		}
+		else if(sdoor == 0)
+ 3ce:	b945      	cbnz	r5, 3e2 <func_chk+0x3e2>
+D:\sunny\stm32\therme\Project\src/main.c:1244
+		{
+				//outpp();
+				delh[2] = 0;
+ 3d0:	4b0b      	ldr	r3, [pc, #44]	; (400 <func_chk+0x400>)
+ 3d2:	681b      	ldr	r3, [r3, #0]
+ 3d4:	709d      	strb	r5, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1245
+				delm[2] = 0;
+ 3d6:	4b0b      	ldr	r3, [pc, #44]	; (404 <func_chk+0x404>)
+ 3d8:	681b      	ldr	r3, [r3, #0]
+ 3da:	709d      	strb	r5, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1246
+				dels[2] = 0;
+ 3dc:	4b0a      	ldr	r3, [pc, #40]	; (408 <func_chk+0x408>)
+ 3de:	681b      	ldr	r3, [r3, #0]
+ 3e0:	709d      	strb	r5, [r3, #2]
+ 3e2:	e8bd 8ff8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 3e6:	bf00      	nop
+ 3e8:	40011800 	.word	0x40011800
+	...
+ 410:	40360000 	.word	0x40360000
+ 414:	00000000 	.word	0x00000000
+
+Disassembly of section .text.test_i2c:
+
+00000000 <test_i2c>:
+test_i2c():
+D:\sunny\stm32\therme\Project\src/main.c:1554
+
+}
+
+
+void test_i2c()
+{
+   0:	f7ffb570 	.word	0xf7ffb570
+D:\sunny\stm32\therme\Project\src/main.c:1579
+  eep_buffer[6] = 0x7F;
+  eep_buffer[7] = 0xFF;
+  I2C_EE_BufferWrite(eep_buffer, 0x00,8);
+  I2C_EE_BufferWrite(eep_buffer, 0x10,8); 				// Write 8 Byte From Address 0x10...
+ */
+   I2C_EE_WaitEepromStandbyState();
+   4:	fffe 4c0d 	vdup.16	d20, d13[3]
+D:\sunny\stm32\therme\Project\src/main.c:1553
+	 out_write(val);
+
+}
+
+
+void test_i2c()
+   8:	f104 0608 	add.w	r6, r4, #8
+   c:	4625      	mov	r5, r4
+D:\sunny\stm32\therme\Project\src/main.c:1583
+ */
+   I2C_EE_WaitEepromStandbyState();
+  // I2C_EE_BufferRead(eep_buffer,0x00,8);
+	for ( i = 0; i < 8; i++ )							// Read 8 Byte to Buffer
+    {
+		out_write(eep_buffer[i]);
+   e:	7820      	ldrb	r0, [r4, #0]
+  10:	f7ff fffe 	bl	0 <out_write>
+D:\sunny\stm32\therme\Project\src/main.c:1584
+		Delay1(250);
+  14:	20fa      	movs	r0, #250	; 0xfa
+  16:	f7ff fffe 	bl	0 <test_i2c>
+D:\sunny\stm32\therme\Project\src/main.c:1585
+		set_temp(eep_buffer[i]);
+  1a:	f814 0b01 	ldrb.w	r0, [r4], #1
+  1e:	f7ff fffe 	bl	0 <test_i2c>
+D:\sunny\stm32\therme\Project\src/main.c:1581
+  I2C_EE_BufferWrite(eep_buffer, 0x00,8);
+  I2C_EE_BufferWrite(eep_buffer, 0x10,8); 				// Write 8 Byte From Address 0x10...
+ */
+   I2C_EE_WaitEepromStandbyState();
+  // I2C_EE_BufferRead(eep_buffer,0x00,8);
+	for ( i = 0; i < 8; i++ )							// Read 8 Byte to Buffer
+  22:	42b4      	cmp	r4, r6
+  24:	d1f3      	bne.n	e <test_i2c+0xe>
+  26:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Project\src/main.c:1594
+
+//    I2C_EE_BufferRead(eep_buffer,0x10,8);
+
+	for ( i = 0; i < 8; i++ )							// Read 8 Byte to Buffer
+    {
+	  out_write(eep_buffer[i]);
+  28:	5d28      	ldrb	r0, [r5, r4]
+  2a:	f7ff fffe 	bl	0 <out_write>
+D:\sunny\stm32\therme\Project\src/main.c:1592
+
+	/* Read from I2C EEPROM from EEPROM_ReadAddress1 */
+
+//    I2C_EE_BufferRead(eep_buffer,0x10,8);
+
+	for ( i = 0; i < 8; i++ )							// Read 8 Byte to Buffer
+  2e:	3401      	adds	r4, #1
+D:\sunny\stm32\therme\Project\src/main.c:1595
+    {
+	  out_write(eep_buffer[i]);
+	  Delay1(250);
+  30:	20fa      	movs	r0, #250	; 0xfa
+  32:	f7ff fffe 	bl	0 <test_i2c>
+D:\sunny\stm32\therme\Project\src/main.c:1592
+
+	/* Read from I2C EEPROM from EEPROM_ReadAddress1 */
+
+//    I2C_EE_BufferRead(eep_buffer,0x10,8);
+
+	for ( i = 0; i < 8; i++ )							// Read 8 Byte to Buffer
+  36:	2c08      	cmp	r4, #8
+  38:	d1f6      	bne.n	28 <test_i2c+0x28>
+D:\sunny\stm32\therme\Project\src/main.c:1598
+    {
+	  out_write(eep_buffer[i]);
+	  Delay1(250);
+    }
+
+}
+  3a:	bd70      	pop	{r4, r5, r6, pc}
+  3c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.TIM3_IRQHandler:
+
+00000000 <TIM3_IRQHandler>:
+TIM3_IRQHandler():
+D:\sunny\stm32\therme\Project\src/main.c:1602
+
+
+void TIM3_IRQHandler(void)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Project\src/main.c:1604
+
+  if (TIM_GetITStatus(TIM3, TIM_IT_CC1) != RESET)
+   2:	485c      	ldr	r0, [pc, #368]	; (174 <TIM3_IRQHandler+0x174>)
+   4:	2102      	movs	r1, #2
+   6:	f7ff fffe 	bl	0 <TIM_GetITStatus>
+   a:	2800      	cmp	r0, #0
+   c:	d065      	beq.n	da <TIM3_IRQHandler+0xda>
+D:\sunny\stm32\therme\Project\src/main.c:1611
+    TIM_ClearITPendingBit(TIM3, TIM_IT_CC1);
+    /* Pin PC.06 toggling with frequency = 73.24 Hz */
+    // set_temp();
+ // if( td1>=99) td1=-99;
+
+	  if(eemodes==1)
+   e:	4c5a      	ldr	r4, [pc, #360]	; (178 <TIM3_IRQHandler+0x178>)
+D:\sunny\stm32\therme\Project\src/main.c:1606
+void TIM3_IRQHandler(void)
+{
+
+  if (TIM_GetITStatus(TIM3, TIM_IT_CC1) != RESET)
+  {
+    TIM_ClearITPendingBit(TIM3, TIM_IT_CC1);
+  10:	2102      	movs	r1, #2
+  12:	4858      	ldr	r0, [pc, #352]	; (174 <TIM3_IRQHandler+0x174>)
+  14:	f7ff fffe 	bl	0 <TIM_ClearITPendingBit>
+D:\sunny\stm32\therme\Project\src/main.c:1611
+    /* Pin PC.06 toggling with frequency = 73.24 Hz */
+    // set_temp();
+ // if( td1>=99) td1=-99;
+
+	  if(eemodes==1)
+  18:	7823      	ldrb	r3, [r4, #0]
+  1a:	2b01      	cmp	r3, #1
+  1c:	d101      	bne.n	22 <TIM3_IRQHandler+0x22>
+D:\sunny\stm32\therme\Project\src/main.c:1614
+	  {
+		//eemode(mod);
+		eemodes=0;
+  1e:	3b01      	subs	r3, #1
+  20:	e008      	b.n	34 <TIM3_IRQHandler+0x34>
+D:\sunny\stm32\therme\Project\src/main.c:1616
+	  }
+	  else if(eemodes==10)
+  22:	2b0a      	cmp	r3, #10
+  24:	d108      	bne.n	38 <TIM3_IRQHandler+0x38>
+D:\sunny\stm32\therme\Project\src/main.c:1620
+	  {
+		//I2C_EE_BufferWrite(ebuff,0x01,30);
+		//I2C_EE_BufferRead(ebuff,0x01,30);
+		set_ebuff(ebuff);
+  26:	4855      	ldr	r0, [pc, #340]	; (17c <TIM3_IRQHandler+0x17c>)
+  28:	f7ff fffe 	bl	0 <TIM3_IRQHandler>
+D:\sunny\stm32\therme\Project\src/main.c:1621
+		read_ebuff(ebuff);
+  2c:	4853      	ldr	r0, [pc, #332]	; (150 <TIM3_IRQHandler+0x150>)
+  2e:	f7ff fffe 	bl	0 <TIM3_IRQHandler>
+D:\sunny\stm32\therme\Project\src/main.c:1622
+		eemodes=0;
+  32:	2300      	movs	r3, #0
+  34:	7023      	strb	r3, [r4, #0]
+  36:	e004      	b.n	42 <TIM3_IRQHandler+0x42>
+D:\sunny\stm32\therme\Project\src/main.c:1624
+	  }
+	  else if(eemodes==11)
+  38:	2b0b      	cmp	r3, #11
+  3a:	d0f7      	beq.n	2c <TIM3_IRQHandler+0x2c>
+D:\sunny\stm32\therme\Project\src/main.c:1631
+		  read_ebuff(ebuff);
+			eemodes=0;
+	  }
+	  else
+	  {
+		  show_seg1(temp_);
+  3c:	4850      	ldr	r0, [pc, #320]	; (180 <TIM3_IRQHandler+0x180>)
+  3e:	f7ff fffe 	bl	0 <TIM3_IRQHandler>
+D:\sunny\stm32\therme\Project\src/main.c:1636
+	  }
+
+
+
+	if(!(GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_4))) // door open event
+  42:	4850      	ldr	r0, [pc, #320]	; (184 <TIM3_IRQHandler+0x184>)
+  44:	2110      	movs	r1, #16
+  46:	f7ff fffe 	bl	0 <GPIO_ReadInputDataBit>
+  4a:	4c4c      	ldr	r4, [pc, #304]	; (17c <TIM3_IRQHandler+0x17c>)
+  4c:	4605      	mov	r5, r0
+  4e:	4b4e      	ldr	r3, [pc, #312]	; (188 <TIM3_IRQHandler+0x188>)
+  50:	b9c0      	cbnz	r0, 84 <TIM3_IRQHandler+0x84>
+D:\sunny\stm32\therme\Project\src/main.c:1638
+	{
+		sdoor = 0;
+  52:	7018      	strb	r0, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1640
+		leds[0] = 2;
+		if(locks_d==1)
+  54:	4e4d      	ldr	r6, [pc, #308]	; (18c <TIM3_IRQHandler+0x18c>)
+D:\sunny\stm32\therme\Project\src/main.c:1639
+
+
+	if(!(GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_4))) // door open event
+	{
+		sdoor = 0;
+		leds[0] = 2;
+  56:	4b4e      	ldr	r3, [pc, #312]	; (190 <TIM3_IRQHandler+0x190>)
+  58:	2202      	movs	r2, #2
+  5a:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1640
+		if(locks_d==1)
+  5c:	7833      	ldrb	r3, [r6, #0]
+  5e:	2b01      	cmp	r3, #1
+  60:	d116      	bne.n	90 <TIM3_IRQHandler+0x90>
+D:\sunny\stm32\therme\Project\src/main.c:1643
+			{
+				sdoor=0;
+				outpp(ebuff[(modes+22)]);// 19
+  62:	4b4c      	ldr	r3, [pc, #304]	; (194 <TIM3_IRQHandler+0x194>)
+  64:	781b      	ldrb	r3, [r3, #0]
+  66:	18e3      	adds	r3, r4, r3
+  68:	7d98      	ldrb	r0, [r3, #22]
+  6a:	f7ff fffe 	bl	0 <TIM3_IRQHandler>
+D:\sunny\stm32\therme\Project\src/main.c:1645
+				locks_d = 0;
+				delay_fin[2]=0;
+  6e:	4b4a      	ldr	r3, [pc, #296]	; (198 <TIM3_IRQHandler+0x198>)
+D:\sunny\stm32\therme\Project\src/main.c:1644
+		leds[0] = 2;
+		if(locks_d==1)
+			{
+				sdoor=0;
+				outpp(ebuff[(modes+22)]);// 19
+				locks_d = 0;
+  70:	7035      	strb	r5, [r6, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1645
+				delay_fin[2]=0;
+  72:	681b      	ldr	r3, [r3, #0]
+  74:	709d      	strb	r5, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1646
+				delh[2] = 0;
+  76:	4b49      	ldr	r3, [pc, #292]	; (19c <TIM3_IRQHandler+0x19c>)
+  78:	681b      	ldr	r3, [r3, #0]
+  7a:	709d      	strb	r5, [r3, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1647
+				delm[2] = 0;
+  7c:	4b48      	ldr	r3, [pc, #288]	; (1a0 <TIM3_IRQHandler+0x1a0>)
+  7e:	681b      	ldr	r3, [r3, #0]
+  80:	709d      	strb	r5, [r3, #2]
+  82:	e005      	b.n	90 <TIM3_IRQHandler+0x90>
+D:\sunny\stm32\therme\Project\src/main.c:1652
+			}
+	}
+	else
+	{
+		if(sdoor==0)
+  84:	781a      	ldrb	r2, [r3, #0]
+  86:	b91a      	cbnz	r2, 90 <TIM3_IRQHandler+0x90>
+D:\sunny\stm32\therme\Project\src/main.c:1654
+		{
+			sdoor=1;
+  88:	3201      	adds	r2, #1
+  8a:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1655
+			leds[0] = 1;
+  8c:	4b40      	ldr	r3, [pc, #256]	; (190 <TIM3_IRQHandler+0x190>)
+  8e:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:1664
+
+ // sprintf(uart_buf,"%d : %d  \r\n",butt[0],butt[1],butt[2]);
+ // printUART2((unsigned int *)uart_buf);
+    //STM_EVAL_LEDToggle(0);
+
+	MCP_read(butt,mcp1,0x00);
+  90:	2148      	movs	r1, #72	; 0x48
+  92:	2200      	movs	r2, #0
+  94:	4843      	ldr	r0, [pc, #268]	; (1a4 <TIM3_IRQHandler+0x1a4>)
+  96:	f7ff fffe 	bl	0 <MCP_read>
+D:\sunny\stm32\therme\Project\src/main.c:1667
+	//printsU(butt,8);
+
+	if((butt[1] & 0x20)==0x20)
+  9a:	4b42      	ldr	r3, [pc, #264]	; (1a4 <TIM3_IRQHandler+0x1a4>)
+  9c:	685b      	ldr	r3, [r3, #4]
+  9e:	f013 0320 	ands.w	r3, r3, #32
+  a2:	d006      	beq.n	b2 <TIM3_IRQHandler+0xb2>
+D:\sunny\stm32\therme\Project\src/main.c:1669
+	{
+		ebuff[39] = 1;
+  a4:	2001      	movs	r0, #1
+  a6:	f884 0027 	strb.w	r0, [r4, #39]	; 0x27
+D:\sunny\stm32\therme\Project\src/main.c:1670
+		tcp_led_control(1);
+  aa:	f7ff fffe 	bl	0 <tcp_led_control>
+D:\sunny\stm32\therme\Project\src/main.c:1671
+		outpp(00);
+  ae:	2000      	movs	r0, #0
+  b0:	e002      	b.n	b8 <TIM3_IRQHandler+0xb8>
+D:\sunny\stm32\therme\Project\src/main.c:1676
+
+	}
+	else
+	{
+			ebuff[39] = 0;
+  b2:	f884 3027 	strb.w	r3, [r4, #39]	; 0x27
+D:\sunny\stm32\therme\Project\src/main.c:1677
+			outpp(0XFF);
+  b6:	20ff      	movs	r0, #255	; 0xff
+  b8:	f7ff fffe 	bl	0 <TIM3_IRQHandler>
+D:\sunny\stm32\therme\Project\src/main.c:1681
+	}
+
+
+	Read_RTC();
+  bc:	f7ff fffe 	bl	0 <TIM3_IRQHandler>
+D:\sunny\stm32\therme\Project\src/main.c:1683
+
+    capture1 = TIM_GetCapture1(TIM3);
+  c0:	482c      	ldr	r0, [pc, #176]	; (b4 <TIM_GetCapture1+0xb4>)
+  c2:	f7ff fffe 	bl	0 <TIM_GetCapture1>
+  c6:	4b38      	ldr	r3, [pc, #224]	; (1a8 <TIM3_IRQHandler+0x1a8>)
+  c8:	8198      	strh	r0, [r3, #12]
+D:\sunny\stm32\therme\Project\src/main.c:1684
+    TIM_SetCompare1(TIM3, capture1 + CCR1_Val);
+  ca:	4b38      	ldr	r3, [pc, #224]	; (1ac <TIM3_IRQHandler+0x1ac>)
+  cc:	f8b3 129a 	ldrh.w	r1, [r3, #666]	; 0x29a
+  d0:	1841      	adds	r1, r0, r1
+  d2:	b289      	uxth	r1, r1
+  d4:	4827      	ldr	r0, [pc, #156]	; (174 <TIM3_IRQHandler+0x174>)
+  d6:	f7ff fffe 	bl	0 <TIM_SetCompare1>
+D:\sunny\stm32\therme\Project\src/main.c:1688
+
+  //TIM_SetCompare1(TIM3, capture + 6000);
+  }
+	if (TIM_GetITStatus(TIM3, TIM_IT_CC2) != RESET)
+  da:	4826      	ldr	r0, [pc, #152]	; (174 <TIM3_IRQHandler+0x174>)
+  dc:	2104      	movs	r1, #4
+  de:	f7ff fffe 	bl	0 <TIM_GetITStatus>
+  e2:	b190      	cbz	r0, 10a <TIM3_IRQHandler+0x10a>
+D:\sunny\stm32\therme\Project\src/main.c:1691
+  {
+
+    TIM_ClearITPendingBit(TIM3, TIM_IT_CC2);
+  e4:	2104      	movs	r1, #4
+  e6:	4823      	ldr	r0, [pc, #140]	; (174 <TIM3_IRQHandler+0x174>)
+  e8:	f7ff fffe 	bl	0 <TIM_ClearITPendingBit>
+D:\sunny\stm32\therme\Project\src/main.c:1692
+	check_temp();
+  ec:	f7ff fffe 	bl	0 <TIM3_IRQHandler>
+D:\sunny\stm32\therme\Project\src/main.c:1698
+
+
+	/* Pin PC.07 toggling with frequency = 109.8 Hz */
+
+	//STM_EVAL_LEDToggle(1);
+	capture1 = TIM_GetCapture2(TIM3);
+  f0:	4820      	ldr	r0, [pc, #128]	; (84 <TIM_GetCapture2+0x84>)
+  f2:	f7ff fffe 	bl	0 <TIM_GetCapture2>
+  f6:	4b2c      	ldr	r3, [pc, #176]	; (1a8 <TIM3_IRQHandler+0x1a8>)
+  f8:	8198      	strh	r0, [r3, #12]
+D:\sunny\stm32\therme\Project\src/main.c:1699
+	TIM_SetCompare2(TIM3, capture1 + CCR2_Val);
+  fa:	4b2c      	ldr	r3, [pc, #176]	; (1ac <TIM3_IRQHandler+0x1ac>)
+  fc:	f8b3 129c 	ldrh.w	r1, [r3, #668]	; 0x29c
+ 100:	1841      	adds	r1, r0, r1
+ 102:	b289      	uxth	r1, r1
+ 104:	481b      	ldr	r0, [pc, #108]	; (174 <TIM3_IRQHandler+0x174>)
+ 106:	f7ff fffe 	bl	0 <TIM_SetCompare2>
+D:\sunny\stm32\therme\Project\src/main.c:1702
+	//TIM_SetCompare2(TIM3, capture + 3000);
+  }
+  if (TIM_GetITStatus(TIM3, TIM_IT_CC3) != RESET)
+ 10a:	481a      	ldr	r0, [pc, #104]	; (174 <TIM3_IRQHandler+0x174>)
+ 10c:	2108      	movs	r1, #8
+ 10e:	f7ff fffe 	bl	0 <TIM_GetITStatus>
+ 112:	b180      	cbz	r0, 136 <TIM3_IRQHandler+0x136>
+D:\sunny\stm32\therme\Project\src/main.c:1704
+  {
+	TIM_ClearITPendingBit(TIM3, TIM_IT_CC3);
+ 114:	2108      	movs	r1, #8
+ 116:	4817      	ldr	r0, [pc, #92]	; (174 <TIM3_IRQHandler+0x174>)
+ 118:	f7ff fffe 	bl	0 <TIM_ClearITPendingBit>
+D:\sunny\stm32\therme\Project\src/main.c:1708
+
+	/* Pin PC.08 toggling with frequency = 219.7 Hz */
+
+	capture1 = TIM_GetCapture3(TIM3);
+ 11c:	4815      	ldr	r0, [pc, #84]	; (58 <TIM_GetCapture3+0x58>)
+ 11e:	f7ff fffe 	bl	0 <TIM_GetCapture3>
+ 122:	4b21      	ldr	r3, [pc, #132]	; (1a8 <TIM3_IRQHandler+0x1a8>)
+ 124:	8198      	strh	r0, [r3, #12]
+D:\sunny\stm32\therme\Project\src/main.c:1709
+	TIM_SetCompare3(TIM3, capture1 + CCR3_Val);
+ 126:	4b21      	ldr	r3, [pc, #132]	; (1ac <TIM3_IRQHandler+0x1ac>)
+ 128:	f8b3 129e 	ldrh.w	r1, [r3, #670]	; 0x29e
+ 12c:	1841      	adds	r1, r0, r1
+ 12e:	b289      	uxth	r1, r1
+ 130:	4810      	ldr	r0, [pc, #64]	; (174 <TIM3_IRQHandler+0x174>)
+ 132:	f7ff fffe 	bl	0 <TIM_SetCompare3>
+D:\sunny\stm32\therme\Project\src/main.c:1712
+	//TIM_SetCompare3(TIM3, capture + 1000);
+  }
+  if (TIM_GetITStatus(TIM3, TIM_IT_CC4) != RESET)
+ 136:	480f      	ldr	r0, [pc, #60]	; (174 <TIM3_IRQHandler+0x174>)
+ 138:	2110      	movs	r1, #16
+ 13a:	f7ff fffe 	bl	0 <TIM_GetITStatus>
+ 13e:	b1c0      	cbz	r0, 172 <TIM3_IRQHandler+0x172>
+D:\sunny\stm32\therme\Project\src/main.c:1715
+  {
+	//I2C_EE_BufferRead(eep_buffer,0x00,8);
+	TIM_ClearITPendingBit(TIM3, TIM_IT_CC4);
+ 140:	2110      	movs	r1, #16
+ 142:	480c      	ldr	r0, [pc, #48]	; (174 <TIM3_IRQHandler+0x174>)
+ 144:	f7ff fffe 	bl	0 <TIM_ClearITPendingBit>
+D:\sunny\stm32\therme\Project\src/main.c:1719
+
+
+	/* Pin PC.09 toggling with frequency = 439.4 Hz */
+	time_cal();
+ 148:	f7ff fffe 	bl	0 <TIM3_IRQHandler>
+D:\sunny\stm32\therme\Project\src/main.c:1720
+	func_chk(modes);
+ 14c:	4b11      	ldr	r3, [pc, #68]	; (194 <TIM3_IRQHandler+0x194>)
+ 14e:	7818      	ldrb	r0, [r3, #0]
+ 150:	f7ff fffe 	bl	0 <TIM3_IRQHandler>
+D:\sunny\stm32\therme\Project\src/main.c:1722
+
+	capture1 = TIM_GetCapture4(TIM3);
+ 154:	4807      	ldr	r0, [pc, #28]	; (20 <TIM_GetCapture4+0x20>)
+ 156:	f7ff fffe 	bl	0 <TIM_GetCapture4>
+ 15a:	4b13      	ldr	r3, [pc, #76]	; (1a8 <TIM3_IRQHandler+0x1a8>)
+ 15c:	8198      	strh	r0, [r3, #12]
+D:\sunny\stm32\therme\Project\src/main.c:1723
+	TIM_SetCompare4(TIM3, capture1 + CCR4_Val);
+ 15e:	4b13      	ldr	r3, [pc, #76]	; (1ac <TIM3_IRQHandler+0x1ac>)
+ 160:	f8b3 12a0 	ldrh.w	r1, [r3, #672]	; 0x2a0
+ 164:	1841      	adds	r1, r0, r1
+ 166:	4803      	ldr	r0, [pc, #12]	; (174 <TIM3_IRQHandler+0x174>)
+ 168:	b289      	uxth	r1, r1
+D:\sunny\stm32\therme\Project\src/main.c:1726
+	//TIM_SetCompare4(TIM3, capture + 500);
+  }
+}
+ 16a:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Project\src/main.c:1723
+	/* Pin PC.09 toggling with frequency = 439.4 Hz */
+	time_cal();
+	func_chk(modes);
+
+	capture1 = TIM_GetCapture4(TIM3);
+	TIM_SetCompare4(TIM3, capture1 + CCR4_Val);
+ 16e:	f7ff bffe 	b.w	0 <TIM_SetCompare4>
+ 172:	bd70      	pop	{r4, r5, r6, pc}
+ 174:	40000400 	.word	0x40000400
+	...
+ 184:	40011400 	.word	0x40011400
+	...
+
+Disassembly of section .text.MENU_int:
+
+00000000 <MENU_int>:
+MENU_int():
+D:\sunny\stm32\therme\Project\src/main.c:1729
+	//TIM_SetCompare4(TIM3, capture + 500);
+  }
+}
+
+void MENU_int(void)
+{
+   0:	2001b570 	.word	0x2001b570
+   4:	b088      	sub	sp, #32
+D:\sunny\stm32\therme\Project\src/main.c:1733
+  NVIC_InitTypeDef NVIC_InitStructure;
+
+  /* TIM2 clock enable */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+   6:	4601      	mov	r1, r0
+   8:	f7ff fffe 	bl	0 <RCC_APB1PeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/main.c:1736
+
+  /* Enable the TIM2 gloabal Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+   c:	231c      	movs	r3, #28
+D:\sunny\stm32\therme\Project\src/main.c:1738
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+   e:	2401      	movs	r4, #1
+D:\sunny\stm32\therme\Project\src/main.c:1737
+  /* TIM2 clock enable */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+
+  /* Enable the TIM2 gloabal Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;
+  10:	2604      	movs	r6, #4
+D:\sunny\stm32\therme\Project\src/main.c:1741
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+
+  NVIC_Init(&NVIC_InitStructure);
+  12:	eb0d 0003 	add.w	r0, sp, r3
+D:\sunny\stm32\therme\Project\src/main.c:1736
+
+  /* TIM2 clock enable */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+
+  /* Enable the TIM2 gloabal Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+  16:	f88d 301c 	strb.w	r3, [sp, #28]
+D:\sunny\stm32\therme\Project\src/main.c:1737
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;
+  1a:	f88d 601d 	strb.w	r6, [sp, #29]
+D:\sunny\stm32\therme\Project\src/main.c:1738
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  1e:	f88d 401e 	strb.w	r4, [sp, #30]
+D:\sunny\stm32\therme\Project\src/main.c:1739
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  22:	f88d 401f 	strb.w	r4, [sp, #31]
+D:\sunny\stm32\therme\Project\src/main.c:1741
+
+  NVIC_Init(&NVIC_InitStructure);
+  26:	f7ff fffe 	bl	0 <NVIC_Init>
+D:\sunny\stm32\therme\Project\src/main.c:1746
+
+TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+TIM_OCInitTypeDef  TIM_OCInitStructure;
+  /* Time base configuration */
+  TIM_TimeBaseStructure.TIM_Period = 65535;
+  2a:	f04f 33ff 	mov.w	r3, #4294967295
+D:\sunny\stm32\therme\Project\src/main.c:1748
+  TIM_TimeBaseStructure.TIM_Prescaler = 100;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  2e:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Project\src/main.c:1746
+  NVIC_Init(&NVIC_InitStructure);
+
+TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+TIM_OCInitTypeDef  TIM_OCInitStructure;
+  /* Time base configuration */
+  TIM_TimeBaseStructure.TIM_Period = 65535;
+  30:	f8ad 3014 	strh.w	r3, [sp, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1751
+  TIM_TimeBaseStructure.TIM_Prescaler = 100;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+  34:	a904      	add	r1, sp, #16
+D:\sunny\stm32\therme\Project\src/main.c:1747
+
+TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+TIM_OCInitTypeDef  TIM_OCInitStructure;
+  /* Time base configuration */
+  TIM_TimeBaseStructure.TIM_Period = 65535;
+  TIM_TimeBaseStructure.TIM_Prescaler = 100;
+  36:	2364      	movs	r3, #100	; 0x64
+D:\sunny\stm32\therme\Project\src/main.c:1751
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+  38:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+D:\sunny\stm32\therme\Project\src/main.c:1747
+
+TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+TIM_OCInitTypeDef  TIM_OCInitStructure;
+  /* Time base configuration */
+  TIM_TimeBaseStructure.TIM_Period = 65535;
+  TIM_TimeBaseStructure.TIM_Prescaler = 100;
+  3c:	f8ad 3010 	strh.w	r3, [sp, #16]
+D:\sunny\stm32\therme\Project\src/main.c:1748
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  40:	f8ad 5016 	strh.w	r5, [sp, #22]
+D:\sunny\stm32\therme\Project\src/main.c:1749
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+  44:	f8ad 5012 	strh.w	r5, [sp, #18]
+D:\sunny\stm32\therme\Project\src/main.c:1751
+
+  TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+  48:	f7ff fffe 	bl	0 <TIM_TimeBaseInit>
+D:\sunny\stm32\therme\Project\src/main.c:1754
+
+  /* Prescaler configuration */
+  TIM_PrescalerConfig(TIM2, 4, TIM_PSCReloadMode_Immediate);
+  4c:	4631      	mov	r1, r6
+D:\sunny\stm32\therme\Project\src/main.c:1759
+
+  /* Output Compare Timing Mode configuration: Channel1 */
+   TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR1_Val;
+  4e:	4e2b      	ldr	r6, [pc, #172]	; (fc <MENU_int+0xfc>)
+D:\sunny\stm32\therme\Project\src/main.c:1754
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+
+  /* Prescaler configuration */
+  TIM_PrescalerConfig(TIM2, 4, TIM_PSCReloadMode_Immediate);
+  50:	4622      	mov	r2, r4
+  52:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+  56:	f7ff fffe 	bl	0 <TIM_PrescalerConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1759
+
+  /* Output Compare Timing Mode configuration: Channel1 */
+   TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR1_Val;
+  5a:	f8b6 329a 	ldrh.w	r3, [r6, #666]	; 0x29a
+D:\sunny\stm32\therme\Project\src/main.c:1762
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+
+  TIM_OC1Init(TIM2, &TIM_OCInitStructure);
+  5e:	4669      	mov	r1, sp
+  60:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+D:\sunny\stm32\therme\Project\src/main.c:1759
+  TIM_PrescalerConfig(TIM2, 4, TIM_PSCReloadMode_Immediate);
+
+  /* Output Compare Timing Mode configuration: Channel1 */
+   TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR1_Val;
+  64:	f8ad 3006 	strh.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Project\src/main.c:1757
+
+  /* Prescaler configuration */
+  TIM_PrescalerConfig(TIM2, 4, TIM_PSCReloadMode_Immediate);
+
+  /* Output Compare Timing Mode configuration: Channel1 */
+   TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
+  68:	f8ad 5000 	strh.w	r5, [sp]
+D:\sunny\stm32\therme\Project\src/main.c:1758
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  6c:	f8ad 4002 	strh.w	r4, [sp, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1760
+  TIM_OCInitStructure.TIM_Pulse = CCR1_Val;
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+  70:	f8ad 5008 	strh.w	r5, [sp, #8]
+D:\sunny\stm32\therme\Project\src/main.c:1762
+
+  TIM_OC1Init(TIM2, &TIM_OCInitStructure);
+  74:	f7ff fffe 	bl	0 <TIM_OC1Init>
+D:\sunny\stm32\therme\Project\src/main.c:1764
+
+  TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Disable);
+  78:	4629      	mov	r1, r5
+  7a:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+  7e:	f7ff fffe 	bl	0 <TIM_OC1PreloadConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1768
+
+  /* Output Compare Timing Mode configuration: Channel2 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR2_Val;
+  82:	f8b6 329c 	ldrh.w	r3, [r6, #668]	; 0x29c
+D:\sunny\stm32\therme\Project\src/main.c:1770
+
+  TIM_OC2Init(TIM2, &TIM_OCInitStructure);
+  86:	4669      	mov	r1, sp
+  88:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+D:\sunny\stm32\therme\Project\src/main.c:1768
+
+  TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Disable);
+
+  /* Output Compare Timing Mode configuration: Channel2 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR2_Val;
+  8c:	f8ad 3006 	strh.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Project\src/main.c:1767
+  TIM_OC1Init(TIM2, &TIM_OCInitStructure);
+
+  TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Disable);
+
+  /* Output Compare Timing Mode configuration: Channel2 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  90:	f8ad 4002 	strh.w	r4, [sp, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1770
+  TIM_OCInitStructure.TIM_Pulse = CCR2_Val;
+
+  TIM_OC2Init(TIM2, &TIM_OCInitStructure);
+  94:	f7ff fffe 	bl	0 <TIM_OC2Init>
+D:\sunny\stm32\therme\Project\src/main.c:1772
+
+  TIM_OC2PreloadConfig(TIM2, TIM_OCPreload_Disable);
+  98:	4629      	mov	r1, r5
+  9a:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+  9e:	f7ff fffe 	bl	0 <TIM_OC2PreloadConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1776
+
+  /* Output Compare Timing Mode configuration: Channel3 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR3_Val;
+  a2:	f8b6 329e 	ldrh.w	r3, [r6, #670]	; 0x29e
+D:\sunny\stm32\therme\Project\src/main.c:1778
+
+  TIM_OC3Init(TIM2, &TIM_OCInitStructure);
+  a6:	4669      	mov	r1, sp
+  a8:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+D:\sunny\stm32\therme\Project\src/main.c:1776
+
+  TIM_OC2PreloadConfig(TIM2, TIM_OCPreload_Disable);
+
+  /* Output Compare Timing Mode configuration: Channel3 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR3_Val;
+  ac:	f8ad 3006 	strh.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Project\src/main.c:1775
+  TIM_OC2Init(TIM2, &TIM_OCInitStructure);
+
+  TIM_OC2PreloadConfig(TIM2, TIM_OCPreload_Disable);
+
+  /* Output Compare Timing Mode configuration: Channel3 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  b0:	f8ad 4002 	strh.w	r4, [sp, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1778
+  TIM_OCInitStructure.TIM_Pulse = CCR3_Val;
+
+  TIM_OC3Init(TIM2, &TIM_OCInitStructure);
+  b4:	f7ff fffe 	bl	0 <TIM_OC3Init>
+D:\sunny\stm32\therme\Project\src/main.c:1780
+
+  TIM_OC3PreloadConfig(TIM2, TIM_OCPreload_Disable);
+  b8:	4629      	mov	r1, r5
+  ba:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+  be:	f7ff fffe 	bl	0 <TIM_OC3PreloadConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1784
+
+  /* Output Compare Timing Mode configuration: Channel4 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR4_Val;
+  c2:	f8b6 62a0 	ldrh.w	r6, [r6, #672]	; 0x2a0
+D:\sunny\stm32\therme\Project\src/main.c:1786
+
+  TIM_OC4Init(TIM2, &TIM_OCInitStructure);
+  c6:	4669      	mov	r1, sp
+  c8:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+D:\sunny\stm32\therme\Project\src/main.c:1783
+  TIM_OC3Init(TIM2, &TIM_OCInitStructure);
+
+  TIM_OC3PreloadConfig(TIM2, TIM_OCPreload_Disable);
+
+  /* Output Compare Timing Mode configuration: Channel4 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  cc:	f8ad 4002 	strh.w	r4, [sp, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1784
+  TIM_OCInitStructure.TIM_Pulse = CCR4_Val;
+  d0:	f8ad 6006 	strh.w	r6, [sp, #6]
+D:\sunny\stm32\therme\Project\src/main.c:1786
+
+  TIM_OC4Init(TIM2, &TIM_OCInitStructure);
+  d4:	f7ff fffe 	bl	0 <TIM_OC4Init>
+D:\sunny\stm32\therme\Project\src/main.c:1788
+
+  TIM_OC4PreloadConfig(TIM2, TIM_OCPreload_Disable);
+  d8:	4629      	mov	r1, r5
+  da:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+  de:	f7ff fffe 	bl	0 <TIM_OC4PreloadConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1791
+
+  /* TIM IT enable */
+  TIM_ITConfig(TIM2, TIM_IT_CC1 | TIM_IT_CC2 | TIM_IT_CC3 | TIM_IT_CC4, ENABLE);
+  e2:	211e      	movs	r1, #30
+  e4:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+  e8:	4622      	mov	r2, r4
+  ea:	f7ff fffe 	bl	0 <TIM_ITConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1794
+
+  /* TIM2 enable counter */
+  TIM_Cmd(TIM2, ENABLE);
+  ee:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+  f2:	4621      	mov	r1, r4
+  f4:	f7ff fffe 	bl	0 <TIM_Cmd>
+D:\sunny\stm32\therme\Project\src/main.c:1797
+
+
+}
+  f8:	b008      	add	sp, #32
+  fa:	bd70      	pop	{r4, r5, r6, pc}
+  fc:	00000000 	.word	0x00000000
+
+Disassembly of section .text.MENU_int1:
+
+00000000 <MENU_int1>:
+MENU_int1():
+D:\sunny\stm32\therme\Project\src/main.c:1800
+
+void MENU_int1(void)
+{
+   0:	2101b570 	.word	0x2101b570
+   4:	b088      	sub	sp, #32
+D:\sunny\stm32\therme\Project\src/main.c:1804
+  NVIC_InitTypeDef NVIC_InitStructure;
+
+  /* TIM3 clock enable */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+   6:	2002      	movs	r0, #2
+   8:	f7ff fffe 	bl	0 <RCC_APB1PeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/main.c:1807
+
+  /* Enable the TIM3 gloabal Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
+   c:	231d      	movs	r3, #29
+   e:	f88d 301c 	strb.w	r3, [sp, #28]
+D:\sunny\stm32\therme\Project\src/main.c:1808
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;
+  12:	3b19      	subs	r3, #25
+D:\sunny\stm32\therme\Project\src/main.c:1810
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  14:	2401      	movs	r4, #1
+D:\sunny\stm32\therme\Project\src/main.c:1808
+  /* TIM3 clock enable */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+
+  /* Enable the TIM3 gloabal Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;
+  16:	f88d 301d 	strb.w	r3, [sp, #29]
+D:\sunny\stm32\therme\Project\src/main.c:1812
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+
+  NVIC_Init(&NVIC_InitStructure);
+  1a:	a807      	add	r0, sp, #28
+D:\sunny\stm32\therme\Project\src/main.c:1809
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+
+  /* Enable the TIM3 gloabal Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+  1c:	3b01      	subs	r3, #1
+D:\sunny\stm32\therme\Project\src/main.c:1828
+  /* Prescaler configuration */
+
+  /* Output Compare Timing Mode configuration: Channel1 */
+   TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR1_Val;
+  1e:	4e2f      	ldr	r6, [pc, #188]	; (dc <MENU_int1+0xdc>)
+D:\sunny\stm32\therme\Project\src/main.c:1809
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+
+  /* Enable the TIM3 gloabal Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+  20:	f88d 301e 	strb.w	r3, [sp, #30]
+D:\sunny\stm32\therme\Project\src/main.c:1810
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  24:	f88d 401f 	strb.w	r4, [sp, #31]
+D:\sunny\stm32\therme\Project\src/main.c:1812
+
+  NVIC_Init(&NVIC_InitStructure);
+  28:	f7ff fffe 	bl	0 <NVIC_Init>
+D:\sunny\stm32\therme\Project\src/main.c:1817
+
+    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+    TIM_OCInitTypeDef  TIM_OCInitStructure;
+  /* Time base configuration */
+  TIM_TimeBaseStructure.TIM_Period = 65535;
+  2c:	f04f 33ff 	mov.w	r3, #4294967295
+D:\sunny\stm32\therme\Project\src/main.c:1819
+  TIM_TimeBaseStructure.TIM_Prescaler = 59999;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  30:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Project\src/main.c:1817
+  NVIC_Init(&NVIC_InitStructure);
+
+    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+    TIM_OCInitTypeDef  TIM_OCInitStructure;
+  /* Time base configuration */
+  TIM_TimeBaseStructure.TIM_Period = 65535;
+  32:	f8ad 3014 	strh.w	r3, [sp, #20]
+D:\sunny\stm32\therme\Project\src/main.c:1822
+  TIM_TimeBaseStructure.TIM_Prescaler = 59999;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+  36:	a904      	add	r1, sp, #16
+D:\sunny\stm32\therme\Project\src/main.c:1818
+
+    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+    TIM_OCInitTypeDef  TIM_OCInitStructure;
+  /* Time base configuration */
+  TIM_TimeBaseStructure.TIM_Period = 65535;
+  TIM_TimeBaseStructure.TIM_Prescaler = 59999;
+  38:	f64e 235f 	movw	r3, #59999	; 0xea5f
+D:\sunny\stm32\therme\Project\src/main.c:1822
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+  3c:	4828      	ldr	r0, [pc, #160]	; (e0 <MENU_int1+0xe0>)
+D:\sunny\stm32\therme\Project\src/main.c:1818
+
+    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+    TIM_OCInitTypeDef  TIM_OCInitStructure;
+  /* Time base configuration */
+  TIM_TimeBaseStructure.TIM_Period = 65535;
+  TIM_TimeBaseStructure.TIM_Prescaler = 59999;
+  3e:	f8ad 3010 	strh.w	r3, [sp, #16]
+D:\sunny\stm32\therme\Project\src/main.c:1819
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  42:	f8ad 5016 	strh.w	r5, [sp, #22]
+D:\sunny\stm32\therme\Project\src/main.c:1820
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+  46:	f8ad 5012 	strh.w	r5, [sp, #18]
+D:\sunny\stm32\therme\Project\src/main.c:1822
+
+  TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+  4a:	f7ff fffe 	bl	0 <TIM_TimeBaseInit>
+D:\sunny\stm32\therme\Project\src/main.c:1828
+  /* Prescaler configuration */
+
+  /* Output Compare Timing Mode configuration: Channel1 */
+   TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR1_Val;
+  4e:	f8b6 329a 	ldrh.w	r3, [r6, #666]	; 0x29a
+D:\sunny\stm32\therme\Project\src/main.c:1831
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+
+  TIM_OC1Init(TIM3, &TIM_OCInitStructure);
+  52:	4669      	mov	r1, sp
+  54:	4822      	ldr	r0, [pc, #136]	; (e0 <MENU_int1+0xe0>)
+D:\sunny\stm32\therme\Project\src/main.c:1828
+  /* Prescaler configuration */
+
+  /* Output Compare Timing Mode configuration: Channel1 */
+   TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR1_Val;
+  56:	f8ad 3006 	strh.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Project\src/main.c:1826
+
+  TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+  /* Prescaler configuration */
+
+  /* Output Compare Timing Mode configuration: Channel1 */
+   TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
+  5a:	f8ad 5000 	strh.w	r5, [sp]
+D:\sunny\stm32\therme\Project\src/main.c:1827
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  5e:	f8ad 4002 	strh.w	r4, [sp, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1829
+  TIM_OCInitStructure.TIM_Pulse = CCR1_Val;
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+  62:	f8ad 5008 	strh.w	r5, [sp, #8]
+D:\sunny\stm32\therme\Project\src/main.c:1831
+
+  TIM_OC1Init(TIM3, &TIM_OCInitStructure);
+  66:	f7ff fffe 	bl	0 <TIM_OC1Init>
+D:\sunny\stm32\therme\Project\src/main.c:1833
+
+  TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Disable);
+  6a:	4629      	mov	r1, r5
+  6c:	481c      	ldr	r0, [pc, #112]	; (e0 <MENU_int1+0xe0>)
+  6e:	f7ff fffe 	bl	0 <TIM_OC1PreloadConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1837
+
+  /* Output Compare Timing Mode configuration: Channel2 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR2_Val;
+  72:	f8b6 329c 	ldrh.w	r3, [r6, #668]	; 0x29c
+D:\sunny\stm32\therme\Project\src/main.c:1839
+
+  TIM_OC2Init(TIM3, &TIM_OCInitStructure);
+  76:	4669      	mov	r1, sp
+  78:	4819      	ldr	r0, [pc, #100]	; (e0 <MENU_int1+0xe0>)
+D:\sunny\stm32\therme\Project\src/main.c:1837
+
+  TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Disable);
+
+  /* Output Compare Timing Mode configuration: Channel2 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR2_Val;
+  7a:	f8ad 3006 	strh.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Project\src/main.c:1836
+  TIM_OC1Init(TIM3, &TIM_OCInitStructure);
+
+  TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Disable);
+
+  /* Output Compare Timing Mode configuration: Channel2 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  7e:	f8ad 4002 	strh.w	r4, [sp, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1839
+  TIM_OCInitStructure.TIM_Pulse = CCR2_Val;
+
+  TIM_OC2Init(TIM3, &TIM_OCInitStructure);
+  82:	f7ff fffe 	bl	0 <TIM_OC2Init>
+D:\sunny\stm32\therme\Project\src/main.c:1841
+
+  TIM_OC2PreloadConfig(TIM3, TIM_OCPreload_Disable);
+  86:	4629      	mov	r1, r5
+  88:	4815      	ldr	r0, [pc, #84]	; (e0 <MENU_int1+0xe0>)
+  8a:	f7ff fffe 	bl	0 <TIM_OC2PreloadConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1845
+
+  /* Output Compare Timing Mode configuration: Channel3 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR3_Val;
+  8e:	f8b6 329e 	ldrh.w	r3, [r6, #670]	; 0x29e
+D:\sunny\stm32\therme\Project\src/main.c:1847
+
+  TIM_OC3Init(TIM3, &TIM_OCInitStructure);
+  92:	4669      	mov	r1, sp
+  94:	4812      	ldr	r0, [pc, #72]	; (e0 <MENU_int1+0xe0>)
+D:\sunny\stm32\therme\Project\src/main.c:1845
+
+  TIM_OC2PreloadConfig(TIM3, TIM_OCPreload_Disable);
+
+  /* Output Compare Timing Mode configuration: Channel3 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR3_Val;
+  96:	f8ad 3006 	strh.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Project\src/main.c:1844
+  TIM_OC2Init(TIM3, &TIM_OCInitStructure);
+
+  TIM_OC2PreloadConfig(TIM3, TIM_OCPreload_Disable);
+
+  /* Output Compare Timing Mode configuration: Channel3 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  9a:	f8ad 4002 	strh.w	r4, [sp, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1847
+  TIM_OCInitStructure.TIM_Pulse = CCR3_Val;
+
+  TIM_OC3Init(TIM3, &TIM_OCInitStructure);
+  9e:	f7ff fffe 	bl	0 <TIM_OC3Init>
+D:\sunny\stm32\therme\Project\src/main.c:1849
+
+  TIM_OC3PreloadConfig(TIM3, TIM_OCPreload_Disable);
+  a2:	4629      	mov	r1, r5
+  a4:	480e      	ldr	r0, [pc, #56]	; (e0 <MENU_int1+0xe0>)
+  a6:	f7ff fffe 	bl	0 <TIM_OC3PreloadConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1853
+
+  /* Output Compare Timing Mode configuration: Channel4 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR4_Val;
+  aa:	f8b6 62a0 	ldrh.w	r6, [r6, #672]	; 0x2a0
+D:\sunny\stm32\therme\Project\src/main.c:1855
+
+  TIM_OC4Init(TIM3, &TIM_OCInitStructure);
+  ae:	4669      	mov	r1, sp
+  b0:	480b      	ldr	r0, [pc, #44]	; (e0 <MENU_int1+0xe0>)
+D:\sunny\stm32\therme\Project\src/main.c:1852
+  TIM_OC3Init(TIM3, &TIM_OCInitStructure);
+
+  TIM_OC3PreloadConfig(TIM3, TIM_OCPreload_Disable);
+
+  /* Output Compare Timing Mode configuration: Channel4 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  b2:	f8ad 4002 	strh.w	r4, [sp, #2]
+D:\sunny\stm32\therme\Project\src/main.c:1853
+  TIM_OCInitStructure.TIM_Pulse = CCR4_Val;
+  b6:	f8ad 6006 	strh.w	r6, [sp, #6]
+D:\sunny\stm32\therme\Project\src/main.c:1855
+
+  TIM_OC4Init(TIM3, &TIM_OCInitStructure);
+  ba:	f7ff fffe 	bl	0 <TIM_OC4Init>
+D:\sunny\stm32\therme\Project\src/main.c:1857
+
+  TIM_OC4PreloadConfig(TIM3, TIM_OCPreload_Disable);
+  be:	4629      	mov	r1, r5
+  c0:	4807      	ldr	r0, [pc, #28]	; (e0 <MENU_int1+0xe0>)
+  c2:	f7ff fffe 	bl	0 <TIM_OC4PreloadConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1860
+
+  /* TIM IT enable */
+  TIM_ITConfig(TIM3, TIM_IT_CC1 | TIM_IT_CC2 | TIM_IT_CC3 | TIM_IT_CC4, ENABLE);
+  c6:	211e      	movs	r1, #30
+  c8:	4805      	ldr	r0, [pc, #20]	; (e0 <MENU_int1+0xe0>)
+  ca:	4622      	mov	r2, r4
+  cc:	f7ff fffe 	bl	0 <TIM_ITConfig>
+D:\sunny\stm32\therme\Project\src/main.c:1863
+
+  /* TIM3 enable counter */
+  TIM_Cmd(TIM3, ENABLE);
+  d0:	4803      	ldr	r0, [pc, #12]	; (e0 <MENU_int1+0xe0>)
+  d2:	4621      	mov	r1, r4
+  d4:	f7ff fffe 	bl	0 <TIM_Cmd>
+D:\sunny\stm32\therme\Project\src/main.c:1866
+
+
+}
+  d8:	b008      	add	sp, #32
+  da:	bd70      	pop	{r4, r5, r6, pc}
+  dc:	00000000 	.word	0x00000000
+  e0:	40000400 	.word	0x40000400
+
+Disassembly of section .text.main:
+
+00000000 <main>:
+main():
+D:\sunny\stm32\therme\Project\src/main.c:247
+  * @retval None
+  */
+
+
+int main(void)
+{
+   0:	f7ffb570 	.word	0xf7ffb570
+D:\sunny\stm32\therme\Project\src/main.c:259
+    time_t timer;
+timer = 00;
+
+  //TCS
+  /* Setup STM32 system (clocks, Ethernet, GPIO, NVIC) and STM3210C-EVAL resources */
+	System_Setup();
+   4:	fffe 2007 	vaddl.u<illegal width 64>	q9, d14, d7
+D:\sunny\stm32\therme\Project\src/main.c:260
+	out_off(d7);
+   8:	f7ff fffe 	bl	0 <out_off>
+D:\sunny\stm32\therme\Project\src/main.c:261
+	td1=0;
+   c:	4b31      	ldr	r3, [pc, #196]	; (d4 <main+0xd4>)
+   e:	2400      	movs	r4, #0
+  10:	601c      	str	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:262
+	td2=0;
+  12:	4b31      	ldr	r3, [pc, #196]	; (d8 <main+0xd8>)
+D:\sunny\stm32\therme\Project\src/main.c:265
+	td3=0;
+	def =0;
+	start = 1;
+  14:	2501      	movs	r5, #1
+D:\sunny\stm32\therme\Project\src/main.c:262
+  //TCS
+  /* Setup STM32 system (clocks, Ethernet, GPIO, NVIC) and STM3210C-EVAL resources */
+	System_Setup();
+	out_off(d7);
+	td1=0;
+	td2=0;
+  16:	601c      	str	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:263
+	td3=0;
+  18:	4b30      	ldr	r3, [pc, #192]	; (dc <main+0xdc>)
+D:\sunny\stm32\therme\Project\src/main.c:265
+	def =0;
+	start = 1;
+  1a:	4e31      	ldr	r6, [pc, #196]	; (e0 <main+0xe0>)
+D:\sunny\stm32\therme\Project\src/main.c:263
+  /* Setup STM32 system (clocks, Ethernet, GPIO, NVIC) and STM3210C-EVAL resources */
+	System_Setup();
+	out_off(d7);
+	td1=0;
+	td2=0;
+	td3=0;
+  1c:	601c      	str	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:264
+	def =0;
+  1e:	4b31      	ldr	r3, [pc, #196]	; (e4 <main+0xe4>)
+D:\sunny\stm32\therme\Project\src/main.c:265
+	start = 1;
+  20:	7035      	strb	r5, [r6, #0]
+D:\sunny\stm32\therme\Project\src/main.c:264
+	System_Setup();
+	out_off(d7);
+	td1=0;
+	td2=0;
+	td3=0;
+	def =0;
+  22:	701c      	strb	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:266
+	start = 1;
+	locks = 1;
+  24:	4b30      	ldr	r3, [pc, #192]	; (e8 <main+0xe8>)
+  26:	f883 5284 	strb.w	r5, [r3, #644]	; 0x284
+D:\sunny\stm32\therme\Project\src/main.c:267
+	eemodes =0;
+  2a:	4b30      	ldr	r3, [pc, #192]	; (ec <main+0xec>)
+  2c:	701c      	strb	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:268
+	modes = 0;
+  2e:	4b30      	ldr	r3, [pc, #192]	; (f0 <main+0xf0>)
+  30:	701c      	strb	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:269
+	locks_d = 0;
+  32:	4b30      	ldr	r3, [pc, #192]	; (f4 <main+0xf4>)
+  34:	701c      	strb	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:272
+
+
+    ET_STM32_USART_Init();
+  36:	f7ff fffe 	bl	0 <ET_STM32_USART_Init>
+D:\sunny\stm32\therme\Project\src/main.c:276
+
+    // ET_STM32_USART_Init();
+  /* Initilaize the LwIP satck */
+	LwIP_Init();
+  3a:	f7ff fffe 	bl	0 <LwIP_Init>
+D:\sunny\stm32\therme\Project\src/main.c:278
+
+	HelloWorld_init();
+  3e:	f7ff fffe 	bl	0 <HelloWorld_init>
+D:\sunny\stm32\therme\Project\src/main.c:280
+
+	httpd_init();
+  42:	f7ff fffe 	bl	0 <httpd_init>
+D:\sunny\stm32\therme\Project\src/main.c:284
+  /* Initialize the TFTP server */
+	//tftpd_init();
+
+	client_init();
+  46:	f7ff fffe 	bl	0 <client_init>
+D:\sunny\stm32\therme\Project\src/main.c:285
+    tr=0;
+  4a:	4b2b      	ldr	r3, [pc, #172]	; (f8 <main+0xf8>)
+D:\sunny\stm32\therme\Project\src/main.c:286
+    printU("mcp");
+  4c:	482b      	ldr	r0, [pc, #172]	; (fc <main+0xfc>)
+D:\sunny\stm32\therme\Project\src/main.c:285
+	httpd_init();
+  /* Initialize the TFTP server */
+	//tftpd_init();
+
+	client_init();
+    tr=0;
+  4e:	601c      	str	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:286
+    printU("mcp");
+  50:	b2c0      	uxtb	r0, r0
+  52:	f7ff fffe 	bl	0 <main>
+D:\sunny\stm32\therme\Project\src/main.c:288
+	//printU(0);
+	melloc_ar();
+  56:	f7ff fffe 	bl	0 <main>
+D:\sunny\stm32\therme\Project\src/main.c:289
+	I2C_EE_Init();
+  5a:	f7ff fffe 	bl	0 <I2C_EE_Init>
+D:\sunny\stm32\therme\Project\src/main.c:291
+	  // buz_on;
+    out_on(d7);
+  5e:	2007      	movs	r0, #7
+  60:	f7ff fffe 	bl	0 <out_on>
+D:\sunny\stm32\therme\Project\src/main.c:292
+    led_=0xff;
+  64:	4b26      	ldr	r3, [pc, #152]	; (100 <main+0x100>)
+  66:	22ff      	movs	r2, #255	; 0xff
+  68:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:294
+
+	i2c_rr();
+  6a:	f7ff fffe 	bl	0 <main>
+D:\sunny\stm32\therme\Project\src/main.c:305
+	//'Call I2c_mcp23016_write(&H0a , &H01 , &H01) 'Initialize Iares , For Fast Input Scan Mode
+
+
+
+	//write_to_MCP(mcp1, IPOL0, 0x00, 0xf0); // NonInvert all input polarities if active low.
+	write_to_MCP(mcp1, 0x06, 0x00, 0xf0);	  //initiallize the ouput latch
+  6e:	2048      	movs	r0, #72	; 0x48
+  70:	2106      	movs	r1, #6
+  72:	23f0      	movs	r3, #240	; 0xf0
+  74:	4622      	mov	r2, r4
+  76:	f7ff fffe 	bl	0 <write_to_MCP>
+D:\sunny\stm32\therme\Project\src/main.c:306
+	write_to_MCP(mcp1, 0x02, 0x00, 0x0f);	  //initiallize it so the LSBs outputs are  & MSBs are inputs
+  7a:	2048      	movs	r0, #72	; 0x48
+  7c:	2102      	movs	r1, #2
+  7e:	230f      	movs	r3, #15
+  80:	4622      	mov	r2, r4
+  82:	f7ff fffe 	bl	0 <write_to_MCP>
+D:\sunny\stm32\therme\Project\src/main.c:308
+
+    write_to_MCP(mcp2, 0x06, 0x00, 0x00);	  //initiallize it so the LSBs outputs are  & MSBs are inputs 7f all
+  86:	204c      	movs	r0, #76	; 0x4c
+  88:	2106      	movs	r1, #6
+  8a:	4622      	mov	r2, r4
+  8c:	4623      	mov	r3, r4
+  8e:	f7ff fffe 	bl	0 <write_to_MCP>
+D:\sunny\stm32\therme\Project\src/main.c:309
+	write_to_MCP(mcp2, 0x02, 0x00, 0x00);	  //initiallize the ouput latch
+  92:	2102      	movs	r1, #2
+  94:	4622      	mov	r2, r4
+  96:	204c      	movs	r0, #76	; 0x4c
+  98:	4623      	mov	r3, r4
+  9a:	f7ff fffe 	bl	0 <write_to_MCP>
+D:\sunny\stm32\therme\Project\src/main.c:317
+	//write_to_MCP(mcp3, 0x02, 0x00, 0xff);	  //initiallize it so the LSBs outputs are  & MSBs are inputs
+
+    //write_to_MCP(mcp4, 0x06, 0x00, 0x00);	  //initiallize it so the LSBs outputs are  & MSBs are inputs 7f all
+	//write_to_MCP(mcp4, 0x02, 0x00, 0x00);	  //initiallize the ouput latch
+
+	Ds1302_int();
+  9e:	f7ff fffe 	bl	0 <main>
+D:\sunny\stm32\therme\Project\src/main.c:329
+	//show_rtc();
+
+
+	//I2C_EE_BufferRead(ebuff,0x01,30);
+
+	clear_delayfn();
+  a2:	f7ff fffe 	bl	0 <main>
+D:\sunny\stm32\therme\Project\src/main.c:330
+	delay_fin[0]=1;
+  a6:	4b17      	ldr	r3, [pc, #92]	; (104 <main+0x104>)
+D:\sunny\stm32\therme\Project\src/main.c:337
+	adc_p1 = 0;
+	adc_p2 = 0;
+	sdoor = 0;
+    //test_i2c();
+   // MENU_int1();
+	   printU(3);
+  a8:	2003      	movs	r0, #3
+D:\sunny\stm32\therme\Project\src/main.c:330
+
+
+	//I2C_EE_BufferRead(ebuff,0x01,30);
+
+	clear_delayfn();
+	delay_fin[0]=1;
+  aa:	681b      	ldr	r3, [r3, #0]
+  ac:	701d      	strb	r5, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:332
+	start = 1;
+	adc_p1 = 0;
+  ae:	4b16      	ldr	r3, [pc, #88]	; (108 <main+0x108>)
+D:\sunny\stm32\therme\Project\src/main.c:331
+
+	//I2C_EE_BufferRead(ebuff,0x01,30);
+
+	clear_delayfn();
+	delay_fin[0]=1;
+	start = 1;
+  b0:	7035      	strb	r5, [r6, #0]
+D:\sunny\stm32\therme\Project\src/main.c:332
+	adc_p1 = 0;
+  b2:	601c      	str	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:333
+	adc_p2 = 0;
+  b4:	4b15      	ldr	r3, [pc, #84]	; (10c <main+0x10c>)
+  b6:	601c      	str	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:334
+	sdoor = 0;
+  b8:	4b15      	ldr	r3, [pc, #84]	; (110 <main+0x110>)
+  ba:	701c      	strb	r4, [r3, #0]
+D:\sunny\stm32\therme\Project\src/main.c:337
+    //test_i2c();
+   // MENU_int1();
+	   printU(3);
+  bc:	f7ff fffe 	bl	0 <main>
+D:\sunny\stm32\therme\Project\src/main.c:338
+		buz_off;
+  c0:	4b14      	ldr	r3, [pc, #80]	; (114 <main+0x114>)
+  c2:	f44f 4200 	mov.w	r2, #32768	; 0x8000
+  c6:	615a      	str	r2, [r3, #20]
+D:\sunny\stm32\therme\Project\src/main.c:340
+
+	MENU_int1();
+  c8:	f7ff fffe 	bl	0 <main>
+D:\sunny\stm32\therme\Project\src/main.c:358
+      //  set_led_on(led_3);
+	//set_date(0,20,22,3,13,9,11);
+
+  while (1)
+  {
+    System_Periodic_Handle();
+  cc:	f7ff fffe 	bl	0 <main>
+  d0:	e7fc      	b.n	cc <main+0xcc>
+  d2:	bf00      	nop
+	...
+  fc:	00000080 	.word	0x00000080
+	...
+ 114:	40011800 	.word	0x40011800

@@ -1,0 +1,894 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\httpclient.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\httpclient.o
+
+
+Disassembly of section .text.hc_sent:
+
+00000000 <hc_sent>:
+hc_sent():
+D:\sunny\stm32\therme\Project\src/httpclient.c:170
+static err_t hc_sent(void *arg, struct tcp_pcb *pcb, u16_t len)
+{
+    struct hc_state *hcstate = arg;
+ 
+    // Reset connection timeout
+    hcstate->ConnectionTimeout = 0;
+   0:	2300      	movs	r3, #0
+   2:	7483      	strb	r3, [r0, #18]
+D:\sunny\stm32\therme\Project\src/httpclient.c:173
+ 
+    return(ERR_OK);
+}
+   4:	4618      	mov	r0, r3
+   6:	4770      	bx	lr
+
+Disassembly of section .text.hc_error:
+
+00000000 <hc_error>:
+hc_error():
+D:\sunny\stm32\therme\Project\src/httpclient.c:130
+    return(ERR_OK);
+}
+ 
+// Function that lwip calls when there is an error
+static void hc_error(void *arg, err_t err)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Project\src/httpclient.c:136
+    struct hc_state *hcstate = arg;
+    // pcb already deallocated
+ 
+    // Call return function
+    // TO-DO: Check err_t err for out_mem, ...
+    (*hcstate->ReturnPage)(hcstate->Num, GEN_ERROR, NULL, 0);
+   2:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Project\src/httpclient.c:130
+    return(ERR_OK);
+}
+ 
+// Function that lwip calls when there is an error
+static void hc_error(void *arg, err_t err)
+{
+   4:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Project\src/httpclient.c:136
+    struct hc_state *hcstate = arg;
+    // pcb already deallocated
+ 
+    // Call return function
+    // TO-DO: Check err_t err for out_mem, ...
+    (*hcstate->ReturnPage)(hcstate->Num, GEN_ERROR, NULL, 0);
+   6:	2104      	movs	r1, #4
+   8:	4613      	mov	r3, r2
+   a:	6945      	ldr	r5, [r0, #20]
+   c:	7800      	ldrb	r0, [r0, #0]
+   e:	47a8      	blx	r5
+D:\sunny\stm32\therme\Project\src/httpclient.c:138
+ 
+    free(hcstate->RecvData);
+  10:	68e0      	ldr	r0, [r4, #12]
+  12:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:139
+    free(hcstate->PostVars);
+  16:	68a0      	ldr	r0, [r4, #8]
+  18:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:140
+    free(hcstate->Page);
+  1c:	6860      	ldr	r0, [r4, #4]
+  1e:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:141
+    free(hcstate);
+  22:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Project\src/httpclient.c:142
+}
+  24:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Project\src/httpclient.c:141
+    (*hcstate->ReturnPage)(hcstate->Num, GEN_ERROR, NULL, 0);
+ 
+    free(hcstate->RecvData);
+    free(hcstate->PostVars);
+    free(hcstate->Page);
+    free(hcstate);
+  28:	f7ff bffe 	b.w	0 <free>
+
+Disassembly of section .text.hc_poll:
+
+00000000 <hc_poll>:
+hc_poll():
+D:\sunny\stm32\therme\Project\src/httpclient.c:147
+}
+ 
+// Function that lwip calls when the connection is idle
+// Here we can kill connections that have stayed idle for too long
+static err_t hc_poll(void *arg, struct tcp_pcb *pcb)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Project\src/httpclient.c:150
+    struct hc_state *hcstate = arg;
+ 
+    hcstate->ConnectionTimeout++;
+   2:	7c83      	ldrb	r3, [r0, #18]
+D:\sunny\stm32\therme\Project\src/httpclient.c:147
+}
+ 
+// Function that lwip calls when the connection is idle
+// Here we can kill connections that have stayed idle for too long
+static err_t hc_poll(void *arg, struct tcp_pcb *pcb)
+{
+   4:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Project\src/httpclient.c:150
+    struct hc_state *hcstate = arg;
+ 
+    hcstate->ConnectionTimeout++;
+   6:	3301      	adds	r3, #1
+   8:	b2db      	uxtb	r3, r3
+D:\sunny\stm32\therme\Project\src/httpclient.c:151
+    if(hcstate->ConnectionTimeout > 20)
+   a:	2b14      	cmp	r3, #20
+D:\sunny\stm32\therme\Project\src/httpclient.c:150
+// Here we can kill connections that have stayed idle for too long
+static err_t hc_poll(void *arg, struct tcp_pcb *pcb)
+{
+    struct hc_state *hcstate = arg;
+ 
+    hcstate->ConnectionTimeout++;
+   c:	7483      	strb	r3, [r0, #18]
+D:\sunny\stm32\therme\Project\src/httpclient.c:151
+    if(hcstate->ConnectionTimeout > 20)
+   e:	d908      	bls.n	22 <hc_poll+0x22>
+D:\sunny\stm32\therme\Project\src/httpclient.c:154
+    {
+        // Close the connection
+        tcp_abort(pcb);
+  10:	4608      	mov	r0, r1
+  12:	f7ff fffe 	bl	0 <tcp_abort>
+D:\sunny\stm32\therme\Project\src/httpclient.c:158
+ 
+		// Give err msg to callback function
+		// Call return function
+		(*hcstate->ReturnPage)(hcstate->Num, TIMEOUT, NULL, 0);
+  16:	2200      	movs	r2, #0
+  18:	696c      	ldr	r4, [r5, #20]
+  1a:	7828      	ldrb	r0, [r5, #0]
+  1c:	2102      	movs	r1, #2
+  1e:	4613      	mov	r3, r2
+  20:	47a0      	blx	r4
+D:\sunny\stm32\therme\Project\src/httpclient.c:162
+    }
+ 
+    return(ERR_OK);
+}
+  22:	2000      	movs	r0, #0
+  24:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.hc_clearpcb:
+
+00000000 <hc_clearpcb>:
+hc_clearpcb():
+D:\sunny\stm32\therme\Project\src/httpclient.c:29
+//#include "utils/ustdlib.h"
+ 
+// Close a PCB(connection)
+void hc_clearpcb(struct tcp_pcb *pcb)
+{
+	if(pcb != NULL)
+   0:	b108      	cbz	r0, 6 <hc_clearpcb+0x6>
+D:\sunny\stm32\therme\Project\src/httpclient.c:32
+	{
+		// Close the TCP connection
+    		tcp_close(pcb);
+   2:	f7ff bffe 	b.w	0 <tcp_close>
+   6:	4770      	bx	lr
+
+Disassembly of section .text.hc_connected:
+
+00000000 <hc_connected>:
+hc_connected():
+D:\sunny\stm32\therme\Project\src/httpclient.c:177
+    return(ERR_OK);
+}
+ 
+// lwip calls this function when the connection is established
+static err_t hc_connected(void *arg, struct tcp_pcb *pcb, err_t err)
+{
+   0:	e92d 41f3 	stmdb	sp!, {r0, r1, r4, r5, r6, r7, r8, lr}
+   4:	4604      	mov	r4, r0
+   6:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Project\src/httpclient.c:182
+    struct hc_state *hcstate = arg;
+    char  * headers;
+ 
+    // error?
+    if(err != ERR_OK)
+   8:	b14a      	cbz	r2, 1e <hc_connected+0x1e>
+D:\sunny\stm32\therme\Project\src/httpclient.c:184
+    {
+        hc_clearpcb(pcb);
+   a:	4608      	mov	r0, r1
+   c:	f7ff fffe 	bl	0 <hc_connected>
+D:\sunny\stm32\therme\Project\src/httpclient.c:187
+ 
+        // Call return function
+        (*hcstate->ReturnPage)(hcstate->Num, GEN_ERROR, NULL, 0);
+  10:	2200      	movs	r2, #0
+  12:	6965      	ldr	r5, [r4, #20]
+  14:	7820      	ldrb	r0, [r4, #0]
+  16:	2104      	movs	r1, #4
+  18:	4613      	mov	r3, r2
+  1a:	47a8      	blx	r5
+  1c:	e032      	b.n	84 <hc_connected+0x84>
+D:\sunny\stm32\therme\Project\src/httpclient.c:197
+ 
+        return(ERR_OK);
+    }
+ 
+    // Define Headers
+    if(hcstate->PostVars == NULL)
+  1e:	f8d0 8008 	ldr.w	r8, [r0, #8]
+  22:	6847      	ldr	r7, [r0, #4]
+  24:	f1b8 0f00 	cmp.w	r8, #0
+  28:	d10b      	bne.n	42 <hc_connected+0x42>
+D:\sunny\stm32\therme\Project\src/httpclient.c:200
+    {	
+        // GET headers (without page)(+ \0) = 19
+        headers = malloc(19 + strlen(hcstate->Page));
+  2a:	4638      	mov	r0, r7
+  2c:	f7ff fffe 	bl	0 <strlen>
+  30:	3013      	adds	r0, #19
+  32:	f7ff fffe 	bl	0 <malloc>
+D:\sunny\stm32\therme\Project\src/httpclient.c:201
+        sprintf(headers,"GET /%s HTTP/1.0\r\n\r\n", hcstate->Page);
+  36:	4922      	ldr	r1, [pc, #136]	; (c0 <hc_connected+0xc0>)
+  38:	463a      	mov	r2, r7
+D:\sunny\stm32\therme\Project\src/httpclient.c:200
+ 
+    // Define Headers
+    if(hcstate->PostVars == NULL)
+    {	
+        // GET headers (without page)(+ \0) = 19
+        headers = malloc(19 + strlen(hcstate->Page));
+  3a:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Project\src/httpclient.c:201
+        sprintf(headers,"GET /%s HTTP/1.0\r\n\r\n", hcstate->Page);
+  3c:	f7ff fffe 	bl	0 <sprintf>
+  40:	e016      	b.n	70 <hc_connected+0x70>
+D:\sunny\stm32\therme\Project\src/httpclient.c:207
+    }
+    else
+    {
+        // POST headers (without PostVars or Page)(+ \0) = 91
+        // Content-length: %d <== 						   ??? (max 10)
+        headers = malloc(91 + strlen(hcstate->PostVars) + strlen(hcstate->Page) + 10);
+  42:	4640      	mov	r0, r8
+  44:	f7ff fffe 	bl	0 <strlen>
+  48:	4605      	mov	r5, r0
+  4a:	4638      	mov	r0, r7
+  4c:	f7ff fffe 	bl	0 <strlen>
+  50:	1828      	adds	r0, r5, r0
+  52:	3065      	adds	r0, #101	; 0x65
+  54:	f7ff fffe 	bl	0 <malloc>
+  58:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Project\src/httpclient.c:208
+        sprintf(headers, "POST /%s HTTP/1.0\r\nContent-type: application/x-www-form-urlencoded\r\nContent-length: %d\r\n\r\n%s\r\n\r\n", hcstate->Page, strlen(hcstate->PostVars), hcstate->PostVars);
+  5a:	4640      	mov	r0, r8
+  5c:	f7ff fffe 	bl	0 <strlen>
+  60:	4918      	ldr	r1, [pc, #96]	; (c4 <hc_connected+0xc4>)
+  62:	4603      	mov	r3, r0
+  64:	463a      	mov	r2, r7
+  66:	4628      	mov	r0, r5
+  68:	f8cd 8000 	str.w	r8, [sp]
+  6c:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Project\src/httpclient.c:212
+    }
+ 
+    // Check if we are nut running out of memory
+    if(headers == NULL)
+  70:	b96d      	cbnz	r5, 8e <hc_connected+0x8e>
+D:\sunny\stm32\therme\Project\src/httpclient.c:214
+    {
+        hc_clearpcb(pcb);
+  72:	4630      	mov	r0, r6
+  74:	f7ff fffe 	bl	0 <hc_connected>
+D:\sunny\stm32\therme\Project\src/httpclient.c:217
+ 
+        // Call return function
+        (*hcstate->ReturnPage)(hcstate->Num, OUT_MEM, NULL, 0);
+  78:	6966      	ldr	r6, [r4, #20]
+  7a:	7820      	ldrb	r0, [r4, #0]
+  7c:	2101      	movs	r1, #1
+  7e:	462a      	mov	r2, r5
+  80:	462b      	mov	r3, r5
+  82:	47b0      	blx	r6
+D:\sunny\stm32\therme\Project\src/httpclient.c:220
+ 
+        // Free wc hcstate
+        free(hcstate->RecvData);
+  84:	68e0      	ldr	r0, [r4, #12]
+  86:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:221
+        free(hcstate);
+  8a:	4620      	mov	r0, r4
+  8c:	e012      	b.n	b4 <hc_connected+0xb4>
+D:\sunny\stm32\therme\Project\src/httpclient.c:229
+    }
+ 
+
+ 
+    // Send data
+    tcp_write(pcb, headers, strlen(headers), 1);
+  8e:	4628      	mov	r0, r5
+  90:	f7ff fffe 	bl	0 <strlen>
+  94:	4629      	mov	r1, r5
+  96:	b282      	uxth	r2, r0
+  98:	2301      	movs	r3, #1
+  9a:	4630      	mov	r0, r6
+  9c:	f7ff fffe 	bl	0 <tcp_write>
+D:\sunny\stm32\therme\Project\src/httpclient.c:230
+    tcp_output(pcb);
+  a0:	4630      	mov	r0, r6
+  a2:	f7ff fffe 	bl	0 <tcp_output>
+D:\sunny\stm32\therme\Project\src/httpclient.c:233
+ 
+    // remove headers
+    free(headers);
+  a6:	4628      	mov	r0, r5
+  a8:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:234
+    free(hcstate->PostVars);			// postvars are send, so we don't need them anymore
+  ac:	68a0      	ldr	r0, [r4, #8]
+  ae:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:235
+    free(hcstate->Page);		    	        // page is requested, so we don't need it anymore
+  b2:	6860      	ldr	r0, [r4, #4]
+  b4:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:238
+ 
+    return(ERR_OK);
+}
+  b8:	2000      	movs	r0, #0
+  ba:	e8bd 81fc 	ldmia.w	sp!, {r2, r3, r4, r5, r6, r7, r8, pc}
+  be:	bf00      	nop
+  c0:	00000000 	.word	0x00000000
+  c4:	00000015 	.word	0x00000015
+
+Disassembly of section .text.hc_recv:
+
+00000000 <hc_recv>:
+hc_recv():
+D:\sunny\stm32\therme\Project\src/httpclient.c:38
+	}
+}
+ 
+// Function that lwip calls for handling recv'd data
+err_t hc_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4604      	mov	r4, r0
+   6:	460e      	mov	r6, r1
+   8:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Project\src/httpclient.c:45
+	char * page = NULL;
+	struct pbuf * temp_p;
+	hc_errormsg errormsg = GEN_ERROR;
+	int i;
+ 
+    if((err == ERR_OK) && (p != NULL))
+   a:	2b00      	cmp	r3, #0
+   c:	d17d      	bne.n	10a <hc_recv+0x10a>
+   e:	b912      	cbnz	r2, 16 <hc_recv+0x16>
+D:\sunny\stm32\therme\Project\src/httpclient.c:85
+ 
+    // NULL packet == CONNECTION IS CLOSED(by remote host)
+    else if((err == ERR_OK) && (p == NULL))
+    {	
+		// Simple code for checking 200 OK
+		for(i=0; i < hcstate->Len; i++)
+  10:	8a02      	ldrh	r2, [r0, #16]
+  12:	2704      	movs	r7, #4
+  14:	e061      	b.n	da <hc_recv+0xda>
+D:\sunny\stm32\therme\Project\src/httpclient.c:47
+	hc_errormsg errormsg = GEN_ERROR;
+	int i;
+ 
+    if((err == ERR_OK) && (p != NULL))
+    {
+		tcp_recved(pcb, p->tot_len);
+  16:	4608      	mov	r0, r1
+  18:	8911      	ldrh	r1, [r2, #8]
+  1a:	f7ff fffe 	bl	0 <tcp_recved>
+  1e:	462e      	mov	r6, r5
+D:\sunny\stm32\therme\Project\src/httpclient.c:53
+ 
+		// Add payload (p) to hcstate
+		temp_p = p;
+		while(temp_p != NULL)
+		{
+			hcstate->RecvData = realloc(hcstate->RecvData, temp_p->len + hcstate->Len + 1);
+  20:	8971      	ldrh	r1, [r6, #10]
+  22:	8a23      	ldrh	r3, [r4, #16]
+  24:	68e0      	ldr	r0, [r4, #12]
+  26:	18c9      	adds	r1, r1, r3
+  28:	3101      	adds	r1, #1
+  2a:	f7ff fffe 	bl	0 <realloc>
+  2e:	4602      	mov	r2, r0
+  30:	60e0      	str	r0, [r4, #12]
+D:\sunny\stm32\therme\Project\src/httpclient.c:56
+ 
+			// CHECK 'OUT OF MEM'
+			if(hcstate->RecvData == NULL)
+  32:	b928      	cbnz	r0, 40 <hc_recv+0x40>
+D:\sunny\stm32\therme\Project\src/httpclient.c:59
+			{
+				// OUT OF MEMORY
+				(*hcstate->ReturnPage)(hcstate->Num, OUT_MEM, NULL, 0);	
+  34:	6965      	ldr	r5, [r4, #20]
+  36:	7820      	ldrb	r0, [r4, #0]
+  38:	2101      	movs	r1, #1
+  3a:	4613      	mov	r3, r2
+  3c:	47a8      	blx	r5
+D:\sunny\stm32\therme\Project\src/httpclient.c:60
+				return(ERR_OK);
+  3e:	e064      	b.n	10a <hc_recv+0x10a>
+D:\sunny\stm32\therme\Project\src/httpclient.c:63
+			}
+ 
+			strncpy(hcstate->RecvData + hcstate->Len, temp_p->payload, temp_p->len);
+  40:	8a20      	ldrh	r0, [r4, #16]
+  42:	6871      	ldr	r1, [r6, #4]
+  44:	1810      	adds	r0, r2, r0
+  46:	8972      	ldrh	r2, [r6, #10]
+  48:	f7ff fffe 	bl	0 <strncpy>
+D:\sunny\stm32\therme\Project\src/httpclient.c:64
+			hcstate->RecvData[temp_p->len + hcstate->Len] = '\0';			
+  4c:	8a22      	ldrh	r2, [r4, #16]
+  4e:	68e1      	ldr	r1, [r4, #12]
+  50:	8973      	ldrh	r3, [r6, #10]
+  52:	188a      	adds	r2, r1, r2
+  54:	2100      	movs	r1, #0
+  56:	54d1      	strb	r1, [r2, r3]
+D:\sunny\stm32\therme\Project\src/httpclient.c:65
+			hcstate->Len += temp_p->len;
+  58:	8972      	ldrh	r2, [r6, #10]
+  5a:	8a23      	ldrh	r3, [r4, #16]
+D:\sunny\stm32\therme\Project\src/httpclient.c:67
+ 
+			temp_p = temp_p->next;
+  5c:	6836      	ldr	r6, [r6, #0]
+D:\sunny\stm32\therme\Project\src/httpclient.c:65
+				return(ERR_OK);
+			}
+ 
+			strncpy(hcstate->RecvData + hcstate->Len, temp_p->payload, temp_p->len);
+			hcstate->RecvData[temp_p->len + hcstate->Len] = '\0';			
+			hcstate->Len += temp_p->len;
+  5e:	18d3      	adds	r3, r2, r3
+  60:	8223      	strh	r3, [r4, #16]
+D:\sunny\stm32\therme\Project\src/httpclient.c:51
+    {
+		tcp_recved(pcb, p->tot_len);
+ 
+		// Add payload (p) to hcstate
+		temp_p = p;
+		while(temp_p != NULL)
+  62:	2e00      	cmp	r6, #0
+  64:	d1dc      	bne.n	20 <hc_recv+0x20>
+  66:	e000      	b.n	6a <hc_recv+0x6a>
+D:\sunny\stm32\therme\Project\src/httpclient.c:76
+ 
+		while(p != NULL)
+		{
+			temp_p = p->next;
+			pbuf_free(p);
+			p = temp_p;
+  68:	4625      	mov	r5, r4
+D:\sunny\stm32\therme\Project\src/httpclient.c:74
+ 
+		// Removing payloads
+ 
+		while(p != NULL)
+		{
+			temp_p = p->next;
+  6a:	682c      	ldr	r4, [r5, #0]
+D:\sunny\stm32\therme\Project\src/httpclient.c:75
+			pbuf_free(p);
+  6c:	4628      	mov	r0, r5
+  6e:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:72
+			temp_p = temp_p->next;
+		}
+ 
+		// Removing payloads
+ 
+		while(p != NULL)
+  72:	2c00      	cmp	r4, #0
+  74:	d1f8      	bne.n	68 <hc_recv+0x68>
+  76:	e048      	b.n	10a <hc_recv+0x10a>
+D:\sunny\stm32\therme\Project\src/httpclient.c:87
+    else if((err == ERR_OK) && (p == NULL))
+    {	
+		// Simple code for checking 200 OK
+		for(i=0; i < hcstate->Len; i++)
+		{
+			if(errormsg == GEN_ERROR)
+  78:	2f04      	cmp	r7, #4
+  7a:	68e3      	ldr	r3, [r4, #12]
+  7c:	d111      	bne.n	a2 <hc_recv+0xa2>
+D:\sunny\stm32\therme\Project\src/httpclient.c:90
+			{
+				// Check for 200 OK 
+				if((*(hcstate->RecvData+i) == '2') && (*(hcstate->RecvData+ ++i) == '0') && (*(hcstate->RecvData+ ++i) == '0')) errormsg = OK;
+  7e:	5759      	ldrsb	r1, [r3, r5]
+  80:	2932      	cmp	r1, #50	; 0x32
+  82:	d109      	bne.n	98 <hc_recv+0x98>
+  84:	3501      	adds	r5, #1
+  86:	5759      	ldrsb	r1, [r3, r5]
+  88:	2930      	cmp	r1, #48	; 0x30
+  8a:	d105      	bne.n	98 <hc_recv+0x98>
+  8c:	3501      	adds	r5, #1
+  8e:	575f      	ldrsb	r7, [r3, r5]
+  90:	2f30      	cmp	r7, #48	; 0x30
+  92:	bf14      	ite	ne
+  94:	2704      	movne	r7, #4
+  96:	2700      	moveq	r7, #0
+D:\sunny\stm32\therme\Project\src/httpclient.c:91
+				if(*(hcstate->RecvData+i) == '\n') errormsg = NOT_FOUND;
+  98:	575b      	ldrsb	r3, [r3, r5]
+  9a:	2b0a      	cmp	r3, #10
+  9c:	bf08      	it	eq
+  9e:	2703      	moveq	r7, #3
+  a0:	e01a      	b.n	d8 <hc_recv+0xd8>
+D:\sunny\stm32\therme\Project\src/httpclient.c:96
+			}
+			else
+			{
+				// Remove headers
+				if((*(hcstate->RecvData+i) == '\r') && (*(hcstate->RecvData+ ++i) == '\n') && (*(hcstate->RecvData+ ++i) == '\r') && (*(hcstate->RecvData + ++i) == '\n'))
+  a2:	5759      	ldrsb	r1, [r3, r5]
+  a4:	290d      	cmp	r1, #13
+  a6:	d117      	bne.n	d8 <hc_recv+0xd8>
+  a8:	3501      	adds	r5, #1
+  aa:	5759      	ldrsb	r1, [r3, r5]
+  ac:	290a      	cmp	r1, #10
+  ae:	d113      	bne.n	d8 <hc_recv+0xd8>
+  b0:	3501      	adds	r5, #1
+  b2:	5759      	ldrsb	r1, [r3, r5]
+  b4:	290d      	cmp	r1, #13
+  b6:	d10f      	bne.n	d8 <hc_recv+0xd8>
+  b8:	3501      	adds	r5, #1
+  ba:	5759      	ldrsb	r1, [r3, r5]
+  bc:	290a      	cmp	r1, #10
+  be:	d10b      	bne.n	d8 <hc_recv+0xd8>
+D:\sunny\stm32\therme\Project\src/httpclient.c:98
+				{
+					i++;
+  c0:	3501      	adds	r5, #1
+D:\sunny\stm32\therme\Project\src/httpclient.c:99
+					page = malloc(strlen(hcstate->RecvData+i));
+  c2:	195d      	adds	r5, r3, r5
+  c4:	4628      	mov	r0, r5
+  c6:	f7ff fffe 	bl	0 <strlen>
+  ca:	f7ff fffe 	bl	0 <malloc>
+D:\sunny\stm32\therme\Project\src/httpclient.c:100
+					strcpy(page, hcstate->RecvData+i);
+  ce:	4629      	mov	r1, r5
+D:\sunny\stm32\therme\Project\src/httpclient.c:99
+			{
+				// Remove headers
+				if((*(hcstate->RecvData+i) == '\r') && (*(hcstate->RecvData+ ++i) == '\n') && (*(hcstate->RecvData+ ++i) == '\r') && (*(hcstate->RecvData + ++i) == '\n'))
+				{
+					i++;
+					page = malloc(strlen(hcstate->RecvData+i));
+  d0:	4680      	mov	r8, r0
+D:\sunny\stm32\therme\Project\src/httpclient.c:100
+					strcpy(page, hcstate->RecvData+i);
+  d2:	f7ff fffe 	bl	0 <strcpy>
+D:\sunny\stm32\therme\Project\src/httpclient.c:101
+					break;
+  d6:	e004      	b.n	e2 <hc_recv+0xe2>
+D:\sunny\stm32\therme\Project\src/httpclient.c:85
+ 
+    // NULL packet == CONNECTION IS CLOSED(by remote host)
+    else if((err == ERR_OK) && (p == NULL))
+    {	
+		// Simple code for checking 200 OK
+		for(i=0; i < hcstate->Len; i++)
+  d8:	3501      	adds	r5, #1
+  da:	4295      	cmp	r5, r2
+  dc:	dbcc      	blt.n	78 <hc_recv+0x78>
+D:\sunny\stm32\therme\Project\src/httpclient.c:40
+ 
+// Function that lwip calls for handling recv'd data
+err_t hc_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+{
+	struct hc_state *hcstate = arg;
+	char * page = NULL;
+  de:	f04f 0800 	mov.w	r8, #0
+  e2:	7820      	ldrb	r0, [r4, #0]
+  e4:	6965      	ldr	r5, [r4, #20]
+D:\sunny\stm32\therme\Project\src/httpclient.c:106
+					break;
+				}
+			}
+		}
+ 
+		if(errormsg == OK)
+  e6:	b91f      	cbnz	r7, f0 <hc_recv+0xf0>
+D:\sunny\stm32\therme\Project\src/httpclient.c:109
+		{
+			// Put recv data to ---> p->ReturnPage
+			(*hcstate->ReturnPage)(hcstate->Num, OK, page, hcstate->Len);
+  e8:	4639      	mov	r1, r7
+  ea:	4642      	mov	r2, r8
+  ec:	8a23      	ldrh	r3, [r4, #16]
+  ee:	e002      	b.n	f6 <hc_recv+0xf6>
+D:\sunny\stm32\therme\Project\src/httpclient.c:114
+		}
+		else
+		{
+			// 200 OK not found Return NOT_FOUND (WARNING: NOT_FOUND COULD ALSO BE 5xx SERVER ERROR, ...) 
+			(*hcstate->ReturnPage)(hcstate->Num, errormsg, NULL, 0);
+  f0:	2200      	movs	r2, #0
+  f2:	4639      	mov	r1, r7
+  f4:	4613      	mov	r3, r2
+  f6:	47a8      	blx	r5
+D:\sunny\stm32\therme\Project\src/httpclient.c:118
+		}
+ 
+        // Clear the PCB
+        hc_clearpcb(pcb);
+  f8:	4630      	mov	r0, r6
+  fa:	f7ff fffe 	bl	0 <hc_recv>
+D:\sunny\stm32\therme\Project\src/httpclient.c:121
+ 
+		// free the memory containing hcstate
+		free(hcstate->RecvData);
+  fe:	68e0      	ldr	r0, [r4, #12]
+ 100:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:122
+		free(hcstate);
+ 104:	4620      	mov	r0, r4
+ 106:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:126
+    }
+ 
+    return(ERR_OK);
+}
+ 10a:	2000      	movs	r0, #0
+ 10c:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.hc_open:
+
+00000000 <hc_open>:
+hc_open():
+D:\sunny\stm32\therme\Project\src/httpclient.c:243
+}
+ 
+ 
+// Public function for request a webpage (REMOTEIP, ...
+int hc_open(struct ip_addr remoteIP, char *Page, char *PostVars, void (* returnpage)(u8_t, hc_errormsg, char *, u16_t))
+{
+   0:	e92d 43f7 	stmdb	sp!, {r0, r1, r2, r4, r5, r6, r7, r8, r9, lr}
+   4:	9001      	str	r0, [sp, #4]
+D:\sunny\stm32\therme\Project\src/httpclient.c:252
+	static u8_t num = 0;
+	// local port
+	u16_t port= 61000; 	
+ 
+	// Get a place for a new webclient hcstate in the memory
+	hcstate = malloc(sizeof(struct hc_state));
+   6:	2018      	movs	r0, #24
+D:\sunny\stm32\therme\Project\src/httpclient.c:243
+}
+ 
+ 
+// Public function for request a webpage (REMOTEIP, ...
+int hc_open(struct ip_addr remoteIP, char *Page, char *PostVars, void (* returnpage)(u8_t, hc_errormsg, char *, u16_t))
+{
+   8:	4688      	mov	r8, r1
+   a:	4617      	mov	r7, r2
+   c:	461c      	mov	r4, r3
+D:\sunny\stm32\therme\Project\src/httpclient.c:252
+	static u8_t num = 0;
+	// local port
+	u16_t port= 61000; 	
+ 
+	// Get a place for a new webclient hcstate in the memory
+	hcstate = malloc(sizeof(struct hc_state));
+   e:	f7ff fffe 	bl	0 <malloc>
+  12:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Project\src/httpclient.c:255
+ 
+	// Create a new PCB (PROTOCOL CONTROL BLOCK)
+	pcb = tcp_new();
+  14:	f7ff fffe 	bl	0 <tcp_new>
+D:\sunny\stm32\therme\Project\src/httpclient.c:256
+	if(pcb == NULL || hcstate == NULL)
+  18:	4606      	mov	r6, r0
+  1a:	2800      	cmp	r0, #0
+  1c:	d05a      	beq.n	d4 <hc_open+0xd4>
+  1e:	2d00      	cmp	r5, #0
+  20:	d059      	beq.n	d6 <hc_open+0xd6>
+D:\sunny\stm32\therme\Project\src/httpclient.c:264
+		//Not enough memory
+		return 0;
+	}
+ 
+	// Define webclient hcstate vars
+	num++;
+  22:	4b2e      	ldr	r3, [pc, #184]	; (dc <hc_open+0xdc>)
+D:\sunny\stm32\therme\Project\src/httpclient.c:269
+	hcstate->Num = num;
+	hcstate->RecvData = NULL;
+	hcstate->ConnectionTimeout = 0;
+	hcstate->Len = 0;
+	hcstate->ReturnPage = returnpage;
+  24:	616c      	str	r4, [r5, #20]
+D:\sunny\stm32\therme\Project\src/httpclient.c:264
+		//Not enough memory
+		return 0;
+	}
+ 
+	// Define webclient hcstate vars
+	num++;
+  26:	781a      	ldrb	r2, [r3, #0]
+  28:	461c      	mov	r4, r3
+  2a:	3201      	adds	r2, #1
+  2c:	b2d2      	uxtb	r2, r2
+  2e:	701a      	strb	r2, [r3, #0]
+D:\sunny\stm32\therme\Project\src/httpclient.c:265
+	hcstate->Num = num;
+  30:	702a      	strb	r2, [r5, #0]
+D:\sunny\stm32\therme\Project\src/httpclient.c:266
+	hcstate->RecvData = NULL;
+  32:	2200      	movs	r2, #0
+  34:	60ea      	str	r2, [r5, #12]
+D:\sunny\stm32\therme\Project\src/httpclient.c:267
+	hcstate->ConnectionTimeout = 0;
+  36:	74aa      	strb	r2, [r5, #18]
+D:\sunny\stm32\therme\Project\src/httpclient.c:268
+	hcstate->Len = 0;
+  38:	822a      	strh	r2, [r5, #16]
+D:\sunny\stm32\therme\Project\src/httpclient.c:272
+	hcstate->ReturnPage = returnpage;
+ 
+	// Make place for PostVars & Page
+	if(PostVars != NULL) hcstate->PostVars = malloc(strlen(PostVars) +1);
+  3a:	b137      	cbz	r7, 4a <hc_open+0x4a>
+  3c:	4638      	mov	r0, r7
+  3e:	f7ff fffe 	bl	0 <strlen>
+  42:	3001      	adds	r0, #1
+  44:	f7ff fffe 	bl	0 <malloc>
+  48:	60a8      	str	r0, [r5, #8]
+D:\sunny\stm32\therme\Project\src/httpclient.c:273
+	hcstate->Page = malloc(strlen(Page) +1);
+  4a:	4640      	mov	r0, r8
+  4c:	f7ff fffe 	bl	0 <strlen>
+  50:	3001      	adds	r0, #1
+  52:	f7ff fffe 	bl	0 <malloc>
+  56:	6068      	str	r0, [r5, #4]
+D:\sunny\stm32\therme\Project\src/httpclient.c:277
+ 
+	// Check for "out of memory"
+	
+	if(hcstate->Page == NULL || (hcstate->PostVars == NULL && PostVars != NULL))
+  58:	b128      	cbz	r0, 66 <hc_open+0x66>
+  5a:	f8d5 9008 	ldr.w	r9, [r5, #8]
+  5e:	f1b9 0f00 	cmp.w	r9, #0
+  62:	d10d      	bne.n	80 <hc_open+0x80>
+  64:	b167      	cbz	r7, 80 <hc_open+0x80>
+D:\sunny\stm32\therme\Project\src/httpclient.c:279
+	{
+		free(hcstate->Page);
+  66:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:280
+		free(hcstate->PostVars);
+  6a:	68a8      	ldr	r0, [r5, #8]
+  6c:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:281
+		free(hcstate);
+  70:	4628      	mov	r0, r5
+  72:	f7ff fffe 	bl	0 <free>
+D:\sunny\stm32\therme\Project\src/httpclient.c:282
+		tcp_close(pcb);
+  76:	4630      	mov	r0, r6
+  78:	f7ff fffe 	bl	0 <tcp_close>
+D:\sunny\stm32\therme\Project\src/httpclient.c:283
+		return 0;
+  7c:	2000      	movs	r0, #0
+  7e:	e02b      	b.n	d8 <hc_open+0xd8>
+D:\sunny\stm32\therme\Project\src/httpclient.c:287
+	}
+	
+	// Place allocated copy data 
+	strcpy(hcstate->Page, Page);
+  80:	4641      	mov	r1, r8
+  82:	f7ff fffe 	bl	0 <strcpy>
+D:\sunny\stm32\therme\Project\src/httpclient.c:288
+	if(PostVars != NULL) strcpy(hcstate->PostVars, PostVars);
+  86:	b11f      	cbz	r7, 90 <hc_open+0x90>
+  88:	4648      	mov	r0, r9
+  8a:	4639      	mov	r1, r7
+  8c:	f7ff fffe 	bl	0 <strcpy>
+D:\sunny\stm32\therme\Project\src/httpclient.c:308
+		free(hcstate->PostVars);
+		free(hcstate);
+		//tcp_close(pcb);
+		return 0;
+	}*/
+	tcp_bind(pcb, IP_ADDR_ANY, 0);
+  90:	2200      	movs	r2, #0
+  92:	4913      	ldr	r1, [pc, #76]	; (e0 <hc_open+0xe0>)
+  94:	4630      	mov	r0, r6
+  96:	f7ff fffe 	bl	0 <tcp_bind>
+D:\sunny\stm32\therme\Project\src/httpclient.c:310
+	// Use conn -> argument(s)
+	tcp_arg(pcb, hcstate);
+  9a:	4630      	mov	r0, r6
+  9c:	4629      	mov	r1, r5
+  9e:	f7ff fffe 	bl	0 <tcp_arg>
+D:\sunny\stm32\therme\Project\src/httpclient.c:314
+	
+	 
+    // Setup the TCP error function
+    tcp_err(pcb, hc_error);
+  a2:	4630      	mov	r0, r6
+  a4:	490f      	ldr	r1, [pc, #60]	; (e4 <hc_open+0xe4>)
+  a6:	f7ff fffe 	bl	0 <tcp_err>
+D:\sunny\stm32\therme\Project\src/httpclient.c:317
+	
+	    // Setup the TCP receive function
+    tcp_recv(pcb, hc_recv);
+  aa:	4630      	mov	r0, r6
+  ac:	490e      	ldr	r1, [pc, #56]	; (e8 <hc_open+0xe8>)
+  ae:	f7ff fffe 	bl	0 <tcp_recv>
+D:\sunny\stm32\therme\Project\src/httpclient.c:320
+ 
+    // Setup the TCP polling function/interval	 //TCP_POLL IS NOT CORRECT DEFINED @ DOC!!!
+    tcp_poll(pcb, hc_poll, 10);					 	
+  b2:	220a      	movs	r2, #10
+  b4:	4630      	mov	r0, r6
+  b6:	490d      	ldr	r1, [pc, #52]	; (ec <hc_open+0xec>)
+  b8:	f7ff fffe 	bl	0 <tcp_poll>
+D:\sunny\stm32\therme\Project\src/httpclient.c:323
+ 
+    // Setup the TCP sent callback function
+    tcp_sent(pcb, hc_sent);
+  bc:	4630      	mov	r0, r6
+  be:	490c      	ldr	r1, [pc, #48]	; (f0 <hc_open+0xf0>)
+  c0:	f7ff fffe 	bl	0 <tcp_sent>
+D:\sunny\stm32\therme\Project\src/httpclient.c:326
+ 
+	// Open connect (SEND SYN) 
+	tcp_connect(pcb, &remoteIP, 80, hc_connected);
+  c4:	4630      	mov	r0, r6
+  c6:	a901      	add	r1, sp, #4
+  c8:	2250      	movs	r2, #80	; 0x50
+  ca:	4b0a      	ldr	r3, [pc, #40]	; (f4 <hc_open+0xf4>)
+  cc:	f7ff fffe 	bl	0 <tcp_connect>
+D:\sunny\stm32\therme\Project\src/httpclient.c:335
+	 
+	  // Send data
+    tcp_write(pcb, headers, strlen(headers), 1);
+    tcp_output(pcb);
+	*/
+	return num;
+  d0:	7820      	ldrb	r0, [r4, #0]
+  d2:	e001      	b.n	d8 <hc_open+0xd8>
+  d4:	e000      	b.n	d8 <hc_open+0xd8>
+D:\sunny\stm32\therme\Project\src/httpclient.c:260
+	pcb = tcp_new();
+	if(pcb == NULL || hcstate == NULL)
+	{
+		//UARTprintf("hc_open: Not enough memory for pcb or hcstate\n");	
+		//Not enough memory
+		return 0;
+  d6:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Project\src/httpclient.c:336
+	  // Send data
+    tcp_write(pcb, headers, strlen(headers), 1);
+    tcp_output(pcb);
+	*/
+	return num;
+}
+  d8:	e8bd 83fe 	ldmia.w	sp!, {r1, r2, r3, r4, r5, r6, r7, r8, r9, pc}
+	...
