@@ -1,0 +1,373 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\partition.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\partition.o
+
+
+Disassembly of section .text.part_isFatPart:
+
+00000000 <part_isFatPart>:
+part_isFatPart():
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:67
+ * type in the broadest sense. I
+ * Return value: If it is FAT, returns 1, otherwise 0.
+*/
+eint16 part_isFatPart(euint8 type)
+{
+	if(type == PT_FAT12  ||
+   0:	2801      	cmp	r0, #1
+   2:	d010      	beq.n	26 <part_isFatPart+0x26>
+   4:	2804      	cmp	r0, #4
+   6:	d00b      	beq.n	20 <part_isFatPart+0x20>
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:68
+	   type == PT_FAT16A ||
+   8:	2806      	cmp	r0, #6
+   a:	d009      	beq.n	20 <part_isFatPart+0x20>
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:69
+	   type == PT_FAT16  ||
+   c:	280b      	cmp	r0, #11
+   e:	d007      	beq.n	20 <part_isFatPart+0x20>
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:70
+	   type == PT_FAT32  ||
+  10:	285c      	cmp	r0, #92	; 0x5c
+  12:	d007      	beq.n	24 <part_isFatPart+0x24>
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:74
+	   type == PT_FAT32A ||
+	   type == PT_FAT16B   )
+	{
+		return(1);
+  14:	f1a0 035e 	sub.w	r3, r0, #94	; 0x5e
+  18:	4258      	negs	r0, r3
+  1a:	eb40 0003 	adc.w	r0, r0, r3
+  1e:	4770      	bx	lr
+  20:	2001      	movs	r0, #1
+  22:	4770      	bx	lr
+  24:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:77
+	}
+	return(0);
+}
+  26:	4770      	bx	lr
+
+Disassembly of section .text.part_initPartition:
+
+00000000 <part_initPartition>:
+part_initPartition():
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:49
+void part_initPartition(Partition *part,Disc* refDisc)
+{
+	eint16 c;
+	
+	part->disc=refDisc;
+	part->activePartition=-1; /* No partition selected */
+   0:	23ff      	movs	r3, #255	; 0xff
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:45
+ * void part_initPartition(Partition *part,Disc* refDisc)
+ * Description: This function searches the 4 partitions for a FAT class partition
+ * and marks the first one found as the active to be used partition.
+*/
+void part_initPartition(Partition *part,Disc* refDisc)
+{
+   2:	b570      	push	{r4, r5, r6, lr}
+   4:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:48
+	eint16 c;
+	
+	part->disc=refDisc;
+   6:	6001      	str	r1, [r0, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:49
+	part->activePartition=-1; /* No partition selected */
+   8:	7103      	strb	r3, [r0, #4]
+   a:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:51
+	part_setError(part,PART_NOERROR);
+	for(c=3;c>=0;c--){
+   c:	2503      	movs	r5, #3
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:52
+		if(part_isFatPart(part->disc->partitions[c].type))
+   e:	f896 003c 	ldrb.w	r0, [r6, #60]	; 0x3c
+  12:	f7ff fffe 	bl	0 <part_initPartition>
+  16:	b100      	cbz	r0, 1a <part_initPartition+0x1a>
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:53
+			part->activePartition=c;
+  18:	7125      	strb	r5, [r4, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:51
+	eint16 c;
+	
+	part->disc=refDisc;
+	part->activePartition=-1; /* No partition selected */
+	part_setError(part,PART_NOERROR);
+	for(c=3;c>=0;c--){
+  1a:	3d01      	subs	r5, #1
+  1c:	b2ad      	uxth	r5, r5
+  1e:	b22b      	sxth	r3, r5
+  20:	3e10      	subs	r6, #16
+  22:	f1b3 3fff 	cmp.w	r3, #4294967295
+  26:	d1f2      	bne.n	e <part_initPartition+0xe>
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:55
+		if(part_isFatPart(part->disc->partitions[c].type))
+			part->activePartition=c;
+	} 
+}
+  28:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.part_getRealLBA:
+
+00000000 <part_getRealLBA>:
+part_getRealLBA():
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:107
+ * a partition is + the address.
+ * Return value: Sector address.
+*/
+euint32 part_getRealLBA(Partition *part,euint32 address)
+{
+	return(part->disc->partitions[part->activePartition].LBA_begin+address);
+   0:	6803      	ldr	r3, [r0, #0]
+   2:	f990 2004 	ldrsb.w	r2, [r0, #4]
+   6:	eb03 1302 	add.w	r3, r3, r2, lsl #4
+   a:	6918      	ldr	r0, [r3, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:108
+}
+   c:	1808      	adds	r0, r1, r0
+   e:	4770      	bx	lr
+
+Disassembly of section .text.part_writeBuf:
+
+00000000 <part_writeBuf>:
+part_writeBuf():
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:92
+ * Description: This function writes 512 bytes, from buf. It's offset is address
+ * sectors from the beginning of the partition.
+ * Return value: It returns whatever the hardware function returns. (-1=error)
+*/
+eint16 part_writeBuf(Partition *part,euint32 address,euint8* buf)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4604      	mov	r4, r0
+   4:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:94
+	/*DBG((TXT("part_writeBuf :: %li\n"),address));*/
+	return(if_writeBuf(part->disc->ioman->iface,part_getRealLBA(part,address),buf));
+   6:	f7ff fffe 	bl	0 <part_writeBuf>
+   a:	6823      	ldr	r3, [r4, #0]
+   c:	4601      	mov	r1, r0
+   e:	681b      	ldr	r3, [r3, #0]
+  10:	462a      	mov	r2, r5
+  12:	6818      	ldr	r0, [r3, #0]
+  14:	f7ff fffe 	bl	0 <if_writeBuf>
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:95
+}
+  18:	b200      	sxth	r0, r0
+  1a:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.part_readBuf:
+
+00000000 <part_readBuf>:
+part_readBuf():
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:81
+	return(0);
+}
+/*****************************************************************************/ 
+
+esint8 part_readBuf(Partition *part, euint32 address, euint8* buf)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+   4:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:82
+	return(if_readBuf(part->disc->ioman->iface,part_getRealLBA(part,address), buf));
+   6:	f7ff fffe 	bl	0 <part_readBuf>
+   a:	6823      	ldr	r3, [r4, #0]
+   c:	4601      	mov	r1, r0
+   e:	681b      	ldr	r3, [r3, #0]
+  10:	462a      	mov	r2, r5
+  12:	6818      	ldr	r0, [r3, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:83
+}
+  14:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:82
+}
+/*****************************************************************************/ 
+
+esint8 part_readBuf(Partition *part, euint32 address, euint8* buf)
+{
+	return(if_readBuf(part->disc->ioman->iface,part_getRealLBA(part,address), buf));
+  18:	f7ff bffe 	b.w	0 <if_readBuf>
+
+Disassembly of section .text.part_getSect:
+
+00000000 <part_getSect>:
+part_getSect():
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:118
+ * Description: This function calls ioman_getSector, but recalculates the sector
+ * address to be partition relative.
+ * Return value: Whatever getSector returns. (pointer or 0)
+*/
+euint8* part_getSect(Partition *part, euint32 address, euint8 mode)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+   4:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:119
+	return(ioman_getSector(part->disc->ioman,part_getRealLBA(part,address),mode));
+   6:	f7ff fffe 	bl	0 <part_getSect>
+   a:	6823      	ldr	r3, [r4, #0]
+   c:	4601      	mov	r1, r0
+   e:	6818      	ldr	r0, [r3, #0]
+  10:	462a      	mov	r2, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:120
+}
+  12:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:119
+ * address to be partition relative.
+ * Return value: Whatever getSector returns. (pointer or 0)
+*/
+euint8* part_getSect(Partition *part, euint32 address, euint8 mode)
+{
+	return(ioman_getSector(part->disc->ioman,part_getRealLBA(part,address),mode));
+  16:	f7ff bffe 	b.w	0 <ioman_getSector>
+
+Disassembly of section .text.part_relSect:
+
+00000000 <part_relSect>:
+part_relSect():
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:129
+ * Description: This function calls ioman_releaseSector.
+ * Return value: Whatever releaseSector returns.
+*/
+esint8 part_relSect(Partition *part, euint8* buf)
+{
+	return(ioman_releaseSector(part->disc->ioman,buf));
+   0:	6803      	ldr	r3, [r0, #0]
+   2:	6818      	ldr	r0, [r3, #0]
+   4:	f7ff bffe 	b.w	0 <ioman_releaseSector>
+
+Disassembly of section .text.part_flushPart:
+
+00000000 <part_flushPart>:
+part_flushPart():
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:133
+}
+
+esint8 part_flushPart(Partition *part,euint32 addr_l, euint32 addr_h)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4616      	mov	r6, r2
+   4:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:135
+	return( 
+		ioman_flushRange(part->disc->ioman,part_getRealLBA(part,addr_l),part_getRealLBA(part,addr_h)) 
+   6:	f7ff fffe 	bl	0 <part_flushPart>
+   a:	4631      	mov	r1, r6
+   c:	4605      	mov	r5, r0
+   e:	4620      	mov	r0, r4
+  10:	f7ff fffe 	bl	0 <part_flushPart>
+  14:	6823      	ldr	r3, [r4, #0]
+  16:	4602      	mov	r2, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:134
+	return(ioman_releaseSector(part->disc->ioman,buf));
+}
+
+esint8 part_flushPart(Partition *part,euint32 addr_l, euint32 addr_h)
+{
+	return( 
+  18:	6818      	ldr	r0, [r3, #0]
+  1a:	4629      	mov	r1, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:137
+		ioman_flushRange(part->disc->ioman,part_getRealLBA(part,addr_l),part_getRealLBA(part,addr_h)) 
+	);	
+}
+  1c:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:134
+	return(ioman_releaseSector(part->disc->ioman,buf));
+}
+
+esint8 part_flushPart(Partition *part,euint32 addr_l, euint32 addr_h)
+{
+	return( 
+  20:	f7ff bffe 	b.w	0 <ioman_flushRange>
+
+Disassembly of section .text.part_directSectorRead:
+
+00000000 <part_directSectorRead>:
+part_directSectorRead():
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:140
+		ioman_flushRange(part->disc->ioman,part_getRealLBA(part,addr_l),part_getRealLBA(part,addr_h)) 
+	);	
+}
+
+esint8 part_directSectorRead(Partition *part,euint32 address, euint8* buf)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+   4:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:142
+	return(
+		ioman_directSectorRead(part->disc->ioman,part_getRealLBA(part,address),buf)
+   6:	f7ff fffe 	bl	0 <part_directSectorRead>
+   a:	6823      	ldr	r3, [r4, #0]
+   c:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:141
+	);	
+}
+
+esint8 part_directSectorRead(Partition *part,euint32 address, euint8* buf)
+{
+	return(
+   e:	6818      	ldr	r0, [r3, #0]
+  10:	462a      	mov	r2, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:144
+		ioman_directSectorRead(part->disc->ioman,part_getRealLBA(part,address),buf)
+	);
+}
+  12:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:141
+	);	
+}
+
+esint8 part_directSectorRead(Partition *part,euint32 address, euint8* buf)
+{
+	return(
+  16:	f7ff bffe 	b.w	0 <ioman_directSectorRead>
+
+Disassembly of section .text.part_directSectorWrite:
+
+00000000 <part_directSectorWrite>:
+part_directSectorWrite():
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:147
+		ioman_directSectorRead(part->disc->ioman,part_getRealLBA(part,address),buf)
+	);
+}
+
+esint8 part_directSectorWrite(Partition *part,euint32 address, euint8* buf)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+   4:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:149
+	return(
+		ioman_directSectorWrite(part->disc->ioman,part_getRealLBA(part,address),buf)
+   6:	f7ff fffe 	bl	0 <part_directSectorWrite>
+   a:	6823      	ldr	r3, [r4, #0]
+   c:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:148
+	);
+}
+
+esint8 part_directSectorWrite(Partition *part,euint32 address, euint8* buf)
+{
+	return(
+   e:	6818      	ldr	r0, [r3, #0]
+  10:	462a      	mov	r2, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:151
+		ioman_directSectorWrite(part->disc->ioman,part_getRealLBA(part,address),buf)
+	);
+}
+  12:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/partition.c:148
+	);
+}
+
+esint8 part_directSectorWrite(Partition *part,euint32 address, euint8* buf)
+{
+	return(
+  16:	f7ff bffe 	b.w	0 <ioman_directSectorWrite>

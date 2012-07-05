@@ -1,0 +1,3519 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\stm3210c_eval_ioe.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\stm3210c_eval_ioe.o
+
+
+Disassembly of section .text.IOE_I2C_Config:
+
+00000000 <IOE_I2C_Config>:
+IOE_I2C_Config():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1413
+  * @brief  Configure the I2C Peripheral used to communicate with IO_Expanders.
+  * @param  None
+  * @retval None
+  */
+static void IOE_I2C_Config(void)
+{
+   0:	b51f      	push	{r0, r1, r2, r3, r4, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1417
+  I2C_InitTypeDef I2C_InitStructure;
+  
+  /* IOE_I2C configuration */
+  I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
+   2:	2300      	movs	r3, #0
+   4:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1419
+  I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;
+  I2C_InitStructure.I2C_OwnAddress1 = 0x00;
+   8:	f8ad 3008 	strh.w	r3, [sp, #8]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1420
+  I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
+   c:	f44f 6380 	mov.w	r3, #1024	; 0x400
+  10:	f8ad 300a 	strh.w	r3, [sp, #10]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1422
+  I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
+  I2C_InitStructure.I2C_ClockSpeed = IOE_I2C_SPEED;
+  14:	4b08      	ldr	r3, [pc, #32]	; (38 <IOE_I2C_Config+0x38>)
+  16:	a904      	add	r1, sp, #16
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1418
+{
+  I2C_InitTypeDef I2C_InitStructure;
+  
+  /* IOE_I2C configuration */
+  I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
+  I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;
+  18:	f64b 72ff 	movw	r2, #49151	; 0xbfff
+  1c:	f8ad 2006 	strh.w	r2, [sp, #6]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1422
+  I2C_InitStructure.I2C_OwnAddress1 = 0x00;
+  I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
+  I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
+  I2C_InitStructure.I2C_ClockSpeed = IOE_I2C_SPEED;
+  20:	f841 3d10 	str.w	r3, [r1, #-16]!
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1421
+  /* IOE_I2C configuration */
+  I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
+  I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;
+  I2C_InitStructure.I2C_OwnAddress1 = 0x00;
+  I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
+  I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
+  24:	f44f 4280 	mov.w	r2, #16384	; 0x4000
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1424
+  I2C_InitStructure.I2C_ClockSpeed = IOE_I2C_SPEED;
+  
+  I2C_Init(IOE_I2C, &I2C_InitStructure);
+  28:	4804      	ldr	r0, [pc, #16]	; (3c <IOE_I2C_Config+0x3c>)
+  2a:	4669      	mov	r1, sp
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1421
+  /* IOE_I2C configuration */
+  I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
+  I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;
+  I2C_InitStructure.I2C_OwnAddress1 = 0x00;
+  I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
+  I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
+  2c:	f8ad 200c 	strh.w	r2, [sp, #12]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1424
+  I2C_InitStructure.I2C_ClockSpeed = IOE_I2C_SPEED;
+  
+  I2C_Init(IOE_I2C, &I2C_InitStructure);
+  30:	f7ff fffe 	bl	0 <I2C_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1425
+}
+  34:	b005      	add	sp, #20
+  36:	bd00      	pop	{pc}
+  38:	00061a80 	.word	0x00061a80
+  3c:	40005400 	.word	0x40005400
+
+Disassembly of section .text.delay.clone.0:
+
+00000000 <delay.clone.0>:
+delay():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1473
+  * @param  nCount: specifies the delay time length.
+  * @retval None
+  */
+static void delay(__IO uint32_t nCount)
+{
+  __IO uint32_t index = 0; 
+   0:	b0822300 	.word	0xb0822300
+   4:	9301      	str	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1474
+  for(index = (100000 * nCount); index != 0; index--)
+   6:	4b05      	ldr	r3, [pc, #20]	; (1c <delay.clone.0+0x1c>)
+   8:	e001      	b.n	e <delay.clone.0+0xe>
+   a:	9b01      	ldr	r3, [sp, #4]
+   c:	3b01      	subs	r3, #1
+   e:	9301      	str	r3, [sp, #4]
+  10:	9b01      	ldr	r3, [sp, #4]
+  12:	2b00      	cmp	r3, #0
+  14:	d1f9      	bne.n	a <delay.clone.0+0xa>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1477
+  {
+  }
+}
+  16:	b002      	add	sp, #8
+  18:	4770      	bx	lr
+  1a:	bf00      	nop
+  1c:	00030d40 	.word	0x00030d40
+
+Disassembly of section .text.I2C_WriteDeviceRegister:
+
+00000000 <I2C_WriteDeviceRegister>:
+I2C_WriteDeviceRegister():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1025
+  * @param  RegisterAddr: The target register adress
+  * @param  RegisterValue: The target register value to be written 
+  * @retval IOE_OK: if all operations are OK. Other value if error.
+  */
+uint8_t I2C_WriteDeviceRegister(uint8_t DeviceAddr, uint8_t RegisterAddr, uint8_t RegisterValue)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+   2:	4607      	mov	r7, r0
+   4:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1029
+  uint32_t read_verif = 0;
+
+  /* Reset all I2C2 registers */
+  I2C_SoftwareResetCmd(IOE_I2C, ENABLE);
+   6:	482f      	ldr	r0, [pc, #188]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+   8:	2101      	movs	r1, #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1025
+  * @param  RegisterAddr: The target register adress
+  * @param  RegisterValue: The target register value to be written 
+  * @retval IOE_OK: if all operations are OK. Other value if error.
+  */
+uint8_t I2C_WriteDeviceRegister(uint8_t DeviceAddr, uint8_t RegisterAddr, uint8_t RegisterValue)
+{
+   a:	4615      	mov	r5, r2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1032
+
+  /* Reset all I2C2 registers */
+  I2C_SoftwareResetCmd(IOE_I2C, ENABLE);
+  I2C_SoftwareResetCmd(IOE_I2C, DISABLE);
+
+  TimeOut = TIMEOUT_MAX;
+   c:	4c2e      	ldr	r4, [pc, #184]	; (c8 <I2C_WriteDeviceRegister+0xc8>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1029
+uint8_t I2C_WriteDeviceRegister(uint8_t DeviceAddr, uint8_t RegisterAddr, uint8_t RegisterValue)
+{
+  uint32_t read_verif = 0;
+
+  /* Reset all I2C2 registers */
+  I2C_SoftwareResetCmd(IOE_I2C, ENABLE);
+   e:	f7ff fffe 	bl	0 <I2C_SoftwareResetCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1030
+  I2C_SoftwareResetCmd(IOE_I2C, DISABLE);
+  12:	2100      	movs	r1, #0
+  14:	482b      	ldr	r0, [pc, #172]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+  16:	f7ff fffe 	bl	0 <I2C_SoftwareResetCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1032
+
+  TimeOut = TIMEOUT_MAX;
+  1a:	f640 73ff 	movw	r3, #4095	; 0xfff
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1035
+
+  /* Enable the IOE_I2C peripheral  */
+  I2C_Cmd(IOE_I2C, ENABLE);
+  1e:	2101      	movs	r1, #1
+  20:	4828      	ldr	r0, [pc, #160]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1032
+
+  /* Reset all I2C2 registers */
+  I2C_SoftwareResetCmd(IOE_I2C, ENABLE);
+  I2C_SoftwareResetCmd(IOE_I2C, DISABLE);
+
+  TimeOut = TIMEOUT_MAX;
+  22:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1035
+
+  /* Enable the IOE_I2C peripheral  */
+  I2C_Cmd(IOE_I2C, ENABLE);
+  24:	f7ff fffe 	bl	0 <I2C_Cmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1038
+
+  /* Configure the I2C peripheral */
+  IOE_I2C_Config();
+  28:	f7ff fffe 	bl	0 <I2C_WriteDeviceRegister>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1041
+
+  /* Begin the config sequence */
+  I2C_GenerateSTART(IOE_I2C, ENABLE);
+  2c:	4825      	ldr	r0, [pc, #148]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+  2e:	2101      	movs	r1, #1
+  30:	f7ff fffe 	bl	0 <I2C_GenerateSTART>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1044
+
+  /* Test on EV5 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_MODE_SELECT))
+  34:	e004      	b.n	40 <I2C_WriteDeviceRegister+0x40>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1046
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  36:	6823      	ldr	r3, [r4, #0]
+  38:	1e5a      	subs	r2, r3, #1
+  3a:	6022      	str	r2, [r4, #0]
+  3c:	2b00      	cmp	r3, #0
+  3e:	d03d      	beq.n	bc <I2C_WriteDeviceRegister+0xbc>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1044
+
+  /* Begin the config sequence */
+  I2C_GenerateSTART(IOE_I2C, ENABLE);
+
+  /* Test on EV5 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_MODE_SELECT))
+  40:	4820      	ldr	r0, [pc, #128]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+  42:	4922      	ldr	r1, [pc, #136]	; (cc <I2C_WriteDeviceRegister+0xcc>)
+  44:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  48:	2800      	cmp	r0, #0
+  4a:	d0f4      	beq.n	36 <I2C_WriteDeviceRegister+0x36>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1050
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+
+  /* Transmit the slave address and enable writing operation */
+  I2C_Send7bitAddress(IOE_I2C, DeviceAddr, I2C_Direction_Transmitter);
+  4c:	481d      	ldr	r0, [pc, #116]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+  4e:	4639      	mov	r1, r7
+  50:	2200      	movs	r2, #0
+  52:	f7ff fffe 	bl	0 <I2C_Send7bitAddress>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1053
+  
+  /* Test on EV6 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
+  56:	e004      	b.n	62 <I2C_WriteDeviceRegister+0x62>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1055
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  58:	6823      	ldr	r3, [r4, #0]
+  5a:	1e5a      	subs	r2, r3, #1
+  5c:	6022      	str	r2, [r4, #0]
+  5e:	2b00      	cmp	r3, #0
+  60:	d02c      	beq.n	bc <I2C_WriteDeviceRegister+0xbc>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1053
+
+  /* Transmit the slave address and enable writing operation */
+  I2C_Send7bitAddress(IOE_I2C, DeviceAddr, I2C_Direction_Transmitter);
+  
+  /* Test on EV6 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
+  62:	4818      	ldr	r0, [pc, #96]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+  64:	491a      	ldr	r1, [pc, #104]	; (d0 <I2C_WriteDeviceRegister+0xd0>)
+  66:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  6a:	2800      	cmp	r0, #0
+  6c:	d0f4      	beq.n	58 <I2C_WriteDeviceRegister+0x58>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1059
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* Transmit the first address for r/w operations */
+  I2C_SendData(IOE_I2C, RegisterAddr);
+  6e:	4815      	ldr	r0, [pc, #84]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+  70:	4631      	mov	r1, r6
+  72:	f7ff fffe 	bl	0 <I2C_SendData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1061
+  
+  TimeOut = TIMEOUT_MAX;
+  76:	f640 73ff 	movw	r3, #4095	; 0xfff
+  7a:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1064
+  
+  /* Test on EV8 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
+  7c:	e003      	b.n	86 <I2C_WriteDeviceRegister+0x86>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1066
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  7e:	6823      	ldr	r3, [r4, #0]
+  80:	1e5a      	subs	r2, r3, #1
+  82:	6022      	str	r2, [r4, #0]
+  84:	b1d3      	cbz	r3, bc <I2C_WriteDeviceRegister+0xbc>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1064
+  I2C_SendData(IOE_I2C, RegisterAddr);
+  
+  TimeOut = TIMEOUT_MAX;
+  
+  /* Test on EV8 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
+  86:	480f      	ldr	r0, [pc, #60]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+  88:	4912      	ldr	r1, [pc, #72]	; (d4 <I2C_WriteDeviceRegister+0xd4>)
+  8a:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  8e:	2800      	cmp	r0, #0
+  90:	d0f5      	beq.n	7e <I2C_WriteDeviceRegister+0x7e>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1070
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* Prepare the register value to be sent */
+  I2C_SendData(IOE_I2C, RegisterValue);
+  92:	480c      	ldr	r0, [pc, #48]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+  94:	4629      	mov	r1, r5
+  96:	f7ff fffe 	bl	0 <I2C_SendData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1073
+  
+  /* Test on EV8 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
+  9a:	e003      	b.n	a4 <I2C_WriteDeviceRegister+0xa4>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1075
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  9c:	6823      	ldr	r3, [r4, #0]
+  9e:	1e5a      	subs	r2, r3, #1
+  a0:	6022      	str	r2, [r4, #0]
+  a2:	b16b      	cbz	r3, c0 <I2C_WriteDeviceRegister+0xc0>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1073
+  
+  /* Prepare the register value to be sent */
+  I2C_SendData(IOE_I2C, RegisterValue);
+  
+  /* Test on EV8 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
+  a4:	4807      	ldr	r0, [pc, #28]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+  a6:	490b      	ldr	r1, [pc, #44]	; (d4 <I2C_WriteDeviceRegister+0xd4>)
+  a8:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  ac:	2800      	cmp	r0, #0
+  ae:	d0f5      	beq.n	9c <I2C_WriteDeviceRegister+0x9c>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1079
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* End the configuration sequence */
+  I2C_GenerateSTOP(IOE_I2C, ENABLE);
+  b0:	4804      	ldr	r0, [pc, #16]	; (c4 <I2C_WriteDeviceRegister+0xc4>)
+  b2:	2101      	movs	r1, #1
+  b4:	f7ff fffe 	bl	0 <I2C_GenerateSTOP>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1100
+    read_verif = 0;
+  }
+#endif
+  
+  /* Return the verifying value: 0 (Passed) or 1 (Failed) */
+  return read_verif;
+  b8:	2000      	movs	r0, #0
+  ba:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1066
+  TimeOut = TIMEOUT_MAX;
+  
+  /* Test on EV8 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  bc:	2002      	movs	r0, #2
+  be:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1075
+  I2C_SendData(IOE_I2C, RegisterValue);
+  
+  /* Test on EV8 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  c0:	2002      	movs	r0, #2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1101
+  }
+#endif
+  
+  /* Return the verifying value: 0 (Passed) or 1 (Failed) */
+  return read_verif;
+}
+  c2:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+  c4:	40005400 	.word	0x40005400
+  c8:	00000000 	.word	0x00000000
+  cc:	00030001 	.word	0x00030001
+  d0:	00070082 	.word	0x00070082
+  d4:	00070084 	.word	0x00070084
+
+Disassembly of section .text.IOE_Reset:
+
+00000000 <IOE_Reset>:
+IOE_Reset():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:602
+  * @param  DeviceAddr: The address of the IOExpander, could be : IOE_1_ADDR
+  *         or IOE_2_ADDR.
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_Reset(uint8_t DeviceAddr)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:604
+  /* Power Down the IO_Expander */
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_SYS_CTRL1, 0x02);
+   2:	2103      	movs	r1, #3
+   4:	2202      	movs	r2, #2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:602
+  * @param  DeviceAddr: The address of the IOExpander, could be : IOE_1_ADDR
+  *         or IOE_2_ADDR.
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_Reset(uint8_t DeviceAddr)
+{
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:604
+  /* Power Down the IO_Expander */
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_SYS_CTRL1, 0x02);
+   8:	f7ff fffe 	bl	0 <IOE_Reset>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:607
+
+  /* wait for a delay to insure registers erasing */
+  _delay_(2); 
+   c:	f7ff fffe 	bl	0 <IOE_Reset>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:610
+  
+  /* Power On the Codec after the power off => all registers are reinitialized*/
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_SYS_CTRL1, 0x00);
+  10:	4620      	mov	r0, r4
+  12:	2103      	movs	r1, #3
+  14:	2200      	movs	r2, #0
+  16:	f7ff fffe 	bl	0 <IOE_Reset>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:614
+  
+  /* If all OK return IOE_OK */
+  return IOE_OK;    
+}
+  1a:	2000      	movs	r0, #0
+  1c:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.IOE_ClearIOITPending:
+
+00000000 <IOE_ClearIOITPending>:
+IOE_ClearIOITPending():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:550
+  * @param  IO_IT: the IO interrupt to be checked could be IO_ITx Where x can be 
+  *         from 0 to 7.              
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_ClearIOITPending(uint8_t DeviceAddr, uint8_t IO_IT)
+{
+   0:	b510      	push	{r4, lr}
+   2:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:552
+  /* Write 1 to the bits that have to be cleared */
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_INT_STA, IO_IT);  
+   4:	4622      	mov	r2, r4
+   6:	210d      	movs	r1, #13
+   8:	f7ff fffe 	bl	0 <IOE_ClearIOITPending>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:555
+
+  /* Clear the Edge detection pending bit*/
+  I2C_WriteDeviceRegister(IOE_2_ADDR, IOE_REG_GPIO_ED, IO_IT);
+   c:	2114      	movs	r1, #20
+   e:	4622      	mov	r2, r4
+  10:	2088      	movs	r0, #136	; 0x88
+  12:	f7ff fffe 	bl	0 <IOE_ClearIOITPending>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:558
+
+  /* Clear the Rising edge pending bit */
+  I2C_WriteDeviceRegister(IOE_2_ADDR, IOE_REG_GPIO_RE, IO_IT);
+  16:	2115      	movs	r1, #21
+  18:	4622      	mov	r2, r4
+  1a:	2088      	movs	r0, #136	; 0x88
+  1c:	f7ff fffe 	bl	0 <IOE_ClearIOITPending>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:561
+
+  /* Clear the Falling edge pending bit */
+  I2C_WriteDeviceRegister(IOE_2_ADDR, IOE_REG_GPIO_FE, IO_IT);  
+  20:	2088      	movs	r0, #136	; 0x88
+  22:	2116      	movs	r1, #22
+  24:	4622      	mov	r2, r4
+  26:	f7ff fffe 	bl	0 <IOE_ClearIOITPending>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:565
+
+  /* If all OK return IOE_OK */
+  return IOE_OK;
+}
+  2a:	2000      	movs	r0, #0
+  2c:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.IOE_ClearGITPending:
+
+00000000 <IOE_ClearGITPending>:
+IOE_ClearGITPending():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:508
+  *   @arg  Global_IT_FTH : Touch Screen Controller FIFO Threshold interrupt   
+  *   @arg  Global_IT_TOUCH : Touch Screen Controller Touch Detected interrupt 
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_ClearGITPending(uint8_t DeviceAddr, uint8_t Global_IT)
+{
+   0:	460a      	mov	r2, r1
+   2:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:510
+  /* Write 1 to the bits that have to be cleared */
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_INT_STA, Global_IT); 
+   4:	210b      	movs	r1, #11
+   6:	f7ff fffe 	bl	0 <IOE_ClearGITPending>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:514
+
+  /* If all OK return IOE_OK */
+  return IOE_OK;
+}
+   a:	2000      	movs	r0, #0
+   c:	bd08      	pop	{r3, pc}
+
+Disassembly of section .text.IOE_WriteIOPin:
+
+00000000 <IOE_WriteIOPin>:
+IOE_WriteIOPin():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:280
+uint8_t IOE_WriteIOPin(uint8_t IO_Pin, IOE_BitValue_TypeDef BitVal)
+{
+  uint8_t DeviceAddr = 0;
+  
+  /* Get the IO expander Address according to which pin is to be controlled */
+  if (IO_Pin & IO1_OUT_ALL_PINS)
+   0:	f010 0f01 	tst.w	r0, #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:276
+  * @param BitVal: The value to be set. This parameter can be one of the
+  *        following values: BitSet or BitReset. See IOE_BitVal_TypeDef.
+  * @retval IOE_OK or PARAM_ERROR
+  */
+uint8_t IOE_WriteIOPin(uint8_t IO_Pin, IOE_BitValue_TypeDef BitVal)
+{
+   4:	b510      	push	{r4, lr}
+   6:	4602      	mov	r2, r0
+   8:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:280
+  uint8_t DeviceAddr = 0;
+  
+  /* Get the IO expander Address according to which pin is to be controlled */
+  if (IO_Pin & IO1_OUT_ALL_PINS)
+   a:	d104      	bne.n	16 <IOE_WriteIOPin+0x16>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:284
+  {
+    DeviceAddr = IOE_1_ADDR;
+  }
+  else if (IO_Pin & IO2_OUT_ALL_PINS)
+   c:	f010 0f05 	tst.w	r0, #5
+  10:	d00d      	beq.n	2e <IOE_WriteIOPin+0x2e>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:286
+  {
+    DeviceAddr = IOE_2_ADDR;
+  12:	2088      	movs	r0, #136	; 0x88
+  14:	e000      	b.n	18 <IOE_WriteIOPin+0x18>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:282
+  uint8_t DeviceAddr = 0;
+  
+  /* Get the IO expander Address according to which pin is to be controlled */
+  if (IO_Pin & IO1_OUT_ALL_PINS)
+  {
+    DeviceAddr = IOE_1_ADDR;
+  16:	2082      	movs	r0, #130	; 0x82
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:294
+  {
+    return PARAM_ERROR;
+  }
+  
+  /* Apply the bit value to the selected pin */
+  if (BitVal == BitReset)
+  18:	b924      	cbnz	r4, 24 <IOE_WriteIOPin+0x24>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:297
+  {
+    /* Set the register */
+    I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_CLR_PIN, IO_Pin);
+  1a:	2111      	movs	r1, #17
+  1c:	f7ff fffe 	bl	0 <IOE_WriteIOPin>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:305
+  {
+    /* Set the register */
+    I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_SET_PIN, IO_Pin);
+  }
+  
+  return IOE_OK;
+  20:	4620      	mov	r0, r4
+  22:	bd10      	pop	{r4, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:302
+    I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_CLR_PIN, IO_Pin);
+  }
+  else
+  {
+    /* Set the register */
+    I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_SET_PIN, IO_Pin);
+  24:	2110      	movs	r1, #16
+  26:	f7ff fffe 	bl	0 <IOE_WriteIOPin>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:305
+  }
+  
+  return IOE_OK;
+  2a:	2000      	movs	r0, #0
+  2c:	bd10      	pop	{r4, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:290
+  {
+    DeviceAddr = IOE_2_ADDR;
+  }
+  else
+  {
+    return PARAM_ERROR;
+  2e:	2003      	movs	r0, #3
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:306
+    /* Set the register */
+    I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_SET_PIN, IO_Pin);
+  }
+  
+  return IOE_OK;
+}
+  30:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.I2C_ReadDeviceRegister:
+
+00000000 <I2C_ReadDeviceRegister>:
+I2C_ReadDeviceRegister():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1111
+  *         or IOE_2_ADDR. 
+  * @param  RegisterAddr: The target register adress (between 00x and 0x24)
+  * @retval The value of the read register (0xAA if Timout occured)   
+  */
+uint8_t I2C_ReadDeviceRegister(uint8_t DeviceAddr, uint8_t RegisterAddr)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4605      	mov	r5, r0
+   4:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1115
+  uint32_t tmp = 0;
+  
+  /* Disable the IOE_I2C peripheral  */
+  I2C_Cmd(IOE_I2C, DISABLE);
+   6:	4842      	ldr	r0, [pc, #264]	; (110 <I2C_ReadDeviceRegister+0x110>)
+   8:	2100      	movs	r1, #0
+   a:	f7ff fffe 	bl	0 <I2C_Cmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1118
+  
+  /* Reset all I2C2 registers */
+  I2C_SoftwareResetCmd(IOE_I2C, ENABLE);
+   e:	4840      	ldr	r0, [pc, #256]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  10:	2101      	movs	r1, #1
+  12:	f7ff fffe 	bl	0 <I2C_SoftwareResetCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1119
+  I2C_SoftwareResetCmd(IOE_I2C, DISABLE);
+  16:	483e      	ldr	r0, [pc, #248]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  18:	2100      	movs	r1, #0
+  1a:	f7ff fffe 	bl	0 <I2C_SoftwareResetCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1127
+  IOE_I2C_Config();
+  
+  /* Enable the I2C peripheral */
+  I2C_GenerateSTART(IOE_I2C, ENABLE);
+ 
+  TimeOut = TIMEOUT_MAX;
+  1e:	4c3d      	ldr	r4, [pc, #244]	; (f8 <I2C_ReadDeviceRegister+0xf8>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1122
+  /* Reset all I2C2 registers */
+  I2C_SoftwareResetCmd(IOE_I2C, ENABLE);
+  I2C_SoftwareResetCmd(IOE_I2C, DISABLE);
+  
+  /* Configure the I2C peripheral */
+  IOE_I2C_Config();
+  20:	f7ff fffe 	bl	0 <I2C_ReadDeviceRegister>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1125
+  
+  /* Enable the I2C peripheral */
+  I2C_GenerateSTART(IOE_I2C, ENABLE);
+  24:	483a      	ldr	r0, [pc, #232]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  26:	2101      	movs	r1, #1
+  28:	f7ff fffe 	bl	0 <I2C_GenerateSTART>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1127
+ 
+  TimeOut = TIMEOUT_MAX;
+  2c:	f640 73ff 	movw	r3, #4095	; 0xfff
+  30:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1129
+  /* Test on EV5 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_MODE_SELECT))
+  32:	e004      	b.n	3e <I2C_ReadDeviceRegister+0x3e>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1131
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  34:	6823      	ldr	r3, [r4, #0]
+  36:	1e5a      	subs	r2, r3, #1
+  38:	6022      	str	r2, [r4, #0]
+  3a:	2b00      	cmp	r3, #0
+  3c:	d065      	beq.n	10a <I2C_ReadDeviceRegister+0x10a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1129
+  /* Enable the I2C peripheral */
+  I2C_GenerateSTART(IOE_I2C, ENABLE);
+ 
+  TimeOut = TIMEOUT_MAX;
+  /* Test on EV5 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_MODE_SELECT))
+  3e:	4834      	ldr	r0, [pc, #208]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  40:	4935      	ldr	r1, [pc, #212]	; (118 <I2C_ReadDeviceRegister+0x118>)
+  42:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  46:	2800      	cmp	r0, #0
+  48:	d0f4      	beq.n	34 <I2C_ReadDeviceRegister+0x34>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1134
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  /* Disable Acknowledgement */
+  I2C_AcknowledgeConfig(IOE_I2C, DISABLE);
+  4a:	4831      	ldr	r0, [pc, #196]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  4c:	2100      	movs	r1, #0
+  4e:	f7ff fffe 	bl	0 <I2C_AcknowledgeConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1137
+  
+  /* Transmit the slave address and enable writing operation */
+  I2C_Send7bitAddress(IOE_I2C, DeviceAddr, I2C_Direction_Transmitter);
+  52:	482f      	ldr	r0, [pc, #188]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  54:	4629      	mov	r1, r5
+  56:	2200      	movs	r2, #0
+  58:	f7ff fffe 	bl	0 <I2C_Send7bitAddress>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1139
+  
+  TimeOut = TIMEOUT_MAX;
+  5c:	f640 73ff 	movw	r3, #4095	; 0xfff
+  60:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1142
+  /* Test on EV6 and clear it */
+  
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
+  62:	e004      	b.n	6e <I2C_ReadDeviceRegister+0x6e>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1144
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  64:	6823      	ldr	r3, [r4, #0]
+  66:	1e5a      	subs	r2, r3, #1
+  68:	6022      	str	r2, [r4, #0]
+  6a:	2b00      	cmp	r3, #0
+  6c:	d04d      	beq.n	10a <I2C_ReadDeviceRegister+0x10a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1142
+  I2C_Send7bitAddress(IOE_I2C, DeviceAddr, I2C_Direction_Transmitter);
+  
+  TimeOut = TIMEOUT_MAX;
+  /* Test on EV6 and clear it */
+  
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
+  6e:	4828      	ldr	r0, [pc, #160]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  70:	492a      	ldr	r1, [pc, #168]	; (11c <I2C_ReadDeviceRegister+0x11c>)
+  72:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  76:	2800      	cmp	r0, #0
+  78:	d0f4      	beq.n	64 <I2C_ReadDeviceRegister+0x64>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1148
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* Transmit the first address for r/w operations */
+  I2C_SendData(IOE_I2C, RegisterAddr);
+  7a:	4825      	ldr	r0, [pc, #148]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  7c:	4631      	mov	r1, r6
+  7e:	f7ff fffe 	bl	0 <I2C_SendData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1151
+  
+  /* Test on EV8 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
+  82:	e004      	b.n	8e <I2C_ReadDeviceRegister+0x8e>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1153
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  84:	6823      	ldr	r3, [r4, #0]
+  86:	1e5a      	subs	r2, r3, #1
+  88:	6022      	str	r2, [r4, #0]
+  8a:	2b00      	cmp	r3, #0
+  8c:	d03d      	beq.n	10a <I2C_ReadDeviceRegister+0x10a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1151
+  
+  /* Transmit the first address for r/w operations */
+  I2C_SendData(IOE_I2C, RegisterAddr);
+  
+  /* Test on EV8 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
+  8e:	4820      	ldr	r0, [pc, #128]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  90:	4923      	ldr	r1, [pc, #140]	; (120 <I2C_ReadDeviceRegister+0x120>)
+  92:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  96:	2800      	cmp	r0, #0
+  98:	d0f4      	beq.n	84 <I2C_ReadDeviceRegister+0x84>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1156
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  /* Regenerate a start condition */
+  I2C_GenerateSTART(IOE_I2C, ENABLE);
+  9a:	481d      	ldr	r0, [pc, #116]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  9c:	2101      	movs	r1, #1
+  9e:	f7ff fffe 	bl	0 <I2C_GenerateSTART>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1159
+  
+  /* Test on EV5 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_MODE_SELECT))
+  a2:	e004      	b.n	ae <I2C_ReadDeviceRegister+0xae>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1161
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  a4:	6823      	ldr	r3, [r4, #0]
+  a6:	1e5a      	subs	r2, r3, #1
+  a8:	6022      	str	r2, [r4, #0]
+  aa:	2b00      	cmp	r3, #0
+  ac:	d02d      	beq.n	10a <I2C_ReadDeviceRegister+0x10a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1159
+  }
+  /* Regenerate a start condition */
+  I2C_GenerateSTART(IOE_I2C, ENABLE);
+  
+  /* Test on EV5 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_MODE_SELECT))
+  ae:	4818      	ldr	r0, [pc, #96]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  b0:	4919      	ldr	r1, [pc, #100]	; (118 <I2C_ReadDeviceRegister+0x118>)
+  b2:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  b6:	2800      	cmp	r0, #0
+  b8:	d0f4      	beq.n	a4 <I2C_ReadDeviceRegister+0xa4>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1165
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* Transmit the slave address and enable writing operation */
+  I2C_Send7bitAddress(IOE_I2C, DeviceAddr, I2C_Direction_Receiver);
+  ba:	4815      	ldr	r0, [pc, #84]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  bc:	4629      	mov	r1, r5
+  be:	2201      	movs	r2, #1
+  c0:	f7ff fffe 	bl	0 <I2C_Send7bitAddress>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1168
+  
+  /* Test on EV6 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED))
+  c4:	e003      	b.n	ce <I2C_ReadDeviceRegister+0xce>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1170
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  c6:	6823      	ldr	r3, [r4, #0]
+  c8:	1e5a      	subs	r2, r3, #1
+  ca:	6022      	str	r2, [r4, #0]
+  cc:	b1eb      	cbz	r3, 10a <I2C_ReadDeviceRegister+0x10a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1168
+  
+  /* Transmit the slave address and enable writing operation */
+  I2C_Send7bitAddress(IOE_I2C, DeviceAddr, I2C_Direction_Receiver);
+  
+  /* Test on EV6 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED))
+  ce:	4810      	ldr	r0, [pc, #64]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  d0:	4914      	ldr	r1, [pc, #80]	; (124 <I2C_ReadDeviceRegister+0x124>)
+  d2:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  d6:	2800      	cmp	r0, #0
+  d8:	d0f5      	beq.n	c6 <I2C_ReadDeviceRegister+0xc6>
+  da:	e003      	b.n	e4 <I2C_ReadDeviceRegister+0xe4>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1176
+  }
+  
+  /* Test on EV7 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_RECEIVED))
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  dc:	6823      	ldr	r3, [r4, #0]
+  de:	1e5a      	subs	r2, r3, #1
+  e0:	6022      	str	r2, [r4, #0]
+  e2:	b193      	cbz	r3, 10a <I2C_ReadDeviceRegister+0x10a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1174
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* Test on EV7 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_RECEIVED))
+  e4:	480a      	ldr	r0, [pc, #40]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  e6:	4910      	ldr	r1, [pc, #64]	; (128 <I2C_ReadDeviceRegister+0x128>)
+  e8:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  ec:	2800      	cmp	r0, #0
+  ee:	d0f5      	beq.n	dc <I2C_ReadDeviceRegister+0xdc>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1180
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* End the configuration sequence */
+  I2C_GenerateSTOP(IOE_I2C, ENABLE);
+  f0:	2101      	movs	r1, #1
+  f2:	4807      	ldr	r0, [pc, #28]	; (110 <I2C_ReadDeviceRegister+0x110>)
+  f4:	f7ff fffe 	bl	0 <I2C_GenerateSTOP>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1183
+  
+  /* Load the register value */
+  tmp = I2C_ReceiveData(IOE_I2C);
+  f8:	4805      	ldr	r0, [pc, #20]	; (18 <I2C_ReceiveData+0x18>)
+  fa:	f7ff fffe 	bl	0 <I2C_ReceiveData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1186
+  
+  /* Enable Acknowledgement */
+  I2C_AcknowledgeConfig(IOE_I2C, ENABLE);
+  fe:	2101      	movs	r1, #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1183
+  
+  /* End the configuration sequence */
+  I2C_GenerateSTOP(IOE_I2C, ENABLE);
+  
+  /* Load the register value */
+  tmp = I2C_ReceiveData(IOE_I2C);
+ 100:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1186
+  
+  /* Enable Acknowledgement */
+  I2C_AcknowledgeConfig(IOE_I2C, ENABLE);
+ 102:	4803      	ldr	r0, [pc, #12]	; (110 <I2C_ReadDeviceRegister+0x110>)
+ 104:	f7ff fffe 	bl	0 <I2C_AcknowledgeConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1189
+  
+  /* Return the read value */
+  return tmp;
+ 108:	e000      	b.n	10c <I2C_ReadDeviceRegister+0x10c>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1176
+  }
+  
+  /* Test on EV7 and clear it */
+  while (!I2C_CheckEvent(IOE_I2C, I2C_EVENT_MASTER_BYTE_RECEIVED))
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+ 10a:	2402      	movs	r4, #2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1190
+  /* Enable Acknowledgement */
+  I2C_AcknowledgeConfig(IOE_I2C, ENABLE);
+  
+  /* Return the read value */
+  return tmp;
+}
+ 10c:	4620      	mov	r0, r4
+ 10e:	bd70      	pop	{r4, r5, r6, pc}
+ 110:	40005400 	.word	0x40005400
+ 114:	00000000 	.word	0x00000000
+ 118:	00030001 	.word	0x00030001
+ 11c:	00070082 	.word	0x00070082
+ 120:	00070084 	.word	0x00070084
+ 124:	00030002 	.word	0x00030002
+ 128:	00030040 	.word	0x00030040
+
+Disassembly of section .text.IOE_ITOutConfig:
+
+00000000 <IOE_ITOutConfig>:
+IOE_ITOutConfig():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:985
+  *   @arg  Type_Level: Interrupt line is active in level model         
+  *   @arg  Type_Edge: Interrupt line is active in edge model           
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_ITOutConfig(uint8_t Polarity, uint8_t Type)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	460d      	mov	r5, r1
+   4:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:989
+  uint8_t tmp = 0;
+  
+  /*  Get the register IOE_REG_INT_CTRL value */ 
+  tmp = I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_INT_CTRL);
+   6:	2109      	movs	r1, #9
+   8:	2082      	movs	r0, #130	; 0x82
+   a:	f7ff fffe 	bl	0 <IOE_ITOutConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:995
+  
+  /* Mask the polarity and type bits */
+  tmp &= ~(uint8_t)0x06;
+    
+  /* Modify the Interrupt Output line configuration */
+  tmp |= (uint8_t)(Polarity | Type);
+   e:	ea45 0404 	orr.w	r4, r5, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:992
+  
+  /*  Get the register IOE_REG_INT_CTRL value */ 
+  tmp = I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_INT_CTRL);
+  
+  /* Mask the polarity and type bits */
+  tmp &= ~(uint8_t)0x06;
+  12:	f000 02f9 	and.w	r2, r0, #249	; 0xf9
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:998
+    
+  /* Modify the Interrupt Output line configuration */
+  tmp |= (uint8_t)(Polarity | Type);
+  
+  /* Set the register */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_INT_CTRL, tmp);
+  16:	4322      	orrs	r2, r4
+  18:	2109      	movs	r1, #9
+  1a:	2082      	movs	r0, #130	; 0x82
+  1c:	f7ff fffe 	bl	0 <IOE_ITOutConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1002
+  
+  
+  /*  Get the register IOE_REG_INT_CTRL value */ 
+  tmp = I2C_ReadDeviceRegister(IOE_2_ADDR, IOE_REG_INT_CTRL);
+  20:	2109      	movs	r1, #9
+  22:	2088      	movs	r0, #136	; 0x88
+  24:	f7ff fffe 	bl	0 <IOE_ITOutConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1004
+  /* Mask the polarity and type bits */
+  tmp &= ~(uint8_t)0x06;
+  28:	f000 02f9 	and.w	r2, r0, #249	; 0xf9
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1010
+    
+  /* Modify the Interrupt Output line configuration */
+  tmp |= (uint8_t)(Polarity | Type);
+  
+  /* Set the register */
+  I2C_WriteDeviceRegister(IOE_2_ADDR, IOE_REG_INT_CTRL, tmp);  
+  2c:	2109      	movs	r1, #9
+  2e:	2088      	movs	r0, #136	; 0x88
+  30:	4322      	orrs	r2, r4
+  32:	f7ff fffe 	bl	0 <IOE_ITOutConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1014
+  
+  /* If all OK return IOE_OK */
+  return IOE_OK;  
+}
+  36:	2000      	movs	r0, #0
+  38:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.IOE_IOEdgeConfig:
+
+00000000 <IOE_IOEdgeConfig>:
+IOE_IOEdgeConfig():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:942
+  * @param  Edge: The edge which will be detected. This parameter can be one or a
+  *         a combination of follwing values: EDGE_FALLING and EDGE_RISING .
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_IOEdgeConfig(uint8_t DeviceAddr, uint8_t IO_Pin, uint8_t Edge)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:946
+  uint8_t tmp1 = 0, tmp2 = 0;   
+  
+  /* Get the registers values */
+  tmp1 = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_FE);
+   6:	2116      	movs	r1, #22
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:942
+  * @param  Edge: The edge which will be detected. This parameter can be one or a
+  *         a combination of follwing values: EDGE_FALLING and EDGE_RISING .
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_IOEdgeConfig(uint8_t DeviceAddr, uint8_t IO_Pin, uint8_t Edge)
+{
+   8:	4617      	mov	r7, r2
+   a:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:946
+  uint8_t tmp1 = 0, tmp2 = 0;   
+  
+  /* Get the registers values */
+  tmp1 = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_FE);
+   c:	f7ff fffe 	bl	0 <IOE_IOEdgeConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:947
+  tmp2 = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_RE);
+  10:	2115      	movs	r1, #21
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:946
+uint8_t IOE_IOEdgeConfig(uint8_t DeviceAddr, uint8_t IO_Pin, uint8_t Edge)
+{
+  uint8_t tmp1 = 0, tmp2 = 0;   
+  
+  /* Get the registers values */
+  tmp1 = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_FE);
+  12:	4680      	mov	r8, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:947
+  tmp2 = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_RE);
+  14:	4628      	mov	r0, r5
+  16:	f7ff fffe 	bl	0 <IOE_IOEdgeConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:950
+
+  /* Disable the Falling Edge */
+  tmp1 &= ~(uint8_t)IO_Pin;
+  1a:	43f4      	mvns	r4, r6
+  1c:	b2e4      	uxtb	r4, r4
+  1e:	ea08 0204 	and.w	r2, r8, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:955
+  /* Disable the Falling Edge */
+  tmp2 &= ~(uint8_t)IO_Pin;
+
+  /* Enable the Falling edge if selected */
+  if (Edge & EDGE_FALLING)
+  22:	f017 0f01 	tst.w	r7, #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:952
+  tmp2 = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_RE);
+
+  /* Disable the Falling Edge */
+  tmp1 &= ~(uint8_t)IO_Pin;
+  /* Disable the Falling Edge */
+  tmp2 &= ~(uint8_t)IO_Pin;
+  26:	ea00 0404 	and.w	r4, r0, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:957
+
+  /* Enable the Falling edge if selected */
+  if (Edge & EDGE_FALLING)
+  {
+    tmp1 |= (uint8_t)IO_Pin;
+  2a:	bf18      	it	ne
+  2c:	4332      	orrne	r2, r6
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:961
+  }
+
+  /* Enable the Rising edge if selected */
+  if (Edge & EDGE_RISING)
+  2e:	f017 0f02 	tst.w	r7, #2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:963
+  {
+    tmp2 |= (uint8_t)IO_Pin;
+  32:	bf18      	it	ne
+  34:	4334      	orrne	r4, r6
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:967
+  }
+
+  /* Write back the registers values */
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_FE, tmp1);
+  36:	4628      	mov	r0, r5
+  38:	2116      	movs	r1, #22
+  3a:	f7ff fffe 	bl	0 <IOE_IOEdgeConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:968
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_RE, tmp2);
+  3e:	4628      	mov	r0, r5
+  40:	2115      	movs	r1, #21
+  42:	4622      	mov	r2, r4
+  44:	f7ff fffe 	bl	0 <IOE_IOEdgeConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:972
+  
+  /* if OK return 0 */
+  return IOE_OK;
+}
+  48:	2000      	movs	r0, #0
+  4a:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text.IOE_IOAFConfig:
+
+00000000 <IOE_IOAFConfig>:
+IOE_IOAFConfig():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:907
+  * @param  NewState: State of the AF for the selected pin, could be 
+  *         ENABLE or DISABLE.       
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_IOAFConfig(uint8_t DeviceAddr, uint8_t IO_Pin, FunctionalState NewState)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	460c      	mov	r4, r1
+   4:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:911
+  uint8_t tmp = 0;
+  
+  /* Get the current state of the GPIO_AF register */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_AF);
+   6:	2117      	movs	r1, #23
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:907
+  * @param  NewState: State of the AF for the selected pin, could be 
+  *         ENABLE or DISABLE.       
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_IOAFConfig(uint8_t DeviceAddr, uint8_t IO_Pin, FunctionalState NewState)
+{
+   8:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:911
+  uint8_t tmp = 0;
+  
+  /* Get the current state of the GPIO_AF register */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_AF);
+   a:	f7ff fffe 	bl	0 <IOE_IOAFConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:913
+  
+  if (NewState != DISABLE)
+   e:	b116      	cbz	r6, 16 <IOE_IOAFConfig+0x16>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:916
+  {
+    /* Enable the selected pins alternate function */
+    tmp |= (uint8_t)IO_Pin;
+  10:	ea40 0404 	orr.w	r4, r0, r4
+  14:	e001      	b.n	1a <IOE_IOAFConfig+0x1a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:921
+  }
+  else
+  {
+    /* Disable the selected pins alternate function */   
+    tmp &= ~(uint8_t)IO_Pin;   
+  16:	ea20 0404 	bic.w	r4, r0, r4
+  1a:	b2e2      	uxtb	r2, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:925
+  }
+  
+  /* Write back the new valu in GPIO_AF register */  
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_AF, tmp);  
+  1c:	4628      	mov	r0, r5
+  1e:	2117      	movs	r1, #23
+  20:	f7ff fffe 	bl	0 <IOE_IOAFConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:929
+
+  /* If all OK return IOE_OK */
+  return IOE_OK;
+}
+  24:	2000      	movs	r0, #0
+  26:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.IOE_TempSens_Config:
+
+00000000 <IOE_TempSens_Config>:
+IOE_TempSens_Config():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:879
+  * @brief  Configures and enables the Temperature sensor module.
+  * @param  None
+  * @retval IOE_OK if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_TempSens_Config(void)
+{
+   0:	b513      	push	{r0, r1, r4, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:880
+  __IO uint8_t tmp = 0;
+   2:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:883
+  
+  /* Enable Temperature Sensor Fct: already done in IOE_Config */
+  tmp = I2C_ReadDeviceRegister(IOE_2_ADDR, IOE_REG_SYS_CTRL2);
+   4:	2104      	movs	r1, #4
+   6:	2088      	movs	r0, #136	; 0x88
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:880
+  * @param  None
+  * @retval IOE_OK if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_TempSens_Config(void)
+{
+  __IO uint8_t tmp = 0;
+   8:	f88d 4007 	strb.w	r4, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:883
+  
+  /* Enable Temperature Sensor Fct: already done in IOE_Config */
+  tmp = I2C_ReadDeviceRegister(IOE_2_ADDR, IOE_REG_SYS_CTRL2);
+   c:	f7ff fffe 	bl	0 <IOE_TempSens_Config>
+  10:	f88d 0007 	strb.w	r0, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:884
+  tmp &= ~(uint32_t)(IOE_TEMPSENS_FCT | IOE_ADC_FCT);
+  14:	f89d 3007 	ldrb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:885
+  I2C_WriteDeviceRegister(IOE_2_ADDR, IOE_REG_SYS_CTRL2, tmp);  
+  18:	2104      	movs	r1, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:884
+{
+  __IO uint8_t tmp = 0;
+  
+  /* Enable Temperature Sensor Fct: already done in IOE_Config */
+  tmp = I2C_ReadDeviceRegister(IOE_2_ADDR, IOE_REG_SYS_CTRL2);
+  tmp &= ~(uint32_t)(IOE_TEMPSENS_FCT | IOE_ADC_FCT);
+  1a:	f003 03f6 	and.w	r3, r3, #246	; 0xf6
+  1e:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:885
+  I2C_WriteDeviceRegister(IOE_2_ADDR, IOE_REG_SYS_CTRL2, tmp);  
+  22:	f89d 2007 	ldrb.w	r2, [sp, #7]
+  26:	2088      	movs	r0, #136	; 0x88
+  28:	f7ff fffe 	bl	0 <IOE_TempSens_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:888
+  
+  /* Enable the TEMPSENS module */
+  I2C_WriteDeviceRegister(IOE_2_ADDR, IOE_REG_TEMP_CTRL, 0x01);
+  2c:	2160      	movs	r1, #96	; 0x60
+  2e:	2201      	movs	r2, #1
+  30:	2088      	movs	r0, #136	; 0x88
+  32:	f7ff fffe 	bl	0 <IOE_TempSens_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:891
+  
+  /* Aquire data enable */
+  I2C_WriteDeviceRegister(IOE_2_ADDR, IOE_REG_TEMP_CTRL, 0x3);
+  36:	2088      	movs	r0, #136	; 0x88
+  38:	2160      	movs	r1, #96	; 0x60
+  3a:	2203      	movs	r2, #3
+  3c:	f7ff fffe 	bl	0 <IOE_TempSens_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:895
+  
+  /* All configuration done */
+  return IOE_OK;
+}
+  40:	4620      	mov	r0, r4
+  42:	bd1c      	pop	{r2, r3, r4, pc}
+
+Disassembly of section .text.IOE_TS_Config:
+
+00000000 <IOE_TS_Config>:
+IOE_TS_Config():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:814
+  * @brief  Configures the touch Screen Controller (Single point detection)
+  * @param  None
+  * @retval IOE_OK if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_TS_Config(void)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:818
+  uint8_t tmp = 0;  
+  
+  /* Enable TSC Fct: already done in IOE_Config */
+  tmp = I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_SYS_CTRL2);
+   2:	2104      	movs	r1, #4
+   4:	2082      	movs	r0, #130	; 0x82
+   6:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:820
+  tmp &= ~(uint32_t)(IOE_TS_FCT | IOE_ADC_FCT);
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_SYS_CTRL2, tmp); 
+   a:	2104      	movs	r1, #4
+   c:	f000 02fc 	and.w	r2, r0, #252	; 0xfc
+  10:	2082      	movs	r0, #130	; 0x82
+  12:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:823
+  
+  /* Enable the TSC gloabl interrupts */
+  tmp = I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_INT_EN);
+  16:	210a      	movs	r1, #10
+  18:	2082      	movs	r0, #130	; 0x82
+  1a:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:824
+  tmp |= (uint32_t)(IOE_GIT_TOUCH | IOE_GIT_FTH | IOE_GIT_FOV);
+  1e:	f040 0207 	orr.w	r2, r0, #7
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:825
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_INT_EN, tmp); 
+  22:	210a      	movs	r1, #10
+  24:	2082      	movs	r0, #130	; 0x82
+  26:	b2d2      	uxtb	r2, r2
+  28:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:828
+  
+  /* Select Sample Time, bit number and ADC Reference */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_ADC_CTRL1, 0x49);
+  2c:	2120      	movs	r1, #32
+  2e:	2249      	movs	r2, #73	; 0x49
+  30:	2082      	movs	r0, #130	; 0x82
+  32:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:831
+  
+  /* Wait for ~20 ms */
+  _delay_(2);  
+  36:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:834
+  
+  /* Select the ADC clock speed: 3.25 MHz */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_ADC_CTRL2, 0x01);
+  3a:	2201      	movs	r2, #1
+  3c:	2121      	movs	r1, #33	; 0x21
+  3e:	2082      	movs	r0, #130	; 0x82
+  40:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:837
+  
+  /* Select TSC pins in non default mode */  
+  tmp = I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_GPIO_AF);
+  44:	2117      	movs	r1, #23
+  46:	2082      	movs	r0, #130	; 0x82
+  48:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:839
+  tmp &= ~(uint8_t)TOUCH_IO_ALL;
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_GPIO_AF, tmp); 
+  4c:	2117      	movs	r1, #23
+  4e:	f000 02e1 	and.w	r2, r0, #225	; 0xe1
+  52:	2082      	movs	r0, #130	; 0x82
+  54:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:842
+  
+  /* Select 2 nF filter capacitor */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_TSC_CFG, 0x9A);   
+  58:	2141      	movs	r1, #65	; 0x41
+  5a:	2082      	movs	r0, #130	; 0x82
+  5c:	229a      	movs	r2, #154	; 0x9a
+  5e:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:845
+  
+  /* Select single point reading  */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_FIFO_TH, 0x01);
+  62:	214a      	movs	r1, #74	; 0x4a
+  64:	2082      	movs	r0, #130	; 0x82
+  66:	2201      	movs	r2, #1
+  68:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:848
+  
+  /* Write 0x01 to clear the FIFO memory content. */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_FIFO_STA, 0x01);
+  6c:	214b      	movs	r1, #75	; 0x4b
+  6e:	2201      	movs	r2, #1
+  70:	2082      	movs	r0, #130	; 0x82
+  72:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:851
+  
+  /* Write 0x00 to put the FIFO back into operation mode  */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_FIFO_STA, 0x00);
+  76:	214b      	movs	r1, #75	; 0x4b
+  78:	2200      	movs	r2, #0
+  7a:	2082      	movs	r0, #130	; 0x82
+  7c:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:854
+  
+  /* set the data format for Z value: 7 fractional part and 1 whole part */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_TSC_FRACT_XYZ, 0x01);
+  80:	2156      	movs	r1, #86	; 0x56
+  82:	2201      	movs	r2, #1
+  84:	2082      	movs	r0, #130	; 0x82
+  86:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:857
+  
+  /* set the driving capability of the device for TSC pins: 50mA */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_TSC_I_DRIVE, 0x01);
+  8a:	2158      	movs	r1, #88	; 0x58
+  8c:	2201      	movs	r2, #1
+  8e:	2082      	movs	r0, #130	; 0x82
+  90:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:861
+  
+  /* Use no tracking index, touchscreen controller operation mode (XYZ) and 
+     enable the TSC */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_TSC_CTRL, 0x01);
+  94:	2140      	movs	r1, #64	; 0x40
+  96:	2201      	movs	r2, #1
+  98:	2082      	movs	r0, #130	; 0x82
+  9a:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:864
+  
+  /*  Clear all the status pending bits */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_INT_STA, 0xFF); 
+  9e:	2082      	movs	r0, #130	; 0x82
+  a0:	210b      	movs	r1, #11
+  a2:	22ff      	movs	r2, #255	; 0xff
+  a4:	f7ff fffe 	bl	0 <IOE_TS_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:867
+  
+  /* Initialize the TS structure to their default values */ 
+  TS_State.TouchDetected = TS_State.X = TS_State.Y = TS_State.Z = 0;
+  a8:	4b03      	ldr	r3, [pc, #12]	; (b8 <IOE_TS_Config+0xb8>)
+  aa:	2000      	movs	r0, #0
+  ac:	80d8      	strh	r0, [r3, #6]
+  ae:	8098      	strh	r0, [r3, #4]
+  b0:	8058      	strh	r0, [r3, #2]
+  b2:	8018      	strh	r0, [r3, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:871
+  
+  /* All configuration done */
+  return IOE_OK;  
+}
+  b4:	bd08      	pop	{r3, pc}
+  b6:	bf00      	nop
+  b8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.IOE_IOITConfig:
+
+00000000 <IOE_IOITConfig>:
+IOE_IOITConfig():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:785
+  *   @arg  IO_IT_x: where x can be from 0 to 7.
+  * @param  NewState: could be ENABLE or DISABLE.  
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_IOITConfig(uint8_t DeviceAddr, uint8_t IO_IT, FunctionalState NewState)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	460c      	mov	r4, r1
+   4:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:788
+  uint8_t tmp = 0;
+ 
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_INT_EN);
+   6:	210c      	movs	r1, #12
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:785
+  *   @arg  IO_IT_x: where x can be from 0 to 7.
+  * @param  NewState: could be ENABLE or DISABLE.  
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_IOITConfig(uint8_t DeviceAddr, uint8_t IO_IT, FunctionalState NewState)
+{
+   8:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:788
+  uint8_t tmp = 0;
+ 
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_INT_EN);
+   a:	f7ff fffe 	bl	0 <IOE_IOITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:790
+  
+  if (NewState != DISABLE)
+   e:	b116      	cbz	r6, 16 <IOE_IOITConfig+0x16>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:793
+  {
+    /* Set the interrupts to be Enabled */    
+    tmp |= (uint8_t)IO_IT;
+  10:	ea40 0404 	orr.w	r4, r0, r4
+  14:	e001      	b.n	1a <IOE_IOITConfig+0x1a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:798
+  }
+  else
+  {
+    /* Set the interrupts to be Disabled */    
+    tmp &= ~(uint8_t)IO_IT;
+  16:	ea20 0404 	bic.w	r4, r0, r4
+  1a:	b2e2      	uxtb	r2, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:802
+  }
+  
+  /* Set the register */
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_INT_EN, tmp);
+  1c:	4628      	mov	r0, r5
+  1e:	210c      	movs	r1, #12
+  20:	f7ff fffe 	bl	0 <IOE_IOITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:806
+  
+  /* If all OK return IOE_OK */
+  return IOE_OK;   
+}
+  24:	2000      	movs	r0, #0
+  26:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.IOE_GITConfig:
+
+00000000 <IOE_GITConfig>:
+IOE_GITConfig():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:751
+  *   @arg  Global_IT_FTH : Touch Screen Controller FIFO Threshold interrupt   
+  *   @arg  Global_IT_TOUCH : Touch Screen Controller Touch Detected interrupt 
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_GITConfig(uint8_t DeviceAddr, uint8_t Global_IT, FunctionalState NewState)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	460c      	mov	r4, r1
+   4:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:755
+  uint8_t tmp = 0;
+  
+  /* Get the current value of the INT_EN register */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_INT_EN);
+   6:	210a      	movs	r1, #10
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:751
+  *   @arg  Global_IT_FTH : Touch Screen Controller FIFO Threshold interrupt   
+  *   @arg  Global_IT_TOUCH : Touch Screen Controller Touch Detected interrupt 
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_GITConfig(uint8_t DeviceAddr, uint8_t Global_IT, FunctionalState NewState)
+{
+   8:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:755
+  uint8_t tmp = 0;
+  
+  /* Get the current value of the INT_EN register */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_INT_EN);
+   a:	f7ff fffe 	bl	0 <IOE_GITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:757
+  
+  if (NewState != DISABLE)
+   e:	b116      	cbz	r6, 16 <IOE_GITConfig+0x16>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:760
+  {
+    /* Set the interrupts to be Enabled */    
+    tmp |= (uint8_t)Global_IT;  
+  10:	ea40 0404 	orr.w	r4, r0, r4
+  14:	e001      	b.n	1a <IOE_GITConfig+0x1a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:765
+  }
+  else
+  {
+    /* Set the interrupts to be Disabled */    
+    tmp &= ~(uint8_t)Global_IT;
+  16:	ea20 0404 	bic.w	r4, r0, r4
+  1a:	b2e2      	uxtb	r2, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:768
+  }
+  /* Set the register */
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_INT_EN, tmp);
+  1c:	4628      	mov	r0, r5
+  1e:	210a      	movs	r1, #10
+  20:	f7ff fffe 	bl	0 <IOE_GITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:772
+  
+  /* If all OK return IOE_OK */
+  return IOE_OK;  
+}
+  24:	2000      	movs	r0, #0
+  26:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.IOE_GITCmd:
+
+00000000 <IOE_GITCmd>:
+IOE_GITCmd():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:711
+  *         or IOE_2_ADDR.
+  * @param  NewState: could be ENABLE or DISABLE.        
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_GITCmd(uint8_t DeviceAddr, FunctionalState NewState)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:715
+  uint8_t tmp = 0;
+  
+  /* Read the Interrupt Control register  */
+  I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_INT_CTRL);
+   4:	2109      	movs	r1, #9
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:711
+  *         or IOE_2_ADDR.
+  * @param  NewState: could be ENABLE or DISABLE.        
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_GITCmd(uint8_t DeviceAddr, FunctionalState NewState)
+{
+   6:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:715
+  uint8_t tmp = 0;
+  
+  /* Read the Interrupt Control register  */
+  I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_INT_CTRL);
+   8:	f7ff fffe 	bl	0 <IOE_GITCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:729
+    /* Set the global interrupts to be Disabled */    
+    tmp &= ~(uint8_t)IOE_GIT_EN;
+  }  
+  
+  /* Write Back the Interrupt Control register */
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_INT_CTRL, tmp);
+   c:	2109      	movs	r1, #9
+   e:	1e22      	subs	r2, r4, #0
+  10:	bf18      	it	ne
+  12:	2201      	movne	r2, #1
+  14:	4628      	mov	r0, r5
+  16:	f7ff fffe 	bl	0 <IOE_GITCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:733
+
+  /* If all OK return IOE_OK */
+  return IOE_OK;     
+}
+  1a:	2000      	movs	r0, #0
+  1c:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.IOE_IOPinConfig:
+
+00000000 <IOE_IOPinConfig>:
+IOE_IOPinConfig():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:681
+  * @param  IO_Pin: IO_Pin_x: Where x can be from 0 to 7.   
+  * @param  Direction: could be Direction_IN or Direction_OUT.      
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_IOPinConfig(uint8_t DeviceAddr, uint8_t IO_Pin, uint8_t Direction)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	460c      	mov	r4, r1
+   4:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:685
+  uint8_t tmp = 0;   
+  
+  /* Get all the Pins direction */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_DIR);
+   6:	2113      	movs	r1, #19
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:681
+  * @param  IO_Pin: IO_Pin_x: Where x can be from 0 to 7.   
+  * @param  Direction: could be Direction_IN or Direction_OUT.      
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_IOPinConfig(uint8_t DeviceAddr, uint8_t IO_Pin, uint8_t Direction)
+{
+   8:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:685
+  uint8_t tmp = 0;   
+  
+  /* Get all the Pins direction */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_DIR);
+   a:	f7ff fffe 	bl	0 <IOE_IOPinConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:687
+  
+  if (Direction != Direction_IN)
+   e:	b116      	cbz	r6, 16 <IOE_IOPinConfig+0x16>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:689
+  {
+    tmp |= (uint8_t)IO_Pin;
+  10:	ea40 0404 	orr.w	r4, r0, r4
+  14:	e001      	b.n	1a <IOE_IOPinConfig+0x1a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:693
+  }  
+  else 
+  {
+    tmp &= ~(uint8_t)IO_Pin;
+  16:	ea20 0404 	bic.w	r4, r0, r4
+  1a:	b2e2      	uxtb	r2, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:697
+  }
+  
+  /* Write the register new value */
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_GPIO_DIR, tmp);
+  1c:	4628      	mov	r0, r5
+  1e:	2113      	movs	r1, #19
+  20:	f7ff fffe 	bl	0 <IOE_IOPinConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:701
+  
+  /* If all OK return IOE_OK */
+  return IOE_OK;      
+}
+  24:	2000      	movs	r0, #0
+  26:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.IOE_FnctCmd:
+
+00000000 <IOE_FnctCmd>:
+IOE_FnctCmd():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:648
+  *   @arg  IOE_ADC_FCT : ADC function
+  *   @arg  IOE_TEMPSENS_FCT : Tempreature Sensor function
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_FnctCmd(uint8_t DeviceAddr, uint8_t Fct, FunctionalState NewState)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	460c      	mov	r4, r1
+   4:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:652
+  uint8_t tmp = 0;
+  
+  /* Get the register value */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_SYS_CTRL2);
+   6:	2104      	movs	r1, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:648
+  *   @arg  IOE_ADC_FCT : ADC function
+  *   @arg  IOE_TEMPSENS_FCT : Tempreature Sensor function
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_FnctCmd(uint8_t DeviceAddr, uint8_t Fct, FunctionalState NewState)
+{
+   8:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:652
+  uint8_t tmp = 0;
+  
+  /* Get the register value */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_SYS_CTRL2);
+   a:	f7ff fffe 	bl	0 <IOE_FnctCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:654
+  
+  if (NewState != DISABLE)
+   e:	b116      	cbz	r6, 16 <IOE_FnctCmd+0x16>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:657
+  {
+    /* Set the Functionalities to be Enabled */    
+    tmp &= ~(uint8_t)Fct;
+  10:	ea20 0404 	bic.w	r4, r0, r4
+  14:	e001      	b.n	1a <IOE_FnctCmd+0x1a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:662
+  }
+  else
+  {
+    /* Set the Functionalities to be Disabled */    
+    tmp |= (uint8_t)Fct;  
+  16:	ea40 0404 	orr.w	r4, r0, r4
+  1a:	b2e2      	uxtb	r2, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:666
+  }
+  
+  /* Set the register value */
+  I2C_WriteDeviceRegister(DeviceAddr, IOE_REG_SYS_CTRL2, tmp);
+  1c:	4628      	mov	r0, r5
+  1e:	2104      	movs	r1, #4
+  20:	f7ff fffe 	bl	0 <IOE_FnctCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:670
+  
+  /* If all OK return IOE_OK */
+  return IOE_OK;    
+}
+  24:	2000      	movs	r0, #0
+  26:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.IOE_ReadID:
+
+00000000 <IOE_ReadID>:
+IOE_ReadID():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:623
+  * @param  DeviceAddr: The address of the IOExpander, could be : IOE_1_ADDR
+  *         or IOE_2_ADDR.
+  * @retval The Device ID (two bytes).
+  */
+uint16_t IOE_ReadID(uint8_t DeviceAddr)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:627
+  uint16_t tmp = 0;
+
+  /* Read device ID  */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, 0);
+   2:	2100      	movs	r1, #0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:623
+  * @param  DeviceAddr: The address of the IOExpander, could be : IOE_1_ADDR
+  *         or IOE_2_ADDR.
+  * @retval The Device ID (two bytes).
+  */
+uint16_t IOE_ReadID(uint8_t DeviceAddr)
+{
+   4:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:627
+  uint16_t tmp = 0;
+
+  /* Read device ID  */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, 0);
+   6:	f7ff fffe 	bl	0 <IOE_ReadID>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:628
+  tmp = (uint32_t)(tmp << 8);
+   a:	0200      	lsls	r0, r0, #8
+   c:	b284      	uxth	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:629
+  tmp |= (uint32_t)I2C_ReadDeviceRegister(DeviceAddr, 1);
+   e:	2101      	movs	r1, #1
+  10:	4628      	mov	r0, r5
+  12:	f7ff fffe 	bl	0 <IOE_ReadID>
+  16:	ea44 0000 	orr.w	r0, r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:633
+  
+  /* Return the ID */
+  return (uint16_t)tmp;
+}
+  1a:	b280      	uxth	r0, r0
+  1c:	bd38      	pop	{r3, r4, r5, pc}
+
+Disassembly of section .text.IOE_IsOperational:
+
+00000000 <IOE_IsOperational>:
+IOE_IsOperational():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:575
+  * @param  DeviceAddr: The address of the IOExpander, could be : IOE_1_ADDR
+  *         or IOE_2_ADDR.
+  * @retval IOE_OK if IOE is operational. Other value if failure.
+  */
+uint8_t IOE_IsOperational(uint8_t DeviceAddr)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:577
+  /* Return Error if the ID is not correct */
+  if( IOE_ReadID(DeviceAddr) != (uint16_t)STMPE811_ID )
+   2:	f7ff fffe 	bl	0 <IOE_IsOperational>
+   6:	f640 0311 	movw	r3, #2065	; 0x811
+   a:	4298      	cmp	r0, r3
+   c:	d006      	beq.n	1c <IOE_IsOperational+0x1c>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:580
+  {
+    /* Check if a Timeout occured */
+    if (TimeOut == 0)
+   e:	4b04      	ldr	r3, [pc, #16]	; (20 <IOE_IsOperational+0x20>)
+  10:	6818      	ldr	r0, [r3, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:582
+    {
+      return IOE_TIEMOUT;
+  12:	2800      	cmp	r0, #0
+  14:	bf14      	ite	ne
+  16:	2001      	movne	r0, #1
+  18:	2002      	moveq	r0, #2
+  1a:	bd08      	pop	{r3, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:591
+      return IOE_FAILURE; /* ID is not Correct */
+    }
+  } 
+  else 
+  {
+    return IOE_OK; /* ID is correct */
+  1c:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:593
+  }
+}
+  1e:	bd08      	pop	{r3, pc}
+  20:	00000000 	.word	0x00000000
+
+Disassembly of section .text.IOE_Config:
+
+00000000 <IOE_Config>:
+IOE_Config():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:114
+  *         hardware (GPIOs, APB clocks ..).
+  * @param  None
+  * @retval IOE_OK if all initializations done correctly. Other value if error.
+  */
+uint8_t IOE_Config(void)
+{
+   0:	b537      	push	{r0, r1, r2, r4, r5, lr}
+IOE_GPIO_Config():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1382
+static void IOE_GPIO_Config(void)
+{
+  GPIO_InitTypeDef GPIO_InitStructure;
+  
+  /* Enable IOE_I2C and IOE_I2C_PORT & Alternate Function clocks */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_IOE_I2C, ENABLE);
+   2:	f44f 1000 	mov.w	r0, #2097152	; 0x200000
+   6:	2101      	movs	r1, #1
+   8:	f7ff fffe 	bl	0 <RCC_APB1PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1383
+  RCC_APB2PeriphClockCmd(RCC_APB_IOE_I2C_PORT | RCC_APB_GPIO_IOE_ITPORT | RCC_APB2Periph_AFIO, ENABLE);
+   c:	2009      	movs	r0, #9
+   e:	2101      	movs	r1, #1
+  10:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1386
+  
+  /* Reset IOE_I2C IP */
+  RCC_APB1PeriphResetCmd(RCC_APB1Periph_IOE_I2C, ENABLE);
+  14:	f44f 1000 	mov.w	r0, #2097152	; 0x200000
+  18:	2101      	movs	r1, #1
+  1a:	f7ff fffe 	bl	0 <RCC_APB1PeriphResetCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1389
+  
+  /* Release reset signal of IOE_I2C IP */
+  RCC_APB1PeriphResetCmd(RCC_APB1Periph_IOE_I2C, DISABLE);
+  1e:	f44f 1000 	mov.w	r0, #2097152	; 0x200000
+  22:	2100      	movs	r1, #0
+  24:	f7ff fffe 	bl	0 <RCC_APB1PeriphResetCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1392
+  
+  /* IOE_I2C SCL and SDA pins configuration */
+  GPIO_InitStructure.GPIO_Pin = IOE_SCL_PIN | IOE_SDA_PIN;
+  28:	23c0      	movs	r3, #192	; 0xc0
+  2a:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1393
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+  2e:	2401      	movs	r4, #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1394
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;
+  30:	231c      	movs	r3, #28
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1395
+  GPIO_Init(IOE_I2C_PORT, &GPIO_InitStructure);
+  32:	4840      	ldr	r0, [pc, #256]	; (134 <IOE_Config+0x134>)
+  34:	a901      	add	r1, sp, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1394
+  RCC_APB1PeriphResetCmd(RCC_APB1Periph_IOE_I2C, DISABLE);
+  
+  /* IOE_I2C SCL and SDA pins configuration */
+  GPIO_InitStructure.GPIO_Pin = IOE_SCL_PIN | IOE_SDA_PIN;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;
+  36:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1393
+  /* Release reset signal of IOE_I2C IP */
+  RCC_APB1PeriphResetCmd(RCC_APB1Periph_IOE_I2C, DISABLE);
+  
+  /* IOE_I2C SCL and SDA pins configuration */
+  GPIO_InitStructure.GPIO_Pin = IOE_SCL_PIN | IOE_SDA_PIN;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+  3a:	f88d 4006 	strb.w	r4, [sp, #6]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1395
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;
+  GPIO_Init(IOE_I2C_PORT, &GPIO_InitStructure);
+  3e:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1398
+  
+  /* Set EXTI pin as Input PullUp - IO_Expander_INT */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_IOE_ITPIN;
+  42:	f44f 4380 	mov.w	r3, #16384	; 0x4000
+  46:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1400
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+  GPIO_Init(GPIO_IOE_ITPORT, &GPIO_InitStructure);
+  4a:	483a      	ldr	r0, [pc, #232]	; (134 <IOE_Config+0x134>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1399
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;
+  GPIO_Init(IOE_I2C_PORT, &GPIO_InitStructure);
+  
+  /* Set EXTI pin as Input PullUp - IO_Expander_INT */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_IOE_ITPIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+  4c:	2348      	movs	r3, #72	; 0x48
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1400
+  GPIO_Init(GPIO_IOE_ITPORT, &GPIO_InitStructure);
+  4e:	a901      	add	r1, sp, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1399
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;
+  GPIO_Init(IOE_I2C_PORT, &GPIO_InitStructure);
+  
+  /* Set EXTI pin as Input PullUp - IO_Expander_INT */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_IOE_ITPIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+  50:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1400
+  GPIO_Init(GPIO_IOE_ITPORT, &GPIO_InitStructure);
+  54:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1403
+  
+  /* Connect IO Expander IT line to EXTI line */
+  GPIO_EXTILineConfig(GPIO_PortSource_IOE_ITPORT, GPIO_PinSource_IOE_ITPIN);
+  58:	4620      	mov	r0, r4
+  5a:	210e      	movs	r1, #14
+  5c:	f7ff fffe 	bl	0 <GPIO_EXTILineConfig>
+IOE_Config():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:119
+{
+  /* Configure the needed pins */
+  IOE_GPIO_Config(); 
+  
+  /* Read IO Expander 1 ID  */
+  if(IOE_IsOperational(IOE_1_ADDR))
+  60:	2082      	movs	r0, #130	; 0x82
+  62:	f7ff fffe 	bl	0 <IOE_Config>
+  66:	2800      	cmp	r0, #0
+  68:	d15f      	bne.n	12a <IOE_Config+0x12a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:123
+  {
+    return IOE1_NOT_OPERATIONAL;
+  }
+  if(IOE_IsOperational(IOE_2_ADDR))
+  6a:	3088      	adds	r0, #136	; 0x88
+  6c:	f7ff fffe 	bl	0 <IOE_Config>
+  70:	4605      	mov	r5, r0
+  72:	2800      	cmp	r0, #0
+  74:	d15b      	bne.n	12e <IOE_Config+0x12e>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:129
+  {
+    return IOE2_NOT_OPERATIONAL;
+  }
+  
+  /* Generate IOExpander Software reset */
+  IOE_Reset(IOE_1_ADDR); 
+  76:	2082      	movs	r0, #130	; 0x82
+  78:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:130
+  IOE_Reset(IOE_2_ADDR);
+  7c:	2088      	movs	r0, #136	; 0x88
+  7e:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:134
+  
+  /* ---------------------- IO Expander 1 configuration --------------------- */
+  /* Enable the GPIO, Touch Screen and ADC functionalities */
+  IOE_FnctCmd(IOE_1_ADDR, IOE_IO_FCT | IOE_TS_FCT | IOE_ADC_FCT, ENABLE);
+  82:	2107      	movs	r1, #7
+  84:	2082      	movs	r0, #130	; 0x82
+  86:	4622      	mov	r2, r4
+  88:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:136
+  /* Configure the VBAT pin in output mode pin*/
+  IOE_IOPinConfig(IOE_1_ADDR, VBAT_DIV_PIN , Direction_OUT);  
+  8c:	2082      	movs	r0, #130	; 0x82
+  8e:	4621      	mov	r1, r4
+  90:	4622      	mov	r2, r4
+  92:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:138
+  /* ENABLE the alternate function for IN1 pin */
+  IOE_IOAFConfig(IOE_1_ADDR, VBAT_DIV_PIN, ENABLE);
+  96:	4622      	mov	r2, r4
+  98:	2082      	movs	r0, #130	; 0x82
+  9a:	4621      	mov	r1, r4
+  9c:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:141
+  
+  /* Apply the default state for the out pins */
+  IOE_WriteIOPin(VBAT_DIV_PIN, BitReset);
+  a0:	4629      	mov	r1, r5
+  a2:	4620      	mov	r0, r4
+  a4:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:143
+  /* Configure the MEMS interrupt pins in Input mode */
+  IOE_IOPinConfig(IOE_2_ADDR, (uint32_t)(MEMS_INT1_PIN | MEMS_INT2_PIN), Direction_IN); 
+  a8:	210c      	movs	r1, #12
+  aa:	2088      	movs	r0, #136	; 0x88
+  ac:	462a      	mov	r2, r5
+  ae:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:146
+  
+  /* ENABLE the alternate function for the Joystick pins */
+  IOE_IOAFConfig(IOE_2_ADDR, (uint32_t)(MEMS_INT1_PIN | MEMS_INT2_PIN), ENABLE);
+  b2:	210c      	movs	r1, #12
+  b4:	2088      	movs	r0, #136	; 0x88
+  b6:	4622      	mov	r2, r4
+  b8:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:148
+  /* Configure the IOs to detect Falling and Rising Edges */
+  IOE_IOEdgeConfig(IOE_2_ADDR, (uint32_t)(MEMS_INT1_PIN | MEMS_INT2_PIN), (uint32_t)(EDGE_FALLING | EDGE_RISING));
+  bc:	210c      	movs	r1, #12
+  be:	2203      	movs	r2, #3
+  c0:	2088      	movs	r0, #136	; 0x88
+  c2:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:150
+  /* Touch Screen controller configuration */
+  IOE_TS_Config();
+  c6:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:156
+  
+  /* ------------------------------------------------------------------------ */
+  
+  /* ---------------------- IO Expander 2 configuration --------------------- */
+  /* Enable the GPIO, Temperature Sensor and ADC functionalities */
+  IOE_FnctCmd(IOE_2_ADDR, IOE_IO_FCT | IOE_TEMPSENS_FCT | IOE_ADC_FCT, ENABLE);
+  ca:	210d      	movs	r1, #13
+  cc:	2088      	movs	r0, #136	; 0x88
+  ce:	4622      	mov	r2, r4
+  d0:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:159
+  /* Configure the Audio Codec Reset pin in output mode pin*/
+  //IOE_IOPinConfig(IOE_2_ADDR, (uint32_t)(AUDIO_RESET_PIN | MII_INT_PIN), Direction_OUT);  
+  IOE_IOPinConfig(IOE_2_ADDR, (uint32_t)(AUDIO_RESET_PIN ), Direction_OUT); 
+  d4:	2104      	movs	r1, #4
+  d6:	2088      	movs	r0, #136	; 0x88
+  d8:	4622      	mov	r2, r4
+  da:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:162
+  /* ENABLE the alternate function for IN1 pin */
+  //IOE_IOAFConfig(IOE_2_ADDR, (uint32_t)(AUDIO_RESET_PIN | MII_INT_PIN), ENABLE);
+  IOE_IOAFConfig(IOE_2_ADDR, (uint32_t)(AUDIO_RESET_PIN), ENABLE);
+  de:	2104      	movs	r1, #4
+  e0:	4622      	mov	r2, r4
+  e2:	2088      	movs	r0, #136	; 0x88
+  e4:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:164
+  /* Apply the default state for the out pins */
+  IOE_WriteIOPin(AUDIO_RESET_PIN, BitReset);
+  e8:	4629      	mov	r1, r5
+  ea:	2004      	movs	r0, #4
+  ec:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:167
+      
+  //IOE_WriteIOPin(MII_INT_PIN, BitReset);
+  IOE_IOPinConfig(IOE_2_ADDR, (uint32_t)(MII_INT_PIN ), Direction_IN);
+  f0:	4621      	mov	r1, r4
+  f2:	462a      	mov	r2, r5
+  f4:	2088      	movs	r0, #136	; 0x88
+  f6:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:168
+  IOE_IOAFConfig(IOE_2_ADDR, (uint32_t)(MII_INT_PIN), ENABLE);
+  fa:	4621      	mov	r1, r4
+  fc:	4622      	mov	r2, r4
+  fe:	2088      	movs	r0, #136	; 0x88
+ 100:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:171
+
+  /* Configure the Joystick pins in Input mode */
+  IOE_IOPinConfig(IOE_2_ADDR, JOY_IO_PINS , Direction_IN); 
+ 104:	21f8      	movs	r1, #248	; 0xf8
+ 106:	462a      	mov	r2, r5
+ 108:	2088      	movs	r0, #136	; 0x88
+ 10a:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:174
+  
+  /* ENABLE the alternate function for the Joystick pins */
+  IOE_IOAFConfig(IOE_2_ADDR, JOY_IO_PINS, ENABLE);
+ 10e:	21f8      	movs	r1, #248	; 0xf8
+ 110:	4622      	mov	r2, r4
+ 112:	2088      	movs	r0, #136	; 0x88
+ 114:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:176
+  /* Configure the IOs to detect Falling and Rising Edges */
+  IOE_IOEdgeConfig(IOE_2_ADDR, JOY_IO_PINS, (uint8_t)(EDGE_FALLING | EDGE_RISING));
+ 118:	21f8      	movs	r1, #248	; 0xf8
+ 11a:	2203      	movs	r2, #3
+ 11c:	2088      	movs	r0, #136	; 0x88
+ 11e:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:179
+  
+  /* Temperature Sensor module configuration */
+  IOE_TempSens_Config();
+ 122:	f7ff fffe 	bl	0 <IOE_Config>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:183
+  /* ------------------------------------------------------------------------ */
+  
+  /* Configuration is OK */
+  return IOE_OK; 
+ 126:	4628      	mov	r0, r5
+ 128:	e002      	b.n	130 <IOE_Config+0x130>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:121
+  IOE_GPIO_Config(); 
+  
+  /* Read IO Expander 1 ID  */
+  if(IOE_IsOperational(IOE_1_ADDR))
+  {
+    return IOE1_NOT_OPERATIONAL;
+ 12a:	2004      	movs	r0, #4
+ 12c:	e000      	b.n	130 <IOE_Config+0x130>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:125
+  }
+  if(IOE_IsOperational(IOE_2_ADDR))
+  {
+    return IOE2_NOT_OPERATIONAL;
+ 12e:	2005      	movs	r0, #5
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:184
+  IOE_TempSens_Config();
+  /* ------------------------------------------------------------------------ */
+  
+  /* Configuration is OK */
+  return IOE_OK; 
+}
+ 130:	bd3e      	pop	{r1, r2, r3, r4, r5, pc}
+ 132:	bf00      	nop
+ 134:	40010c00 	.word	0x40010c00
+
+Disassembly of section .text.IOE_GetIOITStatus:
+
+00000000 <IOE_GetIOITStatus>:
+IOE_GetIOITStatus():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:525
+  * @param  IO_IT: the IO interrupt to be checked could be IO_ITx Where x can be 
+  *         from 0 to 7.             
+  * @retval Status of the checked flag. Could be SET or RESET.
+  */
+FlagStatus IOE_GetIOITStatus(uint8_t DeviceAddr, uint8_t IO_IT)
+{
+   0:	b510      	push	{r4, lr}
+   2:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:529
+  uint8_t tmp = 0;
+ 
+  /* get the Interrupt status */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_INT_STA);
+   4:	210d      	movs	r1, #13
+   6:	f7ff fffe 	bl	0 <IOE_GetIOITStatus>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:533
+  
+  if ((tmp & (uint8_t)IO_IT) != 0)
+  {
+    return SET;
+   a:	4220      	tst	r0, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:539
+  }
+  else
+  {
+    return RESET;
+  }
+}
+   c:	bf0c      	ite	eq
+   e:	2000      	moveq	r0, #0
+  10:	2001      	movne	r0, #1
+  12:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.IOE_GetGITStatus:
+
+00000000 <IOE_GetGITStatus>:
+IOE_GetGITStatus():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:475
+  *   @arg  Global_IT_FTH : Touch Screen Controller FIFO Threshold interrupt   
+  *   @arg  Global_IT_TOUCH : Touch Screen Controller Touch Detected interrupt      
+  * @retval Status of the checked flag. Could be SET or RESET.
+  */
+FlagStatus IOE_GetGITStatus(uint8_t DeviceAddr, uint8_t Global_IT)
+{
+   0:	b513      	push	{r0, r1, r4, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:476
+  __IO uint8_t tmp = 0;
+   2:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:475
+  *   @arg  Global_IT_FTH : Touch Screen Controller FIFO Threshold interrupt   
+  *   @arg  Global_IT_TOUCH : Touch Screen Controller Touch Detected interrupt      
+  * @retval Status of the checked flag. Could be SET or RESET.
+  */
+FlagStatus IOE_GetGITStatus(uint8_t DeviceAddr, uint8_t Global_IT)
+{
+   4:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:479
+  __IO uint8_t tmp = 0;
+ 
+  /* get the Interrupt status */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_INT_STA);
+   6:	210b      	movs	r1, #11
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:476
+  *   @arg  Global_IT_TOUCH : Touch Screen Controller Touch Detected interrupt      
+  * @retval Status of the checked flag. Could be SET or RESET.
+  */
+FlagStatus IOE_GetGITStatus(uint8_t DeviceAddr, uint8_t Global_IT)
+{
+  __IO uint8_t tmp = 0;
+   8:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:479
+ 
+  /* get the Interrupt status */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_INT_STA);
+   c:	f7ff fffe 	bl	0 <IOE_GetGITStatus>
+  10:	f88d 0007 	strb.w	r0, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:481
+  
+  if ((tmp & (uint8_t)Global_IT) != 0)
+  14:	f89d 3007 	ldrb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:483
+  {
+    return SET;
+  18:	421c      	tst	r4, r3
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:489
+  }
+  else
+  {
+    return RESET;
+  }
+}
+  1a:	bf0c      	ite	eq
+  1c:	2000      	moveq	r0, #0
+  1e:	2001      	movne	r0, #1
+  20:	bd1c      	pop	{r2, r3, r4, pc}
+
+Disassembly of section .text.IOE_TempSens_GetData:
+
+00000000 <IOE_TempSens_GetData>:
+IOE_TempSens_GetData():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:442
+  * @brief  Returns the temperature row value (in 16 bit format).
+  * @param  None
+  * @retval The temperature row value.
+  */
+uint32_t IOE_TempSens_GetData(void)
+{  
+   0:	b538      	push	{r3, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:446
+  static __IO uint32_t tmp = 0;  
+    
+  /* Aquire data enable */
+  I2C_WriteDeviceRegister(IOE_2_ADDR, IOE_REG_TEMP_CTRL, 0x03);
+   2:	2203      	movs	r2, #3
+   4:	2160      	movs	r1, #96	; 0x60
+   6:	2088      	movs	r0, #136	; 0x88
+   8:	f7ff fffe 	bl	0 <IOE_TempSens_GetData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:449
+  
+  /* Enable the TEMPSENS module */
+  tmp = (uint32_t)((I2C_ReadDeviceRegister(IOE_2_ADDR, IOE_REG_TEMP_DATA) & 0x03) << 8); 
+   c:	2161      	movs	r1, #97	; 0x61
+   e:	2088      	movs	r0, #136	; 0x88
+  10:	f7ff fffe 	bl	0 <IOE_TempSens_GetData>
+  14:	4c0e      	ldr	r4, [pc, #56]	; (50 <IOE_TempSens_GetData+0x50>)
+  16:	f000 0003 	and.w	r0, r0, #3
+  1a:	0200      	lsls	r0, r0, #8
+  1c:	6020      	str	r0, [r4, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:450
+  tmp |= (uint32_t)I2C_ReadDeviceRegister(IOE_2_ADDR, IOE_REG_TEMP_DATA + 1); 
+  1e:	2162      	movs	r1, #98	; 0x62
+  20:	2088      	movs	r0, #136	; 0x88
+  22:	6825      	ldr	r5, [r4, #0]
+  24:	f7ff fffe 	bl	0 <IOE_TempSens_GetData>
+  28:	4328      	orrs	r0, r5
+  2a:	6020      	str	r0, [r4, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:452
+  
+  tmp = (uint32_t)((33 * tmp * 100) / 751);
+  2c:	6823      	ldr	r3, [r4, #0]
+  2e:	f640 42e4 	movw	r2, #3300	; 0xce4
+  32:	4353      	muls	r3, r2
+  34:	f240 22ef 	movw	r2, #751	; 0x2ef
+  38:	fbb3 f3f2 	udiv	r3, r3, r2
+  3c:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:453
+  tmp = (uint32_t)((tmp + 5) / 10);
+  3e:	6823      	ldr	r3, [r4, #0]
+  40:	220a      	movs	r2, #10
+  42:	3305      	adds	r3, #5
+  44:	fbb3 f3f2 	udiv	r3, r3, r2
+  48:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:456
+  
+  /* return the temprature row value */
+  return tmp;
+  4a:	6820      	ldr	r0, [r4, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:457
+}
+  4c:	bd38      	pop	{r3, r4, r5, pc}
+  4e:	bf00      	nop
+  50:	00000000 	.word	0x00000000
+
+Disassembly of section .text.IOE_JoyStickGetState:
+
+00000000 <IOE_JoyStickGetState>:
+IOE_JoyStickGetState():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:360
+  *   @arg  JOY_LEFT
+  *   @arg  JOY_RIGHT
+  *   @arg  JOY_UP
+  */
+JOY_State_TypeDef IOE_JoyStickGetState(void)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:363
+  uint8_t tmp = 0;
+  /* Read the status of all pins */
+  tmp = (uint32_t)I2C_ReadDeviceRegister(IOE_2_ADDR, IOE_REG_GPIO_MP_STA);
+   2:	2088      	movs	r0, #136	; 0x88
+   4:	2112      	movs	r1, #18
+   6:	f7ff fffe 	bl	0 <IOE_JoyStickGetState>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:366
+   
+  /* Check the pressed keys */
+  if ((tmp & JOY_IO_NONE) == JOY_IO_NONE)
+   a:	f000 03f8 	and.w	r3, r0, #248	; 0xf8
+   e:	2bf8      	cmp	r3, #248	; 0xf8
+  10:	d012      	beq.n	38 <IOE_JoyStickGetState+0x38>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:370
+  {
+    return (JOY_State_TypeDef)JOY_NONE;
+  }
+  else if (!(tmp & JOY_IO_CENTER))
+  12:	f010 0f80 	tst.w	r0, #128	; 0x80
+  16:	d011      	beq.n	3c <IOE_JoyStickGetState+0x3c>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:374
+  {
+    return (JOY_State_TypeDef)JOY_CENTER;
+  }
+  else if (!(tmp & JOY_IO_DOWN))
+  18:	f010 0f40 	tst.w	r0, #64	; 0x40
+  1c:	d010      	beq.n	40 <IOE_JoyStickGetState+0x40>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:378
+  {
+    return (JOY_State_TypeDef)JOY_DOWN;
+  }
+  else if (!(tmp & JOY_IO_LEFT))
+  1e:	f010 0f20 	tst.w	r0, #32
+  22:	d00f      	beq.n	44 <IOE_JoyStickGetState+0x44>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:382
+  {
+    return (JOY_State_TypeDef)JOY_LEFT;
+  }
+  else if (!(tmp & JOY_IO_RIGHT))
+  24:	f010 0f10 	tst.w	r0, #16
+  28:	d00e      	beq.n	48 <IOE_JoyStickGetState+0x48>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:386
+  {
+    return (JOY_State_TypeDef)JOY_RIGHT;
+  }
+  else if (!(tmp & JOY_IO_UP))
+  2a:	f000 0008 	and.w	r0, r0, #8
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:392
+  {
+    return (JOY_State_TypeDef)JOY_UP;
+  }
+  else
+  { 
+    return (JOY_State_TypeDef)JOY_NONE;
+  2e:	2800      	cmp	r0, #0
+  30:	bf0c      	ite	eq
+  32:	2005      	moveq	r0, #5
+  34:	2000      	movne	r0, #0
+  36:	bd08      	pop	{r3, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:368
+  tmp = (uint32_t)I2C_ReadDeviceRegister(IOE_2_ADDR, IOE_REG_GPIO_MP_STA);
+   
+  /* Check the pressed keys */
+  if ((tmp & JOY_IO_NONE) == JOY_IO_NONE)
+  {
+    return (JOY_State_TypeDef)JOY_NONE;
+  38:	2000      	movs	r0, #0
+  3a:	bd08      	pop	{r3, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:372
+  }
+  else if (!(tmp & JOY_IO_CENTER))
+  {
+    return (JOY_State_TypeDef)JOY_CENTER;
+  3c:	2001      	movs	r0, #1
+  3e:	bd08      	pop	{r3, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:376
+  }
+  else if (!(tmp & JOY_IO_DOWN))
+  {
+    return (JOY_State_TypeDef)JOY_DOWN;
+  40:	2002      	movs	r0, #2
+  42:	bd08      	pop	{r3, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:380
+  }
+  else if (!(tmp & JOY_IO_LEFT))
+  {
+    return (JOY_State_TypeDef)JOY_LEFT;
+  44:	2003      	movs	r0, #3
+  46:	bd08      	pop	{r3, pc}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:384
+  }
+  else if (!(tmp & JOY_IO_RIGHT))
+  {
+    return (JOY_State_TypeDef)JOY_RIGHT;
+  48:	2004      	movs	r0, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:394
+  }
+  else
+  { 
+    return (JOY_State_TypeDef)JOY_NONE;
+  }
+}
+  4a:	bd08      	pop	{r3, pc}
+
+Disassembly of section .text.IOE_ReadIOPin:
+
+00000000 <IOE_ReadIOPin>:
+IOE_ReadIOPin():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:322
+  */
+uint8_t IOE_ReadIOPin(uint32_t IO_Pin)
+{
+  uint8_t DeviceAddr = 0;
+  uint8_t tmp = 0;  
+  if (IO_Pin & IO1_IN_ALL_PINS)
+   0:	f010 0f0c 	tst.w	r0, #12
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:319
+  *   @arg  MEMS_INT2_PIN: MEMS interrupt line 2.
+  *   @arg  JOY_IO_PINS: Joystick IO pins (use IOE_JoyStickGetState for these pins)  
+  * @retval None
+  */
+uint8_t IOE_ReadIOPin(uint32_t IO_Pin)
+{
+   4:	b510      	push	{r4, lr}
+   6:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:322
+  uint8_t DeviceAddr = 0;
+  uint8_t tmp = 0;  
+  if (IO_Pin & IO1_IN_ALL_PINS)
+   8:	d104      	bne.n	14 <IOE_ReadIOPin+0x14>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:326
+  {
+    DeviceAddr = IOE_1_ADDR;
+  }
+  else if (IO_Pin & IO2_IN_ALL_PINS)
+   a:	f010 0ff8 	tst.w	r0, #248	; 0xf8
+   e:	d00c      	beq.n	2a <IOE_ReadIOPin+0x2a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:328
+  {
+    DeviceAddr = IOE_2_ADDR;
+  10:	2088      	movs	r0, #136	; 0x88
+  12:	e000      	b.n	16 <IOE_ReadIOPin+0x16>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:324
+{
+  uint8_t DeviceAddr = 0;
+  uint8_t tmp = 0;  
+  if (IO_Pin & IO1_IN_ALL_PINS)
+  {
+    DeviceAddr = IOE_1_ADDR;
+  14:	2082      	movs	r0, #130	; 0x82
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:336
+  {
+    return PARAM_ERROR;
+  }
+  
+  /* Get all the Pins status */
+  tmp = I2C_ReadDeviceRegister(DeviceAddr, IOE_REG_GPIO_MP_STA);
+  16:	2112      	movs	r1, #18
+  18:	f7ff fffe 	bl	0 <IOE_ReadIOPin>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:337
+  if ((tmp & (uint8_t)IO_Pin) != 0)
+  1c:	4020      	ands	r0, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:332
+  {
+    DeviceAddr = IOE_2_ADDR;
+  }
+  else 
+  {
+    return PARAM_ERROR;
+  1e:	f010 0fff 	tst.w	r0, #255	; 0xff
+  22:	bf0c      	ite	eq
+  24:	2000      	moveq	r0, #0
+  26:	2001      	movne	r0, #1
+  28:	bd10      	pop	{r4, pc}
+  2a:	2003      	movs	r0, #3
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:345
+  }  
+  else 
+  {
+    return BitReset;
+  }
+}
+  2c:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.IOE_ITConfig:
+
+00000000 <IOE_ITConfig>:
+IOE_ITConfig():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:196
+  *   @arg  IOE_ITSRC_TSC: Touch Screen interrupts.
+  *   @arg  IOE_ITSRC_INMEMS: MEMS interrupt lines.
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_ITConfig(uint32_t IOE_ITSRC_Source)
+{   
+   0:	b530      	push	{r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:198
+  /* Configure the Interrupt output pin to generate low level (INT_CTRL) */
+  IOE_ITOutConfig(Polarity_High, Type_Level);  
+   2:	2100      	movs	r1, #0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:196
+  *   @arg  IOE_ITSRC_TSC: Touch Screen interrupts.
+  *   @arg  IOE_ITSRC_INMEMS: MEMS interrupt lines.
+  * @retval IOE_OK: if all initializations are OK. Other value if error.
+  */
+uint8_t IOE_ITConfig(uint32_t IOE_ITSRC_Source)
+{   
+   4:	4604      	mov	r4, r0
+   6:	b085      	sub	sp, #20
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:198
+  /* Configure the Interrupt output pin to generate low level (INT_CTRL) */
+  IOE_ITOutConfig(Polarity_High, Type_Level);  
+   8:	2004      	movs	r0, #4
+   a:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:201
+  
+  /* Manage the Joystick Interrupts */  
+  if (IOE_ITSRC_Source & IOE_ITSRC_JOYSTICK)
+   e:	f014 0f04 	tst.w	r4, #4
+  12:	d01a      	beq.n	4a <IOE_ITConfig+0x4a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:204
+  {   
+    /* Enable the Global interrupt */  
+    IOE_GITCmd(IOE_2_ADDR, ENABLE);     
+  14:	2101      	movs	r1, #1
+  16:	2088      	movs	r0, #136	; 0x88
+  18:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:207
+        
+    /* Enable the Joystick pins to generate interrupt (GPIO_INT_EN) */
+    IOE_IOITConfig(IOE_2_ADDR, IOE_JOY_IT, ENABLE);   
+  1c:	21f8      	movs	r1, #248	; 0xf8
+  1e:	2201      	movs	r2, #1
+  20:	2088      	movs	r0, #136	; 0x88
+  22:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:210
+    
+    /* Enable the Global GPIO Interrupt */
+    IOE_GITConfig(IOE_2_ADDR, IOE_GIT_GPIO, ENABLE);    
+  26:	2201      	movs	r2, #1
+  28:	2180      	movs	r1, #128	; 0x80
+  2a:	2088      	movs	r0, #136	; 0x88
+  2c:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:213
+    
+    /* Read the GPIO_IT_STA to clear all pending bits if any */
+    I2C_ReadDeviceRegister(IOE_2_ADDR, IOE_REG_GPIO_INT_STA);    
+  30:	210d      	movs	r1, #13
+  32:	2088      	movs	r0, #136	; 0x88
+  34:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:216
+    
+    /* Enable the Joystick pins to generate interrupt */
+    IOE_IOITConfig(IOE_2_ADDR, IOE_JOY_IT, ENABLE);  
+  38:	21f8      	movs	r1, #248	; 0xf8
+  3a:	2088      	movs	r0, #136	; 0x88
+  3c:	2201      	movs	r2, #1
+  3e:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:219
+    
+    /* Read the GPIO_IT_STA to clear all pending bits if any */
+    I2C_ReadDeviceRegister(IOE_2_ADDR, IOE_REG_GPIO_INT_STA);     
+  42:	2088      	movs	r0, #136	; 0x88
+  44:	210d      	movs	r1, #13
+  46:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:223
+  }
+
+  /* Manage the MEMS Interrupts lines  */  
+  if (IOE_ITSRC_Source & IOE_ITSRC_INMEMS)
+  4a:	f014 0f02 	tst.w	r4, #2
+  4e:	d01a      	beq.n	86 <IOE_ITConfig+0x86>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:226
+  {   
+    /* Enable the Global interrupt */  
+    IOE_GITCmd(IOE_1_ADDR, ENABLE);     
+  50:	2101      	movs	r1, #1
+  52:	2082      	movs	r0, #130	; 0x82
+  54:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:229
+        
+    /* Enable the pins to generate interrupt (GPIO_INT_EN) */
+    IOE_IOITConfig(IOE_1_ADDR, IOE_INMEMS_IT, ENABLE);   
+  58:	210c      	movs	r1, #12
+  5a:	2201      	movs	r2, #1
+  5c:	2082      	movs	r0, #130	; 0x82
+  5e:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:232
+    
+    /* Enable the Global GPIO Interrupt */
+    IOE_GITConfig(IOE_1_ADDR, IOE_GIT_GPIO, ENABLE);    
+  62:	2201      	movs	r2, #1
+  64:	2180      	movs	r1, #128	; 0x80
+  66:	2082      	movs	r0, #130	; 0x82
+  68:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:235
+    
+    /* Read the GPIO_IT_STA to clear all pending bits if any */
+    I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_GPIO_INT_STA);    
+  6c:	210d      	movs	r1, #13
+  6e:	2082      	movs	r0, #130	; 0x82
+  70:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:238
+    
+    /* Enable the pins to generate interrupt */
+    IOE_IOITConfig(IOE_1_ADDR, IOE_INMEMS_IT, ENABLE);  
+  74:	210c      	movs	r1, #12
+  76:	2082      	movs	r0, #130	; 0x82
+  78:	2201      	movs	r2, #1
+  7a:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:241
+    
+    /* Read the GPIO_IT_STA to clear all pending bits if any */
+    I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_GPIO_INT_STA);     
+  7e:	2082      	movs	r0, #130	; 0x82
+  80:	210d      	movs	r1, #13
+  82:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:245
+  }  
+  
+  /* Manage the Touch Screen Interrupts */  
+  if (IOE_ITSRC_Source & IOE_ITSRC_TSC)
+  86:	f014 0f01 	tst.w	r4, #1
+  8a:	d00c      	beq.n	a6 <IOE_ITConfig+0xa6>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:248
+  {   
+    /* Enable the Global interrupt */  
+    IOE_GITCmd(IOE_1_ADDR, ENABLE);     
+  8c:	2101      	movs	r1, #1
+  8e:	2082      	movs	r0, #130	; 0x82
+  90:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:251
+           
+    /* Enable the Global GPIO Interrupt */
+    IOE_GITConfig(IOE_1_ADDR, (uint8_t)(IOE_GIT_TOUCH | IOE_GIT_FTH | IOE_GIT_FOV), ENABLE);    
+  94:	2107      	movs	r1, #7
+  96:	2082      	movs	r0, #130	; 0x82
+  98:	2201      	movs	r2, #1
+  9a:	f7ff fffe 	bl	0 <IOE_ITConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:254
+    
+    /* Read the GPIO_IT_STA to clear all pending bits if any */
+    I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_GPIO_INT_STA); 
+  9e:	2082      	movs	r0, #130	; 0x82
+  a0:	210d      	movs	r1, #13
+  a2:	f7ff fffe 	bl	0 <IOE_ITConfig>
+IOE_EXTI_Config():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1440
+  GPIO_InitTypeDef GPIO_InitStructure;
+  NVIC_InitTypeDef NVIC_InitStructure;
+  EXTI_InitTypeDef EXTI_InitStructure;
+ 
+  /* Enable Button GPIO clock */
+  RCC_APB2PeriphClockCmd(RCC_APB_GPIO_IOE_ITPORT | RCC_APB2Periph_AFIO, ENABLE);
+  a6:	2009      	movs	r0, #9
+  a8:	2101      	movs	r1, #1
+  aa:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1443
+  
+  /* Configure Button pin as input floating */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_IOE_ITPIN;
+  ae:	f44f 4480 	mov.w	r4, #16384	; 0x4000
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1444
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  b2:	2304      	movs	r3, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1445
+  GPIO_Init(GPIO_IOE_ITPORT, &GPIO_InitStructure);  
+  b4:	a903      	add	r1, sp, #12
+  b6:	4814      	ldr	r0, [pc, #80]	; (108 <IOE_ITConfig+0x108>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1444
+  /* Enable Button GPIO clock */
+  RCC_APB2PeriphClockCmd(RCC_APB_GPIO_IOE_ITPORT | RCC_APB2Periph_AFIO, ENABLE);
+  
+  /* Configure Button pin as input floating */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_IOE_ITPIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  b8:	f88d 300f 	strb.w	r3, [sp, #15]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1443
+ 
+  /* Enable Button GPIO clock */
+  RCC_APB2PeriphClockCmd(RCC_APB_GPIO_IOE_ITPORT | RCC_APB2Periph_AFIO, ENABLE);
+  
+  /* Configure Button pin as input floating */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_IOE_ITPIN;
+  bc:	f8ad 400c 	strh.w	r4, [sp, #12]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1445
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIO_IOE_ITPORT, &GPIO_InitStructure);  
+  c0:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1448
+  
+  /* Connect Button EXTI Line to Button GPIO Pin */
+  GPIO_EXTILineConfig(GPIO_PortSource_IOE_ITPORT, GPIO_PinSource_IOE_ITPIN);  
+  c4:	210e      	movs	r1, #14
+  c6:	2001      	movs	r0, #1
+  c8:	f7ff fffe 	bl	0 <GPIO_EXTILineConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1454
+  
+  /* Configure Button EXTI line */
+  EXTI_InitStructure.EXTI_Line = EXTI_LINE_IOE_ITLINE;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  cc:	2501      	movs	r5, #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1453
+  GPIO_EXTILineConfig(GPIO_PortSource_IOE_ITPORT, GPIO_PinSource_IOE_ITPIN);  
+  
+  /* Configure Button EXTI line */
+  EXTI_InitStructure.EXTI_Line = EXTI_LINE_IOE_ITLINE;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  
+  ce:	2310      	movs	r3, #16
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1451
+  
+  /* Connect Button EXTI Line to Button GPIO Pin */
+  GPIO_EXTILineConfig(GPIO_PortSource_IOE_ITPORT, GPIO_PinSource_IOE_ITPIN);  
+  
+  /* Configure Button EXTI line */
+  EXTI_InitStructure.EXTI_Line = EXTI_LINE_IOE_ITLINE;
+  d0:	9400      	str	r4, [sp, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1455
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
+  d2:	4668      	mov	r0, sp
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1452
+  /* Connect Button EXTI Line to Button GPIO Pin */
+  GPIO_EXTILineConfig(GPIO_PortSource_IOE_ITPORT, GPIO_PinSource_IOE_ITPIN);  
+  
+  /* Configure Button EXTI line */
+  EXTI_InitStructure.EXTI_Line = EXTI_LINE_IOE_ITLINE;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  d4:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1453
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  
+  d6:	f88d 3005 	strb.w	r3, [sp, #5]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1452
+  /* Connect Button EXTI Line to Button GPIO Pin */
+  GPIO_EXTILineConfig(GPIO_PortSource_IOE_ITPORT, GPIO_PinSource_IOE_ITPIN);  
+  
+  /* Configure Button EXTI line */
+  EXTI_InitStructure.EXTI_Line = EXTI_LINE_IOE_ITLINE;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  da:	f88d 4004 	strb.w	r4, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1454
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  de:	f88d 5006 	strb.w	r5, [sp, #6]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1455
+  EXTI_Init(&EXTI_InitStructure);
+  e2:	f7ff fffe 	bl	0 <EXTI_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1458
+  
+  /* Enable and set Button EXTI Interrupt to the lowest priority */
+  NVIC_InitStructure.NVIC_IRQChannel = IOE_IT_EXTI_IRQn;
+  e6:	2328      	movs	r3, #40	; 0x28
+  e8:	f88d 3008 	strb.w	r3, [sp, #8]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1462
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+  ec:	a802      	add	r0, sp, #8
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1459
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
+  
+  /* Enable and set Button EXTI Interrupt to the lowest priority */
+  NVIC_InitStructure.NVIC_IRQChannel = IOE_IT_EXTI_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+  ee:	3b19      	subs	r3, #25
+  f0:	f88d 3009 	strb.w	r3, [sp, #9]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1460
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+  f4:	f88d 300a 	strb.w	r3, [sp, #10]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1461
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  f8:	f88d 500b 	strb.w	r5, [sp, #11]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1462
+  NVIC_Init(&NVIC_InitStructure);
+  fc:	f7ff fffe 	bl	0 <NVIC_Init>
+IOE_ITConfig():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:262
+  /* Configure the Interrupt line as EXTI source */
+  IOE_EXTI_Config();    
+  
+  /* If all OK return IOE_OK */
+  return IOE_OK;
+}
+ 100:	4620      	mov	r0, r4
+ 102:	b005      	add	sp, #20
+ 104:	bd30      	pop	{r4, r5, pc}
+ 106:	bf00      	nop
+ 108:	40010c00 	.word	0x40010c00
+
+Disassembly of section .text.I2C_ReadDataBuffer:
+
+00000000 <I2C_ReadDataBuffer>:
+I2C_ReadDataBuffer():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1201
+  *         or IOE_2_ADDR. 
+  * @param  RegisterAddr: The target register adress (between 00x and 0x24)
+  * @retval : The value of the read register (0xAA if Timout occured)   
+  */
+uint32_t I2C_ReadDataBuffer(uint8_t DeviceAddr, uint32_t RegisterAddr)
+{
+   0:	b573      	push	{r0, r1, r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1205
+  uint8_t Buffer[4] , idx = 2;
+  
+  /* Initialize the buffer */
+  Buffer[0] = 0; 
+   2:	2400      	movs	r4, #0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1201
+  *         or IOE_2_ADDR. 
+  * @param  RegisterAddr: The target register adress (between 00x and 0x24)
+  * @retval : The value of the read register (0xAA if Timout occured)   
+  */
+uint32_t I2C_ReadDataBuffer(uint8_t DeviceAddr, uint32_t RegisterAddr)
+{
+   4:	4605      	mov	r5, r0
+   6:	460e      	mov	r6, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1211
+  Buffer[1] = 0; 
+  Buffer[2] = 0; 
+  Buffer[3] = 0;   
+  
+  /* Disable the I2C1 peripheral  */
+  I2C_Cmd(I2C1, DISABLE);
+   8:	4849      	ldr	r0, [pc, #292]	; (130 <I2C_ReadDataBuffer+0x130>)
+   a:	4621      	mov	r1, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1205
+uint32_t I2C_ReadDataBuffer(uint8_t DeviceAddr, uint32_t RegisterAddr)
+{
+  uint8_t Buffer[4] , idx = 2;
+  
+  /* Initialize the buffer */
+  Buffer[0] = 0; 
+   c:	f88d 4004 	strb.w	r4, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1206
+  Buffer[1] = 0; 
+  10:	f88d 4005 	strb.w	r4, [sp, #5]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1207
+  Buffer[2] = 0; 
+  14:	f88d 4006 	strb.w	r4, [sp, #6]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1208
+  Buffer[3] = 0;   
+  18:	f88d 4007 	strb.w	r4, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1211
+  
+  /* Disable the I2C1 peripheral  */
+  I2C_Cmd(I2C1, DISABLE);
+  1c:	f7ff fffe 	bl	0 <I2C_Cmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1214
+
+  /* Reset all I2C2 registers */
+  I2C_SoftwareResetCmd(I2C1, ENABLE);
+  20:	4843      	ldr	r0, [pc, #268]	; (130 <I2C_ReadDataBuffer+0x130>)
+  22:	2101      	movs	r1, #1
+  24:	f7ff fffe 	bl	0 <I2C_SoftwareResetCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1215
+  I2C_SoftwareResetCmd(I2C1, DISABLE);
+  28:	4621      	mov	r1, r4
+  2a:	4841      	ldr	r0, [pc, #260]	; (130 <I2C_ReadDataBuffer+0x130>)
+  2c:	f7ff fffe 	bl	0 <I2C_SoftwareResetCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1223
+  IOE_I2C_Config();
+  
+  /* Enable the I2C peripheral */
+  I2C_GenerateSTART(I2C1, ENABLE);
+ 
+  TimeOut = TIMEOUT_MAX;
+  30:	4c40      	ldr	r4, [pc, #256]	; (104 <I2C_ReadDataBuffer+0x104>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1218
+  /* Reset all I2C2 registers */
+  I2C_SoftwareResetCmd(I2C1, ENABLE);
+  I2C_SoftwareResetCmd(I2C1, DISABLE);
+
+  /* Configure the I2C peripheral */
+  IOE_I2C_Config();
+  32:	f7ff fffe 	bl	0 <I2C_ReadDataBuffer>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1221
+  
+  /* Enable the I2C peripheral */
+  I2C_GenerateSTART(I2C1, ENABLE);
+  36:	483e      	ldr	r0, [pc, #248]	; (130 <I2C_ReadDataBuffer+0x130>)
+  38:	2101      	movs	r1, #1
+  3a:	f7ff fffe 	bl	0 <I2C_GenerateSTART>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1223
+ 
+  TimeOut = TIMEOUT_MAX;
+  3e:	f640 73ff 	movw	r3, #4095	; 0xfff
+  42:	6023      	str	r3, [r4, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1226
+  
+  /* Test on EV5 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT)) 
+  44:	e004      	b.n	50 <I2C_ReadDataBuffer+0x50>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1228
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  46:	6823      	ldr	r3, [r4, #0]
+  48:	1e5a      	subs	r2, r3, #1
+  4a:	6022      	str	r2, [r4, #0]
+  4c:	2b00      	cmp	r3, #0
+  4e:	d06d      	beq.n	12c <I2C_ReadDataBuffer+0x12c>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1226
+  I2C_GenerateSTART(I2C1, ENABLE);
+ 
+  TimeOut = TIMEOUT_MAX;
+  
+  /* Test on EV5 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT)) 
+  50:	4837      	ldr	r0, [pc, #220]	; (130 <I2C_ReadDataBuffer+0x130>)
+  52:	4939      	ldr	r1, [pc, #228]	; (138 <I2C_ReadDataBuffer+0x138>)
+  54:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  58:	2800      	cmp	r0, #0
+  5a:	d0f4      	beq.n	46 <I2C_ReadDataBuffer+0x46>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1232
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+   
+  /* Send device address for write */
+  I2C_Send7bitAddress(I2C1, DeviceAddr, I2C_Direction_Transmitter);
+  5c:	4834      	ldr	r0, [pc, #208]	; (130 <I2C_ReadDataBuffer+0x130>)
+  5e:	4629      	mov	r1, r5
+  60:	2200      	movs	r2, #0
+  62:	f7ff fffe 	bl	0 <I2C_Send7bitAddress>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1235
+  
+  /* Test on EV6 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))  
+  66:	e004      	b.n	72 <I2C_ReadDataBuffer+0x72>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1237
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  68:	6823      	ldr	r3, [r4, #0]
+  6a:	1e5a      	subs	r2, r3, #1
+  6c:	6022      	str	r2, [r4, #0]
+  6e:	2b00      	cmp	r3, #0
+  70:	d05c      	beq.n	12c <I2C_ReadDataBuffer+0x12c>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1235
+   
+  /* Send device address for write */
+  I2C_Send7bitAddress(I2C1, DeviceAddr, I2C_Direction_Transmitter);
+  
+  /* Test on EV6 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))  
+  72:	482f      	ldr	r0, [pc, #188]	; (130 <I2C_ReadDataBuffer+0x130>)
+  74:	4931      	ldr	r1, [pc, #196]	; (13c <I2C_ReadDataBuffer+0x13c>)
+  76:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  7a:	2800      	cmp	r0, #0
+  7c:	d0f4      	beq.n	68 <I2C_ReadDataBuffer+0x68>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1241
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* Clear EV6 by setting again the PE bit */
+  I2C_Cmd(I2C1, ENABLE);
+  7e:	2101      	movs	r1, #1
+  80:	482b      	ldr	r0, [pc, #172]	; (130 <I2C_ReadDataBuffer+0x130>)
+  82:	f7ff fffe 	bl	0 <I2C_Cmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1244
+  
+  /* Send the device's internal address to write to */
+  I2C_SendData(I2C1, RegisterAddr);  
+  86:	482a      	ldr	r0, [pc, #168]	; (130 <I2C_ReadDataBuffer+0x130>)
+  88:	b2f1      	uxtb	r1, r6
+  8a:	f7ff fffe 	bl	0 <I2C_SendData>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1247
+  
+  /* Test on EV8 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED)) 
+  8e:	e004      	b.n	9a <I2C_ReadDataBuffer+0x9a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1249
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  90:	6823      	ldr	r3, [r4, #0]
+  92:	1e5a      	subs	r2, r3, #1
+  94:	6022      	str	r2, [r4, #0]
+  96:	2b00      	cmp	r3, #0
+  98:	d048      	beq.n	12c <I2C_ReadDataBuffer+0x12c>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1247
+  
+  /* Send the device's internal address to write to */
+  I2C_SendData(I2C1, RegisterAddr);  
+  
+  /* Test on EV8 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED)) 
+  9a:	4825      	ldr	r0, [pc, #148]	; (130 <I2C_ReadDataBuffer+0x130>)
+  9c:	4928      	ldr	r1, [pc, #160]	; (140 <I2C_ReadDataBuffer+0x140>)
+  9e:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  a2:	2800      	cmp	r0, #0
+  a4:	d0f4      	beq.n	90 <I2C_ReadDataBuffer+0x90>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1253
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* Send STRAT condition a second time */  
+  I2C_GenerateSTART(I2C1, ENABLE);
+  a6:	4822      	ldr	r0, [pc, #136]	; (130 <I2C_ReadDataBuffer+0x130>)
+  a8:	2101      	movs	r1, #1
+  aa:	f7ff fffe 	bl	0 <I2C_GenerateSTART>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1256
+  
+  /* Test on EV5 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT)) 
+  ae:	e004      	b.n	ba <I2C_ReadDataBuffer+0xba>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1258
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  b0:	6823      	ldr	r3, [r4, #0]
+  b2:	1e5a      	subs	r2, r3, #1
+  b4:	6022      	str	r2, [r4, #0]
+  b6:	2b00      	cmp	r3, #0
+  b8:	d038      	beq.n	12c <I2C_ReadDataBuffer+0x12c>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1256
+  
+  /* Send STRAT condition a second time */  
+  I2C_GenerateSTART(I2C1, ENABLE);
+  
+  /* Test on EV5 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT)) 
+  ba:	481d      	ldr	r0, [pc, #116]	; (130 <I2C_ReadDataBuffer+0x130>)
+  bc:	491e      	ldr	r1, [pc, #120]	; (138 <I2C_ReadDataBuffer+0x138>)
+  be:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  c2:	2800      	cmp	r0, #0
+  c4:	d0f4      	beq.n	b0 <I2C_ReadDataBuffer+0xb0>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1262
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* Send EEPROM address for read */
+  I2C_Send7bitAddress(I2C1, DeviceAddr, I2C_Direction_Receiver);
+  c6:	481a      	ldr	r0, [pc, #104]	; (130 <I2C_ReadDataBuffer+0x130>)
+  c8:	4629      	mov	r1, r5
+  ca:	2201      	movs	r2, #1
+  cc:	f7ff fffe 	bl	0 <I2C_Send7bitAddress>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1265
+  
+  /* Test on EV6 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED)) 
+  d0:	e003      	b.n	da <I2C_ReadDataBuffer+0xda>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1267
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  d2:	6823      	ldr	r3, [r4, #0]
+  d4:	1e5a      	subs	r2, r3, #1
+  d6:	6022      	str	r2, [r4, #0]
+  d8:	b343      	cbz	r3, 12c <I2C_ReadDataBuffer+0x12c>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1265
+  
+  /* Send EEPROM address for read */
+  I2C_Send7bitAddress(I2C1, DeviceAddr, I2C_Direction_Receiver);
+  
+  /* Test on EV6 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED)) 
+  da:	4815      	ldr	r0, [pc, #84]	; (130 <I2C_ReadDataBuffer+0x130>)
+  dc:	4919      	ldr	r1, [pc, #100]	; (144 <I2C_ReadDataBuffer+0x144>)
+  de:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+  e2:	2800      	cmp	r0, #0
+  e4:	d0f5      	beq.n	d2 <I2C_ReadDataBuffer+0xd2>
+  e6:	f10d 0506 	add.w	r5, sp, #6
+  ea:	2403      	movs	r4, #3
+  ec:	e014      	b.n	118 <I2C_ReadDataBuffer+0x118>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1273
+  }
+  
+  /* While there is data to be read */
+  while(idx)  
+  {
+    if(idx == 1)
+  ee:	2c01      	cmp	r4, #1
+  f0:	d107      	bne.n	102 <I2C_ReadDataBuffer+0x102>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1276
+    {
+      /* Disable Acknowledgement */
+      I2C_AcknowledgeConfig(I2C1, DISABLE);
+  f2:	480f      	ldr	r0, [pc, #60]	; (130 <I2C_ReadDataBuffer+0x130>)
+  f4:	2100      	movs	r1, #0
+  f6:	f7ff fffe 	bl	0 <I2C_AcknowledgeConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1279
+      
+      /* Send STOP Condition */
+      I2C_GenerateSTOP(I2C1, ENABLE);
+  fa:	480d      	ldr	r0, [pc, #52]	; (130 <I2C_ReadDataBuffer+0x130>)
+  fc:	4621      	mov	r1, r4
+  fe:	f7ff fffe 	bl	0 <I2C_GenerateSTOP>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1283
+    }
+    
+    /* Test on EV7 and clear it */
+    if(I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_RECEIVED))  
+ 102:	480b      	ldr	r0, [pc, #44]	; (130 <I2C_ReadDataBuffer+0x130>)
+ 104:	4910      	ldr	r1, [pc, #64]	; (148 <I2C_ReadDataBuffer+0x148>)
+ 106:	f7ff fffe 	bl	0 <I2C_CheckEvent>
+ 10a:	2800      	cmp	r0, #0
+ 10c:	d0ef      	beq.n	ee <I2C_ReadDataBuffer+0xee>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1286
+    {      
+      /* Read a byte from the EEPROM */
+      Buffer[idx-1] = I2C_ReceiveData(I2C1);
+ 10e:	4808      	ldr	r0, [pc, #32]	; (130 <I2C_ReadDataBuffer+0x130>)
+ 110:	f7ff fffe 	bl	0 <I2C_ReceiveData>
+ 114:	f805 0d01 	strb.w	r0, [r5, #-1]!
+ 118:	3c01      	subs	r4, #1
+ 11a:	b2e4      	uxtb	r4, r4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1271
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+  }
+  
+  /* While there is data to be read */
+  while(idx)  
+ 11c:	2c00      	cmp	r4, #0
+ 11e:	d1e6      	bne.n	ee <I2C_ReadDataBuffer+0xee>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1294
+      idx--;        
+    }   
+  }
+  
+  /* Enable Acknowledgement to be ready for another reception */
+  I2C_AcknowledgeConfig(I2C1, ENABLE);
+ 120:	4803      	ldr	r0, [pc, #12]	; (130 <I2C_ReadDataBuffer+0x130>)
+ 122:	2101      	movs	r1, #1
+ 124:	f7ff fffe 	bl	0 <I2C_AcknowledgeConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1297
+  
+  /* return a pointer to the buffer */
+  return *(uint32_t *)Buffer;
+ 128:	9801      	ldr	r0, [sp, #4]
+ 12a:	e000      	b.n	12e <I2C_ReadDataBuffer+0x12e>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1267
+  I2C_Send7bitAddress(I2C1, DeviceAddr, I2C_Direction_Receiver);
+  
+  /* Test on EV6 and clear it */
+  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED)) 
+  {
+    if (TimeOut-- == 0) return IOE_TIEMOUT;
+ 12c:	2002      	movs	r0, #2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1298
+  /* Enable Acknowledgement to be ready for another reception */
+  I2C_AcknowledgeConfig(I2C1, ENABLE);
+  
+  /* return a pointer to the buffer */
+  return *(uint32_t *)Buffer;
+}
+ 12e:	bd7c      	pop	{r2, r3, r4, r5, r6, pc}
+ 130:	40005400 	.word	0x40005400
+ 134:	00000000 	.word	0x00000000
+ 138:	00030001 	.word	0x00030001
+ 13c:	00070082 	.word	0x00070082
+ 140:	00070084 	.word	0x00070084
+ 144:	00030002 	.word	0x00030002
+ 148:	00030040 	.word	0x00030040
+
+Disassembly of section .text.IOE_TS_GetState:
+
+00000000 <IOE_TS_GetState>:
+IOE_TS_GetState():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:402
+  * @brief  Returns Status and positions of the Touch screen.
+  * @param  None
+  * @retval Pointer to TS_STATE structure holding Touch Screen information.
+  */
+TS_STATE* IOE_TS_GetState(void)
+{
+   0:	2082b570 	.word	0x2082b570
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:407
+  uint32_t xDiff, yDiff , x , y;
+  static uint32_t _x = 0, _y = 0;
+  
+  /* Check if the Touch detect event happenned */
+  TS_State.TouchDetected = (I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_TSC_CTRL) & 0x80);
+   4:	2140      	movs	r1, #64	; 0x40
+   6:	f7ff fffe 	bl	0 <IOE_TS_GetState>
+   a:	4e27      	ldr	r6, [pc, #156]	; (a8 <IOE_TS_GetState+0xa8>)
+   c:	f000 0080 	and.w	r0, r0, #128	; 0x80
+  10:	b280      	uxth	r0, r0
+  12:	8030      	strh	r0, [r6, #0]
+  14:	4c25      	ldr	r4, [pc, #148]	; (ac <IOE_TS_GetState+0xac>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:408
+  if(TS_State.TouchDetected) 
+  16:	b390      	cbz	r0, 7e <IOE_TS_GetState+0x7e>
+IOE_TS_Read_X():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1323
+  */
+static uint16_t IOE_TS_Read_X(void)
+{
+  int32_t x, xr;
+ 
+  x = I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_Y);
+  18:	214f      	movs	r1, #79	; 0x4f
+  1a:	2082      	movs	r0, #130	; 0x82
+  1c:	f7ff fffe 	bl	0 <IOE_TS_GetState>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1326
+  
+  /* first correction */
+  xr =  (x * 320) >> 12;
+  20:	f44f 73a0 	mov.w	r3, #320	; 0x140
+  24:	fb03 f500 	mul.w	r5, r3, r0
+  28:	132d      	asrs	r5, r5, #12
+IOE_TS_Read_Y():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1344
+  * @retval Y position.
+  */
+static uint16_t IOE_TS_Read_Y(void)
+{
+  int32_t y, yr;
+  y= I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_X);
+  2a:	214d      	movs	r1, #77	; 0x4d
+IOE_TS_Read_X():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1328
+  x = I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_Y);
+  
+  /* first correction */
+  xr =  (x * 320) >> 12;
+  /* second correction */
+  xr = ((xr * 32)/29) - 17;
+  2c:	221d      	movs	r2, #29
+  2e:	016d      	lsls	r5, r5, #5
+IOE_TS_Read_Y():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1344
+  * @retval Y position.
+  */
+static uint16_t IOE_TS_Read_Y(void)
+{
+  int32_t y, yr;
+  y= I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_X);
+  30:	2082      	movs	r0, #130	; 0x82
+IOE_TS_Read_X():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1328
+  x = I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_Y);
+  
+  /* first correction */
+  xr =  (x * 320) >> 12;
+  /* second correction */
+  xr = ((xr * 32)/29) - 17;
+  32:	fb95 f5f2 	sdiv	r5, r5, r2
+IOE_TS_Read_Y():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1344
+  * @retval Y position.
+  */
+static uint16_t IOE_TS_Read_Y(void)
+{
+  int32_t y, yr;
+  y= I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_X);
+  36:	f7ff fffe 	bl	0 <IOE_TS_GetState>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1346
+  
+  yr= (y * 240) >> 12;
+  3a:	23f0      	movs	r3, #240	; 0xf0
+  3c:	4358      	muls	r0, r3
+  3e:	1300      	asrs	r0, r0, #12
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1347
+  yr = ((yr * 240) / 217) - 12;
+  40:	4343      	muls	r3, r0
+  42:	22d9      	movs	r2, #217	; 0xd9
+IOE_TS_Read_X():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1328
+  x = I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_Y);
+  
+  /* first correction */
+  xr =  (x * 320) >> 12;
+  /* second correction */
+  xr = ((xr * 32)/29) - 17;
+  44:	3d11      	subs	r5, #17
+IOE_TS_Read_Y():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1347
+{
+  int32_t y, yr;
+  y= I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_X);
+  
+  yr= (y * 240) >> 12;
+  yr = ((yr * 240) / 217) - 12;
+  46:	fb93 f3f2 	sdiv	r3, r3, r2
+IOE_TS_Read_X():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1333
+  xr = ((xr * 32)/29) - 17;
+  
+  if(xr <= 0)
+    xr = 0;
+  
+  return (uint16_t)(xr); 
+  4a:	ea25 75e5 	bic.w	r5, r5, r5, asr #31
+IOE_TS_GetState():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:412
+  TS_State.TouchDetected = (I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_TSC_CTRL) & 0x80);
+  if(TS_State.TouchDetected) 
+  {
+    x = IOE_TS_Read_X();
+    y = IOE_TS_Read_Y();
+    xDiff = x > _x? (x - _x): (_x - x);
+  4e:	6862      	ldr	r2, [r4, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:410
+  
+  /* Check if the Touch detect event happenned */
+  TS_State.TouchDetected = (I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_TSC_CTRL) & 0x80);
+  if(TS_State.TouchDetected) 
+  {
+    x = IOE_TS_Read_X();
+  50:	b2ad      	uxth	r5, r5
+IOE_TS_Read_Y():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1347
+{
+  int32_t y, yr;
+  y= I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_X);
+  
+  yr= (y * 240) >> 12;
+  yr = ((yr * 240) / 217) - 12;
+  52:	3b0c      	subs	r3, #12
+IOE_TS_GetState():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:412
+  TS_State.TouchDetected = (I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_TSC_CTRL) & 0x80);
+  if(TS_State.TouchDetected) 
+  {
+    x = IOE_TS_Read_X();
+    y = IOE_TS_Read_Y();
+    xDiff = x > _x? (x - _x): (_x - x);
+  54:	4295      	cmp	r5, r2
+  56:	bf8c      	ite	hi
+  58:	ebc2 0105 	rsbhi	r1, r2, r5
+  5c:	ebc5 0102 	rsbls	r1, r5, r2
+IOE_TS_Read_Y():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1352
+  yr = ((yr * 240) / 217) - 12;
+  
+  if(yr <= 0)
+    yr = 0;
+  
+  return (uint16_t)(yr); 
+  60:	ea23 73e3 	bic.w	r3, r3, r3, asr #31
+IOE_TS_GetState():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:413
+  if(TS_State.TouchDetected) 
+  {
+    x = IOE_TS_Read_X();
+    y = IOE_TS_Read_Y();
+    xDiff = x > _x? (x - _x): (_x - x);
+    yDiff = y > _y? (y - _y): (_y - y);       
+  64:	68a2      	ldr	r2, [r4, #8]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:411
+  /* Check if the Touch detect event happenned */
+  TS_State.TouchDetected = (I2C_ReadDeviceRegister(IOE_1_ADDR, IOE_REG_TSC_CTRL) & 0x80);
+  if(TS_State.TouchDetected) 
+  {
+    x = IOE_TS_Read_X();
+    y = IOE_TS_Read_Y();
+  66:	b29b      	uxth	r3, r3
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:413
+    xDiff = x > _x? (x - _x): (_x - x);
+    yDiff = y > _y? (y - _y): (_y - y);       
+  68:	4293      	cmp	r3, r2
+  6a:	bf8c      	ite	hi
+  6c:	ebc2 0203 	rsbhi	r2, r2, r3
+  70:	ebc3 0202 	rsbls	r2, r3, r2
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:414
+    if (xDiff + yDiff > 5)
+  74:	1852      	adds	r2, r2, r1
+  76:	2a05      	cmp	r2, #5
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:416
+    {
+      _x = x;
+  78:	bf84      	itt	hi
+  7a:	6065      	strhi	r5, [r4, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:417
+      _y = y;       
+  7c:	60a3      	strhi	r3, [r4, #8]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:421
+    }
+  }  
+  /* Update the X position */
+  TS_State.X = _x;
+  7e:	88a3      	ldrh	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:424
+    
+  /* Update the Y position */  
+  TS_State.Y = _y;
+  80:	8924      	ldrh	r4, [r4, #8]
+IOE_TS_Read_Z():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1363
+  * @retval Z position.
+  */
+static uint16_t IOE_TS_Read_Z(void)
+{
+  uint32_t z;
+  z = I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_Z);
+  82:	2151      	movs	r1, #81	; 0x51
+  84:	2082      	movs	r0, #130	; 0x82
+IOE_TS_GetState():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:421
+      _x = x;
+      _y = y;       
+    }
+  }  
+  /* Update the X position */
+  TS_State.X = _x;
+  86:	8073      	strh	r3, [r6, #2]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:424
+    
+  /* Update the Y position */  
+  TS_State.Y = _y;
+  88:	80b4      	strh	r4, [r6, #4]
+IOE_TS_Read_Z():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1363
+  * @retval Z position.
+  */
+static uint16_t IOE_TS_Read_Z(void)
+{
+  uint32_t z;
+  z = I2C_ReadDataBuffer(IOE_1_ADDR, IOE_REG_TSC_DATA_Z);
+  8a:	f7ff fffe 	bl	0 <IOE_TS_GetState>
+IOE_TS_GetState():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:429
+  TS_State.Y = _y;
+  /* Update the Z Pression index */  
+  TS_State.Z = IOE_TS_Read_Z();  
+  
+  /* Clear the interrupt pending bit and enable the FIFO again */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_FIFO_STA, 0x01);
+  8e:	214b      	movs	r1, #75	; 0x4b
+IOE_TS_Read_Z():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:1369
+  
+  
+  if(z <= 0)
+    z = 0;
+  
+  return (uint16_t)(z); 
+  90:	80f0      	strh	r0, [r6, #6]
+IOE_TS_GetState():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:429
+  TS_State.Y = _y;
+  /* Update the Z Pression index */  
+  TS_State.Z = IOE_TS_Read_Z();  
+  
+  /* Clear the interrupt pending bit and enable the FIFO again */
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_FIFO_STA, 0x01);
+  92:	2201      	movs	r2, #1
+  94:	2082      	movs	r0, #130	; 0x82
+  96:	f7ff fffe 	bl	0 <IOE_TS_GetState>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:430
+  I2C_WriteDeviceRegister(IOE_1_ADDR, IOE_REG_FIFO_STA, 0x00);
+  9a:	2082      	movs	r0, #130	; 0x82
+  9c:	214b      	movs	r1, #75	; 0x4b
+  9e:	2200      	movs	r2, #0
+  a0:	f7ff fffe 	bl	0 <IOE_TS_GetState>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL\STM3210C_EVAL/stm3210c_eval_ioe.c:434
+  
+  /* Return pointer to the updated structure */
+  return &TS_State; 
+}
+  a4:	4800      	ldr	r0, [pc, #0]	; (a8 <IOE_TS_GetState+0xa8>)
+  a6:	bd70      	pop	{r4, r5, r6, pc}
+	...

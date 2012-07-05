@@ -1,0 +1,203 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\memp.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\memp.o
+
+
+Disassembly of section .text.memp_init:
+
+00000000 <memp_init>:
+memp_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:338
+ * 
+ * Carves out memp_memory into linked lists for each pool-type.
+ */
+void
+memp_init(void)
+{
+   0:	b530      	push	{r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:350
+    MEMP_STATS_AVAIL(err, i, 0);
+    MEMP_STATS_AVAIL(avail, i, memp_num[i]);
+  }
+
+#if !MEMP_SEPARATE_POOLS
+  memp = (struct memp *)LWIP_MEM_ALIGN(memp_memory);
+   2:	490d      	ldr	r1, [pc, #52]	; (38 <memp_init+0x38>)
+   4:	4a0d      	ldr	r2, [pc, #52]	; (3c <memp_init+0x3c>)
+   6:	f021 0103 	bic.w	r1, r1, #3
+   a:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:359
+    memp_tab[i] = NULL;
+#if MEMP_SEPARATE_POOLS
+    memp = (struct memp*)memp_bases[i];
+#endif /* MEMP_SEPARATE_POOLS */
+    /* create a linked list of memp elements */
+    for (j = 0; j < memp_num[i]; ++j) {
+   c:	4c0c      	ldr	r4, [pc, #48]	; (40 <memp_init+0x40>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:354
+#if !MEMP_SEPARATE_POOLS
+  memp = (struct memp *)LWIP_MEM_ALIGN(memp_memory);
+#endif /* !MEMP_SEPARATE_POOLS */
+  /* for every pool: */
+  for (i = 0; i < MEMP_MAX; ++i) {
+    memp_tab[i] = NULL;
+   e:	2000      	movs	r0, #0
+  10:	f842 0b04 	str.w	r0, [r2], #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:359
+#if MEMP_SEPARATE_POOLS
+    memp = (struct memp*)memp_bases[i];
+#endif /* MEMP_SEPARATE_POOLS */
+    /* create a linked list of memp elements */
+    for (j = 0; j < memp_num[i]; ++j) {
+  14:	5ae4      	ldrh	r4, [r4, r3]
+  16:	e009      	b.n	2c <memp_init+0x2c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:360
+      memp->next = memp_tab[i];
+  18:	f852 5c04 	ldr.w	r5, [r2, #-4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:359
+    memp_tab[i] = NULL;
+#if MEMP_SEPARATE_POOLS
+    memp = (struct memp*)memp_bases[i];
+#endif /* MEMP_SEPARATE_POOLS */
+    /* create a linked list of memp elements */
+    for (j = 0; j < memp_num[i]; ++j) {
+  1c:	3001      	adds	r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:360
+      memp->next = memp_tab[i];
+  1e:	600d      	str	r5, [r1, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:362
+      memp_tab[i] = memp;
+      memp = (struct memp *)(void *)((u8_t *)memp + MEMP_SIZE + memp_sizes[i]
+  20:	4d08      	ldr	r5, [pc, #32]	; (44 <memp_init+0x44>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:361
+    memp = (struct memp*)memp_bases[i];
+#endif /* MEMP_SEPARATE_POOLS */
+    /* create a linked list of memp elements */
+    for (j = 0; j < memp_num[i]; ++j) {
+      memp->next = memp_tab[i];
+      memp_tab[i] = memp;
+  22:	f842 1c04 	str.w	r1, [r2, #-4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:362
+      memp = (struct memp *)(void *)((u8_t *)memp + MEMP_SIZE + memp_sizes[i]
+  26:	5aed      	ldrh	r5, [r5, r3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:359
+    memp_tab[i] = NULL;
+#if MEMP_SEPARATE_POOLS
+    memp = (struct memp*)memp_bases[i];
+#endif /* MEMP_SEPARATE_POOLS */
+    /* create a linked list of memp elements */
+    for (j = 0; j < memp_num[i]; ++j) {
+  28:	b280      	uxth	r0, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:362
+      memp->next = memp_tab[i];
+      memp_tab[i] = memp;
+      memp = (struct memp *)(void *)((u8_t *)memp + MEMP_SIZE + memp_sizes[i]
+  2a:	1949      	adds	r1, r1, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:359
+    memp_tab[i] = NULL;
+#if MEMP_SEPARATE_POOLS
+    memp = (struct memp*)memp_bases[i];
+#endif /* MEMP_SEPARATE_POOLS */
+    /* create a linked list of memp elements */
+    for (j = 0; j < memp_num[i]; ++j) {
+  2c:	42a0      	cmp	r0, r4
+  2e:	d3f3      	bcc.n	18 <memp_init+0x18>
+  30:	3302      	adds	r3, #2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:353
+
+#if !MEMP_SEPARATE_POOLS
+  memp = (struct memp *)LWIP_MEM_ALIGN(memp_memory);
+#endif /* !MEMP_SEPARATE_POOLS */
+  /* for every pool: */
+  for (i = 0; i < MEMP_MAX; ++i) {
+  32:	2b14      	cmp	r3, #20
+  34:	d1ea      	bne.n	c <memp_init+0xc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:374
+#if MEMP_OVERFLOW_CHECK
+  memp_overflow_init();
+  /* check everything a first time to see if it worked */
+  memp_overflow_check_all();
+#endif /* MEMP_OVERFLOW_CHECK */
+}
+  36:	bd30      	pop	{r4, r5, pc}
+  38:	00000003 	.word	0x00000003
+  3c:	00004814 	.word	0x00004814
+  40:	00000000 	.word	0x00000000
+  44:	00000014 	.word	0x00000014
+
+Disassembly of section .text.memp_malloc:
+
+00000000 <memp_malloc>:
+memp_malloc():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:397
+#endif
+{
+  struct memp *memp;
+  SYS_ARCH_DECL_PROTECT(old_level);
+ 
+  LWIP_ERROR("memp_malloc: type < MEMP_MAX", (type < MEMP_MAX), return NULL;);
+   0:	d8092809 	.word	0xd8092809
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:404
+  SYS_ARCH_PROTECT(old_level);
+#if MEMP_OVERFLOW_CHECK >= 2
+  memp_overflow_check_all();
+#endif /* MEMP_OVERFLOW_CHECK >= 2 */
+
+  memp = memp_tab[type];
+   4:	4b05      	ldr	r3, [pc, #20]	; (1c <memp_malloc+0x1c>)
+   6:	eb03 0380 	add.w	r3, r3, r0, lsl #2
+   a:	f8d3 0434 	ldr.w	r0, [r3, #1076]	; 0x434
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:406
+  
+  if (memp != NULL) {
+   e:	b120      	cbz	r0, 1a <memp_malloc+0x1a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:407
+    memp_tab[type] = memp->next;
+  10:	6802      	ldr	r2, [r0, #0]
+  12:	f8c3 2434 	str.w	r2, [r3, #1076]	; 0x434
+  16:	4770      	bx	lr
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:397
+#endif
+{
+  struct memp *memp;
+  SYS_ARCH_DECL_PROTECT(old_level);
+ 
+  LWIP_ERROR("memp_malloc: type < MEMP_MAX", (type < MEMP_MAX), return NULL;);
+  18:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:425
+  }
+
+  SYS_ARCH_UNPROTECT(old_level);
+
+  return memp;
+}
+  1a:	4770      	bx	lr
+  1c:	000043e0 	.word	0x000043e0
+
+Disassembly of section .text.memp_free:
+
+00000000 <memp_free>:
+memp_free():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:439
+memp_free(memp_t type, void *mem)
+{
+  struct memp *memp;
+  SYS_ARCH_DECL_PROTECT(old_level);
+
+  if (mem == NULL) {
+   0:	4b04b139 	.word	0x4b04b139
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:459
+#endif /* MEMP_OVERFLOW_CHECK >= 2 */
+#endif /* MEMP_OVERFLOW_CHECK */
+
+  MEMP_STATS_DEC(used, type); 
+  
+  memp->next = memp_tab[type]; 
+   4:	eb03 0080 	add.w	r0, r3, r0, lsl #2
+   8:	f8d0 3434 	ldr.w	r3, [r0, #1076]	; 0x434
+   c:	600b      	str	r3, [r1, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/memp.c:460
+  memp_tab[type] = memp;
+   e:	f8c0 1434 	str.w	r1, [r0, #1076]	; 0x434
+  12:	4770      	bx	lr
+  14:	000043e0 	.word	0x000043e0

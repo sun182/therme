@@ -1,0 +1,182 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\tftputils.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\tftputils.o
+
+
+Disassembly of section .text.tftp_decode_op:
+
+00000000 <tftp_decode_op>:
+tftp_decode_op():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:12
+
+/* Extract the opcode from a TFTP message in a buffer */
+tftp_opcode tftp_decode_op(char *buf)
+{
+  return (tftp_opcode)(buf[1]);
+}
+   0:	7840      	ldrb	r0, [r0, #1]
+   2:	4770      	bx	lr
+
+Disassembly of section .text.tftp_extract_block:
+
+00000000 <tftp_extract_block>:
+tftp_extract_block():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:18
+
+/* Extract the block number from a TFTP message in a buffer */
+u16_t tftp_extract_block(char *buf)
+{
+  u16_t *b = (u16_t*)buf;
+  return ntohs(b[1]);
+   0:	8840      	ldrh	r0, [r0, #2]
+   2:	f7ff bffe 	b.w	0 <lwip_ntohs>
+
+Disassembly of section .text.tftp_extract_filename:
+
+00000000 <tftp_extract_filename>:
+tftp_extract_filename():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:24
+}
+
+/* Extract the block number from a TFTP message in a buffer */
+void tftp_extract_filename(char *fname, char *buf)
+{
+  strcpy(fname, buf + 2);
+   0:	3102      	adds	r1, #2
+   2:	f7ff bffe 	b.w	0 <strcpy>
+
+Disassembly of section .text.tftp_set_opcode:
+
+00000000 <tftp_set_opcode>:
+tftp_set_opcode():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:31
+
+/* Set the opcode in the 2 first bytes for RRQ / WRQ / DATA / ACK / ERROR */
+void tftp_set_opcode(char *buffer, tftp_opcode opcode)
+{
+
+  buffer[0] = 0;
+   0:	2300      	movs	r3, #0
+   2:	7003      	strb	r3, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:32
+  buffer[1] = (u8_t)opcode;
+   4:	7041      	strb	r1, [r0, #1]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:33
+}
+   6:	4770      	bx	lr
+
+Disassembly of section .text.tftp_set_errorcode:
+
+00000000 <tftp_set_errorcode>:
+tftp_set_errorcode():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:39
+
+/* Set the errorcode in the 2 second bytes for ERROR */
+void tftp_set_errorcode(char *buffer, tftp_errorcode errCode)
+{
+
+  buffer[2] = 0;
+   0:	2300      	movs	r3, #0
+   2:	7083      	strb	r3, [r0, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:40
+  buffer[3] = (u8_t)errCode;
+   4:	70c1      	strb	r1, [r0, #3]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:41
+}
+   6:	4770      	bx	lr
+
+Disassembly of section .text.tftp_set_errormsg:
+
+00000000 <tftp_set_errormsg>:
+tftp_set_errormsg():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:46
+
+/* Set the error message in the last appropriate bytes for ERROR */
+void tftp_set_errormsg(char * buffer, char* errormsg)
+{
+  strcpy(buffer + 4, errormsg);
+   0:	3004      	adds	r0, #4
+   2:	f7ff bffe 	b.w	0 <strcpy>
+
+Disassembly of section .text.tftp_set_block:
+
+00000000 <tftp_set_block>:
+tftp_set_block():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:51
+}
+
+/* Set the block number in the 2 second bytes ACK / DATA */
+void tftp_set_block(char* packet, u16_t block)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:54
+
+  u16_t *p = (u16_t *)packet;
+  p[1] = htons(block);
+   4:	4608      	mov	r0, r1
+   6:	f7ff fffe 	bl	0 <lwip_htons>
+   a:	8060      	strh	r0, [r4, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:55
+}
+   c:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.tftp_set_data_message:
+
+00000000 <tftp_set_data_message>:
+tftp_set_data_message():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:60
+
+/* Set the message int the n last bytes for DATA */
+void tftp_set_data_message(char* packet, char* buf, int buflen)
+{
+  memcpy(packet + 4, buf, buflen);
+   0:	3004      	adds	r0, #4
+   2:	f7ff bffe 	b.w	0 <memcpy>
+
+Disassembly of section .text.tftp_is_correct_ack:
+
+00000000 <tftp_is_correct_ack>:
+tftp_is_correct_ack():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:65
+}
+
+/* Check if the received acknowledgement is correct */
+u32_t tftp_is_correct_ack(char *buf, int block)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4604      	mov	r4, r0
+   4:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:67
+  /* first make sure this is a data ACK packet */
+  if (tftp_decode_op(buf) != TFTP_ACK)
+   6:	f7ff fffe 	bl	0 <tftp_is_correct_ack>
+   a:	2804      	cmp	r0, #4
+   c:	d107      	bne.n	1e <tftp_is_correct_ack+0x1e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:71
+    return 0;
+
+  /* then compare block numbers */
+  if (block != tftp_extract_block(buf))
+   e:	4620      	mov	r0, r4
+  10:	f7ff fffe 	bl	0 <tftp_is_correct_ack>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:68
+/* Check if the received acknowledgement is correct */
+u32_t tftp_is_correct_ack(char *buf, int block)
+{
+  /* first make sure this is a data ACK packet */
+  if (tftp_decode_op(buf) != TFTP_ACK)
+    return 0;
+  14:	1a2b      	subs	r3, r5, r0
+  16:	4258      	negs	r0, r3
+  18:	eb40 0003 	adc.w	r0, r0, r3
+  1c:	bd38      	pop	{r3, r4, r5, pc}
+  1e:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/tftputils.c:75
+  /* then compare block numbers */
+  if (block != tftp_extract_block(buf))
+    return 0;
+
+  return 1;
+}
+  20:	bd38      	pop	{r3, r4, r5, pc}

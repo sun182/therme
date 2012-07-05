@@ -1,0 +1,751 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\netif.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\netif.o
+
+
+Disassembly of section .text.netif_init:
+
+00000000 <netif_init>:
+netif_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:120
+  netif_add(&loop_netif, &loop_ipaddr, &loop_netmask, &loop_gw, NULL, netif_loopif_init, tcpip_input);
+#endif /* NO_SYS */
+  netif_set_up(&loop_netif);
+
+#endif /* LWIP_HAVE_LOOPIF */
+}
+   0:	4770      	bx	lr
+
+Disassembly of section .text.netif_find:
+
+00000000 <netif_find>:
+netif_find():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:287
+ * @param name the name of the netif (like netif->name) plus concatenated number
+ * in ascii representation (e.g. 'en0')
+ */
+struct netif *
+netif_find(char *name)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:291
+  struct netif *netif;
+  u8_t num;
+
+  if (name == NULL) {
+   2:	b1c0      	cbz	r0, 36 <netif_find+0x36>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:295
+    return NULL;
+  }
+
+  num = name[2] - '0';
+   4:	7882      	ldrb	r2, [r0, #2]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:297
+
+  for(netif = netif_list; netif != NULL; netif = netif->next) {
+   6:	4b0d      	ldr	r3, [pc, #52]	; (3c <netif_find+0x3c>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:295
+
+  if (name == NULL) {
+    return NULL;
+  }
+
+  num = name[2] - '0';
+   8:	3a30      	subs	r2, #48	; 0x30
+   a:	b2d2      	uxtb	r2, r2
+   c:	e00f      	b.n	2e <netif_find+0x2e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:298
+
+  for(netif = netif_list; netif != NULL; netif = netif->next) {
+    if (num == netif->num &&
+   e:	f893 102c 	ldrb.w	r1, [r3, #44]	; 0x2c
+  12:	4291      	cmp	r1, r2
+  14:	d10b      	bne.n	2e <netif_find+0x2e>
+  16:	f990 4000 	ldrsb.w	r4, [r0]
+  1a:	f993 102a 	ldrsb.w	r1, [r3, #42]	; 0x2a
+  1e:	428c      	cmp	r4, r1
+  20:	d105      	bne.n	2e <netif_find+0x2e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:299
+       name[0] == netif->name[0] &&
+  22:	f990 4001 	ldrsb.w	r4, [r0, #1]
+  26:	f993 102b 	ldrsb.w	r1, [r3, #43]	; 0x2b
+  2a:	428c      	cmp	r4, r1
+  2c:	d004      	beq.n	38 <netif_find+0x38>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:297
+    return NULL;
+  }
+
+  num = name[2] - '0';
+
+  for(netif = netif_list; netif != NULL; netif = netif->next) {
+  2e:	681b      	ldr	r3, [r3, #0]
+  30:	2b00      	cmp	r3, #0
+  32:	d1ec      	bne.n	e <netif_find+0xe>
+  34:	e000      	b.n	38 <netif_find+0x38>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:292
+{
+  struct netif *netif;
+  u8_t num;
+
+  if (name == NULL) {
+    return NULL;
+  36:	4603      	mov	r3, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:307
+      return netif;
+    }
+  }
+  LWIP_DEBUGF(NETIF_DEBUG, ("netif_find: didn't find %c%c\n", name[0], name[1]));
+  return NULL;
+}
+  38:	4618      	mov	r0, r3
+  3a:	bd10      	pop	{r4, pc}
+  3c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.netif_set_ipaddr:
+
+00000000 <netif_set_ipaddr>:
+netif_set_ipaddr():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:328
+#if LWIP_TCP
+  struct tcp_pcb *pcb;
+  struct tcp_pcb_listen *lpcb;
+
+  /* address is actually being changed? */
+  if ((ip_addr_cmp(ipaddr, &(netif->ip_addr))) == 0) {
+   0:	680a      	ldr	r2, [r1, #0]
+   2:	6843      	ldr	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:320
+ * @note call netif_set_addr() if you also want to change netmask and
+ * default gateway
+ */
+void
+netif_set_ipaddr(struct netif *netif, ip_addr_t *ipaddr)
+{
+   4:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:328
+#if LWIP_TCP
+  struct tcp_pcb *pcb;
+  struct tcp_pcb_listen *lpcb;
+
+  /* address is actually being changed? */
+  if ((ip_addr_cmp(ipaddr, &(netif->ip_addr))) == 0) {
+   6:	429a      	cmp	r2, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:320
+ * @note call netif_set_addr() if you also want to change netmask and
+ * default gateway
+ */
+void
+netif_set_ipaddr(struct netif *netif, ip_addr_t *ipaddr)
+{
+   8:	4604      	mov	r4, r0
+   a:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:328
+#if LWIP_TCP
+  struct tcp_pcb *pcb;
+  struct tcp_pcb_listen *lpcb;
+
+  /* address is actually being changed? */
+  if ((ip_addr_cmp(ipaddr, &(netif->ip_addr))) == 0) {
+   c:	d019      	beq.n	42 <netif_set_ipaddr+0x42>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:331
+    /* extern struct tcp_pcb *tcp_active_pcbs; defined by tcp.h */
+    LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_STATE, ("netif_set_ipaddr: netif address being changed\n"));
+    pcb = tcp_active_pcbs;
+   e:	4b0e      	ldr	r3, [pc, #56]	; (48 <netif_set_ipaddr+0x48>)
+  10:	6818      	ldr	r0, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:332
+    while (pcb != NULL) {
+  12:	e007      	b.n	24 <netif_set_ipaddr+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:334
+      /* PCB bound to current local interface address? */
+      if (ip_addr_cmp(&(pcb->local_ip), &(netif->ip_addr))
+  14:	6802      	ldr	r2, [r0, #0]
+  16:	6863      	ldr	r3, [r4, #4]
+  18:	68c6      	ldr	r6, [r0, #12]
+  1a:	429a      	cmp	r2, r3
+  1c:	d101      	bne.n	22 <netif_set_ipaddr+0x22>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:343
+#endif /* LWIP_AUTOIP */
+        ) {
+        /* this connection must be aborted */
+        struct tcp_pcb *next = pcb->next;
+        LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_STATE, ("netif_set_ipaddr: aborting TCP pcb %p\n", (void *)pcb));
+        tcp_abort(pcb);
+  1e:	f7ff fffe 	bl	0 <tcp_abort>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:346
+        pcb = next;
+      } else {
+        pcb = pcb->next;
+  22:	4630      	mov	r0, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:332
+  /* address is actually being changed? */
+  if ((ip_addr_cmp(ipaddr, &(netif->ip_addr))) == 0) {
+    /* extern struct tcp_pcb *tcp_active_pcbs; defined by tcp.h */
+    LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_STATE, ("netif_set_ipaddr: netif address being changed\n"));
+    pcb = tcp_active_pcbs;
+    while (pcb != NULL) {
+  24:	2800      	cmp	r0, #0
+  26:	d1f5      	bne.n	14 <netif_set_ipaddr+0x14>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:349
+        pcb = next;
+      } else {
+        pcb = pcb->next;
+      }
+    }
+    for (lpcb = tcp_listen_pcbs.listen_pcbs; lpcb != NULL; lpcb = lpcb->next) {
+  28:	4b08      	ldr	r3, [pc, #32]	; (4c <netif_set_ipaddr+0x4c>)
+  2a:	681b      	ldr	r3, [r3, #0]
+  2c:	e007      	b.n	3e <netif_set_ipaddr+0x3e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:351
+      /* PCB bound to current local interface address? */
+      if ((!(ip_addr_isany(&(lpcb->local_ip)))) &&
+  2e:	681a      	ldr	r2, [r3, #0]
+  30:	b122      	cbz	r2, 3c <netif_set_ipaddr+0x3c>
+  32:	6861      	ldr	r1, [r4, #4]
+  34:	428a      	cmp	r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:355
+          (ip_addr_cmp(&(lpcb->local_ip), &(netif->ip_addr)))) {
+        /* The PCB is listening to the old ipaddr and
+         * is set to listen to the new one instead */
+        ip_addr_set(&(lpcb->local_ip), ipaddr);
+  36:	bf04      	itt	eq
+  38:	682a      	ldreq	r2, [r5, #0]
+  3a:	601a      	streq	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:349
+        pcb = next;
+      } else {
+        pcb = pcb->next;
+      }
+    }
+    for (lpcb = tcp_listen_pcbs.listen_pcbs; lpcb != NULL; lpcb = lpcb->next) {
+  3c:	68db      	ldr	r3, [r3, #12]
+  3e:	2b00      	cmp	r3, #0
+  40:	d1f5      	bne.n	2e <netif_set_ipaddr+0x2e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:363
+  }
+#endif
+  snmp_delete_ipaddridx_tree(netif);
+  snmp_delete_iprteidx_tree(0,netif);
+  /* set new IP address to netif */
+  ip_addr_set(&(netif->ip_addr), ipaddr);
+  42:	682b      	ldr	r3, [r5, #0]
+  44:	6063      	str	r3, [r4, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:373
+    netif->name[0], netif->name[1],
+    ip4_addr1_16(&netif->ip_addr),
+    ip4_addr2_16(&netif->ip_addr),
+    ip4_addr3_16(&netif->ip_addr),
+    ip4_addr4_16(&netif->ip_addr)));
+}
+  46:	bd70      	pop	{r4, r5, r6, pc}
+	...
+
+Disassembly of section .text.netif_set_gw:
+
+00000000 <netif_set_gw>:
+netif_set_gw():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:386
+ * @note call netif_set_addr() if you also want to change ip address and netmask
+ */
+void
+netif_set_gw(struct netif *netif, ip_addr_t *gw)
+{
+  ip_addr_set(&(netif->gw), gw);
+   0:	b101      	cbz	r1, 4 <netif_set_gw+0x4>
+   2:	6809      	ldr	r1, [r1, #0]
+   4:	60c1      	str	r1, [r0, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:393
+    netif->name[0], netif->name[1],
+    ip4_addr1_16(&netif->gw),
+    ip4_addr2_16(&netif->gw),
+    ip4_addr3_16(&netif->gw),
+    ip4_addr4_16(&netif->gw)));
+}
+   6:	4770      	bx	lr
+
+Disassembly of section .text.netif_set_netmask:
+
+00000000 <netif_set_netmask>:
+netif_set_netmask():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:409
+void
+netif_set_netmask(struct netif *netif, ip_addr_t *netmask)
+{
+  snmp_delete_iprteidx_tree(0, netif);
+  /* set new netmask to netif */
+  ip_addr_set(&(netif->netmask), netmask);
+   0:	b101      	cbz	r1, 4 <netif_set_netmask+0x4>
+   2:	6809      	ldr	r1, [r1, #0]
+   4:	6081      	str	r1, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:417
+    netif->name[0], netif->name[1],
+    ip4_addr1_16(&netif->netmask),
+    ip4_addr2_16(&netif->netmask),
+    ip4_addr3_16(&netif->netmask),
+    ip4_addr4_16(&netif->netmask)));
+}
+   6:	4770      	bx	lr
+
+Disassembly of section .text.netif_set_addr:
+
+00000000 <netif_set_addr>:
+netif_set_addr():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:224
+ * @param gw the new default gateway
+ */
+void
+netif_set_addr(struct netif *netif, ip_addr_t *ipaddr, ip_addr_t *netmask,
+    ip_addr_t *gw)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4604      	mov	r4, r0
+   4:	4615      	mov	r5, r2
+   6:	461e      	mov	r6, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:225
+  netif_set_ipaddr(netif, ipaddr);
+   8:	f7ff fffe 	bl	0 <netif_set_addr>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:226
+  netif_set_netmask(netif, netmask);
+   c:	4620      	mov	r0, r4
+   e:	4629      	mov	r1, r5
+  10:	f7ff fffe 	bl	0 <netif_set_addr>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:227
+  netif_set_gw(netif, gw);
+  14:	4620      	mov	r0, r4
+  16:	4631      	mov	r1, r6
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:228
+}
+  18:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:227
+netif_set_addr(struct netif *netif, ip_addr_t *ipaddr, ip_addr_t *netmask,
+    ip_addr_t *gw)
+{
+  netif_set_ipaddr(netif, ipaddr);
+  netif_set_netmask(netif, netmask);
+  netif_set_gw(netif, gw);
+  1c:	f7ff bffe 	b.w	0 <netif_set_addr>
+
+Disassembly of section .text.netif_add:
+
+00000000 <netif_add>:
+netif_add():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:139
+ * @return netif, or NULL if failed.
+ */
+struct netif *
+netif_add(struct netif *netif, ip_addr_t *ipaddr, ip_addr_t *netmask,
+  ip_addr_t *gw, void *state, netif_init_fn init, netif_input_fn input)
+{
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:145
+  static u8_t netifnum = 0;
+
+  LWIP_ASSERT("No init function given", init != NULL);
+
+  /* reset new interface configuration state */
+  ip_addr_set_zero(&netif->ip_addr);
+   2:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:148
+  ip_addr_set_zero(&netif->netmask);
+  ip_addr_set_zero(&netif->gw);
+  netif->flags = 0;
+   4:	f880 5029 	strb.w	r5, [r0, #41]	; 0x29
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:172
+  netif->loop_first = NULL;
+  netif->loop_last = NULL;
+#endif /* ENABLE_LOOPBACK */
+
+  /* remember netif specific state information data */
+  netif->state = state;
+   8:	9e06      	ldr	r6, [sp, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:139
+ * @return netif, or NULL if failed.
+ */
+struct netif *
+netif_add(struct netif *netif, ip_addr_t *ipaddr, ip_addr_t *netmask,
+  ip_addr_t *gw, void *state, netif_init_fn init, netif_input_fn input)
+{
+   a:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:172
+  netif->loop_first = NULL;
+  netif->loop_last = NULL;
+#endif /* ENABLE_LOOPBACK */
+
+  /* remember netif specific state information data */
+  netif->state = state;
+   c:	61c6      	str	r6, [r0, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:173
+  netif->num = netifnum++;
+   e:	4e0c      	ldr	r6, [pc, #48]	; (40 <netif_add+0x40>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:145
+  static u8_t netifnum = 0;
+
+  LWIP_ASSERT("No init function given", init != NULL);
+
+  /* reset new interface configuration state */
+  ip_addr_set_zero(&netif->ip_addr);
+  10:	6045      	str	r5, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:173
+  netif->loop_last = NULL;
+#endif /* ENABLE_LOOPBACK */
+
+  /* remember netif specific state information data */
+  netif->state = state;
+  netif->num = netifnum++;
+  12:	7837      	ldrb	r7, [r6, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:146
+
+  LWIP_ASSERT("No init function given", init != NULL);
+
+  /* reset new interface configuration state */
+  ip_addr_set_zero(&netif->ip_addr);
+  ip_addr_set_zero(&netif->netmask);
+  14:	6085      	str	r5, [r0, #8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:173
+  netif->loop_last = NULL;
+#endif /* ENABLE_LOOPBACK */
+
+  /* remember netif specific state information data */
+  netif->state = state;
+  netif->num = netifnum++;
+  16:	f884 702c 	strb.w	r7, [r4, #44]	; 0x2c
+  1a:	3701      	adds	r7, #1
+  1c:	7037      	strb	r7, [r6, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:174
+  netif->input = input;
+  1e:	9e08      	ldr	r6, [sp, #32]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:147
+  LWIP_ASSERT("No init function given", init != NULL);
+
+  /* reset new interface configuration state */
+  ip_addr_set_zero(&netif->ip_addr);
+  ip_addr_set_zero(&netif->netmask);
+  ip_addr_set_zero(&netif->gw);
+  20:	60c5      	str	r5, [r0, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:174
+#endif /* ENABLE_LOOPBACK */
+
+  /* remember netif specific state information data */
+  netif->state = state;
+  netif->num = netifnum++;
+  netif->input = input;
+  22:	6106      	str	r6, [r0, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:182
+#endif /* LWIP_NETIF_HWADDRHINT*/
+#if ENABLE_LOOPBACK && LWIP_LOOPBACK_MAX_PBUFS
+  netif->loop_cnt_current = 0;
+#endif /* ENABLE_LOOPBACK && LWIP_LOOPBACK_MAX_PBUFS */
+
+  netif_set_addr(netif, ipaddr, netmask, gw);
+  24:	f7ff fffe 	bl	0 <netif_add>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:185
+
+  /* call user specified initialization function for netif */
+  if (init(netif) != ERR_OK) {
+  28:	4620      	mov	r0, r4
+  2a:	9b07      	ldr	r3, [sp, #28]
+  2c:	4798      	blx	r3
+  2e:	b920      	cbnz	r0, 3a <netif_add+0x3a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:190
+    return NULL;
+  }
+
+  /* add this netif to the list */
+  netif->next = netif_list;
+  30:	4b04      	ldr	r3, [pc, #16]	; (44 <netif_add+0x44>)
+  32:	681a      	ldr	r2, [r3, #0]
+  34:	6022      	str	r2, [r4, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:191
+  netif_list = netif;
+  36:	601c      	str	r4, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:209
+  LWIP_DEBUGF(NETIF_DEBUG, (" netmask "));
+  ip_addr_debug_print(NETIF_DEBUG, netmask);
+  LWIP_DEBUGF(NETIF_DEBUG, (" gw "));
+  ip_addr_debug_print(NETIF_DEBUG, gw);
+  LWIP_DEBUGF(NETIF_DEBUG, ("\n"));
+  return netif;
+  38:	e000      	b.n	3c <netif_add+0x3c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:186
+
+  netif_set_addr(netif, ipaddr, netmask, gw);
+
+  /* call user specified initialization function for netif */
+  if (init(netif) != ERR_OK) {
+    return NULL;
+  3a:	462c      	mov	r4, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:210
+  ip_addr_debug_print(NETIF_DEBUG, netmask);
+  LWIP_DEBUGF(NETIF_DEBUG, (" gw "));
+  ip_addr_debug_print(NETIF_DEBUG, gw);
+  LWIP_DEBUGF(NETIF_DEBUG, ("\n"));
+  return netif;
+}
+  3c:	4620      	mov	r0, r4
+  3e:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+	...
+
+Disassembly of section .text.netif_set_default:
+
+00000000 <netif_set_default>:
+netif_set_default():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:435
+    snmp_delete_iprteidx_tree(1, netif);
+  } else {
+    /* install default route */
+    snmp_insert_iprteidx_tree(1, netif);
+  }
+  netif_default = netif;
+   0:	4b01      	ldr	r3, [pc, #4]	; (8 <netif_set_default+0x8>)
+   2:	6018      	str	r0, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:438
+  LWIP_DEBUGF(NETIF_DEBUG, ("netif: setting default interface %c%c\n",
+           netif ? netif->name[0] : '\'', netif ? netif->name[1] : '\''));
+}
+   4:	4770      	bx	lr
+   6:	bf00      	nop
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .text.netif_set_up:
+
+00000000 <netif_set_up>:
+netif_set_up():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:451
+ * 
+ * @see dhcp_start()
+ */ 
+void netif_set_up(struct netif *netif)
+{
+  if (!(netif->flags & NETIF_FLAG_UP)) {
+   0:	f890 3029 	ldrb.w	r3, [r0, #41]	; 0x29
+   4:	f013 0f01 	tst.w	r3, #1
+   8:	d10a      	bne.n	20 <netif_set_up+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:452
+    netif->flags |= NETIF_FLAG_UP;
+   a:	f043 0301 	orr.w	r3, r3, #1
+   e:	f880 3029 	strb.w	r3, [r0, #41]	; 0x29
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:449
+ * @note: Enabling DHCP on a down interface will make it come
+ * up once configured.
+ * 
+ * @see dhcp_start()
+ */ 
+void netif_set_up(struct netif *netif)
+  12:	f003 0330 	and.w	r3, r3, #48	; 0x30
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:463
+    NETIF_STATUS_CALLBACK(netif);
+
+    if (netif->flags & NETIF_FLAG_LINK_UP) {
+#if LWIP_ARP
+      /* For Ethernet network interfaces, we would like to send a "gratuitous ARP" */ 
+      if (netif->flags & (NETIF_FLAG_ETHARP)) {
+  16:	2b30      	cmp	r3, #48	; 0x30
+  18:	d102      	bne.n	20 <netif_set_up+0x20>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:464
+        etharp_gratuitous(netif);
+  1a:	1d01      	adds	r1, r0, #4
+  1c:	f7ff bffe 	b.w	0 <etharp_request>
+  20:	4770      	bx	lr
+
+Disassembly of section .text.netif_set_down:
+
+00000000 <netif_set_down>:
+netif_set_down():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:488
+ * 
+ * @see dhcp_start()
+ */ 
+void netif_set_down(struct netif *netif)
+{
+  if (netif->flags & NETIF_FLAG_UP) {
+   0:	f890 3029 	ldrb.w	r3, [r0, #41]	; 0x29
+   4:	f013 0f01 	tst.w	r3, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:489
+    netif->flags &= ~NETIF_FLAG_UP;
+   8:	bf1c      	itt	ne
+   a:	f023 0301 	bicne.w	r3, r3, #1
+   e:	f880 3029 	strbne.w	r3, [r0, #41]	; 0x29
+  12:	4770      	bx	lr
+
+Disassembly of section .text.netif_remove:
+
+00000000 <netif_remove>:
+netif_remove():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:237
+ *
+ * @param netif the network interface to remove
+ */
+void
+netif_remove(struct netif *netif)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:238
+  if (netif == NULL) {
+   2:	4604      	mov	r4, r0
+   4:	2800      	cmp	r0, #0
+   6:	d020      	beq.n	4a <netif_remove+0x4a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:248
+  /* stop IGMP processing */
+  if (netif->flags & NETIF_FLAG_IGMP) {
+    igmp_stop(netif);
+  }
+#endif /* LWIP_IGMP */
+  if (netif_is_up(netif)) {
+   8:	f890 3029 	ldrb.w	r3, [r0, #41]	; 0x29
+   c:	f013 0f01 	tst.w	r3, #1
+  10:	d001      	beq.n	6 <netif_remove+0x6>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:250
+    /* set netif down before removing (call callback function) */
+    netif_set_down(netif);
+  12:	f7ff fffe 	bl	0 <netif_remove>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:256
+  }
+
+  snmp_delete_ipaddridx_tree(netif);
+
+  /*  is it the first netif? */
+  if (netif_list == netif) {
+  16:	4a0d      	ldr	r2, [pc, #52]	; (4c <netif_remove+0x4c>)
+  18:	6813      	ldr	r3, [r2, #0]
+  1a:	42a3      	cmp	r3, r4
+  1c:	d109      	bne.n	32 <netif_remove+0x32>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:257
+    netif_list = netif->next;
+  1e:	6823      	ldr	r3, [r4, #0]
+  20:	6013      	str	r3, [r2, #0]
+  22:	e009      	b.n	38 <netif_remove+0x38>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:262
+  } else {
+    /*  look for netif further down the list */
+    struct netif * tmpNetif;
+    for (tmpNetif = netif_list; tmpNetif != NULL; tmpNetif = tmpNetif->next) {
+      if (tmpNetif->next == netif) {
+  24:	681a      	ldr	r2, [r3, #0]
+  26:	42a2      	cmp	r2, r4
+  28:	d102      	bne.n	30 <netif_remove+0x30>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:263
+        tmpNetif->next = netif->next;
+  2a:	6822      	ldr	r2, [r4, #0]
+  2c:	601a      	str	r2, [r3, #0]
+  2e:	e003      	b.n	38 <netif_remove+0x38>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:262
+    netif_list = netif->next;
+  } else {
+    /*  look for netif further down the list */
+    struct netif * tmpNetif;
+    for (tmpNetif = netif_list; tmpNetif != NULL; tmpNetif = tmpNetif->next) {
+      if (tmpNetif->next == netif) {
+  30:	4613      	mov	r3, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:261
+  if (netif_list == netif) {
+    netif_list = netif->next;
+  } else {
+    /*  look for netif further down the list */
+    struct netif * tmpNetif;
+    for (tmpNetif = netif_list; tmpNetif != NULL; tmpNetif = tmpNetif->next) {
+  32:	2b00      	cmp	r3, #0
+  34:	d1f6      	bne.n	24 <netif_remove+0x24>
+  36:	bd10      	pop	{r4, pc}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:272
+    if (tmpNetif == NULL)
+      return; /*  we didn't find any netif today */
+  }
+  snmp_dec_iflist();
+  /* this netif is default? */
+  if (netif_default == netif) {
+  38:	4b05      	ldr	r3, [pc, #20]	; (50 <netif_remove+0x50>)
+  3a:	681b      	ldr	r3, [r3, #0]
+  3c:	42a3      	cmp	r3, r4
+  3e:	d104      	bne.n	4a <netif_remove+0x4a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:274
+    /* reset default netif */
+    netif_set_default(NULL);
+  40:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:277
+  }
+  LWIP_DEBUGF( NETIF_DEBUG, ("netif_remove: removed netif\n") );
+}
+  42:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:274
+  }
+  snmp_dec_iflist();
+  /* this netif is default? */
+  if (netif_default == netif) {
+    /* reset default netif */
+    netif_set_default(NULL);
+  46:	f7ff bffe 	b.w	0 <netif_remove>
+  4a:	bd10      	pop	{r4, pc}
+	...
+
+Disassembly of section .text.netif_set_link_up:
+
+00000000 <netif_set_link_up>:
+netif_set_link_up():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:515
+/**
+ * Called by a driver when its link goes up
+ */
+void netif_set_link_up(struct netif *netif )
+{
+  if (!(netif->flags & NETIF_FLAG_LINK_UP)) {
+   0:	f890 3029 	ldrb.w	r3, [r0, #41]	; 0x29
+   4:	f013 0f10 	tst.w	r3, #16
+   8:	d10c      	bne.n	24 <netif_set_link_up+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:516
+    netif->flags |= NETIF_FLAG_LINK_UP;
+   a:	f043 0310 	orr.w	r3, r3, #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:530
+    if (netif->autoip) {
+      autoip_network_changed(netif);
+    }
+#endif /* LWIP_AUTOIP */
+
+    if (netif->flags & NETIF_FLAG_UP) {
+   e:	f013 0f01 	tst.w	r3, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:516
+ * Called by a driver when its link goes up
+ */
+void netif_set_link_up(struct netif *netif )
+{
+  if (!(netif->flags & NETIF_FLAG_LINK_UP)) {
+    netif->flags |= NETIF_FLAG_LINK_UP;
+  12:	f880 3029 	strb.w	r3, [r0, #41]	; 0x29
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:530
+    if (netif->autoip) {
+      autoip_network_changed(netif);
+    }
+#endif /* LWIP_AUTOIP */
+
+    if (netif->flags & NETIF_FLAG_UP) {
+  16:	d005      	beq.n	24 <netif_set_link_up+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:533
+#if LWIP_ARP
+      /* For Ethernet network interfaces, we would like to send a "gratuitous ARP" */ 
+      if (netif->flags & NETIF_FLAG_ETHARP) {
+  18:	f013 0f20 	tst.w	r3, #32
+  1c:	d002      	beq.n	24 <netif_set_link_up+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:534
+        etharp_gratuitous(netif);
+  1e:	1d01      	adds	r1, r0, #4
+  20:	f7ff bffe 	b.w	0 <etharp_request>
+  24:	4770      	bx	lr
+
+Disassembly of section .text.netif_set_link_down:
+
+00000000 <netif_set_link_down>:
+netif_set_link_down():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:554
+/**
+ * Called by a driver when its link goes down
+ */
+void netif_set_link_down(struct netif *netif )
+{
+  if (netif->flags & NETIF_FLAG_LINK_UP) {
+   0:	f890 3029 	ldrb.w	r3, [r0, #41]	; 0x29
+   4:	f013 0f10 	tst.w	r3, #16
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/netif.c:555
+    netif->flags &= ~NETIF_FLAG_LINK_UP;
+   8:	bf1c      	itt	ne
+   a:	f023 0310 	bicne.w	r3, r3, #16
+   e:	f880 3029 	strbne.w	r3, [r0, #41]	; 0x29
+  12:	4770      	bx	lr

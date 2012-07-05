@@ -1,0 +1,645 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\raw.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\raw.o
+
+
+Disassembly of section .text.raw_input:
+
+00000000 <raw_input>:
+raw_input():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:77
+ *           caller).
+ *
+ */
+u8_t
+raw_input(struct pbuf *p, struct netif *inp)
+{
+   0:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:86
+  u8_t eaten = 0;
+
+  LWIP_UNUSED_ARG(inp);
+
+  iphdr = (struct ip_hdr *)p->payload;
+  proto = IPH_PROTO(iphdr);
+   4:	6843      	ldr	r3, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:77
+ *           caller).
+ *
+ */
+u8_t
+raw_input(struct pbuf *p, struct netif *inp)
+{
+   6:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:86
+  u8_t eaten = 0;
+
+  LWIP_UNUSED_ARG(inp);
+
+  iphdr = (struct ip_hdr *)p->payload;
+  proto = IPH_PROTO(iphdr);
+   8:	f893 9009 	ldrb.w	r9, [r3, #9]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:89
+
+  prev = NULL;
+  pcb = raw_pcbs;
+   c:	4b17      	ldr	r3, [pc, #92]	; (6c <raw_input+0x6c>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:88
+  LWIP_UNUSED_ARG(inp);
+
+  iphdr = (struct ip_hdr *)p->payload;
+  proto = IPH_PROTO(iphdr);
+
+  prev = NULL;
+   e:	2500      	movs	r5, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:89
+  pcb = raw_pcbs;
+  10:	681c      	ldr	r4, [r3, #0]
+  12:	4698      	mov	r8, r3
+  14:	e025      	b.n	62 <raw_input+0x62>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:93
+  /* loop through all raw pcbs until the packet is eaten by one */
+  /* this allows multiple pcbs to match against the packet by design */
+  while ((eaten == 0) && (pcb != NULL)) {
+    if ((pcb->protocol == proto) &&
+  16:	7c23      	ldrb	r3, [r4, #16]
+  18:	454b      	cmp	r3, r9
+  1a:	d118      	bne.n	4e <raw_input+0x4e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:94
+        (ip_addr_isany(&pcb->local_ip) ||
+  1c:	6823      	ldr	r3, [r4, #0]
+  1e:	b11b      	cbz	r3, 28 <raw_input+0x28>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:95
+         ip_addr_cmp(&(pcb->local_ip), &current_iphdr_dest))) {
+  20:	4a13      	ldr	r2, [pc, #76]	; (70 <raw_input+0x70>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:94
+  pcb = raw_pcbs;
+  /* loop through all raw pcbs until the packet is eaten by one */
+  /* this allows multiple pcbs to match against the packet by design */
+  while ((eaten == 0) && (pcb != NULL)) {
+    if ((pcb->protocol == proto) &&
+        (ip_addr_isany(&pcb->local_ip) ||
+  22:	6812      	ldr	r2, [r2, #0]
+  24:	4293      	cmp	r3, r2
+  26:	d112      	bne.n	4e <raw_input+0x4e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:102
+      /* broadcast filter? */
+      if ((pcb->so_options & SOF_BROADCAST) || !ip_addr_isbroadcast(&current_iphdr_dest, inp))
+#endif /* IP_SOF_BROADCAST_RECV */
+      {
+        /* receive callback function available? */
+        if (pcb->recv != NULL) {
+  28:	6967      	ldr	r7, [r4, #20]
+  2a:	b197      	cbz	r7, 52 <raw_input+0x52>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:104
+          /* the receive callback function did not eat the packet? */
+          if (pcb->recv(pcb->recv_arg, pcb, p, ip_current_src_addr()) != 0) {
+  2c:	69a0      	ldr	r0, [r4, #24]
+  2e:	4621      	mov	r1, r4
+  30:	4632      	mov	r2, r6
+  32:	4b10      	ldr	r3, [pc, #64]	; (74 <raw_input+0x74>)
+  34:	47b8      	blx	r7
+  36:	b180      	cbz	r0, 5a <raw_input+0x5a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:108
+            /* receive function ate the packet */
+            p = NULL;
+            eaten = 1;
+            if (prev != NULL) {
+  38:	b16d      	cbz	r5, 56 <raw_input+0x56>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:111
+            /* move the pcb to the front of raw_pcbs so that is
+               found faster next time */
+              prev->next = pcb->next;
+  3a:	68e3      	ldr	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:107
+        if (pcb->recv != NULL) {
+          /* the receive callback function did not eat the packet? */
+          if (pcb->recv(pcb->recv_arg, pcb, p, ip_current_src_addr()) != 0) {
+            /* receive function ate the packet */
+            p = NULL;
+            eaten = 1;
+  3c:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:111
+            if (prev != NULL) {
+            /* move the pcb to the front of raw_pcbs so that is
+               found faster next time */
+              prev->next = pcb->next;
+  3e:	60eb      	str	r3, [r5, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:112
+              pcb->next = raw_pcbs;
+  40:	f8d8 3000 	ldr.w	r3, [r8]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:106
+        /* receive callback function available? */
+        if (pcb->recv != NULL) {
+          /* the receive callback function did not eat the packet? */
+          if (pcb->recv(pcb->recv_arg, pcb, p, ip_current_src_addr()) != 0) {
+            /* receive function ate the packet */
+            p = NULL;
+  44:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:112
+            eaten = 1;
+            if (prev != NULL) {
+            /* move the pcb to the front of raw_pcbs so that is
+               found faster next time */
+              prev->next = pcb->next;
+              pcb->next = raw_pcbs;
+  46:	60e3      	str	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:113
+              raw_pcbs = pcb;
+  48:	f8c8 4000 	str.w	r4, [r8]
+  4c:	e005      	b.n	5a <raw_input+0x5a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:94
+  pcb = raw_pcbs;
+  /* loop through all raw pcbs until the packet is eaten by one */
+  /* this allows multiple pcbs to match against the packet by design */
+  while ((eaten == 0) && (pcb != NULL)) {
+    if ((pcb->protocol == proto) &&
+        (ip_addr_isany(&pcb->local_ip) ||
+  4e:	2000      	movs	r0, #0
+  50:	e003      	b.n	5a <raw_input+0x5a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:102
+      /* broadcast filter? */
+      if ((pcb->so_options & SOF_BROADCAST) || !ip_addr_isbroadcast(&current_iphdr_dest, inp))
+#endif /* IP_SOF_BROADCAST_RECV */
+      {
+        /* receive callback function available? */
+        if (pcb->recv != NULL) {
+  52:	4638      	mov	r0, r7
+  54:	e001      	b.n	5a <raw_input+0x5a>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:107
+          /* the receive callback function did not eat the packet? */
+          if (pcb->recv(pcb->recv_arg, pcb, p, ip_current_src_addr()) != 0) {
+            /* receive function ate the packet */
+            p = NULL;
+            eaten = 1;
+  56:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:106
+        /* receive callback function available? */
+        if (pcb->recv != NULL) {
+          /* the receive callback function did not eat the packet? */
+          if (pcb->recv(pcb->recv_arg, pcb, p, ip_current_src_addr()) != 0) {
+            /* receive function ate the packet */
+            p = NULL;
+  58:	462e      	mov	r6, r5
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:122
+        /* no receive callback function was set for this raw PCB */
+      }
+      /* drop the packet */
+    }
+    prev = pcb;
+    pcb = pcb->next;
+  5a:	68e3      	ldr	r3, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:92
+
+  prev = NULL;
+  pcb = raw_pcbs;
+  /* loop through all raw pcbs until the packet is eaten by one */
+  /* this allows multiple pcbs to match against the packet by design */
+  while ((eaten == 0) && (pcb != NULL)) {
+  5c:	b920      	cbnz	r0, 68 <raw_input+0x68>
+  5e:	4625      	mov	r5, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:122
+        /* no receive callback function was set for this raw PCB */
+      }
+      /* drop the packet */
+    }
+    prev = pcb;
+    pcb = pcb->next;
+  60:	461c      	mov	r4, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:92
+
+  prev = NULL;
+  pcb = raw_pcbs;
+  /* loop through all raw pcbs until the packet is eaten by one */
+  /* this allows multiple pcbs to match against the packet by design */
+  while ((eaten == 0) && (pcb != NULL)) {
+  62:	2c00      	cmp	r4, #0
+  64:	d1d7      	bne.n	16 <raw_input+0x16>
+  66:	4620      	mov	r0, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:125
+    }
+    prev = pcb;
+    pcb = pcb->next;
+  }
+  return eaten;
+}
+  68:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+	...
+
+Disassembly of section .text.raw_bind:
+
+00000000 <raw_bind>:
+raw_bind():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:144
+ * @see raw_disconnect()
+ */
+err_t
+raw_bind(struct raw_pcb *pcb, ip_addr_t *ipaddr)
+{
+  ip_addr_set(&pcb->local_ip, ipaddr);
+   0:	b101      	cbz	r1, 4 <raw_bind+0x4>
+   2:	6809      	ldr	r1, [r1, #0]
+   4:	6001      	str	r1, [r0, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:146
+  return ERR_OK;
+}
+   6:	2000      	movs	r0, #0
+   8:	4770      	bx	lr
+
+Disassembly of section .text.raw_connect:
+
+00000000 <raw_connect>:
+raw_connect():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:164
+ * @see raw_disconnect() and raw_sendto()
+ */
+err_t
+raw_connect(struct raw_pcb *pcb, ip_addr_t *ipaddr)
+{
+  ip_addr_set(&pcb->remote_ip, ipaddr);
+   0:	b101      	cbz	r1, 4 <raw_connect+0x4>
+   2:	6809      	ldr	r1, [r1, #0]
+   4:	6041      	str	r1, [r0, #4]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:166
+  return ERR_OK;
+}
+   6:	2000      	movs	r0, #0
+   8:	4770      	bx	lr
+
+Disassembly of section .text.raw_recv:
+
+00000000 <raw_recv>:
+raw_recv():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:186
+ */
+void
+raw_recv(struct raw_pcb *pcb, raw_recv_fn recv, void *recv_arg)
+{
+  /* remember recv() callback and user data */
+  pcb->recv = recv;
+   0:	6141      	str	r1, [r0, #20]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:187
+  pcb->recv_arg = recv_arg;
+   2:	6182      	str	r2, [r0, #24]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:188
+}
+   4:	4770      	bx	lr
+
+Disassembly of section .text.raw_sendto:
+
+00000000 <raw_sendto>:
+raw_sendto():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:204
+ * @param ipaddr the destination address of the IP packet
+ *
+ */
+err_t
+raw_sendto(struct raw_pcb *pcb, struct pbuf *p, ip_addr_t *ipaddr)
+{
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+   2:	4606      	mov	r6, r0
+   4:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:213
+  struct pbuf *q; /* q will be sent down the stack */
+  
+  LWIP_DEBUGF(RAW_DEBUG | LWIP_DBG_TRACE, ("raw_sendto\n"));
+  
+  /* not enough space to add an IP header to first pbuf in given p chain? */
+  if (pbuf_header(p, IP_HLEN)) {
+   6:	4608      	mov	r0, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:204
+ * @param ipaddr the destination address of the IP packet
+ *
+ */
+err_t
+raw_sendto(struct raw_pcb *pcb, struct pbuf *p, ip_addr_t *ipaddr)
+{
+   8:	b085      	sub	sp, #20
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:213
+  struct pbuf *q; /* q will be sent down the stack */
+  
+  LWIP_DEBUGF(RAW_DEBUG | LWIP_DBG_TRACE, ("raw_sendto\n"));
+  
+  /* not enough space to add an IP header to first pbuf in given p chain? */
+  if (pbuf_header(p, IP_HLEN)) {
+   a:	2114      	movs	r1, #20
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:204
+ * @param ipaddr the destination address of the IP packet
+ *
+ */
+err_t
+raw_sendto(struct raw_pcb *pcb, struct pbuf *p, ip_addr_t *ipaddr)
+{
+   c:	4617      	mov	r7, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:213
+  struct pbuf *q; /* q will be sent down the stack */
+  
+  LWIP_DEBUGF(RAW_DEBUG | LWIP_DBG_TRACE, ("raw_sendto\n"));
+  
+  /* not enough space to add an IP header to first pbuf in given p chain? */
+  if (pbuf_header(p, IP_HLEN)) {
+   e:	f7ff fffe 	bl	0 <pbuf_header>
+  12:	b168      	cbz	r0, 30 <raw_sendto+0x30>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:215
+    /* allocate header in new pbuf */
+    q = pbuf_alloc(PBUF_IP, 0, PBUF_RAM);
+  14:	2100      	movs	r1, #0
+  16:	2001      	movs	r0, #1
+  18:	460a      	mov	r2, r1
+  1a:	f7ff fffe 	bl	0 <pbuf_alloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:217
+    /* new header pbuf could not be allocated? */
+    if (q == NULL) {
+  1e:	4605      	mov	r5, r0
+  20:	2800      	cmp	r0, #0
+  22:	d02c      	beq.n	7e <raw_sendto+0x7e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:221
+      LWIP_DEBUGF(RAW_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_LEVEL_SERIOUS, ("raw_sendto: could not allocate header\n"));
+      return ERR_MEM;
+    }
+    if (p->tot_len != 0) {
+  24:	8923      	ldrh	r3, [r4, #8]
+  26:	b153      	cbz	r3, 3e <raw_sendto+0x3e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:223
+      /* chain header q in front of given pbuf p */
+      pbuf_chain(q, p);
+  28:	4621      	mov	r1, r4
+  2a:	f7ff fffe 	bl	0 <pbuf_chain>
+  2e:	e006      	b.n	3e <raw_sendto+0x3e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:230
+    /* { first pbuf q points to header pbuf } */
+    LWIP_DEBUGF(RAW_DEBUG, ("raw_sendto: added header pbuf %p before given pbuf %p\n", (void *)q, (void *)p));
+  }  else {
+    /* first pbuf q equals given pbuf */
+    q = p;
+    if(pbuf_header(q, -IP_HLEN)) {
+  30:	4620      	mov	r0, r4
+  32:	f06f 0113 	mvn.w	r1, #19
+  36:	f7ff fffe 	bl	0 <pbuf_header>
+  3a:	bb00      	cbnz	r0, 7e <raw_sendto+0x7e>
+  3c:	4625      	mov	r5, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:236
+      LWIP_ASSERT("Can't restore header we just removed!", 0);
+      return ERR_MEM;
+    }
+  }
+
+  if ((netif = ip_route(ipaddr)) == NULL) {
+  3e:	4638      	mov	r0, r7
+  40:	f7ff fffe 	bl	0 <ip_route>
+  44:	b928      	cbnz	r0, 52 <raw_sendto+0x52>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:240
+    LWIP_DEBUGF(RAW_DEBUG | LWIP_DBG_LEVEL_WARNING, ("raw_sendto: No route to %"U16_F".%"U16_F".%"U16_F".%"U16_F"\n",
+      ip4_addr1_16(ipaddr), ip4_addr2_16(ipaddr), ip4_addr3_16(ipaddr), ip4_addr4_16(ipaddr)));
+    /* free any temporary header pbuf allocated by pbuf_header() */
+    if (q != p) {
+  46:	42a5      	cmp	r5, r4
+  48:	d01b      	beq.n	82 <raw_sendto+0x82>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:241
+      pbuf_free(q);
+  4a:	4628      	mov	r0, r5
+  4c:	f7ff fffe 	bl	0 <pbuf_free>
+  50:	e017      	b.n	82 <raw_sendto+0x82>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:258
+    }
+    return ERR_VAL;
+  }
+#endif /* IP_SOF_BROADCAST */
+
+  if (ip_addr_isany(&pcb->local_ip)) {
+  52:	4631      	mov	r1, r6
+  54:	b10e      	cbz	r6, 5a <raw_sendto+0x5a>
+  56:	6833      	ldr	r3, [r6, #0]
+  58:	b903      	cbnz	r3, 5c <raw_sendto+0x5c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:260
+    /* use outgoing network interface IP address as source address */
+    src_ip = &(netif->ip_addr);
+  5a:	1d01      	adds	r1, r0, #4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:269
+  }
+
+#if LWIP_NETIF_HWADDRHINT
+  netif->addr_hint = &(pcb->addr_hint);
+#endif /* LWIP_NETIF_HWADDRHINT*/
+  err = ip_output_if (q, src_ip, ipaddr, pcb->ttl, pcb->tos, pcb->protocol, netif);
+  5c:	7a72      	ldrb	r2, [r6, #9]
+  5e:	7ab3      	ldrb	r3, [r6, #10]
+  60:	9200      	str	r2, [sp, #0]
+  62:	7c32      	ldrb	r2, [r6, #16]
+  64:	9002      	str	r0, [sp, #8]
+  66:	9201      	str	r2, [sp, #4]
+  68:	4628      	mov	r0, r5
+  6a:	463a      	mov	r2, r7
+  6c:	f7ff fffe 	bl	0 <ip_output_if>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:275
+#if LWIP_NETIF_HWADDRHINT
+  netif->addr_hint = NULL;
+#endif /* LWIP_NETIF_HWADDRHINT*/
+
+  /* did we chain a header earlier? */
+  if (q != p) {
+  70:	42a5      	cmp	r5, r4
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:269
+  }
+
+#if LWIP_NETIF_HWADDRHINT
+  netif->addr_hint = &(pcb->addr_hint);
+#endif /* LWIP_NETIF_HWADDRHINT*/
+  err = ip_output_if (q, src_ip, ipaddr, pcb->ttl, pcb->tos, pcb->protocol, netif);
+  72:	4606      	mov	r6, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:275
+#if LWIP_NETIF_HWADDRHINT
+  netif->addr_hint = NULL;
+#endif /* LWIP_NETIF_HWADDRHINT*/
+
+  /* did we chain a header earlier? */
+  if (q != p) {
+  74:	d006      	beq.n	84 <raw_sendto+0x84>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:277
+    /* free the header */
+    pbuf_free(q);
+  76:	4628      	mov	r0, r5
+  78:	f7ff fffe 	bl	0 <pbuf_free>
+  7c:	e002      	b.n	84 <raw_sendto+0x84>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:232
+  }  else {
+    /* first pbuf q equals given pbuf */
+    q = p;
+    if(pbuf_header(q, -IP_HLEN)) {
+      LWIP_ASSERT("Can't restore header we just removed!", 0);
+      return ERR_MEM;
+  7e:	26ff      	movs	r6, #255	; 0xff
+  80:	e000      	b.n	84 <raw_sendto+0x84>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:243
+      ip4_addr1_16(ipaddr), ip4_addr2_16(ipaddr), ip4_addr3_16(ipaddr), ip4_addr4_16(ipaddr)));
+    /* free any temporary header pbuf allocated by pbuf_header() */
+    if (q != p) {
+      pbuf_free(q);
+    }
+    return ERR_RTE;
+  82:	26fc      	movs	r6, #252	; 0xfc
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:280
+  if (q != p) {
+    /* free the header */
+    pbuf_free(q);
+  }
+  return err;
+}
+  84:	b270      	sxtb	r0, r6
+  86:	b005      	add	sp, #20
+  88:	bdf0      	pop	{r4, r5, r6, r7, pc}
+
+Disassembly of section .text.raw_send:
+
+00000000 <raw_send>:
+raw_send():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:292
+ *
+ */
+err_t
+raw_send(struct raw_pcb *pcb, struct pbuf *p)
+{
+  return raw_sendto(pcb, p, &pcb->remote_ip);
+   0:	1d02      	adds	r2, r0, #4
+   2:	f7ff bffe 	b.w	0 <raw_send>
+
+Disassembly of section .text.raw_remove:
+
+00000000 <raw_remove>:
+raw_remove():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:308
+void
+raw_remove(struct raw_pcb *pcb)
+{
+  struct raw_pcb *pcb2;
+  /* pcb to be removed is first in list? */
+  if (raw_pcbs == pcb) {
+   0:	4a09      	ldr	r2, [pc, #36]	; (28 <raw_remove+0x28>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:305
+ *
+ * @see raw_new()
+ */
+void
+raw_remove(struct raw_pcb *pcb)
+{
+   2:	4601      	mov	r1, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:308
+  struct raw_pcb *pcb2;
+  /* pcb to be removed is first in list? */
+  if (raw_pcbs == pcb) {
+   4:	6813      	ldr	r3, [r2, #0]
+   6:	4283      	cmp	r3, r0
+   8:	d109      	bne.n	1e <raw_remove+0x1e>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:310
+    /* make list start at 2nd pcb */
+    raw_pcbs = raw_pcbs->next;
+   a:	68c3      	ldr	r3, [r0, #12]
+   c:	6013      	str	r3, [r2, #0]
+   e:	e008      	b.n	22 <raw_remove+0x22>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:315
+    /* pcb not 1st in list */
+  } else {
+    for(pcb2 = raw_pcbs; pcb2 != NULL; pcb2 = pcb2->next) {
+      /* find pcb in raw_pcbs list */
+      if (pcb2->next != NULL && pcb2->next == pcb) {
+  10:	68da      	ldr	r2, [r3, #12]
+  12:	b11a      	cbz	r2, 1c <raw_remove+0x1c>
+  14:	428a      	cmp	r2, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:317
+        /* remove pcb from list */
+        pcb2->next = pcb->next;
+  16:	bf04      	itt	eq
+  18:	68ca      	ldreq	r2, [r1, #12]
+  1a:	60da      	streq	r2, [r3, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:313
+  if (raw_pcbs == pcb) {
+    /* make list start at 2nd pcb */
+    raw_pcbs = raw_pcbs->next;
+    /* pcb not 1st in list */
+  } else {
+    for(pcb2 = raw_pcbs; pcb2 != NULL; pcb2 = pcb2->next) {
+  1c:	68db      	ldr	r3, [r3, #12]
+  1e:	2b00      	cmp	r3, #0
+  20:	d1f6      	bne.n	10 <raw_remove+0x10>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:321
+        /* remove pcb from list */
+        pcb2->next = pcb->next;
+      }
+    }
+  }
+  memp_free(MEMP_RAW_PCB, pcb);
+  22:	2000      	movs	r0, #0
+  24:	f7ff bffe 	b.w	0 <memp_free>
+  28:	00000000 	.word	0x00000000
+
+Disassembly of section .text.raw_new:
+
+00000000 <raw_new>:
+raw_new():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:336
+ *
+ * @see raw_remove()
+ */
+struct raw_pcb *
+raw_new(u8_t proto)
+{
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:341
+  struct raw_pcb *pcb;
+
+  LWIP_DEBUGF(RAW_DEBUG | LWIP_DBG_TRACE, ("raw_new\n"));
+
+  pcb = (struct raw_pcb *)memp_malloc(MEMP_RAW_PCB);
+   4:	2000      	movs	r0, #0
+   6:	f7ff fffe 	bl	0 <memp_malloc>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:343
+  /* could allocate RAW PCB? */
+  if (pcb != NULL) {
+   a:	4604      	mov	r4, r0
+   c:	b150      	cbz	r0, 24 <raw_new+0x24>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:345
+    /* initialize PCB to all zeroes */
+    memset(pcb, 0, sizeof(struct raw_pcb));
+   e:	221c      	movs	r2, #28
+  10:	2100      	movs	r1, #0
+  12:	f7ff fffe 	bl	0 <memset>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:347
+    pcb->protocol = proto;
+    pcb->ttl = RAW_TTL;
+  16:	23ff      	movs	r3, #255	; 0xff
+  18:	72a3      	strb	r3, [r4, #10]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:348
+    pcb->next = raw_pcbs;
+  1a:	4b03      	ldr	r3, [pc, #12]	; (28 <raw_new+0x28>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:346
+  pcb = (struct raw_pcb *)memp_malloc(MEMP_RAW_PCB);
+  /* could allocate RAW PCB? */
+  if (pcb != NULL) {
+    /* initialize PCB to all zeroes */
+    memset(pcb, 0, sizeof(struct raw_pcb));
+    pcb->protocol = proto;
+  1c:	7425      	strb	r5, [r4, #16]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:348
+    pcb->ttl = RAW_TTL;
+    pcb->next = raw_pcbs;
+  1e:	681a      	ldr	r2, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:349
+    raw_pcbs = pcb;
+  20:	601c      	str	r4, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:348
+  if (pcb != NULL) {
+    /* initialize PCB to all zeroes */
+    memset(pcb, 0, sizeof(struct raw_pcb));
+    pcb->protocol = proto;
+    pcb->ttl = RAW_TTL;
+    pcb->next = raw_pcbs;
+  22:	60e2      	str	r2, [r4, #12]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\src\core/raw.c:352
+    raw_pcbs = pcb;
+  }
+  return pcb;
+}
+  24:	4620      	mov	r0, r4
+  26:	bd38      	pop	{r3, r4, r5, pc}
+  28:	00000000 	.word	0x00000000

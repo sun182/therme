@@ -1,0 +1,839 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\stm32_eval.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\stm32_eval.o
+
+
+Disassembly of section .text.out_init:
+
+00000000 <out_init>:
+out_init():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:222
+  *     @arg LED3
+  *     @arg LED4
+  * @retval None
+  */
+void out_init(out_TypeDef out)
+{
+   0:	b537      	push	{r0, r1, r2, r4, r5, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:226
+  GPIO_InitTypeDef  GPIO_InitStructure;
+  
+  /* Enable the GPIO_LED Clock */
+  RCC_APB2PeriphClockCmd(GPIO_CLK[out], ENABLE);
+   2:	4d0c      	ldr	r5, [pc, #48]	; (34 <out_init+0x34>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:222
+  *     @arg LED3
+  *     @arg LED4
+  * @retval None
+  */
+void out_init(out_TypeDef out)
+{
+   4:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:226
+  GPIO_InitTypeDef  GPIO_InitStructure;
+  
+  /* Enable the GPIO_LED Clock */
+  RCC_APB2PeriphClockCmd(GPIO_CLK[out], ENABLE);
+   6:	2101      	movs	r1, #1
+   8:	f855 0020 	ldr.w	r0, [r5, r0, lsl #2]
+   c:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:230
+
+  /* Configure the GPIO_LED pin */
+  GPIO_InitStructure.GPIO_Pin = GPIO_PIN[out];
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 
+  10:	2310      	movs	r3, #16
+  12:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:231
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  16:	3b0d      	subs	r3, #13
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:229
+  
+  /* Enable the GPIO_LED Clock */
+  RCC_APB2PeriphClockCmd(GPIO_CLK[out], ENABLE);
+
+  /* Configure the GPIO_LED pin */
+  GPIO_InitStructure.GPIO_Pin = GPIO_PIN[out];
+  18:	eb05 0544 	add.w	r5, r5, r4, lsl #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:231
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  1c:	f88d 3006 	strb.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:232
+  GPIO_Init(GPIO_PORT[out], &GPIO_InitStructure);
+  20:	4b05      	ldr	r3, [pc, #20]	; (38 <out_init+0x38>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:229
+  
+  /* Enable the GPIO_LED Clock */
+  RCC_APB2PeriphClockCmd(GPIO_CLK[out], ENABLE);
+
+  /* Configure the GPIO_LED pin */
+  GPIO_InitStructure.GPIO_Pin = GPIO_PIN[out];
+  22:	8c2d      	ldrh	r5, [r5, #32]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:232
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIO_PORT[out], &GPIO_InitStructure);
+  24:	f853 0024 	ldr.w	r0, [r3, r4, lsl #2]
+  28:	a901      	add	r1, sp, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:229
+  
+  /* Enable the GPIO_LED Clock */
+  RCC_APB2PeriphClockCmd(GPIO_CLK[out], ENABLE);
+
+  /* Configure the GPIO_LED pin */
+  GPIO_InitStructure.GPIO_Pin = GPIO_PIN[out];
+  2a:	f8ad 5004 	strh.w	r5, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:232
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIO_PORT[out], &GPIO_InitStructure);
+  2e:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:233
+}
+  32:	bd3e      	pop	{r1, r2, r3, r4, r5, pc}
+	...
+
+Disassembly of section .text.out_on:
+
+00000000 <out_on>:
+out_on():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:250
+  *     @arg LED4  
+  * @retval None
+  */
+void out_on(out_TypeDef out)
+{
+  GPIO_PORT[out]->BSRR = GPIO_PIN[out]; 
+   0:	4a04      	ldr	r2, [pc, #16]	; (14 <out_on+0x14>)
+   2:	4b05      	ldr	r3, [pc, #20]	; (18 <out_on+0x18>)
+   4:	f853 3020 	ldr.w	r3, [r3, r0, lsl #2]
+   8:	eb02 0040 	add.w	r0, r2, r0, lsl #1
+   c:	8c02      	ldrh	r2, [r0, #32]
+   e:	611a      	str	r2, [r3, #16]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:251
+}
+  10:	4770      	bx	lr
+  12:	bf00      	nop
+	...
+
+Disassembly of section .text.out_off:
+
+00000000 <out_off>:
+out_off():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:265
+  *     @arg LED4 
+  * @retval None
+  */
+void out_off(out_TypeDef out)
+{
+  GPIO_PORT[out]->BRR = GPIO_PIN[out];
+   0:	4a04      	ldr	r2, [pc, #16]	; (14 <out_off+0x14>)
+   2:	4b05      	ldr	r3, [pc, #20]	; (18 <out_off+0x18>)
+   4:	f853 3020 	ldr.w	r3, [r3, r0, lsl #2]
+   8:	eb02 0040 	add.w	r0, r2, r0, lsl #1
+   c:	8c02      	ldrh	r2, [r0, #32]
+   e:	615a      	str	r2, [r3, #20]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:266
+}
+  10:	4770      	bx	lr
+  12:	bf00      	nop
+	...
+
+Disassembly of section .text.out_write:
+
+00000000 <out_write>:
+out_write():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:269
+
+void out_write(uint8_t value)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:270
+  GPIO_WriteBit(GPIO_PORT[k0], GPIO_PIN[k0], (value & 0x01) ? Bit_SET : Bit_RESET);
+   2:	4d1a      	ldr	r5, [pc, #104]	; (6c <out_write+0x6c>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:269
+{
+  GPIO_PORT[out]->BRR = GPIO_PIN[out];
+}
+
+void out_write(uint8_t value)
+{
+   4:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:270
+  GPIO_WriteBit(GPIO_PORT[k0], GPIO_PIN[k0], (value & 0x01) ? Bit_SET : Bit_RESET);
+   6:	f004 0201 	and.w	r2, r4, #1
+   a:	6828      	ldr	r0, [r5, #0]
+   c:	f44f 7100 	mov.w	r1, #512	; 0x200
+  10:	f7ff fffe 	bl	0 <GPIO_WriteBit>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:271
+  GPIO_WriteBit(GPIO_PORT[k1], GPIO_PIN[k1], (value & 0x02) ? Bit_SET : Bit_RESET);
+  14:	6868      	ldr	r0, [r5, #4]
+  16:	f3c4 0240 	ubfx	r2, r4, #1, #1
+  1a:	f44f 6180 	mov.w	r1, #1024	; 0x400
+  1e:	f7ff fffe 	bl	0 <GPIO_WriteBit>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:272
+  GPIO_WriteBit(GPIO_PORT[k2], GPIO_PIN[k2], (value & 0x04) ? Bit_SET : Bit_RESET);
+  22:	68a8      	ldr	r0, [r5, #8]
+  24:	f3c4 0280 	ubfx	r2, r4, #2, #1
+  28:	f44f 6100 	mov.w	r1, #2048	; 0x800
+  2c:	f7ff fffe 	bl	0 <GPIO_WriteBit>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:273
+  GPIO_WriteBit(GPIO_PORT[k3], GPIO_PIN[k3], (value & 0x08) ? Bit_SET : Bit_RESET);
+  30:	68e8      	ldr	r0, [r5, #12]
+  32:	f3c4 02c0 	ubfx	r2, r4, #3, #1
+  36:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+  3a:	f7ff fffe 	bl	0 <GPIO_WriteBit>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:274
+  GPIO_WriteBit(GPIO_PORT[k4], GPIO_PIN[k4], (value & 0x10) ? Bit_SET : Bit_RESET);
+  3e:	6928      	ldr	r0, [r5, #16]
+  40:	f3c4 1200 	ubfx	r2, r4, #4, #1
+  44:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+  48:	f7ff fffe 	bl	0 <GPIO_WriteBit>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:275
+  GPIO_WriteBit(GPIO_PORT[k5], GPIO_PIN[k5], (value & 0x20) ? Bit_SET : Bit_RESET);
+  4c:	6968      	ldr	r0, [r5, #20]
+  4e:	f3c4 1240 	ubfx	r2, r4, #5, #1
+  52:	f44f 4180 	mov.w	r1, #16384	; 0x4000
+  56:	f7ff fffe 	bl	0 <GPIO_WriteBit>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:276
+  GPIO_WriteBit(GPIO_PORT[k6], GPIO_PIN[k6], (value & 0x40) ? Bit_SET : Bit_RESET);
+  5a:	69a8      	ldr	r0, [r5, #24]
+  5c:	f44f 4100 	mov.w	r1, #32768	; 0x8000
+  60:	f3c4 1280 	ubfx	r2, r4, #6, #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:278
+//  GPIO_WriteBit(GPIO_PORT[out7], GPIO_PIN[out7], (value & 0x80) ? Bit_SET : Bit_RESET);
+}
+  64:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:276
+  GPIO_WriteBit(GPIO_PORT[k1], GPIO_PIN[k1], (value & 0x02) ? Bit_SET : Bit_RESET);
+  GPIO_WriteBit(GPIO_PORT[k2], GPIO_PIN[k2], (value & 0x04) ? Bit_SET : Bit_RESET);
+  GPIO_WriteBit(GPIO_PORT[k3], GPIO_PIN[k3], (value & 0x08) ? Bit_SET : Bit_RESET);
+  GPIO_WriteBit(GPIO_PORT[k4], GPIO_PIN[k4], (value & 0x10) ? Bit_SET : Bit_RESET);
+  GPIO_WriteBit(GPIO_PORT[k5], GPIO_PIN[k5], (value & 0x20) ? Bit_SET : Bit_RESET);
+  GPIO_WriteBit(GPIO_PORT[k6], GPIO_PIN[k6], (value & 0x40) ? Bit_SET : Bit_RESET);
+  68:	f7ff bffe 	b.w	0 <GPIO_WriteBit>
+  6c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.out_toggle:
+
+00000000 <out_toggle>:
+out_toggle():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:292
+  *     @arg LED4  
+  * @retval None
+  */
+void out_toggle(out_TypeDef out)
+{
+    GPIO_PORT[out]->ODR ^= GPIO_PIN[out];
+   0:	49064b05 	.word	0x49064b05
+   4:	f853 3020 	ldr.w	r3, [r3, r0, lsl #2]
+   8:	eb01 0040 	add.w	r0, r1, r0, lsl #1
+   c:	68da      	ldr	r2, [r3, #12]
+   e:	8c01      	ldrh	r1, [r0, #32]
+  10:	ea81 0202 	eor.w	r2, r1, r2
+  14:	60da      	str	r2, [r3, #12]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:293
+}
+  16:	4770      	bx	lr
+	...
+
+Disassembly of section .text.STM_EVAL_PBInit:
+
+00000000 <STM_EVAL_PBInit>:
+STM_EVAL_PBInit():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:315
+  *     @arg Mode_EXTI: Button will be connected to EXTI line with interrupt
+  *                     generation capability  
+  * @retval None
+  */
+void STM_EVAL_PBInit(Button_TypeDef Button, Button_Mode_TypeDef Button_Mode)
+{
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:321
+	GPIO_InitTypeDef GPIO_InitStructure;
+	EXTI_InitTypeDef EXTI_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+
+ //  Enable Button GPIO clock 
+  RCC_APB2PeriphClockCmd(BUTTON_CLK[Button] | RCC_APB2Periph_AFIO, ENABLE);
+   2:	4c20      	ldr	r4, [pc, #128]	; (84 <STM_EVAL_PBInit+0x84>)
+   4:	0086      	lsls	r6, r0, #2
+   6:	19a3      	adds	r3, r4, r6
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:315
+  *     @arg Mode_EXTI: Button will be connected to EXTI line with interrupt
+  *                     generation capability  
+  * @retval None
+  */
+void STM_EVAL_PBInit(Button_TypeDef Button, Button_Mode_TypeDef Button_Mode)
+{
+   8:	4607      	mov	r7, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:321
+	GPIO_InitTypeDef GPIO_InitStructure;
+	EXTI_InitTypeDef EXTI_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+
+ //  Enable Button GPIO clock 
+  RCC_APB2PeriphClockCmd(BUTTON_CLK[Button] | RCC_APB2Periph_AFIO, ENABLE);
+   a:	6b18      	ldr	r0, [r3, #48]	; 0x30
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:315
+  *     @arg Mode_EXTI: Button will be connected to EXTI line with interrupt
+  *                     generation capability  
+  * @retval None
+  */
+void STM_EVAL_PBInit(Button_TypeDef Button, Button_Mode_TypeDef Button_Mode)
+{
+   c:	b085      	sub	sp, #20
+   e:	460d      	mov	r5, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:321
+	GPIO_InitTypeDef GPIO_InitStructure;
+	EXTI_InitTypeDef EXTI_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+
+ //  Enable Button GPIO clock 
+  RCC_APB2PeriphClockCmd(BUTTON_CLK[Button] | RCC_APB2Periph_AFIO, ENABLE);
+  10:	f040 0001 	orr.w	r0, r0, #1
+  14:	2101      	movs	r1, #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:324
+  
+  /* Configure Button pin as input floating */
+  GPIO_InitStructure.GPIO_Pin = BUTTON_PIN[Button];
+  16:	eb04 0447 	add.w	r4, r4, r7, lsl #1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:321
+	GPIO_InitTypeDef GPIO_InitStructure;
+	EXTI_InitTypeDef EXTI_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+
+ //  Enable Button GPIO clock 
+  RCC_APB2PeriphClockCmd(BUTTON_CLK[Button] | RCC_APB2Periph_AFIO, ENABLE);
+  1a:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:324
+  
+  /* Configure Button pin as input floating */
+  GPIO_InitStructure.GPIO_Pin = BUTTON_PIN[Button];
+  1e:	8fa3      	ldrh	r3, [r4, #60]	; 0x3c
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:326
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(BUTTON_PORT[Button], &GPIO_InitStructure);
+  20:	a903      	add	r1, sp, #12
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:324
+
+ //  Enable Button GPIO clock 
+  RCC_APB2PeriphClockCmd(BUTTON_CLK[Button] | RCC_APB2Periph_AFIO, ENABLE);
+  
+  /* Configure Button pin as input floating */
+  GPIO_InitStructure.GPIO_Pin = BUTTON_PIN[Button];
+  22:	f8ad 300c 	strh.w	r3, [sp, #12]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:325
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  26:	2304      	movs	r3, #4
+  28:	f88d 300f 	strb.w	r3, [sp, #15]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:326
+  GPIO_Init(BUTTON_PORT[Button], &GPIO_InitStructure);
+  2c:	4b16      	ldr	r3, [pc, #88]	; (88 <STM_EVAL_PBInit+0x88>)
+  2e:	199e      	adds	r6, r3, r6
+  30:	6a30      	ldr	r0, [r6, #32]
+  32:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:328
+
+  if (Button_Mode == Mode_EXTI)
+  36:	2d01      	cmp	r5, #1
+  38:	d121      	bne.n	7e <STM_EVAL_PBInit+0x7e>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:331
+  {
+    // Connect Button EXTI Line to Button GPIO Pin 
+    GPIO_EXTILineConfig(BUTTON_PORT_SOURCE[Button], BUTTON_PIN_SOURCE[Button]);  
+  3a:	f894 0042 	ldrb.w	r0, [r4, #66]	; 0x42
+  3e:	f894 1048 	ldrb.w	r1, [r4, #72]	; 0x48
+  42:	f7ff fffe 	bl	0 <GPIO_EXTILineConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:334
+
+    /* Configure Button EXTI line */
+    EXTI_InitStructure.EXTI_Line = BUTTON_EXTI_LINE[Button];
+  46:	f8b4 304e 	ldrh.w	r3, [r4, #78]	; 0x4e
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:342
+      EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;  
+
+      //EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;  
+
+    EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+    EXTI_Init(&EXTI_InitStructure);
+  4a:	4668      	mov	r0, sp
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:334
+  {
+    // Connect Button EXTI Line to Button GPIO Pin 
+    GPIO_EXTILineConfig(BUTTON_PORT_SOURCE[Button], BUTTON_PIN_SOURCE[Button]);  
+
+    /* Configure Button EXTI line */
+    EXTI_InitStructure.EXTI_Line = BUTTON_EXTI_LINE[Button];
+  4c:	9300      	str	r3, [sp, #0]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:335
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  4e:	2300      	movs	r3, #0
+  50:	f88d 3004 	strb.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:337
+
+      EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;  
+  54:	330c      	adds	r3, #12
+  56:	f88d 3005 	strb.w	r3, [sp, #5]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:341
+
+      //EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;  
+
+    EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  5a:	f88d 5006 	strb.w	r5, [sp, #6]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:342
+    EXTI_Init(&EXTI_InitStructure);
+  5e:	f7ff fffe 	bl	0 <EXTI_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:345
+
+    /* Enable and set Button EXTI Interrupt to the lowest priority */
+    NVIC_InitStructure.NVIC_IRQChannel = BUTTON_IRQn[Button];
+  62:	f8b4 3054 	ldrh.w	r3, [r4, #84]	; 0x54
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:350
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+
+    NVIC_Init(&NVIC_InitStructure); 
+  66:	a802      	add	r0, sp, #8
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:345
+
+    EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+    EXTI_Init(&EXTI_InitStructure);
+
+    /* Enable and set Button EXTI Interrupt to the lowest priority */
+    NVIC_InitStructure.NVIC_IRQChannel = BUTTON_IRQn[Button];
+  68:	f88d 3008 	strb.w	r3, [sp, #8]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:346
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+  6c:	230f      	movs	r3, #15
+  6e:	f88d 3009 	strb.w	r3, [sp, #9]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:347
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+  72:	f88d 300a 	strb.w	r3, [sp, #10]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:348
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  76:	f88d 500b 	strb.w	r5, [sp, #11]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:350
+
+    NVIC_Init(&NVIC_InitStructure); 
+  7a:	f7ff fffe 	bl	0 <NVIC_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:353
+	}
+	
+}
+  7e:	b005      	add	sp, #20
+  80:	bdf0      	pop	{r4, r5, r6, r7, pc}
+  82:	bf00      	nop
+	...
+
+Disassembly of section .text.STM_EVAL_PBGetState:
+
+00000000 <STM_EVAL_PBGetState>:
+STM_EVAL_PBGetState():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:372
+  * @retval The Button GPIO pin value.
+  */
+uint32_t STM_EVAL_PBGetState(Button_TypeDef Button)
+{
+  //return GPIO_ReadInputDataBit(BUTTON_PORT[Button], BUTTON_PIN[Button]);
+}
+   0:	4770      	bx	lr
+
+Disassembly of section .text.read_inp:
+
+00000000 <read_inp>:
+read_inp():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:374
+uint32_t read_inp(out_TypeDef out)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:375
+	return	GPIO_ReadInputDataBit(GPIO_PORT[out],GPIO_PIN[out]);
+   2:	4b05      	ldr	r3, [pc, #20]	; (18 <read_inp+0x18>)
+   4:	4a05      	ldr	r2, [pc, #20]	; (1c <read_inp+0x1c>)
+   6:	eb03 0340 	add.w	r3, r3, r0, lsl #1
+   a:	8c19      	ldrh	r1, [r3, #32]
+   c:	f852 0020 	ldr.w	r0, [r2, r0, lsl #2]
+  10:	f7ff fffe 	bl	0 <GPIO_ReadInputDataBit>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:377
+  
+}
+  14:	bd08      	pop	{r3, pc}
+  16:	bf00      	nop
+	...
+
+Disassembly of section .text.STM_EVAL_COMInit:
+
+00000000 <STM_EVAL_COMInit>:
+STM_EVAL_COMInit():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:390
+  * @param  USART_InitStruct: pointer to a USART_InitTypeDef structure that
+  *   contains the configuration information for the specified USART peripheral.
+  * @retval None
+  */
+void STM_EVAL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
+{
+   0:	b5f7      	push	{r0, r1, r2, r4, r5, r6, r7, lr}
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:394
+  GPIO_InitTypeDef GPIO_InitStructure;
+
+  /* Enable GPIO clock */
+  RCC_APB2PeriphClockCmd(COM_POR_CLK[COM] | RCC_APB2Periph_AFIO, ENABLE);
+   2:	4d1e      	ldr	r5, [pc, #120]	; (7c <STM_EVAL_COMInit+0x7c>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:390
+  * @param  USART_InitStruct: pointer to a USART_InitTypeDef structure that
+  *   contains the configuration information for the specified USART peripheral.
+  * @retval None
+  */
+void STM_EVAL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
+{
+   4:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:394
+  GPIO_InitTypeDef GPIO_InitStructure;
+
+  /* Enable GPIO clock */
+  RCC_APB2PeriphClockCmd(COM_POR_CLK[COM] | RCC_APB2Periph_AFIO, ENABLE);
+   6:	eb05 0680 	add.w	r6, r5, r0, lsl #2
+   a:	6df0      	ldr	r0, [r6, #92]	; 0x5c
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:390
+  * @param  USART_InitStruct: pointer to a USART_InitTypeDef structure that
+  *   contains the configuration information for the specified USART peripheral.
+  * @retval None
+  */
+void STM_EVAL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
+{
+   c:	460f      	mov	r7, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:394
+  GPIO_InitTypeDef GPIO_InitStructure;
+
+  /* Enable GPIO clock */
+  RCC_APB2PeriphClockCmd(COM_POR_CLK[COM] | RCC_APB2Periph_AFIO, ENABLE);
+   e:	f040 0001 	orr.w	r0, r0, #1
+  12:	2101      	movs	r1, #1
+  14:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:418
+    /* Enable the USART2 Pins Software Remapping */
+    GPIO_PinRemapConfig(GPIO_Remap_USART2, ENABLE);
+    RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
+  }
+#elif defined (USE_STM3210C_EVAL)
+  if (COM == COM1)
+  18:	b93c      	cbnz	r4, 2a <STM_EVAL_COMInit+0x2a>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:421
+  {
+    /* Enable the USART2 Pins Software Remapping */
+    GPIO_PinRemapConfig(GPIO_Remap_USART2, ENABLE);
+  1a:	2008      	movs	r0, #8
+  1c:	2101      	movs	r1, #1
+  1e:	f7ff fffe 	bl	0 <GPIO_PinRemapConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:422
+    RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
+  22:	6e70      	ldr	r0, [r6, #100]	; 0x64
+  24:	2101      	movs	r1, #1
+  26:	f7ff fffe 	bl	0 <RCC_APB1PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:427
+  }
+#endif
+
+  /* Configure USART Tx as alternate function push-pull */
+  GPIO_InitStructure.GPIO_Pin = COM_TX_PIN[COM];
+  2a:	eb05 0544 	add.w	r5, r5, r4, lsl #1
+  2e:	f8b5 306c 	ldrh.w	r3, [r5, #108]	; 0x6c
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:430
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(COM_PORT[COM], &GPIO_InitStructure);
+  32:	a901      	add	r1, sp, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:427
+    RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
+  }
+#endif
+
+  /* Configure USART Tx as alternate function push-pull */
+  GPIO_InitStructure.GPIO_Pin = COM_TX_PIN[COM];
+  34:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:428
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  38:	2318      	movs	r3, #24
+  3a:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:429
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  3e:	3b15      	subs	r3, #21
+  40:	f88d 3006 	strb.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:430
+  GPIO_Init(COM_PORT[COM], &GPIO_InitStructure);
+  44:	4b0e      	ldr	r3, [pc, #56]	; (80 <STM_EVAL_COMInit+0x80>)
+  46:	eb03 0484 	add.w	r4, r3, r4, lsl #2
+  4a:	6ae0      	ldr	r0, [r4, #44]	; 0x2c
+  4c:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:434
+    
+  /* Configure USART Rx as input floating */
+  GPIO_InitStructure.GPIO_Pin = COM_RX_PIN[COM];
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  50:	2304      	movs	r3, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:433
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(COM_PORT[COM], &GPIO_InitStructure);
+    
+  /* Configure USART Rx as input floating */
+  GPIO_InitStructure.GPIO_Pin = COM_RX_PIN[COM];
+  52:	f8b5 5070 	ldrh.w	r5, [r5, #112]	; 0x70
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:435
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(COM_PORT[COM], &GPIO_InitStructure);
+  56:	eb0d 0103 	add.w	r1, sp, r3
+  5a:	6ae0      	ldr	r0, [r4, #44]	; 0x2c
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:434
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(COM_PORT[COM], &GPIO_InitStructure);
+    
+  /* Configure USART Rx as input floating */
+  GPIO_InitStructure.GPIO_Pin = COM_RX_PIN[COM];
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  5c:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:433
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(COM_PORT[COM], &GPIO_InitStructure);
+    
+  /* Configure USART Rx as input floating */
+  GPIO_InitStructure.GPIO_Pin = COM_RX_PIN[COM];
+  60:	f8ad 5004 	strh.w	r5, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:435
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(COM_PORT[COM], &GPIO_InitStructure);
+  64:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:438
+
+  /* USART configuration */
+  USART_Init(COM_USART[COM], USART_InitStruct);
+  68:	6b60      	ldr	r0, [r4, #52]	; 0x34
+  6a:	4639      	mov	r1, r7
+  6c:	f7ff fffe 	bl	0 <USART_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:441
+    
+  /* Enable USART */
+  USART_Cmd(COM_USART[COM], ENABLE);
+  70:	6b60      	ldr	r0, [r4, #52]	; 0x34
+  72:	2101      	movs	r1, #1
+  74:	f7ff fffe 	bl	0 <USART_Cmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:442
+}
+  78:	bdfe      	pop	{r1, r2, r3, r4, r5, r6, r7, pc}
+  7a:	bf00      	nop
+	...
+
+Disassembly of section .text.ET_STM32_COM_Init:
+
+00000000 <ET_STM32_COM_Init>:
+ET_STM32_COM_Init():
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:445
+
+void ET_STM32_COM_Init(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
+{
+   0:	b513      	push	{r0, r1, r4, lr}
+   2:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:448
+  GPIO_InitTypeDef GPIO_InitStructure;
+
+  if (COM == COM1)
+   4:	bb50      	cbnz	r0, 5c <ET_STM32_COM_Init+0x5c>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:451
+  {
+	/* Enable GPIO clock */
+    RCC_APB2PeriphClockCmd(EVAL_COM1_GPIO_CLK | RCC_APB2Periph_AFIO, ENABLE);
+   6:	3009      	adds	r0, #9
+   8:	2101      	movs	r1, #1
+   a:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:454
+
+    /* Enable the USART1 Pins Software Remapping */
+    GPIO_PinRemapConfig(GPIO_Remap_USART1, ENABLE);
+   e:	2004      	movs	r0, #4
+  10:	2101      	movs	r1, #1
+  12:	f7ff fffe 	bl	0 <GPIO_PinRemapConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:455
+    RCC_APB2PeriphClockCmd(EVAL_COM1_CLK, ENABLE);
+  16:	f44f 4080 	mov.w	r0, #16384	; 0x4000
+  1a:	2101      	movs	r1, #1
+  1c:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:458
+
+	/* Configure USART Tx as alternate function push-pull */
+    GPIO_InitStructure.GPIO_Pin = EVAL_COM1_TxPin;
+  20:	2340      	movs	r3, #64	; 0x40
+  22:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:459
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  26:	2318      	movs	r3, #24
+  28:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:461
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(EVAL_COM1_GPIO, &GPIO_InitStructure);
+  2c:	4822      	ldr	r0, [pc, #136]	; (b8 <ET_STM32_COM_Init+0xb8>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:460
+    RCC_APB2PeriphClockCmd(EVAL_COM1_CLK, ENABLE);
+
+	/* Configure USART Tx as alternate function push-pull */
+    GPIO_InitStructure.GPIO_Pin = EVAL_COM1_TxPin;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  2e:	3b15      	subs	r3, #21
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:461
+    GPIO_Init(EVAL_COM1_GPIO, &GPIO_InitStructure);
+  30:	a901      	add	r1, sp, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:460
+    RCC_APB2PeriphClockCmd(EVAL_COM1_CLK, ENABLE);
+
+	/* Configure USART Tx as alternate function push-pull */
+    GPIO_InitStructure.GPIO_Pin = EVAL_COM1_TxPin;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  32:	f88d 3006 	strb.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:461
+    GPIO_Init(EVAL_COM1_GPIO, &GPIO_InitStructure);
+  36:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:464
+    
+    /* Configure USART Rx as input floating */
+    GPIO_InitStructure.GPIO_Pin = EVAL_COM1_RxPin;
+  3a:	2380      	movs	r3, #128	; 0x80
+  3c:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:465
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  40:	2304      	movs	r3, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:466
+    GPIO_Init(EVAL_COM1_GPIO, &GPIO_InitStructure);
+  42:	eb0d 0103 	add.w	r1, sp, r3
+  46:	481c      	ldr	r0, [pc, #112]	; (b8 <ET_STM32_COM_Init+0xb8>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:465
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(EVAL_COM1_GPIO, &GPIO_InitStructure);
+    
+    /* Configure USART Rx as input floating */
+    GPIO_InitStructure.GPIO_Pin = EVAL_COM1_RxPin;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  48:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:466
+    GPIO_Init(EVAL_COM1_GPIO, &GPIO_InitStructure);
+  4c:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:469
+
+    /* USART configuration */
+    USART_Init(EVAL_COM1, USART_InitStruct);
+  50:	481a      	ldr	r0, [pc, #104]	; (bc <ET_STM32_COM_Init+0xbc>)
+  52:	4621      	mov	r1, r4
+  54:	f7ff fffe 	bl	0 <USART_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:472
+    
+    /* Enable USART */
+    USART_Cmd(EVAL_COM1, ENABLE);
+  58:	4818      	ldr	r0, [pc, #96]	; (bc <ET_STM32_COM_Init+0xbc>)
+  5a:	e029      	b.n	b0 <ET_STM32_COM_Init+0xb0>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:477
+  }
+  else
+  {
+    /* Enable GPIO clock */
+    RCC_APB2PeriphClockCmd(EVAL_COM2_GPIO_CLK | RCC_APB2Periph_AFIO, ENABLE);
+  5c:	2021      	movs	r0, #33	; 0x21
+  5e:	2101      	movs	r1, #1
+  60:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:480
+
+    /* Enable the USART2 Pins Software Remapping */
+    GPIO_PinRemapConfig(GPIO_Remap_USART2, ENABLE);
+  64:	2008      	movs	r0, #8
+  66:	2101      	movs	r1, #1
+  68:	f7ff fffe 	bl	0 <GPIO_PinRemapConfig>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:481
+    RCC_APB1PeriphClockCmd(EVAL_COM2_CLK, ENABLE);
+  6c:	f44f 3000 	mov.w	r0, #131072	; 0x20000
+  70:	2101      	movs	r1, #1
+  72:	f7ff fffe 	bl	0 <RCC_APB1PeriphClockCmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:484
+
+	/* Configure USART Tx as alternate function push-pull */
+    GPIO_InitStructure.GPIO_Pin = EVAL_COM2_TxPin;
+  76:	2320      	movs	r3, #32
+  78:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:485
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  7c:	2318      	movs	r3, #24
+  7e:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:487
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(EVAL_COM2_GPIO, &GPIO_InitStructure);
+  82:	480f      	ldr	r0, [pc, #60]	; (c0 <ET_STM32_COM_Init+0xc0>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:486
+    RCC_APB1PeriphClockCmd(EVAL_COM2_CLK, ENABLE);
+
+	/* Configure USART Tx as alternate function push-pull */
+    GPIO_InitStructure.GPIO_Pin = EVAL_COM2_TxPin;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  84:	3b15      	subs	r3, #21
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:487
+    GPIO_Init(EVAL_COM2_GPIO, &GPIO_InitStructure);
+  86:	a901      	add	r1, sp, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:486
+    RCC_APB1PeriphClockCmd(EVAL_COM2_CLK, ENABLE);
+
+	/* Configure USART Tx as alternate function push-pull */
+    GPIO_InitStructure.GPIO_Pin = EVAL_COM2_TxPin;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  88:	f88d 3006 	strb.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:487
+    GPIO_Init(EVAL_COM2_GPIO, &GPIO_InitStructure);
+  8c:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:490
+    
+    /* Configure USART Rx as input floating */
+    GPIO_InitStructure.GPIO_Pin = EVAL_COM2_RxPin;
+  90:	2340      	movs	r3, #64	; 0x40
+  92:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:491
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  96:	2304      	movs	r3, #4
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:492
+    GPIO_Init(EVAL_COM2_GPIO, &GPIO_InitStructure);
+  98:	eb0d 0103 	add.w	r1, sp, r3
+  9c:	4808      	ldr	r0, [pc, #32]	; (c0 <ET_STM32_COM_Init+0xc0>)
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:491
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(EVAL_COM2_GPIO, &GPIO_InitStructure);
+    
+    /* Configure USART Rx as input floating */
+    GPIO_InitStructure.GPIO_Pin = EVAL_COM2_RxPin;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  9e:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:492
+    GPIO_Init(EVAL_COM2_GPIO, &GPIO_InitStructure);
+  a2:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:495
+
+    /* USART configuration */
+    USART_Init(EVAL_COM2, USART_InitStruct);
+  a6:	4807      	ldr	r0, [pc, #28]	; (c4 <ET_STM32_COM_Init+0xc4>)
+  a8:	4621      	mov	r1, r4
+  aa:	f7ff fffe 	bl	0 <USART_Init>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:498
+    
+    /* Enable USART */
+    USART_Cmd(EVAL_COM2, ENABLE);
+  ae:	4805      	ldr	r0, [pc, #20]	; (c4 <ET_STM32_COM_Init+0xc4>)
+  b0:	2101      	movs	r1, #1
+  b2:	f7ff fffe 	bl	0 <USART_Cmd>
+D:\sunny\stm32\therme\Utilities\STM32_EVAL/stm32_eval.c:500
+  }
+}
+  b6:	bd1c      	pop	{r2, r3, r4, pc}
+  b8:	40010c00 	.word	0x40010c00
+  bc:	40013800 	.word	0x40013800
+  c0:	40011400 	.word	0x40011400
+  c4:	40004400 	.word	0x40004400

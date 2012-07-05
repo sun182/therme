@@ -1,0 +1,1261 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\stm32f107.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\stm32f107.o
+
+
+Disassembly of section .text.NVIC_SetPriority.clone.0:
+
+00000000 <NVIC_SetPriority.clone.0>:
+NVIC_SetPriority():
+D:\sunny\stm32\therme\Project\RIDE/..\..\Libraries\CMSIS\Core\CM3/core_cm3.h:1187
+ * Note: The priority cannot be set for every core interrupt.
+ */
+static __INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+{
+  if(IRQn < 0) {
+    SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff); } /* set Priority for Cortex-M3 System Interrupts */
+   0:	0100      	lsls	r0, r0, #4
+   2:	4b02      	ldr	r3, [pc, #8]	; (c <NVIC_SetPriority.clone.0+0xc>)
+   4:	b2c0      	uxtb	r0, r0
+   6:	f883 0023 	strb.w	r0, [r3, #35]	; 0x23
+D:\sunny\stm32\therme\Project\RIDE/..\..\Libraries\CMSIS\Core\CM3/core_cm3.h:1190
+  else {
+    NVIC->IP[(uint32_t)(IRQn)] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff);    }        /* set Priority for device specific Interrupts      */
+}
+   a:	4770      	bx	lr
+   c:	e000ed00 	.word	0xe000ed00
+
+Disassembly of section .text.ET_STM32_RCC_Configuration:
+
+00000000 <ET_STM32_RCC_Configuration>:
+ET_STM32_RCC_Configuration():
+D:\sunny\stm32\therme\Project\src/stm32f107.c:151
+  * @brief  Configures the clock
+  * @param  None
+  * @retval None
+  */
+void ET_STM32_RCC_Configuration(void)
+{
+   0:	b510      	push	{r4, lr}
+   2:	b086      	sub	sp, #24
+D:\sunny\stm32\therme\Project\src/stm32f107.c:156
+  RCC_ClocksTypeDef RCC_ClockFreq;
+  ErrorStatus HSEStartUpStatus;
+
+   /* RCC system reset(for debug purpose) */
+  RCC_DeInit();
+   4:	f7ff fffe 	bl	0 <RCC_DeInit>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:159
+
+  /* Enable HSE */
+  RCC_HSEConfig(RCC_HSE_ON);
+   8:	f44f 3080 	mov.w	r0, #65536	; 0x10000
+   c:	f7ff fffe 	bl	0 <RCC_HSEConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:162
+
+  /* Wait till HSE is ready */
+  HSEStartUpStatus = RCC_WaitForHSEStartUp();
+  10:	f7ff fffe 	bl	0 <RCC_WaitForHSEStartUp>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:164
+
+  if (HSEStartUpStatus == SUCCESS)
+  14:	2801      	cmp	r0, #1
+D:\sunny\stm32\therme\Project\src/stm32f107.c:162
+
+  /* Enable HSE */
+  RCC_HSEConfig(RCC_HSE_ON);
+
+  /* Wait till HSE is ready */
+  HSEStartUpStatus = RCC_WaitForHSEStartUp();
+  16:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Project\src/stm32f107.c:164
+
+  if (HSEStartUpStatus == SUCCESS)
+  18:	d13d      	bne.n	96 <ET_STM32_RCC_Configuration+0x96>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:167
+  {
+    /* Enable Prefetch Buffer */
+    FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
+  1a:	2010      	movs	r0, #16
+  1c:	f7ff fffe 	bl	0 <FLASH_PrefetchBufferCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:174
+    /***************************************************/
+    /* HSE=25MHz, HCLK=72MHz, PCLK2=72MHz, PCLK1=36MHz */
+    /***************************************************/
+
+    /* Flash 2 wait state */
+    FLASH_SetLatency(FLASH_Latency_2);
+  20:	2002      	movs	r0, #2
+  22:	f7ff fffe 	bl	0 <FLASH_SetLatency>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:177
+
+    /* HCLK = SYSCLK */
+    RCC_HCLKConfig(RCC_SYSCLK_Div1);
+  26:	2000      	movs	r0, #0
+  28:	f7ff fffe 	bl	0 <RCC_HCLKConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:180
+
+    /* PCLK2 = HCLK */
+    RCC_PCLK2Config(RCC_HCLK_Div1);
+  2c:	2000      	movs	r0, #0
+  2e:	f7ff fffe 	bl	0 <RCC_PCLK2Config>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:183
+
+    /* PCLK1 = HCLK/2 */
+    RCC_PCLK1Config(RCC_HCLK_Div2);
+  32:	f44f 6080 	mov.w	r0, #1024	; 0x400
+  36:	f7ff fffe 	bl	0 <RCC_PCLK1Config>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:186
+
+    /*  ADCCLK = PCLK2/4 */
+    RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+  3a:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+  3e:	f7ff fffe 	bl	0 <RCC_ADCCLKConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:190
+
+    /* Configure PLLs */
+    /* PPL2 configuration: PLL2CLK = (HSE / 5) * 8 = 40 MHz */
+    RCC_PREDIV2Config(RCC_PREDIV2_Div5);
+  42:	2040      	movs	r0, #64	; 0x40
+  44:	f7ff fffe 	bl	0 <RCC_PREDIV2Config>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:191
+    RCC_PLL2Config(RCC_PLL2Mul_8);
+  48:	f44f 60c0 	mov.w	r0, #1536	; 0x600
+  4c:	f7ff fffe 	bl	0 <RCC_PLL2Config>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:194
+
+    /* Enable PLL2 */
+    RCC_PLL2Cmd(ENABLE);
+  50:	4620      	mov	r0, r4
+  52:	f7ff fffe 	bl	0 <RCC_PLL2Cmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:197
+
+    /* Wait till PLL2 is ready */
+    while (RCC_GetFlagStatus(RCC_FLAG_PLL2RDY) == RESET)
+  56:	203b      	movs	r0, #59	; 0x3b
+  58:	f7ff fffe 	bl	0 <RCC_GetFlagStatus>
+  5c:	2800      	cmp	r0, #0
+  5e:	d0fa      	beq.n	56 <ET_STM32_RCC_Configuration+0x56>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:201
+    {}
+
+    /* PPL1 configuration: PLLCLK = (PLL2 / 5) * 9 = 72 MHz */
+    RCC_PREDIV1Config(RCC_PREDIV1_Source_PLL2, RCC_PREDIV1_Div5);
+  60:	f44f 3080 	mov.w	r0, #65536	; 0x10000
+  64:	2104      	movs	r1, #4
+  66:	f7ff fffe 	bl	0 <RCC_PREDIV1Config>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:202
+    RCC_PLLConfig(RCC_PLLSource_PREDIV1, RCC_PLLMul_9);
+  6a:	f44f 3080 	mov.w	r0, #65536	; 0x10000
+  6e:	f44f 11e0 	mov.w	r1, #1835008	; 0x1c0000
+  72:	f7ff fffe 	bl	0 <RCC_PLLConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:205
+
+    /* Enable PLL */
+    RCC_PLLCmd(ENABLE);
+  76:	2001      	movs	r0, #1
+  78:	f7ff fffe 	bl	0 <RCC_PLLCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:208
+
+    /* Wait till PLL is ready */
+    while (RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET)
+  7c:	2039      	movs	r0, #57	; 0x39
+  7e:	f7ff fffe 	bl	0 <RCC_GetFlagStatus>
+  82:	2800      	cmp	r0, #0
+  84:	d0fa      	beq.n	7c <ET_STM32_RCC_Configuration+0x7c>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:212
+    {}
+
+    /* Select PLL as system clock source */
+    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+  86:	2002      	movs	r0, #2
+  88:	f7ff fffe 	bl	0 <RCC_SYSCLKConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:215
+
+    /* Wait till PLL is used as system clock source */
+    while (RCC_GetSYSCLKSource() != 0x08)
+  8c:	f7ff fffe 	bl	0 <RCC_GetSYSCLKSource>
+  90:	2808      	cmp	r0, #8
+  92:	d1fb      	bne.n	8c <ET_STM32_RCC_Configuration+0x8c>
+  94:	e000      	b.n	98 <ET_STM32_RCC_Configuration+0x98>
+  96:	e7fe      	b.n	96 <ET_STM32_RCC_Configuration+0x96>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:229
+    {
+    }
+  }
+
+  //Initial System Clock Complete Start Initial Peripheral Clock
+  RCC_GetClocksFreq(&RCC_ClockFreq);
+  98:	a801      	add	r0, sp, #4
+  9a:	f7ff fffe 	bl	0 <RCC_GetClocksFreq>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:233
+
+  //Start of Initial USB Clock input (48MHz)
+  /* Select USBCLK source */
+  RCC_OTGFSCLKConfig(RCC_OTGFSCLKSource_PLLVCO_Div3);
+  9e:	2000      	movs	r0, #0
+  a0:	f7ff fffe 	bl	0 <RCC_OTGFSCLKConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:236
+
+  /* Enable the USB clock */ 
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_OTG_FS, ENABLE) ;
+  a4:	2101      	movs	r1, #1
+  a6:	f44f 5080 	mov.w	r0, #4096	; 0x1000
+  aa:	f7ff fffe 	bl	0 <RCC_AHBPeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:240
+  //End of Initial USB Clock input (48MHz)
+
+  /* Enable USART2 clock */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);	
+  ae:	2101      	movs	r1, #1
+  b0:	f44f 3000 	mov.w	r0, #131072	; 0x20000
+  b4:	f7ff fffe 	bl	0 <RCC_APB1PeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:244
+
+
+  /* Enable ETHERNET clock  */
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_ETH_MAC    | 
+  b8:	2101      	movs	r1, #1
+  ba:	f44f 30e0 	mov.w	r0, #114688	; 0x1c000
+  be:	f7ff fffe 	bl	0 <RCC_AHBPeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:249
+                        RCC_AHBPeriph_ETH_MAC_Tx |
+                        RCC_AHBPeriph_ETH_MAC_Rx, ENABLE);
+
+  /* Enable GPIOs clocks */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA |	
+  c2:	207d      	movs	r0, #125	; 0x7d
+  c4:	2101      	movs	r1, #1
+  c6:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:257
+                         RCC_APB2Periph_GPIOD | 
+						 RCC_APB2Periph_GPIOE | 
+						 RCC_APB2Periph_AFIO, ENABLE);
+
+  /* Enable ADC1 clock */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
+  ca:	f44f 7000 	mov.w	r0, #512	; 0x200
+  ce:	2101      	movs	r1, #1
+  d0:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:258
+}
+  d4:	b006      	add	sp, #24
+  d6:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.Ethernet_Configuration:
+
+00000000 <Ethernet_Configuration>:
+Ethernet_Configuration():
+D:\sunny\stm32\therme\Project\src/stm32f107.c:267
+  * @brief  Configures the Ethernet Interface
+  * @param  None
+  * @retval None
+  */
+void Ethernet_Configuration(void)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Project\src/stm32f107.c:271
+  ETH_InitTypeDef ETH_InitStructure;
+
+  //Start of Config RMII Mode
+  GPIO_ETH_MediaInterfaceConfig(GPIO_ETH_MediaInterface_RMII);
+   2:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Project\src/stm32f107.c:267
+  * @brief  Configures the Ethernet Interface
+  * @param  None
+  * @retval None
+  */
+void Ethernet_Configuration(void)
+{
+   4:	b0b0      	sub	sp, #192	; 0xc0
+D:\sunny\stm32\therme\Project\src/stm32f107.c:271
+  ETH_InitTypeDef ETH_InitStructure;
+
+  //Start of Config RMII Mode
+  GPIO_ETH_MediaInterfaceConfig(GPIO_ETH_MediaInterface_RMII);
+   6:	f7ff fffe 	bl	0 <GPIO_ETH_MediaInterfaceConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:274
+
+  /* Set PLL3 clock output to 50MHz (25MHz /5 *10 =50MHz) */
+  RCC_PLL3Config(RCC_PLL3Mul_10);
+   a:	f44f 4000 	mov.w	r0, #32768	; 0x8000
+   e:	f7ff fffe 	bl	0 <RCC_PLL3Config>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:276
+  /* Enable PLL3 */
+  RCC_PLL3Cmd(ENABLE);
+  12:	2001      	movs	r0, #1
+  14:	f7ff fffe 	bl	0 <RCC_PLL3Cmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:278
+  /* Wait till PLL3 is ready */
+  while (RCC_GetFlagStatus(RCC_FLAG_PLL3RDY) == RESET)
+  18:	203d      	movs	r0, #61	; 0x3d
+  1a:	f7ff fffe 	bl	0 <RCC_GetFlagStatus>
+  1e:	2800      	cmp	r0, #0
+  20:	d0fa      	beq.n	18 <Ethernet_Configuration+0x18>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:282
+  {}
+
+  /* Get PLL3 clock on PA8 pin (MCO) */
+  RCC_MCOConfig(RCC_MCO_PLL3CLK);
+  22:	200b      	movs	r0, #11
+  24:	f7ff fffe 	bl	0 <RCC_MCOConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:286
+  //End of Config RMII Mode
+
+  /* Reset ETHERNET on AHB Bus */
+  ETH_DeInit();
+  28:	f7ff fffe 	bl	0 <ETH_DeInit>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:289
+
+  /* Software reset */
+  ETH_SoftwareReset();
+  2c:	f7ff fffe 	bl	0 <ETH_SoftwareReset>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:292
+
+  /* Wait for software reset */
+  while (ETH_GetSoftwareResetStatus() == SET);
+  30:	f7ff fffe 	bl	0 <ETH_GetSoftwareResetStatus>
+  34:	2801      	cmp	r0, #1
+  36:	d0fb      	beq.n	30 <Ethernet_Configuration+0x30>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:296
+
+  /* ETHERNET Configuration ------------------------------------------------------*/
+  /* Call ETH_StructInit if you don't like to configure all ETH_InitStructure parameter */
+  ETH_StructInit(&ETH_InitStructure);
+  38:	a801      	add	r0, sp, #4
+  3a:	f7ff fffe 	bl	0 <ETH_StructInit>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:301
+
+  /* Fill ETH_InitStructure parametrs */
+  /*------------------------   MAC   -----------------------------------*/
+  ETH_InitStructure.ETH_AutoNegotiation = ETH_AutoNegotiation_Enable  ;
+  ETH_InitStructure.ETH_LoopbackMode = ETH_LoopbackMode_Disable;
+  3e:	2300      	movs	r3, #0
+  40:	9308      	str	r3, [sp, #32]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:303
+  ETH_InitStructure.ETH_RetryTransmission = ETH_RetryTransmission_Disable;
+  ETH_InitStructure.ETH_AutomaticPadCRCStrip = ETH_AutomaticPadCRCStrip_Disable;
+  42:	930c      	str	r3, [sp, #48]	; 0x30
+D:\sunny\stm32\therme\Project\src/stm32f107.c:304
+  ETH_InitStructure.ETH_ReceiveAll = ETH_ReceiveAll_Disable;
+  44:	930f      	str	r3, [sp, #60]	; 0x3c
+D:\sunny\stm32\therme\Project\src/stm32f107.c:305
+  ETH_InitStructure.ETH_BroadcastFramesReception = ETH_BroadcastFramesReception_Enable;
+  46:	9312      	str	r3, [sp, #72]	; 0x48
+D:\sunny\stm32\therme\Project\src/stm32f107.c:306
+  ETH_InitStructure.ETH_PromiscuousMode = ETH_PromiscuousMode_Disable;
+  48:	9314      	str	r3, [sp, #80]	; 0x50
+D:\sunny\stm32\therme\Project\src/stm32f107.c:307
+  ETH_InitStructure.ETH_MulticastFramesFilter = ETH_MulticastFramesFilter_Perfect;
+  4a:	9315      	str	r3, [sp, #84]	; 0x54
+D:\sunny\stm32\therme\Project\src/stm32f107.c:308
+  ETH_InitStructure.ETH_UnicastFramesFilter = ETH_UnicastFramesFilter_Perfect;
+  4c:	9316      	str	r3, [sp, #88]	; 0x58
+D:\sunny\stm32\therme\Project\src/stm32f107.c:318
+  /*------------------------   DMA   -----------------------------------*/  
+  
+  /* When we use the Checksum offload feature, we need to enable the Store and Forward mode: 
+  the store and forward guarantee that a whole frame is stored in the FIFO, so the MAC can insert/verify the checksum, 
+  if the checksum is OK the DMA can handle the frame otherwise the frame is dropped */
+  ETH_InitStructure.ETH_DropTCPIPChecksumErrorFrame = ETH_DropTCPIPChecksumErrorFrame_Enable; 
+  4e:	9321      	str	r3, [sp, #132]	; 0x84
+D:\sunny\stm32\therme\Project\src/stm32f107.c:322
+  ETH_InitStructure.ETH_ReceiveStoreForward = ETH_ReceiveStoreForward_Enable;         
+  ETH_InitStructure.ETH_TransmitStoreForward = ETH_TransmitStoreForward_Enable;     
+ 
+  ETH_InitStructure.ETH_ForwardErrorFrames = ETH_ForwardErrorFrames_Disable;       
+  50:	9326      	str	r3, [sp, #152]	; 0x98
+D:\sunny\stm32\therme\Project\src/stm32f107.c:323
+  ETH_InitStructure.ETH_ForwardUndersizedGoodFrames = ETH_ForwardUndersizedGoodFrames_Disable;   
+  52:	9327      	str	r3, [sp, #156]	; 0x9c
+D:\sunny\stm32\therme\Project\src/stm32f107.c:324
+  ETH_InitStructure.ETH_SecondFrameOperate = ETH_SecondFrameOperate_Enable;                                                          
+  54:	3304      	adds	r3, #4
+  56:	9329      	str	r3, [sp, #164]	; 0xa4
+D:\sunny\stm32\therme\Project\src/stm32f107.c:326
+  ETH_InitStructure.ETH_AddressAlignedBeats = ETH_AddressAlignedBeats_Enable;      
+  ETH_InitStructure.ETH_FixedBurst = ETH_FixedBurst_Enable;                
+  58:	f44f 3380 	mov.w	r3, #65536	; 0x10000
+  5c:	932b      	str	r3, [sp, #172]	; 0xac
+D:\sunny\stm32\therme\Project\src/stm32f107.c:327
+  ETH_InitStructure.ETH_RxDMABurstLength = ETH_RxDMABurstLength_32Beat;          
+  5e:	f44f 0380 	mov.w	r3, #4194304	; 0x400000
+D:\sunny\stm32\therme\Project\src/stm32f107.c:300
+  /* Call ETH_StructInit if you don't like to configure all ETH_InitStructure parameter */
+  ETH_StructInit(&ETH_InitStructure);
+
+  /* Fill ETH_InitStructure parametrs */
+  /*------------------------   MAC   -----------------------------------*/
+  ETH_InitStructure.ETH_AutoNegotiation = ETH_AutoNegotiation_Enable  ;
+  62:	2401      	movs	r4, #1
+D:\sunny\stm32\therme\Project\src/stm32f107.c:327
+  ETH_InitStructure.ETH_ForwardErrorFrames = ETH_ForwardErrorFrames_Disable;       
+  ETH_InitStructure.ETH_ForwardUndersizedGoodFrames = ETH_ForwardUndersizedGoodFrames_Disable;   
+  ETH_InitStructure.ETH_SecondFrameOperate = ETH_SecondFrameOperate_Enable;                                                          
+  ETH_InitStructure.ETH_AddressAlignedBeats = ETH_AddressAlignedBeats_Enable;      
+  ETH_InitStructure.ETH_FixedBurst = ETH_FixedBurst_Enable;                
+  ETH_InitStructure.ETH_RxDMABurstLength = ETH_RxDMABurstLength_32Beat;          
+  64:	932c      	str	r3, [sp, #176]	; 0xb0
+D:\sunny\stm32\therme\Project\src/stm32f107.c:302
+
+  /* Fill ETH_InitStructure parametrs */
+  /*------------------------   MAC   -----------------------------------*/
+  ETH_InitStructure.ETH_AutoNegotiation = ETH_AutoNegotiation_Enable  ;
+  ETH_InitStructure.ETH_LoopbackMode = ETH_LoopbackMode_Disable;
+  ETH_InitStructure.ETH_RetryTransmission = ETH_RetryTransmission_Disable;
+  66:	f44f 7200 	mov.w	r2, #512	; 0x200
+D:\sunny\stm32\therme\Project\src/stm32f107.c:320
+  /* When we use the Checksum offload feature, we need to enable the Store and Forward mode: 
+  the store and forward guarantee that a whole frame is stored in the FIFO, so the MAC can insert/verify the checksum, 
+  if the checksum is OK the DMA can handle the frame otherwise the frame is dropped */
+  ETH_InitStructure.ETH_DropTCPIPChecksumErrorFrame = ETH_DropTCPIPChecksumErrorFrame_Enable; 
+  ETH_InitStructure.ETH_ReceiveStoreForward = ETH_ReceiveStoreForward_Enable;         
+  ETH_InitStructure.ETH_TransmitStoreForward = ETH_TransmitStoreForward_Enable;     
+  6a:	f44f 1100 	mov.w	r1, #2097152	; 0x200000
+D:\sunny\stm32\therme\Project\src/stm32f107.c:328
+  ETH_InitStructure.ETH_ForwardUndersizedGoodFrames = ETH_ForwardUndersizedGoodFrames_Disable;   
+  ETH_InitStructure.ETH_SecondFrameOperate = ETH_SecondFrameOperate_Enable;                                                          
+  ETH_InitStructure.ETH_AddressAlignedBeats = ETH_AddressAlignedBeats_Enable;      
+  ETH_InitStructure.ETH_FixedBurst = ETH_FixedBurst_Enable;                
+  ETH_InitStructure.ETH_RxDMABurstLength = ETH_RxDMABurstLength_32Beat;          
+  ETH_InitStructure.ETH_TxDMABurstLength = ETH_TxDMABurstLength_32Beat;                                                                 
+  6e:	f44f 5300 	mov.w	r3, #8192	; 0x2000
+D:\sunny\stm32\therme\Project\src/stm32f107.c:302
+
+  /* Fill ETH_InitStructure parametrs */
+  /*------------------------   MAC   -----------------------------------*/
+  ETH_InitStructure.ETH_AutoNegotiation = ETH_AutoNegotiation_Enable  ;
+  ETH_InitStructure.ETH_LoopbackMode = ETH_LoopbackMode_Disable;
+  ETH_InitStructure.ETH_RetryTransmission = ETH_RetryTransmission_Disable;
+  72:	920b      	str	r2, [sp, #44]	; 0x2c
+D:\sunny\stm32\therme\Project\src/stm32f107.c:320
+  /* When we use the Checksum offload feature, we need to enable the Store and Forward mode: 
+  the store and forward guarantee that a whole frame is stored in the FIFO, so the MAC can insert/verify the checksum, 
+  if the checksum is OK the DMA can handle the frame otherwise the frame is dropped */
+  ETH_InitStructure.ETH_DropTCPIPChecksumErrorFrame = ETH_DropTCPIPChecksumErrorFrame_Enable; 
+  ETH_InitStructure.ETH_ReceiveStoreForward = ETH_ReceiveStoreForward_Enable;         
+  ETH_InitStructure.ETH_TransmitStoreForward = ETH_TransmitStoreForward_Enable;     
+  74:	9124      	str	r1, [sp, #144]	; 0x90
+D:\sunny\stm32\therme\Project\src/stm32f107.c:319
+  
+  /* When we use the Checksum offload feature, we need to enable the Store and Forward mode: 
+  the store and forward guarantee that a whole frame is stored in the FIFO, so the MAC can insert/verify the checksum, 
+  if the checksum is OK the DMA can handle the frame otherwise the frame is dropped */
+  ETH_InitStructure.ETH_DropTCPIPChecksumErrorFrame = ETH_DropTCPIPChecksumErrorFrame_Enable; 
+  ETH_InitStructure.ETH_ReceiveStoreForward = ETH_ReceiveStoreForward_Enable;         
+  76:	f04f 7200 	mov.w	r2, #33554432	; 0x2000000
+D:\sunny\stm32\therme\Project\src/stm32f107.c:328
+  ETH_InitStructure.ETH_ForwardUndersizedGoodFrames = ETH_ForwardUndersizedGoodFrames_Disable;   
+  ETH_InitStructure.ETH_SecondFrameOperate = ETH_SecondFrameOperate_Enable;                                                          
+  ETH_InitStructure.ETH_AddressAlignedBeats = ETH_AddressAlignedBeats_Enable;      
+  ETH_InitStructure.ETH_FixedBurst = ETH_FixedBurst_Enable;                
+  ETH_InitStructure.ETH_RxDMABurstLength = ETH_RxDMABurstLength_32Beat;          
+  ETH_InitStructure.ETH_TxDMABurstLength = ETH_TxDMABurstLength_32Beat;                                                                 
+  7a:	932d      	str	r3, [sp, #180]	; 0xb4
+D:\sunny\stm32\therme\Project\src/stm32f107.c:332
+  ETH_InitStructure.ETH_DMAArbitration = ETH_DMAArbitration_RoundRobin_RxTx_2_1;
+
+  /* Configure Ethernet */
+  ETH_Init(&ETH_InitStructure, PHY_ADDRESS);
+  7c:	4621      	mov	r1, r4
+D:\sunny\stm32\therme\Project\src/stm32f107.c:329
+  ETH_InitStructure.ETH_SecondFrameOperate = ETH_SecondFrameOperate_Enable;                                                          
+  ETH_InitStructure.ETH_AddressAlignedBeats = ETH_AddressAlignedBeats_Enable;      
+  ETH_InitStructure.ETH_FixedBurst = ETH_FixedBurst_Enable;                
+  ETH_InitStructure.ETH_RxDMABurstLength = ETH_RxDMABurstLength_32Beat;          
+  ETH_InitStructure.ETH_TxDMABurstLength = ETH_TxDMABurstLength_32Beat;                                                                 
+  ETH_InitStructure.ETH_DMAArbitration = ETH_DMAArbitration_RoundRobin_RxTx_2_1;
+  7e:	f44f 4380 	mov.w	r3, #16384	; 0x4000
+D:\sunny\stm32\therme\Project\src/stm32f107.c:332
+
+  /* Configure Ethernet */
+  ETH_Init(&ETH_InitStructure, PHY_ADDRESS);
+  82:	a801      	add	r0, sp, #4
+D:\sunny\stm32\therme\Project\src/stm32f107.c:300
+  /* Call ETH_StructInit if you don't like to configure all ETH_InitStructure parameter */
+  ETH_StructInit(&ETH_InitStructure);
+
+  /* Fill ETH_InitStructure parametrs */
+  /*------------------------   MAC   -----------------------------------*/
+  ETH_InitStructure.ETH_AutoNegotiation = ETH_AutoNegotiation_Enable  ;
+  84:	9401      	str	r4, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:319
+  
+  /* When we use the Checksum offload feature, we need to enable the Store and Forward mode: 
+  the store and forward guarantee that a whole frame is stored in the FIFO, so the MAC can insert/verify the checksum, 
+  if the checksum is OK the DMA can handle the frame otherwise the frame is dropped */
+  ETH_InitStructure.ETH_DropTCPIPChecksumErrorFrame = ETH_DropTCPIPChecksumErrorFrame_Enable; 
+  ETH_InitStructure.ETH_ReceiveStoreForward = ETH_ReceiveStoreForward_Enable;         
+  86:	9222      	str	r2, [sp, #136]	; 0x88
+D:\sunny\stm32\therme\Project\src/stm32f107.c:325
+  ETH_InitStructure.ETH_TransmitStoreForward = ETH_TransmitStoreForward_Enable;     
+ 
+  ETH_InitStructure.ETH_ForwardErrorFrames = ETH_ForwardErrorFrames_Disable;       
+  ETH_InitStructure.ETH_ForwardUndersizedGoodFrames = ETH_ForwardUndersizedGoodFrames_Disable;   
+  ETH_InitStructure.ETH_SecondFrameOperate = ETH_SecondFrameOperate_Enable;                                                          
+  ETH_InitStructure.ETH_AddressAlignedBeats = ETH_AddressAlignedBeats_Enable;      
+  88:	922a      	str	r2, [sp, #168]	; 0xa8
+D:\sunny\stm32\therme\Project\src/stm32f107.c:329
+  ETH_InitStructure.ETH_FixedBurst = ETH_FixedBurst_Enable;                
+  ETH_InitStructure.ETH_RxDMABurstLength = ETH_RxDMABurstLength_32Beat;          
+  ETH_InitStructure.ETH_TxDMABurstLength = ETH_TxDMABurstLength_32Beat;                                                                 
+  ETH_InitStructure.ETH_DMAArbitration = ETH_DMAArbitration_RoundRobin_RxTx_2_1;
+  8a:	932f      	str	r3, [sp, #188]	; 0xbc
+D:\sunny\stm32\therme\Project\src/stm32f107.c:332
+
+  /* Configure Ethernet */
+  ETH_Init(&ETH_InitStructure, PHY_ADDRESS);
+  8c:	f7ff fffe 	bl	0 <ETH_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:335
+
+  /* Enable the Ethernet Rx Interrupt */
+  ETH_DMAITConfig(ETH_DMA_IT_NIS | ETH_DMA_IT_R, ENABLE);
+  90:	4802      	ldr	r0, [pc, #8]	; (9c <Ethernet_Configuration+0x9c>)
+  92:	4621      	mov	r1, r4
+  94:	f7ff fffe 	bl	0 <ETH_DMAITConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:337
+
+}
+  98:	b030      	add	sp, #192	; 0xc0
+  9a:	bd10      	pop	{r4, pc}
+  9c:	00010040 	.word	0x00010040
+
+Disassembly of section .text.GPIO_Configuration:
+
+00000000 <GPIO_Configuration>:
+GPIO_Configuration():
+D:\sunny\stm32\therme\Project\src/stm32f107.c:345
+  * @brief  Configures the different GPIO ports.
+  * @param  None
+  * @retval None
+  */
+void GPIO_Configuration(void)
+{
+   0:	e92d 41f3 	stmdb	sp!, {r0, r1, r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Project\src/stm32f107.c:364
+  // PD8  <- ETH_RMII_RXDV(Remap)
+  // PD9  <- ETH_RMII_RXD0(Remap)
+  // PD10 <- ETH_RMII_RXD1(Remap)
+
+  // Configure PA2 as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;				//PA2 = ETH_RMII_MDIO
+   4:	2604      	movs	r6, #4
+D:\sunny\stm32\therme\Project\src/stm32f107.c:365
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+   6:	2403      	movs	r4, #3
+D:\sunny\stm32\therme\Project\src/stm32f107.c:366
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+   8:	2518      	movs	r5, #24
+D:\sunny\stm32\therme\Project\src/stm32f107.c:367
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+   a:	eb0d 0106 	add.w	r1, sp, r6
+   e:	483c      	ldr	r0, [pc, #240]	; (100 <GPIO_Configuration+0x100>)
+D:\sunny\stm32\therme\Project\src/stm32f107.c:365
+  // PD9  <- ETH_RMII_RXD0(Remap)
+  // PD10 <- ETH_RMII_RXD1(Remap)
+
+  // Configure PA2 as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;				//PA2 = ETH_RMII_MDIO
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  10:	f88d 4006 	strb.w	r4, [sp, #6]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:370
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+  // Configure PC1 as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;				//PC1 = ETH_RMII_MDC
+  14:	2702      	movs	r7, #2
+D:\sunny\stm32\therme\Project\src/stm32f107.c:364
+  // PD8  <- ETH_RMII_RXDV(Remap)
+  // PD9  <- ETH_RMII_RXD0(Remap)
+  // PD10 <- ETH_RMII_RXD1(Remap)
+
+  // Configure PA2 as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;				//PA2 = ETH_RMII_MDIO
+  16:	f8ad 6004 	strh.w	r6, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:366
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  1a:	f88d 5007 	strb.w	r5, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:367
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  1e:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:373
+
+  // Configure PC1 as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;				//PC1 = ETH_RMII_MDC
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  22:	eb0d 0106 	add.w	r1, sp, r6
+  26:	4837      	ldr	r0, [pc, #220]	; (104 <GPIO_Configuration+0x104>)
+D:\sunny\stm32\therme\Project\src/stm32f107.c:371
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+  // Configure PC1 as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;				//PC1 = ETH_RMII_MDC
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  28:	f88d 4006 	strb.w	r4, [sp, #6]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:370
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+  // Configure PC1 as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;				//PC1 = ETH_RMII_MDC
+  2c:	f8ad 7004 	strh.w	r7, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:372
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  30:	f88d 5007 	strb.w	r5, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:373
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  34:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:376
+
+  // Configure PB11, PB12 and PB13 as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11 |			//PB11 = ETH_RMII_TXEN 
+  38:	f44f 5360 	mov.w	r3, #14336	; 0x3800
+D:\sunny\stm32\therme\Project\src/stm32f107.c:381
+                                GPIO_Pin_12 | 		  	//PB12 = ETH_RMII_TXD0
+								GPIO_Pin_13;			//PB13 = ETH_RMII_TXD1
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  3c:	eb0d 0106 	add.w	r1, sp, r6
+  40:	4831      	ldr	r0, [pc, #196]	; (108 <GPIO_Configuration+0x108>)
+D:\sunny\stm32\therme\Project\src/stm32f107.c:376
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+  // Configure PB11, PB12 and PB13 as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11 |			//PB11 = ETH_RMII_TXEN 
+  42:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:379
+                                GPIO_Pin_12 | 		  	//PB12 = ETH_RMII_TXD0
+								GPIO_Pin_13;			//PB13 = ETH_RMII_TXD1
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  46:	f88d 4006 	strb.w	r4, [sp, #6]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:380
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  4a:	f88d 5007 	strb.w	r5, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:381
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  4e:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:387
+  
+  // Configure PA1 as input 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;				//PA1 = ETH_RMII_REF_CLK
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  52:	eb0d 0106 	add.w	r1, sp, r6
+  56:	482a      	ldr	r0, [pc, #168]	; (100 <GPIO_Configuration+0x100>)
+D:\sunny\stm32\therme\Project\src/stm32f107.c:385
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  
+  // Configure PA1 as input 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;				//PA1 = ETH_RMII_REF_CLK
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  58:	f88d 4006 	strb.w	r4, [sp, #6]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:384
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  
+  // Configure PA1 as input 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;				//PA1 = ETH_RMII_REF_CLK
+  5c:	f8ad 7004 	strh.w	r7, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:386
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  60:	f88d 6007 	strb.w	r6, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:387
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  64:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:393
+
+  // ETHERNET pins remapp in ET-STM32F ARM KIT board: RX_DV and RxD[1:0] 
+  // PD8=CRS_DV(RMII Remap)
+  // PD9=RXD0(RMII Remap)
+  // PD10=RXD1(RMII Remap)
+  GPIO_PinRemapConfig(GPIO_Remap_ETH, ENABLE);
+  68:	2101      	movs	r1, #1
+  6a:	f04f 1020 	mov.w	r0, #2097184	; 0x200020
+  6e:	f7ff fffe 	bl	0 <GPIO_PinRemapConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:396
+
+  // Configure PD8, PD9, PD10 as input 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | 			//PD8  = ETH_RMII_RX_DV
+  72:	f44f 63e0 	mov.w	r3, #1792	; 0x700
+D:\sunny\stm32\therme\Project\src/stm32f107.c:401
+  							    GPIO_Pin_9 | 			//PD9  = ETH_RMII_RXD0
+								GPIO_Pin_10;			//PD10 = ETH_RMII_RXD1
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+  76:	eb0d 0106 	add.w	r1, sp, r6
+  7a:	4824      	ldr	r0, [pc, #144]	; (10c <GPIO_Configuration+0x10c>)
+D:\sunny\stm32\therme\Project\src/stm32f107.c:396
+  // PD9=RXD0(RMII Remap)
+  // PD10=RXD1(RMII Remap)
+  GPIO_PinRemapConfig(GPIO_Remap_ETH, ENABLE);
+
+  // Configure PD8, PD9, PD10 as input 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | 			//PD8  = ETH_RMII_RX_DV
+  7c:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:399
+  							    GPIO_Pin_9 | 			//PD9  = ETH_RMII_RXD0
+								GPIO_Pin_10;			//PD10 = ETH_RMII_RXD1
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  80:	f88d 4006 	strb.w	r4, [sp, #6]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:400
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  84:	f88d 6007 	strb.w	r6, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:401
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+  88:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:404
+  
+  // Configure MCO (PA8) as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8; 			//PA8 = MCO
+  8c:	f44f 7380 	mov.w	r3, #256	; 0x100
+D:\sunny\stm32\therme\Project\src/stm32f107.c:407
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  90:	eb0d 0106 	add.w	r1, sp, r6
+  94:	481a      	ldr	r0, [pc, #104]	; (100 <GPIO_Configuration+0x100>)
+D:\sunny\stm32\therme\Project\src/stm32f107.c:404
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+  
+  // Configure MCO (PA8) as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8; 			//PA8 = MCO
+  96:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:405
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  9a:	f88d 4006 	strb.w	r4, [sp, #6]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:406
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  9e:	f88d 5007 	strb.w	r5, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:413
+  
+
+  /* ADC Channel14 config ----------------------------------------------------*/
+  /* Configure PC.04 (ADC Channel14) as analog input -------------------------*/
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  a2:	3c03      	subs	r4, #3
+D:\sunny\stm32\therme\Project\src/stm32f107.c:407
+  
+  // Configure MCO (PA8) as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8; 			//PA8 = MCO
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  a4:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:412
+  
+
+  /* ADC Channel14 config ----------------------------------------------------*/
+  /* Configure PC.04 (ADC Channel14) as analog input -------------------------*/
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  a8:	2310      	movs	r3, #16
+D:\sunny\stm32\therme\Project\src/stm32f107.c:414
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);  
+  aa:	eb0d 0106 	add.w	r1, sp, r6
+  ae:	4814      	ldr	r0, [pc, #80]	; (100 <GPIO_Configuration+0x100>)
+D:\sunny\stm32\therme\Project\src/stm32f107.c:412
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  
+
+  /* ADC Channel14 config ----------------------------------------------------*/
+  /* Configure PC.04 (ADC Channel14) as analog input -------------------------*/
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  b0:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:413
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  b4:	f88d 4007 	strb.w	r4, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:414
+  GPIO_Init(GPIOA, &GPIO_InitStructure);  
+  b8:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:416
+  
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+  bc:	2320      	movs	r3, #32
+D:\sunny\stm32\therme\Project\src/stm32f107.c:418
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  be:	eb0d 0106 	add.w	r1, sp, r6
+  c2:	480f      	ldr	r0, [pc, #60]	; (100 <GPIO_Configuration+0x100>)
+D:\sunny\stm32\therme\Project\src/stm32f107.c:416
+  /* Configure PC.04 (ADC Channel14) as analog input -------------------------*/
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);  
+  
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+  c4:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:417
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  c8:	f88d 4007 	strb.w	r4, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:418
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  cc:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:420
+  
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+  d0:	2340      	movs	r3, #64	; 0x40
+D:\sunny\stm32\therme\Project\src/stm32f107.c:422
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  d2:	eb0d 0106 	add.w	r1, sp, r6
+  d6:	480a      	ldr	r0, [pc, #40]	; (100 <GPIO_Configuration+0x100>)
+D:\sunny\stm32\therme\Project\src/stm32f107.c:420
+  
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+  d8:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:421
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  dc:	f88d 4007 	strb.w	r4, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:422
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  e0:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:424
+  
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+  e4:	2380      	movs	r3, #128	; 0x80
+D:\sunny\stm32\therme\Project\src/stm32f107.c:426
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  e6:	4806      	ldr	r0, [pc, #24]	; (100 <GPIO_Configuration+0x100>)
+  e8:	eb0d 0106 	add.w	r1, sp, r6
+D:\sunny\stm32\therme\Project\src/stm32f107.c:364
+  // PD8  <- ETH_RMII_RXDV(Remap)
+  // PD9  <- ETH_RMII_RXD0(Remap)
+  // PD10 <- ETH_RMII_RXD1(Remap)
+
+  // Configure PA2 as alternate function push-pull 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;				//PA2 = ETH_RMII_MDIO
+  ec:	46b0      	mov	r8, r6
+D:\sunny\stm32\therme\Project\src/stm32f107.c:424
+  
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+  ee:	f8ad 3004 	strh.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:425
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  f2:	f88d 4007 	strb.w	r4, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:426
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  f6:	f7ff fffe 	bl	0 <GPIO_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:427
+}
+  fa:	e8bd 81fc 	ldmia.w	sp!, {r2, r3, r4, r5, r6, r7, r8, pc}
+  fe:	bf00      	nop
+ 100:	40010800 	.word	0x40010800
+ 104:	40011000 	.word	0x40011000
+ 108:	40010c00 	.word	0x40010c00
+ 10c:	40011400 	.word	0x40011400
+
+Disassembly of section .text.ADC_Configuration:
+
+00000000 <ADC_Configuration>:
+ADC_Configuration():
+D:\sunny\stm32\therme\Project\src/stm32f107.c:435
+  * @brief  Configures the ADC.
+  * @param  None
+  * @retval None
+  */
+void ADC_Configuration(void)
+{
+   0:	2101b510 	.word	0x2101b510
+   4:	b086      	sub	sp, #24
+D:\sunny\stm32\therme\Project\src/stm32f107.c:439
+
+   GPIO_InitTypeDef GPIO_InitStructure;
+   ADC_InitTypeDef   ADC_InitStructure;
+   RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
+   6:	f44f 7000 	mov.w	r0, #512	; 0x200
+   a:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:440
+   ADC_DeInit(ADC1);
+   e:	4816      	ldr	r0, [pc, #88]	; (5c <ADC_DeInit+0x5c>)
+  10:	f7ff fffe 	bl	0 <ADC_DeInit>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:443
+
+  // ADC Structure Initialization
+  ADC_StructInit(&ADC_InitStructure);
+  14:	a801      	add	r0, sp, #4
+  16:	f7ff fffe 	bl	0 <ADC_StructInit>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:449
+  ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+  ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+  ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+  ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+  ADC_InitStructure.ADC_NbrOfChannel = 1;
+  1a:	2401      	movs	r4, #1
+D:\sunny\stm32\therme\Project\src/stm32f107.c:444
+   RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
+   ADC_DeInit(ADC1);
+
+  // ADC Structure Initialization
+  ADC_StructInit(&ADC_InitStructure);
+  ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+  1c:	2300      	movs	r3, #0
+D:\sunny\stm32\therme\Project\src/stm32f107.c:447
+  ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+  ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+  ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+  1e:	f44f 2260 	mov.w	r2, #917504	; 0xe0000
+D:\sunny\stm32\therme\Project\src/stm32f107.c:450
+  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+  ADC_InitStructure.ADC_NbrOfChannel = 1;
+  ADC_Init(ADC1, &ADC_InitStructure);
+  22:	4811      	ldr	r0, [pc, #68]	; (68 <ADC_Configuration+0x68>)
+  24:	a901      	add	r1, sp, #4
+D:\sunny\stm32\therme\Project\src/stm32f107.c:444
+   RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
+   ADC_DeInit(ADC1);
+
+  // ADC Structure Initialization
+  ADC_StructInit(&ADC_InitStructure);
+  ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+  26:	9301      	str	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:445
+  ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+  28:	f88d 3008 	strb.w	r3, [sp, #8]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:446
+  ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+  2c:	f88d 3009 	strb.w	r3, [sp, #9]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:447
+  ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+  30:	9203      	str	r2, [sp, #12]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:448
+  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+  32:	9304      	str	r3, [sp, #16]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:449
+  ADC_InitStructure.ADC_NbrOfChannel = 1;
+  34:	f88d 4014 	strb.w	r4, [sp, #20]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:450
+  ADC_Init(ADC1, &ADC_InitStructure);
+  38:	f7ff fffe 	bl	0 <ADC_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:451
+  ADC_Cmd(ADC1, ENABLE); // Enable the ADC
+  3c:	480a      	ldr	r0, [pc, #40]	; (68 <ADC_Configuration+0x68>)
+  3e:	4621      	mov	r1, r4
+  40:	f7ff fffe 	bl	0 <ADC_Cmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:452
+  ADC_ResetCalibration(ADC1);// ADC calibration ,Enable ADC1 reset calibaration register
+  44:	4808      	ldr	r0, [pc, #32]	; (24 <ADC_ResetCalibration+0x24>)
+  46:	f7ff fffe 	bl	0 <ADC_ResetCalibration>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:453
+  while(ADC_GetResetCalibrationStatus(ADC1) == SET);// Check the end of ADC1 reset calibration register
+  4a:	4807      	ldr	r0, [pc, #28]	; (20 <ADC_GetResetCalibrationStatus+0x20>)
+  4c:	f7ff fffe 	bl	0 <ADC_GetResetCalibrationStatus>
+  50:	2801      	cmp	r0, #1
+  52:	d0fa      	beq.n	4a <ADC_Configuration+0x4a>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:454
+  ADC_StartCalibration(ADC1);// Start ADC1 calibaration
+  54:	4804      	ldr	r0, [pc, #16]	; (68 <ADC_Configuration+0x68>)
+  56:	f7ff fffe 	bl	0 <ADC_StartCalibration>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:455
+  while(ADC_GetCalibrationStatus(ADC1) == SET);// Check the end of ADC1 calibration
+  5a:	4803      	ldr	r0, [pc, #12]	; (10 <ADC_GetCalibrationStatus+0x10>)
+  5c:	f7ff fffe 	bl	0 <ADC_GetCalibrationStatus>
+  60:	2801      	cmp	r0, #1
+  62:	d0fa      	beq.n	5a <ADC_Configuration+0x5a>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:457
+  
+}
+  64:	b006      	add	sp, #24
+  66:	bd10      	pop	{r4, pc}
+  68:	40012400 	.word	0x40012400
+
+Disassembly of section .text.NVIC_Configuration:
+
+00000000 <NVIC_Configuration>:
+NVIC_Configuration():
+D:\sunny\stm32\therme\Project\src/stm32f107.c:467
+  * @brief  Configures the nested vectored interrupt controller.
+  * @param  None
+  * @retval None
+  */
+void NVIC_Configuration(void)
+{
+   0:	b507      	push	{r0, r1, r2, lr}
+D:\sunny\stm32\therme\Project\src/stm32f107.c:471
+  NVIC_InitTypeDef   NVIC_InitStructure;
+
+  /* Set the Vector Table base location at 0x08000000 */
+  NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x0);
+   2:	2100      	movs	r1, #0
+   4:	f04f 6000 	mov.w	r0, #134217728	; 0x8000000
+   8:	f7ff fffe 	bl	0 <NVIC_SetVectorTable>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:474
+
+  /* 2 bit for pre-emption priority, 2 bits for subpriority */
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); 
+   c:	f44f 60a0 	mov.w	r0, #1280	; 0x500
+  10:	f7ff fffe 	bl	0 <NVIC_PriorityGroupConfig>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:478
+  
+  /* Enable the Ethernet global Interrupt */
+
+  NVIC_InitStructure.NVIC_IRQChannel = ETH_IRQn;
+  14:	233d      	movs	r3, #61	; 0x3d
+  16:	f88d 3004 	strb.w	r3, [sp, #4]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:482
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);   
+  1a:	a801      	add	r0, sp, #4
+D:\sunny\stm32\therme\Project\src/stm32f107.c:479
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); 
+  
+  /* Enable the Ethernet global Interrupt */
+
+  NVIC_InitStructure.NVIC_IRQChannel = ETH_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  1c:	3b3c      	subs	r3, #60	; 0x3c
+  1e:	f88d 3005 	strb.w	r3, [sp, #5]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:480
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  22:	f88d 3006 	strb.w	r3, [sp, #6]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:481
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  26:	f88d 3007 	strb.w	r3, [sp, #7]
+D:\sunny\stm32\therme\Project\src/stm32f107.c:482
+  NVIC_Init(&NVIC_InitStructure);   
+  2a:	f7ff fffe 	bl	0 <NVIC_Init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:497
+  
+*/
+  /* Enable the TIM2 gloabal Interrupt */
+
+  
+}
+  2e:	bd0e      	pop	{r1, r2, r3, pc}
+
+Disassembly of section .text.System_Setup:
+
+00000000 <System_Setup>:
+System_Setup():
+D:\sunny\stm32\therme\Project\src/stm32f107.c:54
+  * @brief  Setup STM32 system (clocks, Ethernet, GPIO, NVIC) and STM3210C-EVAL resources.
+  * @param  None
+  * @retval None
+  */
+void System_Setup(void)
+{
+   0:	b510      	push	{r4, lr}
+   2:	b086      	sub	sp, #24
+D:\sunny\stm32\therme\Project\src/stm32f107.c:55
+ SystemInit();
+   4:	f7ff fffe 	bl	0 <SystemInit>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:60
+
+  RCC_ClocksTypeDef RCC_Clocks;
+
+  /* Setup STM32 clock, PLL and Flash configuration) */
+  SystemInit();
+   8:	f7ff fffe 	bl	0 <SystemInit>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:61
+    ET_STM32_RCC_Configuration();
+   c:	f7ff fffe 	bl	0 <System_Setup>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:64
+
+  /* Enable USART2 clock */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+  10:	2101      	movs	r1, #1
+  12:	f44f 3000 	mov.w	r0, #131072	; 0x20000
+  16:	f7ff fffe 	bl	0 <RCC_APB1PeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:68
+
+
+  /* Enable ETHERNET clock  */
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_ETH_MAC | RCC_AHBPeriph_ETH_MAC_Tx |
+  1a:	2101      	movs	r1, #1
+  1c:	f44f 30e0 	mov.w	r0, #114688	; 0x1c000
+  20:	f7ff fffe 	bl	0 <RCC_AHBPeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:72
+                        RCC_AHBPeriph_ETH_MAC_Rx, ENABLE);
+
+  /* Enable GPIOs and ADC1 clocks */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC |
+  24:	2101      	movs	r1, #1
+  26:	f240 207d 	movw	r0, #637	; 0x27d
+  2a:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:82
+  /* TIM2 clock enable */
+  //RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+  
+  //TIM_Configuration();
+  /* NVIC configuration */
+  NVIC_Configuration();  
+  2e:	f7ff fffe 	bl	0 <System_Setup>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:85
+
+  /* ADC configuration */
+  ADC_Configuration();
+  32:	f7ff fffe 	bl	0 <System_Setup>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:88
+
+  /* Configure the GPIO ports */
+  GPIO_Configuration();
+  36:	f7ff fffe 	bl	0 <System_Setup>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:95
+  /* Initialize the STM3210C-EVAL's LCD */
+  //STM3210C_LCD_Init();
+
+  /* Initialize STM3210C-EVAL's ks */
+  
+  out_init(k0);
+  3a:	2000      	movs	r0, #0
+  3c:	f7ff fffe 	bl	0 <out_init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:96
+  out_init(k1);
+  40:	2001      	movs	r0, #1
+  42:	f7ff fffe 	bl	0 <out_init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:97
+  out_init(k2);
+  46:	2002      	movs	r0, #2
+  48:	f7ff fffe 	bl	0 <out_init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:98
+  out_init(k3);
+  4c:	2003      	movs	r0, #3
+  4e:	f7ff fffe 	bl	0 <out_init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:99
+  out_init(k4);
+  52:	2004      	movs	r0, #4
+  54:	f7ff fffe 	bl	0 <out_init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:100
+  out_init(k5);
+  58:	2005      	movs	r0, #5
+  5a:	f7ff fffe 	bl	0 <out_init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:101
+  out_init(k6);
+  5e:	2006      	movs	r0, #6
+  60:	f7ff fffe 	bl	0 <out_init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:102
+  out_init(d7);
+  64:	2007      	movs	r0, #7
+  66:	f7ff fffe 	bl	0 <out_init>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:105
+
+  /* Turn on leds available on STM3210X-EVAL */
+  out_off(k0);
+  6a:	2000      	movs	r0, #0
+  6c:	f7ff fffe 	bl	0 <out_off>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:106
+  out_off(k1);
+  70:	2001      	movs	r0, #1
+  72:	f7ff fffe 	bl	0 <out_off>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:107
+  out_off(k2);
+  76:	2002      	movs	r0, #2
+  78:	f7ff fffe 	bl	0 <out_off>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:108
+  out_off(k3);
+  7c:	2003      	movs	r0, #3
+  7e:	f7ff fffe 	bl	0 <out_off>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:109
+  out_off(k4);
+  82:	2004      	movs	r0, #4
+  84:	f7ff fffe 	bl	0 <out_off>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:110
+  out_off(k5);
+  88:	2005      	movs	r0, #5
+  8a:	f7ff fffe 	bl	0 <out_off>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:111
+  out_off(k6);
+  8e:	2006      	movs	r0, #6
+  90:	f7ff fffe 	bl	0 <out_off>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:112
+  out_off(d7);
+  94:	2007      	movs	r0, #7
+  96:	f7ff fffe 	bl	0 <out_off>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:130
+  //LCD_DisplayStringLine(Line1, MESSAGE2);
+  //LCD_DisplayStringLine(Line2, MESSAGE3);
+  //LCD_DisplayStringLine(Line3, MESSAGE4);
+
+  /* Configure the Ethernet peripheral */
+  Ethernet_Configuration();
+  9a:	f7ff fffe 	bl	0 <System_Setup>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:133
+
+  /* SystTick configuration: an interrupt every 10ms */
+  RCC_GetClocksFreq(&RCC_Clocks);
+  9e:	a801      	add	r0, sp, #4
+  a0:	f7ff fffe 	bl	0 <RCC_GetClocksFreq>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:134
+  SysTick_Config(RCC_Clocks.SYSCLK_Frequency / 100);
+  a4:	9a01      	ldr	r2, [sp, #4]
+  a6:	2364      	movs	r3, #100	; 0x64
+  a8:	fbb2 f3f3 	udiv	r3, r2, r3
+SysTick_Config():
+D:\sunny\stm32\therme\Project\RIDE/..\..\Libraries\CMSIS\Core\CM3/core_cm3.h:1301
+ * system tick timer / counter in free running mode to generate 
+ * periodical interrupts.
+ */
+static __INLINE uint32_t SysTick_Config(uint32_t ticks)
+{ 
+  if (ticks > SYSTICK_MAXCOUNT)  return (1);                                             /* Reload value impossible */
+  ac:	f1b3 7f80 	cmp.w	r3, #16777216	; 0x1000000
+  b0:	d20b      	bcs.n	ca <System_Setup+0xca>
+D:\sunny\stm32\therme\Project\RIDE/..\..\Libraries\CMSIS\Core\CM3/core_cm3.h:1303
+
+  SysTick->LOAD  =  (ticks & SYSTICK_MAXCOUNT) - 1;                                      /* set reload register */
+  b2:	4c0a      	ldr	r4, [pc, #40]	; (dc <System_Setup+0xdc>)
+  b4:	f023 437f 	bic.w	r3, r3, #4278190080	; 0xff000000
+  b8:	3b01      	subs	r3, #1
+  ba:	6063      	str	r3, [r4, #4]
+D:\sunny\stm32\therme\Project\RIDE/..\..\Libraries\CMSIS\Core\CM3/core_cm3.h:1304
+  NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);                            /* set Priority for Cortex-M0 System Interrupts */
+  bc:	200f      	movs	r0, #15
+  be:	f7ff fffe 	bl	0 <System_Setup>
+D:\sunny\stm32\therme\Project\RIDE/..\..\Libraries\CMSIS\Core\CM3/core_cm3.h:1305
+  SysTick->VAL   =  (0x00);                                                              /* Load the SysTick Counter Value */
+  c2:	2300      	movs	r3, #0
+  c4:	60a3      	str	r3, [r4, #8]
+D:\sunny\stm32\therme\Project\RIDE/..\..\Libraries\CMSIS\Core\CM3/core_cm3.h:1306
+  SysTick->CTRL = (1 << SYSTICK_CLKSOURCE) | (1<<SYSTICK_ENABLE) | (1<<SYSTICK_TICKINT); /* Enable SysTick IRQ and SysTick Timer */
+  c6:	3307      	adds	r3, #7
+  c8:	6023      	str	r3, [r4, #0]
+System_Setup():
+D:\sunny\stm32\therme\Project\src/stm32f107.c:138
+
+  /* Update the SysTick IRQ priority should be higher than the Ethernet IRQ */
+  /* The Localtime should be updated during the Ethernet packets processing */
+  NVIC_SetPriority (SysTick_IRQn, 1);  
+  ca:	2001      	movs	r0, #1
+  cc:	f7ff fffe 	bl	0 <System_Setup>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:142
+  
+  /* Configure the Key button */ 
+  //STM_EVAL_PBInit(Button_KEY, Mode_GPIO);
+ STM_EVAL_PBInit(Button_KEY, Mode_GPIO);
+  d0:	2002      	movs	r0, #2
+  d2:	2100      	movs	r1, #0
+  d4:	f7ff fffe 	bl	0 <STM_EVAL_PBInit>
+D:\sunny\stm32\therme\Project\src/stm32f107.c:143
+}
+  d8:	b006      	add	sp, #24
+  da:	bd10      	pop	{r4, pc}
+  dc:	e000e010 	.word	0xe000e010

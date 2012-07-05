@@ -1,0 +1,166 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\plibc.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\plibc.o
+
+
+Disassembly of section .text.strMatch:
+
+00000000 <strMatch>:
+strMatch():
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:44
+ * unsigned short strMatch(char* bufa, char*bufb, unsigned long n)
+ * Description: Compares bufa and bufb for a length of n bytes.
+ * Return value: Returns the number of character NOT matching.
+*/
+euint16 strMatch(eint8* bufa, eint8*bufb,euint32 n)
+{
+   0:	4603      	mov	r3, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:46
+	euint32 c;
+	euint16 res=0;
+   2:	2000      	movs	r0, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:44
+ * unsigned short strMatch(char* bufa, char*bufb, unsigned long n)
+ * Description: Compares bufa and bufb for a length of n bytes.
+ * Return value: Returns the number of character NOT matching.
+*/
+euint16 strMatch(eint8* bufa, eint8*bufb,euint32 n)
+{
+   4:	b570      	push	{r4, r5, r6, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:47
+	euint32 c;
+	euint16 res=0;
+	for(c=0;c<n;c++)if(bufa[c]!=bufb[c])res++;
+   6:	4604      	mov	r4, r0
+   8:	e006      	b.n	18 <strMatch+0x18>
+   a:	571e      	ldrsb	r6, [r3, r4]
+   c:	570d      	ldrsb	r5, [r1, r4]
+   e:	42ae      	cmp	r6, r5
+  10:	d001      	beq.n	16 <strMatch+0x16>
+  12:	3001      	adds	r0, #1
+  14:	b280      	uxth	r0, r0
+  16:	3401      	adds	r4, #1
+  18:	4294      	cmp	r4, r2
+  1a:	d3f6      	bcc.n	a <strMatch+0xa>
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:49
+	return(res);
+}
+  1c:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text.memCpy:
+
+00000000 <memCpy>:
+memCpy():
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:60
+ * Description: Copies the contents of psrc into pdest on a byte per byte basis.
+ * The total number of bytes copies is size.
+*/
+void memCpy(void* psrc, void* pdest, euint32 size)
+{
+	while(size>0){
+   0:	e001      	b.n	6 <memCpy+0x6>
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:61
+		*((eint8*)pdest+size-1)=*((eint8*)psrc+size-1);
+   2:	5c83      	ldrb	r3, [r0, r2]
+   4:	548b      	strb	r3, [r1, r2]
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:60
+ * Description: Copies the contents of psrc into pdest on a byte per byte basis.
+ * The total number of bytes copies is size.
+*/
+void memCpy(void* psrc, void* pdest, euint32 size)
+{
+	while(size>0){
+   6:	3a01      	subs	r2, #1
+   8:	d2fb      	bcs.n	2 <memCpy+0x2>
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:64
+		*((eint8*)pdest+size-1)=*((eint8*)psrc+size-1);
+		size--;
+	}
+}
+   a:	4770      	bx	lr
+
+Disassembly of section .text.memClr:
+
+00000000 <memClr>:
+memClr():
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:69
+/*****************************************************************************/ 
+
+void memClr(void *pdest,euint32 size)
+{
+	while(size>0){
+   0:	e004      	b.n	c <memClr+0xc>
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:67
+		size--;
+	}
+}
+/*****************************************************************************/ 
+
+void memClr(void *pdest,euint32 size)
+   2:	1843      	adds	r3, r0, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:70
+{
+	while(size>0){
+		*(((eint8*)pdest)+size-1)=0x00;
+   4:	2200      	movs	r2, #0
+   6:	f803 2c01 	strb.w	r2, [r3, #-1]
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:71
+		size--;
+   a:	3901      	subs	r1, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:69
+}
+/*****************************************************************************/ 
+
+void memClr(void *pdest,euint32 size)
+{
+	while(size>0){
+   c:	2900      	cmp	r1, #0
+   e:	d1f8      	bne.n	2 <memClr+0x2>
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:73
+		*(((eint8*)pdest)+size-1)=0x00;
+		size--;
+	}
+}
+  10:	4770      	bx	lr
+
+Disassembly of section .text.memSet:
+
+00000000 <memSet>:
+memSet():
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:77
+
+void memSet(void *pdest,euint32 size,euint8 data)
+{
+	while(size>0){
+   0:	e003      	b.n	a <memSet+0xa>
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:75
+		*(((eint8*)pdest)+size-1)=0x00;
+		size--;
+	}
+}
+
+void memSet(void *pdest,euint32 size,euint8 data)
+   2:	1843      	adds	r3, r0, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:78
+{
+	while(size>0){
+		*(((eint8*)pdest)+size-1)=data;
+   4:	f803 2c01 	strb.w	r2, [r3, #-1]
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:79
+		size--;
+   8:	3901      	subs	r1, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:77
+	}
+}
+
+void memSet(void *pdest,euint32 size,euint8 data)
+{
+	while(size>0){
+   a:	2900      	cmp	r1, #0
+   c:	d1f9      	bne.n	2 <memSet+0x2>
+D:\sunny\stm32\therme\Utilities\efsl\source/plibc.c:81
+		*(((eint8*)pdest)+size-1)=data;
+		size--;
+	}
+}
+   e:	4770      	bx	lr

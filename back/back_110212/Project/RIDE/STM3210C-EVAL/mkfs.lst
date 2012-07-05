@@ -1,0 +1,500 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\mkfs.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\mkfs.o
+
+
+Disassembly of section .text.mkfs_makevfat:
+
+00000000 <mkfs_makevfat>:
+mkfs_makevfat():
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:38
+/*****************************************************************************/
+#include "mkfs.h"
+/*****************************************************************************/
+
+signed short mkfs_makevfat(Partition *part)
+{
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:43
+	unsigned long c,cc,ret;
+	unsigned long ns,fs,ds,dc;
+	unsigned char buf[512];
+	
+	ns=part->disc->partitions[part->activePartition].numSectors;
+   4:	6803      	ldr	r3, [r0, #0]
+   6:	f990 2004 	ldrsb.w	r2, [r0, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:38
+/*****************************************************************************/
+#include "mkfs.h"
+/*****************************************************************************/
+
+signed short mkfs_makevfat(Partition *part)
+{
+   a:	f5ad 7d00 	sub.w	sp, sp, #512	; 0x200
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:43
+	unsigned long c,cc,ret;
+	unsigned long ns,fs,ds,dc;
+	unsigned char buf[512];
+	
+	ns=part->disc->partitions[part->activePartition].numSectors;
+   e:	eb03 1302 	add.w	r3, r3, r2, lsl #4
+  12:	f8d3 8014 	ldr.w	r8, [r3, #20]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:45
+	
+	if( ns < 66581 ){
+  16:	4b52      	ldr	r3, [pc, #328]	; (160 <mkfs_makevfat+0x160>)
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:38
+/*****************************************************************************/
+#include "mkfs.h"
+/*****************************************************************************/
+
+signed short mkfs_makevfat(Partition *part)
+{
+  18:	4605      	mov	r5, r0
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:45
+	unsigned long ns,fs,ds,dc;
+	unsigned char buf[512];
+	
+	ns=part->disc->partitions[part->activePartition].numSectors;
+	
+	if( ns < 66581 ){
+  1a:	4598      	cmp	r8, r3
+  1c:	f240 809b 	bls.w	156 <mkfs_makevfat+0x156>
+  20:	2207      	movs	r2, #7
+  22:	2440      	movs	r4, #64	; 0x40
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:55
+	ret=0;
+	
+	for(c=1<<6;c>=1;c>>=1){
+		
+		/* First guess */
+		ds = ns - 32;
+  24:	f1a8 0320 	sub.w	r3, r8, #32
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:56
+		fs = ((ds/c)+127)/128;
+  28:	fbb3 f7f4 	udiv	r7, r3, r4
+  2c:	377f      	adds	r7, #127	; 0x7f
+  2e:	09ff      	lsrs	r7, r7, #7
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:62
+		/* ds was guess too large, so fs is too large now too. */
+		
+		for(cc=0;cc<2;cc++){
+		
+			/* Round 2, error round */
+			ds = ns - 32 - 2*fs;
+  30:	007f      	lsls	r7, r7, #1
+  32:	1bdf      	subs	r7, r3, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:63
+			fs = ((ds/c)+127)/128; 
+  34:	fbb7 f7f4 	udiv	r7, r7, r4
+  38:	377f      	adds	r7, #127	; 0x7f
+  3a:	09ff      	lsrs	r7, r7, #7
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:67
+			/* Since fs was too large, ds became too small. So the fs for this small ds is too small as well. */
+			
+			/* Round 3, correction round */
+			ds = ns - 32 - 2*fs;
+  3c:	007f      	lsls	r7, r7, #1
+  3e:	1bdf      	subs	r7, r3, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:68
+			fs = ((ds/c)+127)/128; 
+  40:	fbb7 f7f4 	udiv	r7, r7, r4
+  44:	377f      	adds	r7, #127	; 0x7f
+  46:	09ff      	lsrs	r7, r7, #7
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:62
+		/* ds was guess too large, so fs is too large now too. */
+		
+		for(cc=0;cc<2;cc++){
+		
+			/* Round 2, error round */
+			ds = ns - 32 - 2*fs;
+  48:	007f      	lsls	r7, r7, #1
+  4a:	1bdf      	subs	r7, r3, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:63
+			fs = ((ds/c)+127)/128; 
+  4c:	fbb7 f7f4 	udiv	r7, r7, r4
+  50:	377f      	adds	r7, #127	; 0x7f
+  52:	09ff      	lsrs	r7, r7, #7
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:67
+			/* Since fs was too large, ds became too small. So the fs for this small ds is too small as well. */
+			
+			/* Round 3, correction round */
+			ds = ns - 32 - 2*fs;
+  54:	007f      	lsls	r7, r7, #1
+  56:	1bdf      	subs	r7, r3, r7
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:68
+			fs = ((ds/c)+127)/128; 
+  58:	fbb7 f7f4 	udiv	r7, r7, r4
+  5c:	377f      	adds	r7, #127	; 0x7f
+  5e:	09ff      	lsrs	r7, r7, #7
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:74
+			/* The fs was too small, so ds was too large. The calculated fs should be slightly too large. */
+		
+		}
+		
+		/* Round 4, finalise */
+		ds = ns - 32 - 2*fs; 
+  60:	0079      	lsls	r1, r7, #1
+  62:	1a5b      	subs	r3, r3, r1
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:81
+		dc = ds / c;
+		if(ret<(fs*128-dc)/128)ret=(fs*128-dc)/128;
+		
+		/* Check if with current setting we have a valid fat ? */
+		
+		if(dc >= 65525 + 16){
+  64:	493f      	ldr	r1, [pc, #252]	; (164 <mkfs_makevfat+0x164>)
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:76
+		}
+		
+		/* Round 4, finalise */
+		ds = ns - 32 - 2*fs; 
+
+		dc = ds / c;
+  66:	fbb3 f3f4 	udiv	r3, r3, r4
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:81
+		if(ret<(fs*128-dc)/128)ret=(fs*128-dc)/128;
+		
+		/* Check if with current setting we have a valid fat ? */
+		
+		if(dc >= 65525 + 16){
+  6a:	428b      	cmp	r3, r1
+  6c:	d803      	bhi.n	76 <mkfs_makevfat+0x76>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:52
+		return(MKFS_ERR_TOOLITTLESECTORS);
+	}
+	
+	ret=0;
+	
+	for(c=1<<6;c>=1;c>>=1){
+  6e:	0864      	lsrs	r4, r4, #1
+  70:	3a01      	subs	r2, #1
+  72:	d1d7      	bne.n	24 <mkfs_makevfat+0x24>
+  74:	4614      	mov	r4, r2
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:87
+			break;
+		}
+	}
+
+	/* Generate BPB */
+	memClr(buf,512);
+  76:	4668      	mov	r0, sp
+  78:	f44f 7100 	mov.w	r1, #512	; 0x200
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:90
+	
+	/* Boot code */
+	*(buf+0)=0xE9;	*(buf+1)=0x00;	*(buf+2)=0x00; /* RESET */
+  7c:	2600      	movs	r6, #0
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:87
+			break;
+		}
+	}
+
+	/* Generate BPB */
+	memClr(buf,512);
+  7e:	f7ff fffe 	bl	0 <memClr>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:90
+	
+	/* Boot code */
+	*(buf+0)=0xE9;	*(buf+1)=0x00;	*(buf+2)=0x00; /* RESET */
+  82:	23e9      	movs	r3, #233	; 0xe9
+  84:	f88d 3000 	strb.w	r3, [sp]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:93
+	
+	/* OEM name */
+	memCpy("DSCOSMSH",buf+3,8);
+  88:	eb0d 0306 	add.w	r3, sp, r6
+  8c:	1cd9      	adds	r1, r3, #3
+  8e:	4836      	ldr	r0, [pc, #216]	; (168 <mkfs_makevfat+0x168>)
+  90:	2208      	movs	r2, #8
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:90
+
+	/* Generate BPB */
+	memClr(buf,512);
+	
+	/* Boot code */
+	*(buf+0)=0xE9;	*(buf+1)=0x00;	*(buf+2)=0x00; /* RESET */
+  92:	f88d 6001 	strb.w	r6, [sp, #1]
+  96:	f88d 6002 	strb.w	r6, [sp, #2]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:93
+	
+	/* OEM name */
+	memCpy("DSCOSMSH",buf+3,8);
+  9a:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:96
+	
+	/* Bytes/Sector */
+	*((unsigned short*)(buf+11)) = 512;
+  9e:	f44f 7300 	mov.w	r3, #512	; 0x200
+  a2:	f8ad 300b 	strh.w	r3, [sp, #11]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:102
+	
+	/* Sectors/Cluster */
+	*(buf+13) = c;
+	
+	/* Reserved Sectors */
+	*((unsigned short*)(buf+14)) = 32;
+  a6:	2320      	movs	r3, #32
+  a8:	f8ad 300e 	strh.w	r3, [sp, #14]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:105
+	
+	/* Number of FAT Tables */
+	*(buf+16) = 2;
+  ac:	2302      	movs	r3, #2
+  ae:	f88d 3010 	strb.w	r3, [sp, #16]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:126
+	
+	/* Fat Size 32 */
+	*((unsigned long*)(buf+36)) = fs;
+	
+	/* First Cluster Root Dir */
+	*((unsigned long*)(buf+44)) = 2;
+  b2:	930b      	str	r3, [sp, #44]	; 0x2c
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:129
+	
+	/* VolumeID */
+	*((unsigned long*)(buf+67)) = 0x13371337;
+  b4:	4b2d      	ldr	r3, [pc, #180]	; (16c <mkfs_makevfat+0x16c>)
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:114
+	
+	/* Total Sector Count __16 */
+	*((unsigned short*)(buf+19)) = 0;
+	
+	/* Media (crap) */
+	*(buf+21) = 0xF8;
+  b6:	22f8      	movs	r2, #248	; 0xf8
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:129
+	
+	/* First Cluster Root Dir */
+	*((unsigned long*)(buf+44)) = 2;
+	
+	/* VolumeID */
+	*((unsigned long*)(buf+67)) = 0x13371337;
+  b8:	f8cd 3043 	str.w	r3, [sp, #67]	; 0x43
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:132
+	
+	/* Volume Label */
+	memCpy("DISCOSMASH!",buf+71,11);
+  bc:	eb0d 0306 	add.w	r3, sp, r6
+  c0:	f103 0147 	add.w	r1, r3, #71	; 0x47
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:114
+	
+	/* Total Sector Count __16 */
+	*((unsigned short*)(buf+19)) = 0;
+	
+	/* Media (crap) */
+	*(buf+21) = 0xF8;
+  c4:	f88d 2015 	strb.w	r2, [sp, #21]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:132
+	
+	/* VolumeID */
+	*((unsigned long*)(buf+67)) = 0x13371337;
+	
+	/* Volume Label */
+	memCpy("DISCOSMASH!",buf+71,11);
+  c8:	4829      	ldr	r0, [pc, #164]	; (170 <mkfs_makevfat+0x170>)
+  ca:	3aed      	subs	r2, #237	; 0xed
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:99
+	
+	/* Bytes/Sector */
+	*((unsigned short*)(buf+11)) = 512;
+	
+	/* Sectors/Cluster */
+	*(buf+13) = c;
+  cc:	f88d 400d 	strb.w	r4, [sp, #13]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:108
+	
+	/* Number of FAT Tables */
+	*(buf+16) = 2;
+	
+	/* RootEntryCount */
+	*((unsigned short*)(buf+17)) = 0;
+  d0:	f8ad 6011 	strh.w	r6, [sp, #17]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:111
+	
+	/* Total Sector Count __16 */
+	*((unsigned short*)(buf+19)) = 0;
+  d4:	f8ad 6013 	strh.w	r6, [sp, #19]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:117
+	
+	/* Media (crap) */
+	*(buf+21) = 0xF8;
+	
+	/* FAT size 16 */
+	*((unsigned short*)(buf+22)) = 0;
+  d8:	f8ad 6016 	strh.w	r6, [sp, #22]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:120
+	
+	/* Total Sector Count __32 */
+	*((unsigned long*)(buf+32)) = ns;
+  dc:	f8cd 8020 	str.w	r8, [sp, #32]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:123
+	
+	/* Fat Size 32 */
+	*((unsigned long*)(buf+36)) = fs;
+  e0:	9709      	str	r7, [sp, #36]	; 0x24
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:132
+	
+	/* VolumeID */
+	*((unsigned long*)(buf+67)) = 0x13371337;
+	
+	/* Volume Label */
+	memCpy("DISCOSMASH!",buf+71,11);
+  e2:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:135
+	
+	/* Filesystemtype */
+	memCpy("FAT32   ",buf+82,8);
+  e6:	eb0d 0306 	add.w	r3, sp, r6
+  ea:	f103 0152 	add.w	r1, r3, #82	; 0x52
+  ee:	4821      	ldr	r0, [pc, #132]	; (174 <mkfs_makevfat+0x174>)
+  f0:	2208      	movs	r2, #8
+  f2:	f7ff fffe 	bl	0 <memCpy>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:138
+	
+	/* Magic */
+	*(buf+510) = 0x55; *(buf+511) = 0xAA;
+  f6:	2355      	movs	r3, #85	; 0x55
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:140
+	
+	part_writeBuf(part,0,buf);
+  f8:	4631      	mov	r1, r6
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:138
+	
+	/* Filesystemtype */
+	memCpy("FAT32   ",buf+82,8);
+	
+	/* Magic */
+	*(buf+510) = 0x55; *(buf+511) = 0xAA;
+  fa:	f88d 31fe 	strb.w	r3, [sp, #510]	; 0x1fe
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:140
+	
+	part_writeBuf(part,0,buf);
+  fe:	466a      	mov	r2, sp
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:138
+	
+	/* Filesystemtype */
+	memCpy("FAT32   ",buf+82,8);
+	
+	/* Magic */
+	*(buf+510) = 0x55; *(buf+511) = 0xAA;
+ 100:	18db      	adds	r3, r3, r3
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:140
+	
+	part_writeBuf(part,0,buf);
+ 102:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:138
+	
+	/* Filesystemtype */
+	memCpy("FAT32   ",buf+82,8);
+	
+	/* Magic */
+	*(buf+510) = 0x55; *(buf+511) = 0xAA;
+ 104:	f88d 31ff 	strb.w	r3, [sp, #511]	; 0x1ff
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:143
+	
+	part_writeBuf(part,0,buf);
+	
+	memClr(buf,512);
+	for(c=32;c<(32+2*fs);c++){
+ 108:	f107 0610 	add.w	r6, r7, #16
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:140
+	memCpy("FAT32   ",buf+82,8);
+	
+	/* Magic */
+	*(buf+510) = 0x55; *(buf+511) = 0xAA;
+	
+	part_writeBuf(part,0,buf);
+ 10c:	f7ff fffe 	bl	0 <part_writeBuf>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:142
+	
+	memClr(buf,512);
+ 110:	4668      	mov	r0, sp
+ 112:	f44f 7100 	mov.w	r1, #512	; 0x200
+ 116:	f7ff fffe 	bl	0 <memClr>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:143
+	for(c=32;c<(32+2*fs);c++){
+ 11a:	0076      	lsls	r6, r6, #1
+ 11c:	2420      	movs	r4, #32
+ 11e:	e005      	b.n	12c <mkfs_makevfat+0x12c>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:144
+		part_writeBuf(part,c,buf);
+ 120:	4621      	mov	r1, r4
+ 122:	4628      	mov	r0, r5
+ 124:	466a      	mov	r2, sp
+ 126:	f7ff fffe 	bl	0 <part_writeBuf>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:143
+	*(buf+510) = 0x55; *(buf+511) = 0xAA;
+	
+	part_writeBuf(part,0,buf);
+	
+	memClr(buf,512);
+	for(c=32;c<(32+2*fs);c++){
+ 12a:	3401      	adds	r4, #1
+ 12c:	42b4      	cmp	r4, r6
+ 12e:	d3f7      	bcc.n	120 <mkfs_makevfat+0x120>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:146
+		part_writeBuf(part,c,buf);
+	}
+	*(((unsigned long*)buf)  )=0x0FFFFFF8;
+ 130:	4b11      	ldr	r3, [pc, #68]	; (178 <mkfs_makevfat+0x178>)
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:147
+	*(((unsigned long*)buf)+1)=0x0FFFFFFF;
+ 132:	f06f 4270 	mvn.w	r2, #4026531840	; 0xf0000000
+ 136:	9201      	str	r2, [sp, #4]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:149
+	*(((unsigned long*)buf)+2)=0x0FFFFFF8;
+	part_writeBuf(part,32,buf);
+ 138:	2120      	movs	r1, #32
+ 13a:	466a      	mov	r2, sp
+ 13c:	4628      	mov	r0, r5
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:146
+	
+	memClr(buf,512);
+	for(c=32;c<(32+2*fs);c++){
+		part_writeBuf(part,c,buf);
+	}
+	*(((unsigned long*)buf)  )=0x0FFFFFF8;
+ 13e:	9300      	str	r3, [sp, #0]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:148
+	*(((unsigned long*)buf)+1)=0x0FFFFFFF;
+	*(((unsigned long*)buf)+2)=0x0FFFFFF8;
+ 140:	9302      	str	r3, [sp, #8]
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:149
+	part_writeBuf(part,32,buf);
+ 142:	f7ff fffe 	bl	0 <part_writeBuf>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:150
+	part_writeBuf(part,32+fs,buf);
+ 146:	4628      	mov	r0, r5
+ 148:	f107 0120 	add.w	r1, r7, #32
+ 14c:	466a      	mov	r2, sp
+ 14e:	f7ff fffe 	bl	0 <part_writeBuf>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:152
+	
+	return(0);
+ 152:	2000      	movs	r0, #0
+ 154:	e000      	b.n	158 <mkfs_makevfat+0x158>
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:47
+	
+	ns=part->disc->partitions[part->activePartition].numSectors;
+	
+	if( ns < 66581 ){
+		//DBG((TXT("This is not possible due to insufficient sectors. Sorry\n")));
+		return(MKFS_ERR_TOOLITTLESECTORS);
+ 156:	2001      	movs	r0, #1
+D:\sunny\stm32\therme\Utilities\efsl\source/mkfs.c:153
+	*(((unsigned long*)buf)+2)=0x0FFFFFF8;
+	part_writeBuf(part,32,buf);
+	part_writeBuf(part,32+fs,buf);
+	
+	return(0);
+}
+ 158:	f50d 7d00 	add.w	sp, sp, #512	; 0x200
+ 15c:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+ 160:	00010414 	.word	0x00010414
+ 164:	00010004 	.word	0x00010004
+ 168:	00000000 	.word	0x00000000
+ 16c:	13371337 	.word	0x13371337
+ 170:	00000009 	.word	0x00000009
+ 174:	00000015 	.word	0x00000015
+ 178:	0ffffff8 	.word	0x0ffffff8

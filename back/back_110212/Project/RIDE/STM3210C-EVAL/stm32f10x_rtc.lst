@@ -1,0 +1,495 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\stm32f10x_rtc.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\stm32f10x_rtc.o
+
+
+Disassembly of section .text.RTC_ITConfig:
+
+00000000 <RTC_ITConfig>:
+RTC_ITConfig():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:93
+  * @param  NewState: new state of the specified RTC interrupts.
+  *   This parameter can be: ENABLE or DISABLE.
+  * @retval None
+  */
+void RTC_ITConfig(uint16_t RTC_IT, FunctionalState NewState)
+{
+   0:	4b05      	ldr	r3, [pc, #20]	; (18 <RTC_ITConfig+0x18>)
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:98
+  /* Check the parameters */
+  assert_param(IS_RTC_IT(RTC_IT));  
+  assert_param(IS_FUNCTIONAL_STATE(NewState));
+  
+  if (NewState != DISABLE)
+   2:	b119      	cbz	r1, c <RTC_ITConfig+0xc>
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:100
+  {
+    RTC->CRH |= RTC_IT;
+   4:	881a      	ldrh	r2, [r3, #0]
+   6:	b292      	uxth	r2, r2
+   8:	4310      	orrs	r0, r2
+   a:	e003      	b.n	14 <RTC_ITConfig+0x14>
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:104
+  }
+  else
+  {
+    RTC->CRH &= (uint16_t)~RTC_IT;
+   c:	881a      	ldrh	r2, [r3, #0]
+   e:	b292      	uxth	r2, r2
+  10:	ea22 0000 	bic.w	r0, r2, r0
+  14:	8018      	strh	r0, [r3, #0]
+  16:	4770      	bx	lr
+  18:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_EnterConfigMode:
+
+00000000 <RTC_EnterConfigMode>:
+RTC_EnterConfigMode():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:116
+  * @retval None
+  */
+void RTC_EnterConfigMode(void)
+{
+  /* Set the CNF flag to enter in the Configuration Mode */
+  RTC->CRL |= CRL_CNF_Set;
+   0:	889a4b03 	.word	0x889a4b03
+   4:	b292      	uxth	r2, r2
+   6:	f042 0210 	orr.w	r2, r2, #16
+   a:	809a      	strh	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:117
+}
+   c:	4770      	bx	lr
+   e:	bf00      	nop
+  10:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_ExitConfigMode:
+
+00000000 <RTC_ExitConfigMode>:
+RTC_ExitConfigMode():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:127
+  * @retval None
+  */
+void RTC_ExitConfigMode(void)
+{
+  /* Reset the CNF flag to exit from the Configuration Mode */
+  RTC->CRL &= CRL_CNF_Reset;
+   0:	4a03      	ldr	r2, [pc, #12]	; (10 <RTC_ExitConfigMode+0x10>)
+   2:	8893      	ldrh	r3, [r2, #4]
+   4:	f023 0310 	bic.w	r3, r3, #16
+   8:	041b      	lsls	r3, r3, #16
+   a:	0c1b      	lsrs	r3, r3, #16
+   c:	8093      	strh	r3, [r2, #4]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:128
+}
+   e:	4770      	bx	lr
+  10:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_GetCounter:
+
+00000000 <RTC_GetCounter>:
+RTC_GetCounter():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:138
+  * @retval RTC counter value.
+  */
+uint32_t RTC_GetCounter(void)
+{
+  uint16_t tmp = 0;
+  tmp = RTC->CNTL;
+   0:	4b03      	ldr	r3, [pc, #12]	; (10 <RTC_GetCounter+0x10>)
+   2:	8b9a      	ldrh	r2, [r3, #28]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:139
+  return (((uint32_t)RTC->CNTH << 16 ) | tmp) ;
+   4:	8b18      	ldrh	r0, [r3, #24]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:138
+  * @retval RTC counter value.
+  */
+uint32_t RTC_GetCounter(void)
+{
+  uint16_t tmp = 0;
+  tmp = RTC->CNTL;
+   6:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:140
+  return (((uint32_t)RTC->CNTH << 16 ) | tmp) ;
+}
+   8:	ea42 4000 	orr.w	r0, r2, r0, lsl #16
+   c:	4770      	bx	lr
+   e:	bf00      	nop
+  10:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_SetCounter:
+
+00000000 <RTC_SetCounter>:
+RTC_SetCounter():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:148
+  * @brief  Sets the RTC counter value.
+  * @param  CounterValue: RTC counter new value.
+  * @retval None
+  */
+void RTC_SetCounter(uint32_t CounterValue)
+{ 
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:149
+  RTC_EnterConfigMode();
+   4:	f7ff fffe 	bl	0 <RTC_SetCounter>
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:151
+  /* Set RTC COUNTER MSB word */
+  RTC->CNTH = CounterValue >> 16;
+   8:	4b04      	ldr	r3, [pc, #16]	; (1c <RTC_SetCounter+0x1c>)
+   a:	0c22      	lsrs	r2, r4, #16
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:153
+  /* Set RTC COUNTER LSB word */
+  RTC->CNTL = (CounterValue & RTC_LSB_Mask);
+   c:	b2a4      	uxth	r4, r4
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:151
+  */
+void RTC_SetCounter(uint32_t CounterValue)
+{ 
+  RTC_EnterConfigMode();
+  /* Set RTC COUNTER MSB word */
+  RTC->CNTH = CounterValue >> 16;
+   e:	831a      	strh	r2, [r3, #24]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:153
+  /* Set RTC COUNTER LSB word */
+  RTC->CNTL = (CounterValue & RTC_LSB_Mask);
+  10:	839c      	strh	r4, [r3, #28]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:155
+  RTC_ExitConfigMode();
+}
+  12:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:154
+  RTC_EnterConfigMode();
+  /* Set RTC COUNTER MSB word */
+  RTC->CNTH = CounterValue >> 16;
+  /* Set RTC COUNTER LSB word */
+  RTC->CNTL = (CounterValue & RTC_LSB_Mask);
+  RTC_ExitConfigMode();
+  16:	f7ff bffe 	b.w	0 <RTC_SetCounter>
+  1a:	bf00      	nop
+  1c:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_SetPrescaler:
+
+00000000 <RTC_SetPrescaler>:
+RTC_SetPrescaler():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:163
+  * @brief  Sets the RTC prescaler value.
+  * @param  PrescalerValue: RTC prescaler new value.
+  * @retval None
+  */
+void RTC_SetPrescaler(uint32_t PrescalerValue)
+{
+   0:	b510      	push	{r4, lr}
+   2:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:167
+  /* Check the parameters */
+  assert_param(IS_RTC_PRESCALER(PrescalerValue));
+  
+  RTC_EnterConfigMode();
+   4:	f7ff fffe 	bl	0 <RTC_SetPrescaler>
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:169
+  /* Set RTC PRESCALER MSB word */
+  RTC->PRLH = (PrescalerValue & PRLH_MSB_Mask) >> 16;
+   8:	4b05      	ldr	r3, [pc, #20]	; (20 <RTC_SetPrescaler+0x20>)
+   a:	f404 2270 	and.w	r2, r4, #983040	; 0xf0000
+   e:	0c12      	lsrs	r2, r2, #16
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:171
+  /* Set RTC PRESCALER LSB word */
+  RTC->PRLL = (PrescalerValue & RTC_LSB_Mask);
+  10:	b2a4      	uxth	r4, r4
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:169
+  /* Check the parameters */
+  assert_param(IS_RTC_PRESCALER(PrescalerValue));
+  
+  RTC_EnterConfigMode();
+  /* Set RTC PRESCALER MSB word */
+  RTC->PRLH = (PrescalerValue & PRLH_MSB_Mask) >> 16;
+  12:	811a      	strh	r2, [r3, #8]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:171
+  /* Set RTC PRESCALER LSB word */
+  RTC->PRLL = (PrescalerValue & RTC_LSB_Mask);
+  14:	819c      	strh	r4, [r3, #12]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:173
+  RTC_ExitConfigMode();
+}
+  16:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:172
+  RTC_EnterConfigMode();
+  /* Set RTC PRESCALER MSB word */
+  RTC->PRLH = (PrescalerValue & PRLH_MSB_Mask) >> 16;
+  /* Set RTC PRESCALER LSB word */
+  RTC->PRLL = (PrescalerValue & RTC_LSB_Mask);
+  RTC_ExitConfigMode();
+  1a:	f7ff bffe 	b.w	0 <RTC_SetPrescaler>
+  1e:	bf00      	nop
+  20:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_SetAlarm:
+
+00000000 <RTC_SetAlarm>:
+RTC_SetAlarm():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:181
+  * @brief  Sets the RTC alarm value.
+  * @param  AlarmValue: RTC alarm new value.
+  * @retval None
+  */
+void RTC_SetAlarm(uint32_t AlarmValue)
+{  
+   0:	4604b510 	.word	0x4604b510
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:182
+  RTC_EnterConfigMode();
+   4:	f7ff fffe 	bl	0 <RTC_SetAlarm>
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:184
+  /* Set the ALARM MSB word */
+  RTC->ALRH = AlarmValue >> 16;
+   8:	4b04      	ldr	r3, [pc, #16]	; (1c <RTC_SetAlarm+0x1c>)
+   a:	0c22      	lsrs	r2, r4, #16
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:186
+  /* Set the ALARM LSB word */
+  RTC->ALRL = (AlarmValue & RTC_LSB_Mask);
+   c:	b2a4      	uxth	r4, r4
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:184
+  */
+void RTC_SetAlarm(uint32_t AlarmValue)
+{  
+  RTC_EnterConfigMode();
+  /* Set the ALARM MSB word */
+  RTC->ALRH = AlarmValue >> 16;
+   e:	841a      	strh	r2, [r3, #32]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:186
+  /* Set the ALARM LSB word */
+  RTC->ALRL = (AlarmValue & RTC_LSB_Mask);
+  10:	849c      	strh	r4, [r3, #36]	; 0x24
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:188
+  RTC_ExitConfigMode();
+}
+  12:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:187
+  RTC_EnterConfigMode();
+  /* Set the ALARM MSB word */
+  RTC->ALRH = AlarmValue >> 16;
+  /* Set the ALARM LSB word */
+  RTC->ALRL = (AlarmValue & RTC_LSB_Mask);
+  RTC_ExitConfigMode();
+  16:	f7ff bffe 	b.w	0 <RTC_SetAlarm>
+  1a:	bf00      	nop
+  1c:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_GetDivider:
+
+00000000 <RTC_GetDivider>:
+RTC_GetDivider():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:198
+  * @retval RTC Divider value.
+  */
+uint32_t RTC_GetDivider(void)
+{
+  uint32_t tmp = 0x00;
+  tmp = ((uint32_t)RTC->DIVH & (uint32_t)0x000F) << 16;
+   0:	8a184b04 	.word	0x8a184b04
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:199
+  tmp |= RTC->DIVL;
+   4:	8a9b      	ldrh	r3, [r3, #20]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:198
+  * @retval RTC Divider value.
+  */
+uint32_t RTC_GetDivider(void)
+{
+  uint32_t tmp = 0x00;
+  tmp = ((uint32_t)RTC->DIVH & (uint32_t)0x000F) << 16;
+   6:	f000 000f 	and.w	r0, r0, #15
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:199
+  tmp |= RTC->DIVL;
+   a:	b29b      	uxth	r3, r3
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:201
+  return tmp;
+}
+   c:	ea43 4000 	orr.w	r0, r3, r0, lsl #16
+  10:	4770      	bx	lr
+  12:	bf00      	nop
+  14:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_WaitForLastTask:
+
+00000000 <RTC_WaitForLastTask>:
+RTC_WaitForLastTask():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:212
+  * @retval None
+  */
+void RTC_WaitForLastTask(void)
+{
+  /* Loop until RTOFF flag is set */
+  while ((RTC->CRL & RTC_FLAG_RTOFF) == (uint16_t)RESET)
+   0:	889b4b02 	.word	0x889b4b02
+   4:	f013 0f20 	tst.w	r3, #32
+   8:	d0fa      	beq.n	0 <RTC_WaitForLastTask>
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:215
+  {
+  }
+}
+   a:	4770      	bx	lr
+   c:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_WaitForSynchro:
+
+00000000 <RTC_WaitForSynchro>:
+RTC_WaitForSynchro():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:228
+  * @retval None
+  */
+void RTC_WaitForSynchro(void)
+{
+  /* Clear RSF flag */
+  RTC->CRL &= (uint16_t)~RTC_FLAG_RSF;
+   0:	4a06      	ldr	r2, [pc, #24]	; (1c <RTC_WaitForSynchro+0x1c>)
+   2:	8893      	ldrh	r3, [r2, #4]
+   4:	f023 0308 	bic.w	r3, r3, #8
+   8:	041b      	lsls	r3, r3, #16
+   a:	0c1b      	lsrs	r3, r3, #16
+   c:	8093      	strh	r3, [r2, #4]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:230
+  /* Loop until RSF flag is set */
+  while ((RTC->CRL & RTC_FLAG_RSF) == (uint16_t)RESET)
+   e:	4b03      	ldr	r3, [pc, #12]	; (1c <RTC_WaitForSynchro+0x1c>)
+  10:	889b      	ldrh	r3, [r3, #4]
+  12:	f013 0f08 	tst.w	r3, #8
+  16:	d0fa      	beq.n	e <RTC_WaitForSynchro+0xe>
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:233
+  {
+  }
+}
+  18:	4770      	bx	lr
+  1a:	bf00      	nop
+  1c:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_GetFlagStatus:
+
+00000000 <RTC_GetFlagStatus>:
+RTC_GetFlagStatus():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:253
+  FlagStatus bitstatus = RESET;
+  
+  /* Check the parameters */
+  assert_param(IS_RTC_GET_FLAG(RTC_FLAG)); 
+  
+  if ((RTC->CRL & RTC_FLAG) != (uint16_t)RESET)
+   0:	889b4b03 	.word	0x889b4b03
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:255
+  {
+    bitstatus = SET;
+   4:	4218      	tst	r0, r3
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:262
+  else
+  {
+    bitstatus = RESET;
+  }
+  return bitstatus;
+}
+   6:	bf0c      	ite	eq
+   8:	2000      	moveq	r0, #0
+   a:	2001      	movne	r0, #1
+   c:	4770      	bx	lr
+   e:	bf00      	nop
+  10:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_ClearFlag:
+
+00000000 <RTC_ClearFlag>:
+RTC_ClearFlag():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:281
+{
+  /* Check the parameters */
+  assert_param(IS_RTC_CLEAR_FLAG(RTC_FLAG)); 
+    
+  /* Clear the coressponding RTC flag */
+  RTC->CRL &= (uint16_t)~RTC_FLAG;
+   0:	4b03      	ldr	r3, [pc, #12]	; (10 <RTC_ClearFlag+0x10>)
+   2:	889a      	ldrh	r2, [r3, #4]
+   4:	b292      	uxth	r2, r2
+   6:	ea22 0200 	bic.w	r2, r2, r0
+   a:	809a      	strh	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:282
+}
+   c:	4770      	bx	lr
+   e:	bf00      	nop
+  10:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_GetITStatus:
+
+00000000 <RTC_GetITStatus>:
+RTC_GetITStatus():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:299
+{
+  ITStatus bitstatus = RESET;
+  /* Check the parameters */
+  assert_param(IS_RTC_GET_IT(RTC_IT)); 
+  
+  bitstatus = (ITStatus)(RTC->CRL & RTC_IT);
+   0:	4b07      	ldr	r3, [pc, #28]	; (20 <RTC_GetITStatus+0x20>)
+   2:	889a      	ldrh	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:300
+  if (((RTC->CRH & RTC_IT) != (uint16_t)RESET) && (bitstatus != (uint16_t)RESET))
+   4:	881b      	ldrh	r3, [r3, #0]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:299
+{
+  ITStatus bitstatus = RESET;
+  /* Check the parameters */
+  assert_param(IS_RTC_GET_IT(RTC_IT)); 
+  
+  bitstatus = (ITStatus)(RTC->CRL & RTC_IT);
+   6:	b292      	uxth	r2, r2
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:300
+  if (((RTC->CRH & RTC_IT) != (uint16_t)RESET) && (bitstatus != (uint16_t)RESET))
+   8:	4003      	ands	r3, r0
+   a:	d006      	beq.n	1a <RTC_GetITStatus+0x1a>
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:299
+{
+  ITStatus bitstatus = RESET;
+  /* Check the parameters */
+  assert_param(IS_RTC_GET_IT(RTC_IT)); 
+  
+  bitstatus = (ITStatus)(RTC->CRL & RTC_IT);
+   c:	4010      	ands	r0, r2
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:302
+  if (((RTC->CRH & RTC_IT) != (uint16_t)RESET) && (bitstatus != (uint16_t)RESET))
+  {
+    bitstatus = SET;
+   e:	f010 0fff 	tst.w	r0, #255	; 0xff
+  12:	bf0c      	ite	eq
+  14:	2000      	moveq	r0, #0
+  16:	2001      	movne	r0, #1
+  18:	4770      	bx	lr
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:306
+  }
+  else
+  {
+    bitstatus = RESET;
+  1a:	4618      	mov	r0, r3
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:309
+  }
+  return bitstatus;
+}
+  1c:	4770      	bx	lr
+  1e:	bf00      	nop
+  20:	40002800 	.word	0x40002800
+
+Disassembly of section .text.RTC_ClearITPendingBit:
+
+00000000 <RTC_ClearITPendingBit>:
+RTC_ClearITPendingBit():
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:326
+{
+  /* Check the parameters */
+  assert_param(IS_RTC_IT(RTC_IT));  
+  
+  /* Clear the coressponding RTC pending bit */
+  RTC->CRL &= (uint16_t)~RTC_IT;
+   0:	889a4b03 	.word	0x889a4b03
+   4:	b292      	uxth	r2, r2
+   6:	ea22 0200 	bic.w	r2, r2, r0
+   a:	809a      	strh	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\STM32F10x_StdPeriph_Driver\src/stm32f10x_rtc.c:327
+}
+   c:	4770      	bx	lr
+   e:	bf00      	nop
+  10:	40002800 	.word	0x40002800

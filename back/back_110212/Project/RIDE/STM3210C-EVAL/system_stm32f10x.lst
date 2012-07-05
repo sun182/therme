@@ -1,0 +1,297 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\system_stm32f10x.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\system_stm32f10x.o
+
+
+Disassembly of section .text.SystemInit:
+
+00000000 <SystemInit>:
+SystemInit():
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:191
+  */
+void SystemInit (void)
+{
+  /* Reset the RCC clock configuration to the default reset state(for debug purpose) */
+  /* Set HSION bit */
+  RCC->CR |= (uint32_t)0x00000001;
+   0:	4b45      	ldr	r3, [pc, #276]	; (118 <SystemInit+0x118>)
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:188
+  * @note   This function should be used only after reset.
+  * @param  None
+  * @retval None
+  */
+void SystemInit (void)
+{
+   2:	b082      	sub	sp, #8
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:191
+  /* Reset the RCC clock configuration to the default reset state(for debug purpose) */
+  /* Set HSION bit */
+  RCC->CR |= (uint32_t)0x00000001;
+   4:	681a      	ldr	r2, [r3, #0]
+   6:	f042 0201 	orr.w	r2, r2, #1
+   a:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:197
+
+  /* Reset SW, HPRE, PPRE1, PPRE2, ADCPRE and MCO bits */
+#ifndef STM32F10X_CL
+  RCC->CFGR &= (uint32_t)0xF8FF0000;
+#else
+  RCC->CFGR &= (uint32_t)0xF0FF0000;
+   c:	6859      	ldr	r1, [r3, #4]
+   e:	4a43      	ldr	r2, [pc, #268]	; (11c <SystemInit+0x11c>)
+  10:	ea01 0202 	and.w	r2, r1, r2
+  14:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:201
+#endif /* STM32F10X_CL */   
+  
+  /* Reset HSEON, CSSON and PLLON bits */
+  RCC->CR &= (uint32_t)0xFEF6FFFF;
+  16:	681a      	ldr	r2, [r3, #0]
+  18:	f022 7284 	bic.w	r2, r2, #17301504	; 0x1080000
+  1c:	f422 3280 	bic.w	r2, r2, #65536	; 0x10000
+  20:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:204
+
+  /* Reset HSEBYP bit */
+  RCC->CR &= (uint32_t)0xFFFBFFFF;
+  22:	681a      	ldr	r2, [r3, #0]
+  24:	f422 2280 	bic.w	r2, r2, #262144	; 0x40000
+  28:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:207
+
+  /* Reset PLLSRC, PLLXTPRE, PLLMUL and USBPRE/OTGFSPRE bits */
+  RCC->CFGR &= (uint32_t)0xFF80FFFF;
+  2a:	685a      	ldr	r2, [r3, #4]
+  2c:	f422 02fe 	bic.w	r2, r2, #8323072	; 0x7f0000
+  30:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:214
+#ifndef STM32F10X_CL
+  /* Disable all interrupts and clear pending bits  */
+  RCC->CIR = 0x009F0000;
+#else
+  /* Reset PLL2ON and PLL3ON bits */
+  RCC->CR &= (uint32_t)0xEBFFFFFF;
+  32:	681a      	ldr	r2, [r3, #0]
+  34:	f022 52a0 	bic.w	r2, r2, #335544320	; 0x14000000
+  38:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:217
+
+  /* Disable all interrupts and clear pending bits  */
+  RCC->CIR = 0x00FF0000;
+  3a:	f44f 027f 	mov.w	r2, #16711680	; 0xff0000
+  3e:	609a      	str	r2, [r3, #8]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:220
+
+  /* Reset CFGR2 register */
+  RCC->CFGR2 = 0x00000000;
+  40:	2200      	movs	r2, #0
+  42:	62da      	str	r2, [r3, #44]	; 0x2c
+SetSysClockTo72():
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:820
+  * @param  None
+  * @retval None
+  */
+static void SetSysClockTo72(void)
+{
+  __IO uint32_t StartUpCounter = 0, HSEStatus = 0;
+  44:	9201      	str	r2, [sp, #4]
+  46:	9200      	str	r2, [sp, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:824
+  
+  /* SYSCLK, HCLK, PCLK2 and PCLK1 configuration ---------------------------*/    
+  /* Enable HSE */    
+  RCC->CR |= ((uint32_t)RCC_CR_HSEON);
+  48:	681a      	ldr	r2, [r3, #0]
+  4a:	f442 3280 	orr.w	r2, r2, #65536	; 0x10000
+  4e:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:829
+ 
+  /* Wait till HSE is ready and if Time out is reached exit */
+  do
+  {
+    HSEStatus = RCC->CR & RCC_CR_HSERDY;
+  50:	4b31      	ldr	r3, [pc, #196]	; (118 <SystemInit+0x118>)
+  52:	681a      	ldr	r2, [r3, #0]
+  54:	f402 3200 	and.w	r2, r2, #131072	; 0x20000
+  58:	9200      	str	r2, [sp, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:830
+    StartUpCounter++;  
+  5a:	9a01      	ldr	r2, [sp, #4]
+  5c:	3201      	adds	r2, #1
+  5e:	9201      	str	r2, [sp, #4]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:831
+  } while((HSEStatus == 0) && (StartUpCounter != HSEStartUp_TimeOut));
+  60:	9a00      	ldr	r2, [sp, #0]
+  62:	b91a      	cbnz	r2, 6c <SystemInit+0x6c>
+  64:	9a01      	ldr	r2, [sp, #4]
+  66:	f5b2 6fa0 	cmp.w	r2, #1280	; 0x500
+  6a:	d1f1      	bne.n	50 <SystemInit+0x50>
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:833
+
+  if ((RCC->CR & RCC_CR_HSERDY) != RESET)
+  6c:	681b      	ldr	r3, [r3, #0]
+  6e:	f413 3300 	ands.w	r3, r3, #131072	; 0x20000
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:835
+  {
+    HSEStatus = (uint32_t)0x01;
+  72:	bf18      	it	ne
+  74:	2301      	movne	r3, #1
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:839
+  }
+  else
+  {
+    HSEStatus = (uint32_t)0x00;
+  76:	9300      	str	r3, [sp, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:842
+  }  
+
+  if (HSEStatus == (uint32_t)0x01)
+  78:	9b00      	ldr	r3, [sp, #0]
+  7a:	2b01      	cmp	r3, #1
+  7c:	d149      	bne.n	112 <SystemInit+0x112>
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:845
+  {
+    /* Enable Prefetch Buffer */
+    FLASH->ACR |= FLASH_ACR_PRFTBE;
+  7e:	4b28      	ldr	r3, [pc, #160]	; (120 <SystemInit+0x120>)
+  80:	681a      	ldr	r2, [r3, #0]
+  82:	f042 0210 	orr.w	r2, r2, #16
+  86:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:848
+
+    /* Flash 2 wait state */
+    FLASH->ACR &= (uint32_t)((uint32_t)~FLASH_ACR_LATENCY);
+  88:	681a      	ldr	r2, [r3, #0]
+  8a:	f022 0203 	bic.w	r2, r2, #3
+  8e:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:849
+    FLASH->ACR |= (uint32_t)FLASH_ACR_LATENCY_2;    
+  90:	681a      	ldr	r2, [r3, #0]
+  92:	f042 0202 	orr.w	r2, r2, #2
+  96:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:853
+
+ 
+    /* HCLK = SYSCLK */
+    RCC->CFGR |= (uint32_t)RCC_CFGR_HPRE_DIV1;
+  98:	4b1f      	ldr	r3, [pc, #124]	; (118 <SystemInit+0x118>)
+  9a:	685a      	ldr	r2, [r3, #4]
+  9c:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:856
+      
+    /* PCLK2 = HCLK */
+    RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE2_DIV1;
+  9e:	685a      	ldr	r2, [r3, #4]
+  a0:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:859
+    
+    /* PCLK1 = HCLK/2 */
+    RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE1_DIV2;
+  a2:	685a      	ldr	r2, [r3, #4]
+  a4:	f442 6280 	orr.w	r2, r2, #1024	; 0x400
+  a8:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:866
+#ifdef STM32F10X_CL
+    /* Configure PLLs ------------------------------------------------------*/
+    /* PLL2 configuration: PLL2CLK = (HSE / 5) * 8 = 40 MHz */
+    /* PREDIV1 configuration: PREDIV1CLK = PLL2 / 5 = 8 MHz */
+        
+    RCC->CFGR2 &= (uint32_t)~(RCC_CFGR2_PREDIV2 | RCC_CFGR2_PLL2MUL |
+  aa:	6ad9      	ldr	r1, [r3, #44]	; 0x2c
+  ac:	4a1d      	ldr	r2, [pc, #116]	; (124 <SystemInit+0x124>)
+  ae:	ea01 0202 	and.w	r2, r1, r2
+  b2:	62da      	str	r2, [r3, #44]	; 0x2c
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:868
+                              RCC_CFGR2_PREDIV1 | RCC_CFGR2_PREDIV1SRC);
+    RCC->CFGR2 |= (uint32_t)(RCC_CFGR2_PREDIV2_DIV5 | RCC_CFGR2_PLL2MUL8 |
+  b4:	6ada      	ldr	r2, [r3, #44]	; 0x2c
+  b6:	f442 3282 	orr.w	r2, r2, #66560	; 0x10400
+  ba:	f442 7211 	orr.w	r2, r2, #580	; 0x244
+  be:	62da      	str	r2, [r3, #44]	; 0x2c
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:872
+                             RCC_CFGR2_PREDIV1SRC_PLL2 | RCC_CFGR2_PREDIV1_DIV5);
+  
+    /* Enable PLL2 */
+    RCC->CR |= RCC_CR_PLL2ON;
+  c0:	681a      	ldr	r2, [r3, #0]
+  c2:	f042 6280 	orr.w	r2, r2, #67108864	; 0x4000000
+  c6:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:874
+    /* Wait till PLL2 is ready */
+    while((RCC->CR & RCC_CR_PLL2RDY) == 0)
+  c8:	4b13      	ldr	r3, [pc, #76]	; (118 <SystemInit+0x118>)
+  ca:	681a      	ldr	r2, [r3, #0]
+  cc:	f012 6f00 	tst.w	r2, #134217728	; 0x8000000
+  d0:	d0fa      	beq.n	c8 <SystemInit+0xc8>
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:880
+    {
+    }
+    
+   
+    /* PLL configuration: PLLCLK = PREDIV1 * 9 = 72 MHz */ 
+    RCC->CFGR &= (uint32_t)~(RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLSRC | RCC_CFGR_PLLMULL);
+  d2:	685a      	ldr	r2, [r3, #4]
+  d4:	f422 127c 	bic.w	r2, r2, #4128768	; 0x3f0000
+  d8:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:881
+    RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLXTPRE_PREDIV1 | RCC_CFGR_PLLSRC_PREDIV1 | 
+  da:	685a      	ldr	r2, [r3, #4]
+  dc:	f442 12e8 	orr.w	r2, r2, #1900544	; 0x1d0000
+  e0:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:891
+                                        RCC_CFGR_PLLMULL));
+    RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_HSE | RCC_CFGR_PLLMULL9);
+#endif /* STM32F10X_CL */
+
+    /* Enable PLL */
+    RCC->CR |= RCC_CR_PLLON;
+  e2:	681a      	ldr	r2, [r3, #0]
+  e4:	f042 7280 	orr.w	r2, r2, #16777216	; 0x1000000
+  e8:	601a      	str	r2, [r3, #0]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:894
+
+    /* Wait till PLL is ready */
+    while((RCC->CR & RCC_CR_PLLRDY) == 0)
+  ea:	4b0b      	ldr	r3, [pc, #44]	; (118 <SystemInit+0x118>)
+  ec:	681a      	ldr	r2, [r3, #0]
+  ee:	f012 7f00 	tst.w	r2, #33554432	; 0x2000000
+  f2:	d0fa      	beq.n	ea <SystemInit+0xea>
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:899
+    {
+    }
+    
+    /* Select PLL as system clock source */
+    RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_SW));
+  f4:	685a      	ldr	r2, [r3, #4]
+  f6:	f022 0203 	bic.w	r2, r2, #3
+  fa:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:900
+    RCC->CFGR |= (uint32_t)RCC_CFGR_SW_PLL;    
+  fc:	685a      	ldr	r2, [r3, #4]
+  fe:	f042 0202 	orr.w	r2, r2, #2
+ 102:	605a      	str	r2, [r3, #4]
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:903
+
+    /* Wait till PLL is used as system clock source */
+    while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS) != (uint32_t)0x08)
+ 104:	4b04      	ldr	r3, [pc, #16]	; (118 <SystemInit+0x118>)
+ 106:	685b      	ldr	r3, [r3, #4]
+ 108:	f003 030c 	and.w	r3, r3, #12
+ 10c:	2b08      	cmp	r3, #8
+ 10e:	d1f9      	bne.n	104 <SystemInit+0x104>
+ 110:	e000      	b.n	114 <SystemInit+0x114>
+ 112:	e7fe      	b.n	112 <SystemInit+0x112>
+SystemInit():
+D:\sunny\stm32\therme\Libraries\CMSIS\Core\CM3/system_stm32f10x.c:227
+    
+  /* Configure the System clock frequency, HCLK, PCLK2 and PCLK1 prescalers */
+  /* Configure the Flash Latency cycles and enable prefetch buffer */
+  SetSysClock();
+
+}
+ 114:	b002      	add	sp, #8
+ 116:	4770      	bx	lr
+ 118:	40021000 	.word	0x40021000
+ 11c:	f0ff0000 	.word	0xf0ff0000
+ 120:	40022000 	.word	0x40022000
+ 124:	fffef000 	.word	0xfffef000

@@ -1,0 +1,317 @@
+
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\server.o:     file format elf32-littlearm
+D:\sunny\stm32\therme\Project\RIDE\STM3210C-EVAL\server.o
+
+
+Disassembly of section .text.tcp_server_accept:
+
+00000000 <tcp_server_accept>:
+tcp_server_accept():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:151
+  * @retval ERR_OK
+  */
+err_t tcp_server_accept(void *arg, struct tcp_pcb *pcb, err_t err)
+{ 
+  /* Specify the function that should be called when the TCP connection receives data */
+  tcp_recv(pcb, tcp_server_recv);
+   0:	4608      	mov	r0, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:149
+  * @param  pcb	the tcp_pcb which accepted the connection
+  * @param  err error value
+  * @retval ERR_OK
+  */
+err_t tcp_server_accept(void *arg, struct tcp_pcb *pcb, err_t err)
+{ 
+   2:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:151
+  /* Specify the function that should be called when the TCP connection receives data */
+  tcp_recv(pcb, tcp_server_recv);
+   4:	4902      	ldr	r1, [pc, #8]	; (10 <tcp_server_accept+0x10>)
+   6:	f7ff fffe 	bl	0 <tcp_recv>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:154
+
+  return ERR_OK;  
+}
+   a:	2000      	movs	r0, #0
+   c:	bd08      	pop	{r3, pc}
+   e:	bf00      	nop
+  10:	00000000 	.word	0x00000000
+
+Disassembly of section .text.tcp_server_recv:
+
+00000000 <tcp_server_recv>:
+tcp_server_recv():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:166
+  * @param  p the packet buffer that was received
+  * @param  err error value
+  * @retval ERR_OK
+  */
+static err_t tcp_server_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err)
+{
+   0:	b508      	push	{r3, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:199
+		break;
+		
+  }
+*/
+  /* Free the p buffer */
+  pbuf_free(p);
+   2:	4610      	mov	r0, r2
+   4:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:202
+
+  return ERR_OK;
+}
+   8:	2000      	movs	r0, #0
+   a:	bd08      	pop	{r3, pc}
+
+Disassembly of section .text.udp_server_callback:
+
+00000000 <udp_server_callback>:
+udp_server_callback():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:75
+  * @param addr the remote IP address from which the packet was received
+  * @param port the remote port from which the packet was received
+  * @retval None
+  */
+void udp_server_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, struct ip_addr *addr, u16_t port)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	461d      	mov	r5, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:82
+  __IO uint8_t iptab[4];
+  uint8_t iptxt[20];
+  
+  /* We have received the UDP Echo from a client */
+  /* read its IP address */
+  iptab[0] = (uint8_t)((uint32_t)(addr->addr) >> 24);
+   4:	681b      	ldr	r3, [r3, #0]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:75
+  * @param addr the remote IP address from which the packet was received
+  * @param port the remote port from which the packet was received
+  * @retval None
+  */
+void udp_server_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, struct ip_addr *addr, u16_t port)
+{
+   6:	b088      	sub	sp, #32
+   8:	4616      	mov	r6, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:82
+  __IO uint8_t iptab[4];
+  uint8_t iptxt[20];
+  
+  /* We have received the UDP Echo from a client */
+  /* read its IP address */
+  iptab[0] = (uint8_t)((uint32_t)(addr->addr) >> 24);
+   a:	0e1a      	lsrs	r2, r3, #24
+   c:	f88d 201c 	strb.w	r2, [sp, #28]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:83
+  iptab[1] = (uint8_t)((uint32_t)(addr->addr) >> 16);
+  10:	0c1a      	lsrs	r2, r3, #16
+  12:	b2d2      	uxtb	r2, r2
+  14:	f88d 201d 	strb.w	r2, [sp, #29]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:84
+  iptab[2] = (uint8_t)((uint32_t)(addr->addr) >> 8);
+  18:	0a1a      	lsrs	r2, r3, #8
+  1a:	b2d2      	uxtb	r2, r2
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:85
+  iptab[3] = (uint8_t)((uint32_t)(addr->addr));
+  1c:	b2db      	uxtb	r3, r3
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:84
+  
+  /* We have received the UDP Echo from a client */
+  /* read its IP address */
+  iptab[0] = (uint8_t)((uint32_t)(addr->addr) >> 24);
+  iptab[1] = (uint8_t)((uint32_t)(addr->addr) >> 16);
+  iptab[2] = (uint8_t)((uint32_t)(addr->addr) >> 8);
+  1e:	f88d 201e 	strb.w	r2, [sp, #30]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:85
+  iptab[3] = (uint8_t)((uint32_t)(addr->addr));
+  22:	f88d 301f 	strb.w	r3, [sp, #31]
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:75
+  * @param addr the remote IP address from which the packet was received
+  * @param port the remote port from which the packet was received
+  * @retval None
+  */
+void udp_server_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, struct ip_addr *addr, u16_t port)
+{
+  26:	460c      	mov	r4, r1
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:87
+  iptab[0] = (uint8_t)((uint32_t)(addr->addr) >> 24);
+  iptab[1] = (uint8_t)((uint32_t)(addr->addr) >> 16);
+  iptab[2] = (uint8_t)((uint32_t)(addr->addr) >> 8);
+  iptab[3] = (uint8_t)((uint32_t)(addr->addr));
+
+  sprintf((char*)iptxt, "is: %d.%d.%d.%d     ", iptab[3], iptab[2], iptab[1], iptab[0]);	                           	                             
+  28:	f89d 201f 	ldrb.w	r2, [sp, #31]
+  2c:	f89d 301e 	ldrb.w	r3, [sp, #30]
+  30:	f89d 001d 	ldrb.w	r0, [sp, #29]
+  34:	f89d 101c 	ldrb.w	r1, [sp, #28]
+  38:	9000      	str	r0, [sp, #0]
+  3a:	9101      	str	r1, [sp, #4]
+  3c:	a802      	add	r0, sp, #8
+  3e:	491a      	ldr	r1, [pc, #104]	; (a8 <udp_server_callback+0xa8>)
+  40:	f7ff fffe 	bl	0 <sprintf>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:95
+  /* If there is more than one client connected, the IP address of the last one connected will be displayed */
+//  LCD_DisplayStringLine(Line4, "Client's IP address");
+//  LCD_DisplayStringLine(Line5, iptxt);
+ 
+  /* Connect to the remote client */
+  udp_connect(upcb, addr, UDP_CLIENT_PORT);
+  44:	2204      	movs	r2, #4
+  46:	4620      	mov	r0, r4
+  48:	4629      	mov	r1, r5
+  4a:	f7ff fffe 	bl	0 <udp_connect>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:98
+    
+  /* Tell the client that we have accepted it */
+  udp_send(upcb, p);
+  4e:	4631      	mov	r1, r6
+  50:	4620      	mov	r0, r4
+  52:	f7ff fffe 	bl	0 <udp_send>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:101
+
+  /* free the UDP connection, so we can accept new clients */
+  udp_disconnect(upcb);
+  56:	4620      	mov	r0, r4
+  58:	f7ff fffe 	bl	0 <udp_disconnect>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:105
+	
+  /* Bind the upcb to IP_ADDR_ANY address and the UDP_PORT port*/
+  /* Be ready to get a new request from another client */  
+  udp_bind(upcb, IP_ADDR_ANY, UDP_SERVER_PORT);
+  5c:	4620      	mov	r0, r4
+  5e:	4913      	ldr	r1, [pc, #76]	; (ac <udp_server_callback+0xac>)
+  60:	2207      	movs	r2, #7
+  62:	f7ff fffe 	bl	0 <udp_bind>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:108
+	
+  /* Set a receive callback for the upcb */
+  udp_recv(upcb, udp_server_callback, NULL);    	
+  66:	4620      	mov	r0, r4
+  68:	4911      	ldr	r1, [pc, #68]	; (b0 <udp_server_callback+0xb0>)
+  6a:	2200      	movs	r2, #0
+  6c:	f7ff fffe 	bl	0 <udp_recv>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:111
+	
+  /* Create a new TCP control block  */
+  pcb = tcp_new();
+  70:	f7ff fffe 	bl	0 <tcp_new>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:113
+	
+  if(pcb !=NULL)
+  74:	4604      	mov	r4, r0
+  76:	b188      	cbz	r0, 9c <udp_server_callback+0x9c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:118
+  {
+    err_t err;	  
+	      
+    /* Assign to the new pcb a local IP address and a port number */
+    err = tcp_bind(pcb, addr, TCP_PORT);
+  78:	2204      	movs	r2, #4
+  7a:	4629      	mov	r1, r5
+  7c:	f7ff fffe 	bl	0 <tcp_bind>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:120
+	  
+	if(err != ERR_USE)
+  80:	f110 0f08 	cmn.w	r0, #8
+  84:	d007      	beq.n	96 <udp_server_callback+0x96>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:123
+	{
+	  /* Set the connection to the LISTEN state */
+      pcb = tcp_listen(pcb);
+  86:	21ff      	movs	r1, #255	; 0xff
+  88:	4620      	mov	r0, r4
+  8a:	f7ff fffe 	bl	0 <tcp_listen_with_backlog>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:126
+    
+      /* Specify the function to be called when a connection is established */
+      tcp_accept(pcb, tcp_server_accept);
+  8e:	4909      	ldr	r1, [pc, #36]	; (28 <tcp_accept+0x28>)
+  90:	f7ff fffe 	bl	0 <tcp_accept>
+  94:	e002      	b.n	9c <udp_server_callback+0x9c>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:132
+	}
+	else
+	{
+	  /* We enter here if a conection to the addr IP address already exists */
+	  /* so we don't need to establish a new one */
+	  tcp_close(pcb);
+  96:	4620      	mov	r0, r4
+  98:	f7ff fffe 	bl	0 <tcp_close>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:137
+	}            
+  }
+
+  /* Free the p buffer */
+  pbuf_free(p);
+  9c:	4630      	mov	r0, r6
+  9e:	f7ff fffe 	bl	0 <pbuf_free>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:139
+   
+}
+  a2:	b008      	add	sp, #32
+  a4:	bd70      	pop	{r4, r5, r6, pc}
+  a6:	bf00      	nop
+	...
+
+Disassembly of section .text.server_init:
+
+00000000 <server_init>:
+server_init():
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:50
+  * @brief  Initialize the server application.
+  * @param  None
+  * @retval None
+  */
+void server_init(void)
+{
+   0:	b510      	push	{r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:54
+   struct udp_pcb *upcb;                                 
+   
+   /* Create a new UDP control block  */
+   upcb = udp_new();
+   2:	f7ff fffe 	bl	0 <udp_new>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:58
+   
+   /* Bind the upcb to the UDP_PORT port */
+   /* Using IP_ADDR_ANY allow the upcb to be used by any local interface */
+   udp_bind(upcb, IP_ADDR_ANY, UDP_SERVER_PORT);
+   6:	2207      	movs	r2, #7
+   8:	4905      	ldr	r1, [pc, #20]	; (20 <server_init+0x20>)
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:54
+void server_init(void)
+{
+   struct udp_pcb *upcb;                                 
+   
+   /* Create a new UDP control block  */
+   upcb = udp_new();
+   a:	4604      	mov	r4, r0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:58
+   
+   /* Bind the upcb to the UDP_PORT port */
+   /* Using IP_ADDR_ANY allow the upcb to be used by any local interface */
+   udp_bind(upcb, IP_ADDR_ANY, UDP_SERVER_PORT);
+   c:	f7ff fffe 	bl	0 <udp_bind>
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:61
+   
+   /* Set a receive callback for the upcb */
+   udp_recv(upcb, udp_server_callback, NULL);
+  10:	4904      	ldr	r1, [pc, #16]	; (24 <server_init+0x24>)
+  12:	4620      	mov	r0, r4
+  14:	2200      	movs	r2, #0
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:63
+  
+}
+  16:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+D:\sunny\stm32\therme\Utilities\lwip-1.3.1\port/server.c:61
+   /* Bind the upcb to the UDP_PORT port */
+   /* Using IP_ADDR_ANY allow the upcb to be used by any local interface */
+   udp_bind(upcb, IP_ADDR_ANY, UDP_SERVER_PORT);
+   
+   /* Set a receive callback for the upcb */
+   udp_recv(upcb, udp_server_callback, NULL);
+  1a:	f7ff bffe 	b.w	0 <udp_recv>
+  1e:	bf00      	nop
+	...
